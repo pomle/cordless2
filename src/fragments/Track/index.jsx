@@ -19,7 +19,7 @@ export class Track extends Component {
         </div>
         <div className="artists">
           {track.artists.map(artist => {
-            return <div className="artist">
+            return <div key={artist.id} className="artist">
               <Link to={`/artist/${artist.id}`}>{artist.name}</Link>
             </div>;
           })}
