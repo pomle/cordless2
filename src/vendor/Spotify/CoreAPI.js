@@ -1,12 +1,10 @@
 export class CoreAPI {
   constructor(token) {
-    this.url = 'https://api.spotify.com/';
+    this.base = 'https://api.spotify.com/';
     this.token = token;
   }
 
-  request(path, body = null, method = 'GET') {
-    const url = this.url + path;
-
+  request(url, body = null, method = 'GET') {
     const headers = new Headers({
       'Content-Type': 'application/json',
     });
@@ -30,5 +28,9 @@ export class CoreAPI {
 
       return response.text();
     });
+  }
+
+  url(path) {
+      return this.base + path;
   }
 }

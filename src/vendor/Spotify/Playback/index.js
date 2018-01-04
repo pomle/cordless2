@@ -7,7 +7,7 @@ export class PlaybackAPI extends CoreAPI {
     }
 
     return this.request(
-      `v1/me/player/play?device_id=${device_id}`,
+      this.url(`v1/me/player/play?device_id=${device_id}`),
       {
         context_uri: contextURI,
       },
