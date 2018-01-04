@@ -19,6 +19,7 @@ export class PlayerUI extends Component {
                 <PlaylistDetail
                   playlistId={playlistId}
                   userId={userId}
+                  player={player}
                   playlistAPI={playlistAPI}
                   playbackAPI={playbackAPI}
                 />

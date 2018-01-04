@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 
 export class Track extends Component {
   play = () => {
-    const { playbackAPI, track, player } = this.props;
-    playbackAPI.playContext(track.uri, player.deviceId);
+    this.props.play(this.props.track);
   };
 
   render() {

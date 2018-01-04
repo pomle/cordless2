@@ -21,6 +21,12 @@ export class PlaylistDetail extends Component {
     });
   }
 
+  playTrack = (track) => {
+    const { playbackAPI, player } = this.props;
+    const trackURIs = this.state.tracks.map(entry => entry.track.uri);
+    playbackAPI.playTracks(trackURIs, track.uri, player.deviceId);
+  }
+
   render() {
     const { tracks } = this.state;
 
@@ -29,7 +35,7 @@ export class PlaylistDetail extends Component {
         {tracks.map(entry => {
           const {track} = entry;
           const key = track.id + entry.added_at;
-          return <Track key={key} track={track}/>;
+          return <Track key={key} track={track} play={this.playTrack} />;
         })}
       </div>
     );
