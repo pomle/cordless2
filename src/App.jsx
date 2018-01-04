@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter } from 'react-router-dom'
 
-import {createAuthorizationURL} from 'vendor/Spotify';
+import {Authorize} from 'views/Authorize';
 
 import './App.css';
 
@@ -10,7 +10,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="App">
-          <a href={createAuthorizationURL()}>Authorize</a>
+          <Authorize/>
         </div>
       </BrowserRouter>
     );
