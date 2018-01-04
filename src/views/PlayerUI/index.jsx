@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
 
+import { ViewContainer } from 'fragments/ViewContainer';
 import { PlaylistDetail } from './Playlist/Detail';
 import { PlaylistIndex } from './Playlist/Index';
 
@@ -16,22 +17,26 @@ export class PlayerUI extends Component {
             render={props => {
               const { playlistId, userId } = props.match.params;
               return (
-                <PlaylistDetail
-                  playlistId={playlistId}
-                  userId={userId}
-                  player={player}
-                  playlistAPI={playlistAPI}
-                  playbackAPI={playbackAPI}
-                />
+                <ViewContainer>
+                  <PlaylistDetail
+                    playlistId={playlistId}
+                    userId={userId}
+                    player={player}
+                    playlistAPI={playlistAPI}
+                    playbackAPI={playbackAPI}
+                  />
+                </ViewContainer>
               );
             }}
           />
           <Route exact path="/playlist">
-            <PlaylistIndex
-              player={player}
-              playlistAPI={playlistAPI}
-              playbackAPI={playbackAPI}
-            />
+            <ViewContainer>
+              <PlaylistIndex
+                player={player}
+                playlistAPI={playlistAPI}
+                playbackAPI={playbackAPI}
+              />
+            </ViewContainer>
           </Route>
           <Route path="*">
             <Link to="/playlist">Playlists</Link>
