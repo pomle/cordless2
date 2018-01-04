@@ -4,6 +4,21 @@ export class CoreAPI {
     this.token = token;
   }
 
+  async consume(request, callback) {
+    do {
+      const result = await request;
+      request = null;
+
+      if (result.items) {
+        callback(result.items);
+      }
+
+      if (result.next) {
+        request = this.request(result.next);
+      }
+    } while(request);
+  }
+
   request(url, body = null, method = 'GET') {
     const headers = new Headers({
       'Content-Type': 'application/json',
