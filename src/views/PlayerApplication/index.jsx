@@ -1,14 +1,22 @@
-import { Component } from 'react';
+import React, { Component } from 'react';
 
 import { createPlayer } from 'vendor/Spotify';
+import { PlaybackAPI, PlaylistAPI } from 'vendor/Spotify/API';
+
 import { PlayerState } from './state.js';
 
-export class Player extends Component {
+import {PlayerUI} from 'views/PlayerUI';
+
+export class PlayerApplication extends Component {
   constructor(props) {
     super(props);
 
+    const { token } = props;
+
     this.state = {
       player: new PlayerState(),
+      playbackAPI: new PlaybackAPI(token),
+      playlistAPI: new PlaylistAPI(token),
     };
   }
 
@@ -31,6 +39,12 @@ export class Player extends Component {
   }
 
   render() {
-    return this.props.render(this.state.player);
+    const {player, playlistAPI, playbackAPI} = this.state;
+
+    return <PlayerUI
+      player={player}
+      playlistAPI={playlistAPI}
+      playbackAPI={playbackAPI}
+    />;
   }
 }

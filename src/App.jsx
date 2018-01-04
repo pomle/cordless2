@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 
 import { Authorize } from 'views/Authorize';
-import { PlayerUI } from 'views/PlayerUI';
+import { PlayerApplication } from 'views/PlayerApplication';
 
 import './App.css';
 
@@ -18,7 +18,7 @@ class App extends Component {
                 <Authorize
                   route={route}
                   render={token => {
-                    return <PlayerUI token={token} />;
+                    return <PlayerApplication token={token} />;
                   }}
                 />
               );
