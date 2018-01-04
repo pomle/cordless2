@@ -2,7 +2,7 @@ const CLIENT_ID = 'a7cf3dcdfbd64bd5ac8d960caabbc890';
 
 const playerPromise = new Promise(resolve => {
     window.onSpotifyWebPlaybackSDKReady = () => {
-        console.log('ready');
+        console.log('onSpotifyWebPlaybackSDKReady');
         resolve(window.Spotify);
     };
 });
