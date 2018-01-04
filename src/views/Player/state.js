@@ -1,4 +1,4 @@
-import {Record} from 'immutable';
+import { Record } from 'immutable';
 
 const State = Record({
   connected: false,
@@ -7,7 +7,7 @@ const State = Record({
 });
 
 export class PlayerState extends State {
-  onMessage({type, message}) {
+  onMessage({ type, message }) {
     switch (type) {
       case 'ready':
         return this.set('ready', true).set('deviceId', message.device_id);

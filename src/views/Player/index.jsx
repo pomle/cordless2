@@ -1,7 +1,7 @@
 import { Component } from 'react';
 
-import {createPlayer} from 'vendor/Spotify';
-import {PlayerState} from './state.js';
+import { createPlayer } from 'vendor/Spotify';
+import { PlayerState } from './state.js';
 
 export class Player extends Component {
   constructor(props) {
@@ -20,7 +20,7 @@ export class Player extends Component {
     this.update(player => player.set('connected', result));
 
     this.player.on('ready', message => {
-      this.update(player => player.onMessage({type: 'ready', message}));
+      this.update(player => player.onMessage({ type: 'ready', message }));
     });
   }
 

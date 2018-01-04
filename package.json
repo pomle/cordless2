@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "immutable": "^3.8.2",
+    "prettier": "^1.9.2",
     "query-string": "^5.0.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
@@ -12,6 +13,7 @@
     "react-scripts": "1.0.17"
   },
   "scripts": {
+    "format": "prettier --single-quote --trailing-comma es5 --write 'src/**/*.{js,jsx}'",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",

@@ -8,17 +8,17 @@ export class API {
     const url = this.url + path;
 
     const headers = new Headers({
-      "Content-Type": "application/json"
+      'Content-Type': 'application/json',
     });
 
     if (this.token) {
-      headers.append("Authorization", `Bearer ${this.token}`);
+      headers.append('Authorization', `Bearer ${this.token}`);
     }
 
     const req = new Request(url, {
       method,
       headers,
-      body: body ? JSON.stringify(body) : null
+      body: body ? JSON.stringify(body) : null,
     });
 
     return fetch(req).then(response => {
@@ -45,8 +45,12 @@ export class PlaybackAPI extends API {
       throw new TypeError('Device id argument missing');
     }
 
-    return this.request(`v1/me/player/play?device_id=${device_id}`, {
-      context_uri: contextURI,
-    }, 'PUT');
+    return this.request(
+      `v1/me/player/play?device_id=${device_id}`,
+      {
+        context_uri: contextURI,
+      },
+      'PUT'
+    );
   }
 }

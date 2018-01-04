@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import {List} from 'immutable';
+import { List } from 'immutable';
 
-import {Playlist} from 'fragments/Playlist';
+import { Playlist } from 'fragments/Playlist';
 
 export class PlaylistIndex extends Component {
   constructor(props) {
@@ -20,13 +20,22 @@ export class PlaylistIndex extends Component {
   }
 
   render() {
-    const {player, playbackAPI} = this.props;
-    const {playlists} = this.state;
+    const { player, playbackAPI } = this.props;
+    const { playlists } = this.state;
 
-    return <div className="PlaylistIndex">
-      { playlists.map(playlist => {
-        return <Playlist key={playlist.id} playlist={playlist} player={player} playbackAPI={playbackAPI}/>;
-      }) }
-    </div>;
+    return (
+      <div className="PlaylistIndex">
+        {playlists.map(playlist => {
+          return (
+            <Playlist
+              key={playlist.id}
+              playlist={playlist}
+              player={player}
+              playbackAPI={playbackAPI}
+            />
+          );
+        })}
+      </div>
+    );
   }
 }
