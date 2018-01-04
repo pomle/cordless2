@@ -8,7 +8,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <a href={createAuthorizationURL('a7cf3dcdfbd64bd5ac8d960caabbc890')}>Authorize</a>
+        <a href={createAuthorizationURL()}>Authorize</a>
       </div>
     );
   }
