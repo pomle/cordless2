@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export class Playlist extends Component {
   play = () => {
@@ -11,7 +12,7 @@ export class Playlist extends Component {
 
     return (
       <div className="Playlist">
-        <div className="name">{playlist.name}</div>
+        <Link to={`/playlist/${playlist.id}`} className="name">{playlist.name}</Link>
         <button onClick={this.play}>Play</button>
       </div>
     );
