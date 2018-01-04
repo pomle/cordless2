@@ -33,6 +33,10 @@ export function createAuthorizationURL() {
         'scope',
         [
           'user-read-private',
+          'user-read-playback-state',
+          'user-modify-playback-state',
+          'playlist-read-private',
+          'playlist-read-collaborative',
           'streaming',
         ].join(' ')
       ]

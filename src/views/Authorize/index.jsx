@@ -15,13 +15,12 @@ export class Authorize extends Component {
   }
 
   render() {
-    const {player} = this.props;
     const {token} = this.state;
 
     return (
       <div className="Authorize">
         { token
-            ? React.createElement(player, {token})
+            ? this.props.render(token)
             : <a href={createAuthorizationURL()}>Authorize</a>
         }
       </div>
