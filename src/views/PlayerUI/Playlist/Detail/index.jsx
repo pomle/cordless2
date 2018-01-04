@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { List } from 'immutable';
 
+import {Tracklist} from 'fragments/Tracklist';
 import {Track} from 'fragments/Track';
 
 export class PlaylistDetail extends Component {
@@ -32,11 +33,14 @@ export class PlaylistDetail extends Component {
 
     return (
       <div className="PlaylistDetail">
-        {tracks.map(entry => {
-          const {track} = entry;
-          const key = track.id + entry.added_at;
-          return <Track key={key} track={track} play={this.playTrack} />;
-        })}
+
+        <Tracklist>
+          {tracks.map(entry => {
+            const {track} = entry;
+            const key = track.id + entry.added_at;
+            return <Track key={key} track={track} play={this.playTrack} />;
+          })}
+        </Tracklist>
       </div>
     );
   }

@@ -1,0 +1,17 @@
+.Tracklist .Track {
+  display: flex;
+    align-items: center;
+}
+
+.Tracklist .Track:hover {
+}
+
+.Tracklist .Track .name,
+.Tracklist .Track .artists,
+.Tracklist .Track .album {
+  flex: 30%;
+}
+
+.Tracklist .Track .album {
+  font-size: 0.9em;
+}
