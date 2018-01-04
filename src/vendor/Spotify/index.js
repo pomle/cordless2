@@ -24,7 +24,6 @@ export async function createPlayer(token) {
 }
 
 export function createAuthorizationURL() {
-  console.log(window.location);
   return 'https://accounts.spotify.com/authorize?' +
     [
       ['client_id', CLIENT_ID],
