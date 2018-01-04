@@ -4,22 +4,29 @@ import { List } from 'immutable';
 import {Tracklist} from 'fragments/Tracklist';
 import {Track} from 'fragments/Track';
 
+import {PlaylistDetailHeader} from './Header';
+
 export class PlaylistDetail extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      playlist: null,
       tracks: new List(),
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     const { playlistAPI: api, userId, playlistId } = this.props;
+
     api.consume(api.getPlaylistTracks(userId, playlistId), items => {
       this.setState(prevState => {
         return { tracks: prevState.tracks.push(...items) };
       });
     });
+
+    const playlist = await api.getPlaylist(userId, playlistId);
+    this.setState({playlist});
   }
 
   playTrack = (track) => {
@@ -29,10 +36,15 @@ export class PlaylistDetail extends Component {
   }
 
   render() {
-    const { tracks } = this.state;
+    const { playlist, tracks } = this.state;
+
+    if (!playlist) {
+      return null;
+    }
 
     return (
       <div className="PlaylistDetail">
+        <PlaylistDetailHeader playlist={playlist}/>
 
         <Tracklist>
           {tracks.map(entry => {
