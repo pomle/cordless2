@@ -7,10 +7,15 @@ export class Authorize extends Component {
   constructor(props) {
     super(props);
 
-    const params = parse(props.route.location.hash);
+    let token = localStorage.getItem('access_token');
+    if (token.length < 30) {
+      const params = parse(props.route.location.hash);
+      token = params.access_token || '';
+      localStorage.setItem('access_token', token);
+    }
 
     this.state = {
-      token: params.access_token,
+      token,
     };
   }
 
