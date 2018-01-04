@@ -16,7 +16,7 @@ export class PlaylistIndex extends Component {
     const api = this.props.playlistAPI;
     api.consume(api.getPlaylists(), items => {
       this.setState(prevState => {
-        return {playlists: prevState.playlists.push(...items)};
+        return { playlists: prevState.playlists.push(...items) };
       });
     });
   }

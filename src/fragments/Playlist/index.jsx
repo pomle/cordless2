@@ -12,7 +12,12 @@ export class Playlist extends Component {
 
     return (
       <div className="Playlist">
-        <Link to={`/playlist/${playlist.id}`} className="name">{playlist.name}</Link>
+        <Link
+          to={`/playlist/${playlist.id}/user/${playlist.owner.id}`}
+          className="name"
+        >
+          {playlist.name}
+        </Link>
         <button onClick={this.play}>Play</button>
       </div>
     );

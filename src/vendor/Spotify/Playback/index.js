@@ -1,4 +1,4 @@
-import {CoreAPI} from '../CoreAPI.js';
+import { CoreAPI } from '../CoreAPI.js';
 
 export class PlaybackAPI extends CoreAPI {
   playContext(contextURI, device_id) {

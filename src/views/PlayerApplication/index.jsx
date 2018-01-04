@@ -5,7 +5,7 @@ import { PlaybackAPI, PlaylistAPI } from 'vendor/Spotify/API';
 
 import { PlayerState } from './state.js';
 
-import {PlayerUI} from 'views/PlayerUI';
+import { PlayerUI } from 'views/PlayerUI';
 
 export class PlayerApplication extends Component {
   constructor(props) {
@@ -39,12 +39,14 @@ export class PlayerApplication extends Component {
   }
 
   render() {
-    const {player, playlistAPI, playbackAPI} = this.state;
+    const { player, playlistAPI, playbackAPI } = this.state;
 
-    return <PlayerUI
-      player={player}
-      playlistAPI={playlistAPI}
-      playbackAPI={playbackAPI}
-    />;
+    return (
+      <PlayerUI
+        player={player}
+        playlistAPI={playlistAPI}
+        playbackAPI={playbackAPI}
+      />
+    );
   }
 }

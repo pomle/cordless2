@@ -16,7 +16,7 @@ export class CoreAPI {
       if (result.next) {
         request = this.request(result.next);
       }
-    } while(request);
+    } while (request);
   }
 
   request(url, body = null, method = 'GET') {
@@ -46,6 +46,6 @@ export class CoreAPI {
   }
 
   url(path) {
-      return this.base + path;
+    return this.base + path;
   }
 }
