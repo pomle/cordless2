@@ -11,15 +11,14 @@ export async function getSpotify() {
     return playerPromise;
 }
 
-export async function createPlayer() {
+export async function createPlayer(token) {
     const Spotify = await getSpotify();
     const player = new Spotify.Player({
         name: "Cordless",
         getOAuthToken: callback => {
-            // Run code to get a fresh access token
-            callback("access token here");
+            callback(token);
         },
-        volume: 0.5
+        volume: 1
     });
     return player;
 }
