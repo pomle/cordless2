@@ -12,10 +12,12 @@ export class PlaylistIndex extends Component {
     };
   }
 
-  async componentDidMount() {
-    const response = await this.props.playlistAPI.getPlaylists();
-    this.setState({
-      playlists: new List(response.items),
+  componentDidMount() {
+    const api = this.props.playlistAPI;
+    api.consume(api.getPlaylists(), items => {
+      this.setState(prevState => {
+        return {playlists: prevState.playlists.push(...items)};
+      });
     });
   }
 
