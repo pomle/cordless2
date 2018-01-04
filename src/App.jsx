@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, Route } from 'react-router-dom'
 
 import {Authorize} from 'views/Authorize';
+import {Player} from 'views/Player';
 
 import './App.css';
 
@@ -10,7 +11,9 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="App">
-          <Authorize/>
+          <Route path="*" render={route => {
+            return <Authorize route={route} player={Player}/>;
+          }}/>
         </div>
       </BrowserRouter>
     );

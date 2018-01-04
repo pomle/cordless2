@@ -25,10 +25,11 @@ export async function createPlayer() {
 }
 
 export function createAuthorizationURL() {
+  console.log(window.location);
   return 'https://accounts.spotify.com/authorize?' +
     [
       ['client_id', CLIENT_ID],
-      ['redirect_uri', 'http://localhost:3000/spotify/auth-callback'],
+      ['redirect_uri', window.location.href],
       ['response_type', 'token'],
       [
         'scope',
