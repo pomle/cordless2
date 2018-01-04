@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-//import { Route } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 
 import { Playlist } from 'views/Playlist';
 
@@ -9,11 +9,18 @@ export class PlayerUI extends Component {
 
     return (
       <div className="PlayerUI">
-        <Playlist
-          player={player}
-          playlistAPI={playlistAPI}
-          playbackAPI={playbackAPI}
-        />
+        <Switch>
+          <Route path='/playlist/:playlistId'>
+
+          </Route>
+          <Route path='*'>
+            <Playlist
+              player={player}
+              playlistAPI={playlistAPI}
+              playbackAPI={playbackAPI}
+            />
+          </Route>
+        </Switch>
       </div>
     );
   }
