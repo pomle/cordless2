@@ -19,5 +19,11 @@ a {
 }
 
 a:hover {
-    color: #eee;
+  color: #eee;
+}
+
+button {
+  border: none;
+  background: #0074ff;
+  color: #fff;
 }

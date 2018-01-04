@@ -1,3 +1,8 @@
 .App {
 
 }
+
+header h2 {
+    color: #eee;
+    font-size: 3em;
+}

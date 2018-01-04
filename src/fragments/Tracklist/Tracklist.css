@@ -3,6 +3,14 @@
     align-items: center;
 }
 
+.Tracklist .Track {
+    border-bottom: 1px solid #222;
+}
+
+.Tracklist .Track:nth-child(even) {
+    background: #151515;
+}
+
 .Tracklist .Track:hover {
 }
 
@@ -22,4 +30,8 @@
 
 .Tracklist .Track .album {
   font-size: 0.9em;
+}
+
+.Tracklist .Track .album a {
+  color: #999;
 }
