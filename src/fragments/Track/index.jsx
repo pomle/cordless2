@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export class Track extends Component {
   play = () => {
@@ -10,8 +11,20 @@ export class Track extends Component {
 
     return (
       <div className="Track">
-        <button onClick={this.play}>Play</button>
-        {track.name}
+        <div>
+          <button onClick={this.play}>Play</button>
+        </div>
+        <div className="name">
+          {track.name}
+        </div>
+        <div className="artists">
+          {track.artists.map(artist => {
+            return <Link to={`/artist/${artist.id}`}>{artist.name}</Link>;
+          })}
+        </div>
+        <div className="album">
+          <Link to={`/album/${track.album.id}`}>{track.album.name}</Link>
+        </div>
       </div>
     );
   }
