@@ -19,7 +19,9 @@ export class Track extends Component {
         </div>
         <div className="artists">
           {track.artists.map(artist => {
-            return <Link to={`/artist/${artist.id}`}>{artist.name}</Link>;
+            return <div className="artist">
+              <Link to={`/artist/${artist.id}`}>{artist.name}</Link>
+            </div>;
           })}
         </div>
         <div className="album">
