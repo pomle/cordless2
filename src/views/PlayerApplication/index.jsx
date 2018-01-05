@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
-import { createPlayer } from 'vendor/Spotify';
-import { PlaybackAPI, PlaylistAPI } from 'vendor/Spotify/API';
+import { createPlayer, PlaybackAPI, PlaylistAPI } from '@pomle/spotify-web-sdk';
 
 import { PlayerState } from './state.js';
 

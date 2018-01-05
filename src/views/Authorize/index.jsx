@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import { parse } from 'query-string';
 
-import { createAuthorizationURL } from 'vendor/Spotify';
+import { createAuthorizationURL } from '@pomle/spotify-web-sdk';
 
-const STORAGE_KEY = 'session';
+const CLIENT_ID = 'a7cf3dcdfbd64bd5ac8d960caabbc890';
+const CALLBACK_URL = 'http://localhost:3000/';
+
+const STORAGE_KEY = 'session2';
 
 function getSession() {
   try {
@@ -51,7 +54,7 @@ export class Authorize extends Component {
         {token ? (
           this.props.render(token)
         ) : (
-          <a href={createAuthorizationURL()}>Authorize</a>
+          <a href={createAuthorizationURL(CLIENT_ID, CALLBACK_URL)}>Authorize</a>
         )}
       </div>
     );
