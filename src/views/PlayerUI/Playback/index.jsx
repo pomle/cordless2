@@ -25,13 +25,15 @@ export class Playback extends Component {
   }
 
   render() {
-    const {context} = this.props.player;
+    const {player, playbackAPI} = this.props;
+    const {context} = player;
     const trackWindow = context.track_window.toJS();
 
     return (
       <div className="Playback">
         <NowPlaying track={trackWindow.current_track}/>
-        <Interface player={this.props.player} playbackAPI={this.props.playbackAPI}/>
+        <Scrubber player={player} playbackAPI={playbackAPI}/>
+        <Interface player={player} playbackAPI={playbackAPI}/>
       </div>
     );
   }
