@@ -10,11 +10,15 @@ export class Track extends Component {
 
   render() {
     const { track } = this.props;
+    const isLocal = track.uri.startsWith('spotify:local:');
 
     return (
       <div className="Track">
         <div className="playback">
-          <button onClick={this.play}>Play</button>
+          { !isLocal
+            ? <button onClick={this.play}>Play</button>
+            : <button>Local</button>
+          }
         </div>
         <div className="name">
           {track.name}
