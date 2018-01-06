@@ -7,7 +7,9 @@ export class Image extends Component {
     super(props);
 
     this.state = {
-        imageURL: props.candidates[0].url,
+        imageURL: props.candidates.length
+          ? props.candidates[0].url
+          : 'http://mattislist.com/marketingapp/postimage/noimageavailable.png'
     };
   }
 
