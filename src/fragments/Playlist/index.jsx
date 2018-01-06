@@ -13,8 +13,7 @@ export class Playlist extends Component {
 
   render() {
     const { playlist } = this.props;
-    const {owner} = playlist;
-    console.log(playlist);
+    const { owner } = playlist;
 
     return (
       <div className="Playlist">
