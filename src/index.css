@@ -1,11 +1,10 @@
 body {
   background: #050510;
-  color: #999;
+  color: #fff;
   margin: 0;
   padding: 0;
   font-family: 'Comfortaa', sans-serif;
   font-size: 16px;
-  line-height: 1.5;
 }
 
 h1, h2, h3, h4 {

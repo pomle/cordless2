@@ -13,7 +13,7 @@ export class Track extends Component {
 
     return (
       <div className="Track">
-        <div>
+        <div className="playback">
           <button onClick={this.play}>Play</button>
         </div>
         <div className="name">
