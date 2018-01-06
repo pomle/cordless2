@@ -29,6 +29,10 @@ export class PlayerApplication extends Component {
     this.player.on('ready', message => {
       this.update(player => player.onMessage({ type: 'ready', message }));
     });
+
+    this.player.on('player_state_changed', message => {
+      this.update(player => player.onMessage({ type: 'state', message }));
+    });
   }
 
   update(fn) {
