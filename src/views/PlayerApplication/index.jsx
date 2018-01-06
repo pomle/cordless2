@@ -44,9 +44,9 @@ export class PlayerApplication extends Component {
   }
 
   update(fn) {
-    this.setState({
-      player: fn(this.state.player),
-    });
+    this.setState(prevState => Object.assign({}, prevState, {
+      player: fn(prevState.player),
+    }));
   }
 
   render() {
