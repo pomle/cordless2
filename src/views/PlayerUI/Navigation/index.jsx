@@ -10,13 +10,13 @@ export class Navigation extends Component {
     const { player, playlistAPI, playbackAPI } = this.props;
     return (
       <div className="Navigation">
-        <Switch>
-          <Route
-            path="/playlist/:playlistId/user/:userId"
-            render={props => {
-              const { playlistId, userId } = props.match.params;
-              return (
-                <ViewContainer>
+        <ViewContainer>
+          <Switch>
+            <Route
+              path="/playlist/:playlistId/user/:userId"
+              render={props => {
+                const { playlistId, userId } = props.match.params;
+                return (
                   <PlaylistDetail
                     playlistId={playlistId}
                     userId={userId}
@@ -24,23 +24,21 @@ export class Navigation extends Component {
                     playlistAPI={playlistAPI}
                     playbackAPI={playbackAPI}
                   />
-                </ViewContainer>
-              );
-            }}
-          />
-          <Route exact path="/playlist">
-            <ViewContainer>
+                );
+              }}
+            />
+            <Route exact path="/playlist">
               <PlaylistIndex
                 player={player}
                 playlistAPI={playlistAPI}
                 playbackAPI={playbackAPI}
               />
-            </ViewContainer>
-          </Route>
-          <Route path="*">
-            <Link to="/playlist">Playlists</Link>
-          </Route>
-        </Switch>
+            </Route>
+            <Route path="*">
+              <Link to="/playlist">Playlists</Link>
+            </Route>
+          </Switch>
+        </ViewContainer>
       </div>
     );
   }
