@@ -11,7 +11,10 @@ export class Artists extends Component {
       <div className="Artists">
         {artists.map(artist => {
           return <div key={artist.id} className="artist">
-            <Link to={`/artist/${artist.uri.split(':')[2]}`}>{artist.name}</Link>
+            { artist.uri
+              ? <Link to={`/artist/${artist.uri.split(':')[2]}`}>{artist.name}</Link>
+              : artist.name
+            }
           </div>;
         })}
       </div>
