@@ -1,5 +1,6 @@
 .PlayerUI {
     display: grid;
+        grid-template-rows: auto 100px;
     height: 100vh;
 }
 
