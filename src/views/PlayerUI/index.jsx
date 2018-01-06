@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
 
-import { ViewContainer } from 'fragments/ViewContainer';
+import { ViewContainer } from 'components/ViewContainer';
 import { PlaylistDetail } from './Playlist/Detail';
 import { PlaylistIndex } from './Playlist/Index';
 
