@@ -1,4 +1,10 @@
-import { Record } from 'immutable';
+import { Record, List } from 'immutable';
+
+const TrackWindow = Record({
+  current_track: null,
+  next_tracks: new List(),
+  previous_tracks: new List(),
+});
 
 const Context = Record({
   bitrate: null,
@@ -11,7 +17,7 @@ const Context = Record({
   restrictions: null,
   shuffle: null,
   timestamp: null,
-  track_window: null,
+  track_window: new TrackWindow(),
 });
 
 const State = Record({

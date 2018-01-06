@@ -20,14 +20,6 @@
   flex: 30%;
 }
 
-.Tracklist .Track .artists {
-  display: flex;
-}
-
-.Tracklist .Track .artists .artist:not(:first-child):before {
-  content: ', ';
-}
-
 .Tracklist .Track .album {
   font-size: 0.9em;
 }

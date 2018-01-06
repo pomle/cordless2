@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import {Artists} from 'fragments/Artists';
+
 export class Track extends Component {
   play = () => {
     this.props.play(this.props.track);
@@ -18,11 +20,7 @@ export class Track extends Component {
           {track.name}
         </div>
         <div className="artists">
-          {track.artists.map(artist => {
-            return <div key={artist.id} className="artist">
-              <Link to={`/artist/${artist.id}`}>{artist.name}</Link>
-            </div>;
-          })}
+          <Artists artists={track.artists}/>
         </div>
         <div className="album">
           <Link to={`/album/${track.album.id}`}>{track.album.name}</Link>

@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import {NowPlaying} from './NowPlaying';
+
 import './Playback.css';
 
 export class Playback extends Component {
@@ -25,10 +27,12 @@ export class Playback extends Component {
   }
 
   render() {
-    console.log(this.props.player.context);
+    const {context} = this.props.player;
+    const trackWindow = context.track_window.toJS();
+
     return (
       <div className="Playback">
-        <div className="nowPlaying"/>
+        <NowPlaying track={trackWindow.current_track}/>
         <div className="trackProgress"/>
         <div>
           <button onClick={this.prev}>Prev</button>

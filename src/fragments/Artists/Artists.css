@@ -1,0 +1,7 @@
+.Artists {
+  display: flex;
+}
+
+.Artists .artist:not(:first-child):before {
+  content: ', ';
+}
