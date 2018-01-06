@@ -8,16 +8,15 @@ export class NowPlaying extends Component {
   render() {
     const {track} = this.props;
 
-    if (!track) {
-      return null;
-    }
-
     return (
       <div className="NowPlaying">
         <div className="trackName">
-          {track.name}
+          {track ? track.name : ''}
         </div>
-        <Artists artists={track.artists}/>
+        { track
+          ? <Artists artists={track.artists}/>
+          : null
+        }
       </div>
     );
   }
