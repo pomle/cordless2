@@ -1,7 +1,7 @@
 .Tracklist .Track {
   display: grid;
-    grid:  50% 50% / 3em 35% 35% auto;
-    grid-gap: 0.2em 0.2em;
+    grid:  50% 50% / 4em 35% 35% auto;
+    grid-gap: 0.2em;
     align-items: center;
   margin: .5em 0;
 }
@@ -24,9 +24,15 @@
 }
 
 .Tracklist .Track .playback {
-    grid-column: 1 / 1;
-    grid-row: 1 / end;
+  grid-column: 1 / 1;
+  grid-row: 1 / end;
+  opacity: 0.8;
 }
+
+.Tracklist .Track:hover .playback {
+  opacity: 1;
+}
+
 
 .Tracklist .Track .album {
   font-size: 0.7em;
@@ -36,8 +42,4 @@
 
 .Tracklist .Track .artists {
     font-size: 0.9em;
-}
-
-.Tracklist .Track .album a {
-  color: #999;
 }
