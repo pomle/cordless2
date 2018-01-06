@@ -1,0 +1,8 @@
+.PlayerUI {
+    display: grid;
+    height: 100vh;
+}
+
+.PlayerUI .viewport {
+    overflow: auto;
+}
