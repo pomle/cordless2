@@ -22,7 +22,9 @@ export class PlayerApplication extends Component {
   }
 
   async componentDidMount() {
-    this.player = await createPlayer(this.props.token);
+    this.player = await createPlayer(this.props.token, {
+      name: 'Cordless',
+    });
 
     this.poller = createPoller(this.player, state => {
       this.update(player => player.updateState(state));
