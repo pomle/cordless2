@@ -1,0 +1,9 @@
+.Playback {
+    display: grid;
+        grid:  50% 50% / 1fr;
+}
+
+.Playback .NowPlaying,
+.Playback .Interface {
+    margin: 0.5em;
+}

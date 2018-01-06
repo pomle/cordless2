@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import {Interface} from './Interface';
 import {NowPlaying} from './NowPlaying';
 
 import './Playback.css';
@@ -33,12 +34,7 @@ export class Playback extends Component {
     return (
       <div className="Playback">
         <NowPlaying track={trackWindow.current_track}/>
-        <div className="trackProgress"/>
-        <div>
-          <button onClick={this.prev}>Prev</button>
-          <button onClick={this.toggle}>Play/Pause</button>
-          <button onClick={this.next}>Next</button>
-        </div>
+        <Interface player={this.props.player} playbackAPI={this.props.playbackAPI}/>
       </div>
     );
   }
