@@ -3,8 +3,11 @@ body {
   color: #fff;
   margin: 0;
   padding: 0;
-  font-family: 'Comfortaa', sans-serif;
   font-size: 16px;
+}
+
+body, input, button {
+  font-family: 'Comfortaa', sans-serif;
 }
 
 h1, h2, h3, h4 {
