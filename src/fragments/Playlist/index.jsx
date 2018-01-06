@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 
 import {Image} from 'fragments/Image';
 
+import './Playlist.css';
+
 export class Playlist extends Component {
   play = () => {
     const { playbackAPI, playlist, player } = this.props;
@@ -39,7 +41,9 @@ export class Playlist extends Component {
           </Link>
         </div>
 
-        <button onClick={this.play}>Play</button>
+        <div className="playback">
+          <button onClick={this.play}>Play</button>
+        </div>
       </div>
     );
   }

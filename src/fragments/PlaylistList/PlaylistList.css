@@ -1,0 +1,43 @@
+.PlaylistList {
+    display: flex;
+    flex-flow: wrap;
+    margin: -1em;
+}
+
+.PlaylistList .Playlist {
+    display: grid;
+    grid: repeat(3, 1fr) / 5em 10em;
+    grid-column-gap: 0.5em;
+    height: 5em;
+    margin: 1em;
+}
+
+.PlaylistList .Playlist .image {
+    grid-column: 1 / 1;
+    grid-row: 1 / 4;
+}
+
+.PlaylistList .Playlist .Image {
+    height: 100%;
+    width: 100%;
+}
+
+.PlaylistList .Playlist .playback {
+    opacity: 0;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.PlaylistList .Playlist .owner {
+    align-self: end;
+}
+
+.PlaylistList .Playlist .playback button {
+    border-radius: 0 0 2em 0;
+    height: 2.5em;
+    width: 5em;
+}
+
+.PlaylistList .Playlist:hover .playback {
+    opacity: 1;
+}
