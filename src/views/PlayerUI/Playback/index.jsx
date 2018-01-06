@@ -2,14 +2,11 @@ import React, { Component } from 'react';
 
 import {Interface} from './Interface';
 import {NowPlaying} from './NowPlaying';
+import {Scrubber} from './Scrubber';
 
 import './Playback.css';
 
 export class Playback extends Component {
-  componentDidMount() {
-
-  }
-
   toggle = () => {
     const {context} = this.props.player;
     if (context.paused) {
