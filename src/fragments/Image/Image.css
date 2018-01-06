@@ -1,4 +1,5 @@
 .Image {
+    background-position: center;
     background-repeat: no-repeat;
     background-size: contain;
     transition: opacity 1s ease;
