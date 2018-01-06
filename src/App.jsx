@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 
-import { Authorize } from 'views/Authorize';
-import { PlayerApplication } from 'views/PlayerApplication';
+import { Authorize } from 'layers/Authorize';
+import { PlayerApplication } from 'layers/PlayerApplication';
 
 import './App.css';
 
