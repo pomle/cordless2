@@ -36,3 +36,10 @@ button:hover {
   background: black;
   color: yellow;
 }
+
+input {
+  background: #000;
+  border: solid 2px yellow;
+  color: #fff;
+  outline: none;
+}
