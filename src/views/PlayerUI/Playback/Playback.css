@@ -1,6 +1,6 @@
 .Playback {
     display: grid;
-        grid:  50% 50% / 1fr;
+        grid:  50% 50% / repeat(3, 1fr);
 }
 
 .Playback .NowPlaying,
