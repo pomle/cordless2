@@ -12,7 +12,7 @@ function getSession() {
   try {
     const data = JSON.parse(localStorage.getItem(STORAGE_KEY));
     const now = new Date().getTime();
-    if (data.expiresAt > now) {
+    if (data.expiresAt < now) {
       return null;
     }
     return data.session;
@@ -23,8 +23,11 @@ function getSession() {
 }
 
 function putSession(session) {
+  const now = new Date().getTime();
+  const expiresInMs = parseFloat(session.expires_in) * 1000;
+
   const data = {
-    expiresAt: new Date().getTime() + parseFloat(session.expires_in),
+    expiresAt: now + expiresInMs,
     session,
   };
 
@@ -38,7 +41,9 @@ export class Authorize extends Component {
     let session = getSession();
     if (!session) {
       session = parse(props.route.location.hash);
-      putSession(session);
+      if (session.access_token) {
+        putSession(session);
+      }
     }
 
     this.state = {
