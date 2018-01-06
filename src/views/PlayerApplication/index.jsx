@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { createPlayer, PlaybackAPI, PlaylistAPI } from '@pomle/spotify-web-sdk';
+import { createPlayer, PlaybackAPI, PlaylistAPI, SearchAPI } from '@pomle/spotify-web-sdk';
 
 import { PlayerState } from './state.js';
 
@@ -16,6 +16,7 @@ export class PlayerApplication extends Component {
       player: new PlayerState(),
       playbackAPI: new PlaybackAPI(token),
       playlistAPI: new PlaylistAPI(token),
+      searchAPI: new SearchAPI(token),
     };
   }
 
