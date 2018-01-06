@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { List } from 'immutable';
 
-import { Playlist } from 'fragments/Playlist';
+import { PlaylistList } from 'fragments/PlaylistList';
 
 export class PlaylistIndex extends Component {
   constructor(props) {
@@ -27,16 +27,9 @@ export class PlaylistIndex extends Component {
 
     return (
       <div className="PlaylistIndex">
-        {playlists.map(playlist => {
-          return (
-            <Playlist
-              key={playlist.id}
-              playlist={playlist}
-              player={player}
-              playbackAPI={playbackAPI}
-            />
-          );
-        })}
+        <h2>Your Playlists</h2>
+
+        <PlaylistList playlists={playlists} player={player} playbackAPI={playbackAPI}/>
       </div>
     );
   }
