@@ -33,9 +33,13 @@ export class PlayerState extends State {
       case 'ready':
         return this.set('ready', true).set('deviceId', message.device_id);
       case 'state':
-        return this.set('context', this.context.merge(message));
+        return this.updateState(message);
       default:
         return this;
     }
+  }
+
+  updateState(state) {
+    return this.set('context', this.context.merge(state));
   }
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { createPlayer, PlaybackAPI, PlaylistAPI, SearchAPI } from '@pomle/spotify-web-sdk';
 
+import {createPoller} from './poller.js';
 import { PlayerState } from './state.js';
 
 import { PlayerUI } from 'views/PlayerUI';
@@ -22,6 +23,10 @@ export class PlayerApplication extends Component {
 
   async componentDidMount() {
     this.player = await createPlayer(this.props.token);
+
+    this.poller = createPoller(this.player, state => {
+      this.update(player => player.updateState(state));
+    });
 
     const result = await this.player.connect();
 
