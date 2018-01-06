@@ -42,14 +42,8 @@ export class PlayerApplication extends Component {
   }
 
   render() {
-    const { player, playlistAPI, playbackAPI } = this.state;
-
     return (
-      <PlayerUI
-        player={player}
-        playlistAPI={playlistAPI}
-        playbackAPI={playbackAPI}
-      />
+      <PlayerUI applicationState={this.state}/>
     );
   }
 }

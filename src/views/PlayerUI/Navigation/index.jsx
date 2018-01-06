@@ -7,7 +7,7 @@ import { PlaylistIndex } from '../Playlist/Index';
 
 export class Navigation extends Component {
   render() {
-    const { player, playlistAPI, playbackAPI } = this.props;
+    const { player, playlistAPI, playbackAPI } = this.props.applicationState;
     return (
       <div className="Navigation">
         <ViewContainer>

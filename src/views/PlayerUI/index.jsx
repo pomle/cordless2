@@ -7,14 +7,14 @@ import './PlayerUI.css';
 
 export class PlayerUI extends Component {
   render() {
-    const { player, playlistAPI, playbackAPI } = this.props;
+    const { applicationState } = this.props;
 
     return (
       <div className="PlayerUI">
         <div className="viewport">
-          <Navigation player={player} playlistAPI={playlistAPI} playbackAPI={playbackAPI}/>
+          <Navigation applicationState={applicationState}/>
         </div>
-        <Playback player={player} playbackAPI={playbackAPI}/>
+        <Playback player={applicationState.player} playbackAPI={applicationState.playbackAPI}/>
       </div>
     );
   }
