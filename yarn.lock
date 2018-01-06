@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@pomle/spotify-web-sdk@^0.0.0-bf7c6a2":
-  version "0.0.0-bf7c6a2"
-  resolved "https://registry.yarnpkg.com/@pomle/spotify-web-sdk/-/spotify-web-sdk-0.0.0-bf7c6a2.tgz#4f701d08e6c23371c4fd1914c02709a34d466476"
+"@pomle/spotify-web-sdk@0.0.0-46de68e":
+  version "0.0.0-46de68e"
+  resolved "https://registry.yarnpkg.com/@pomle/spotify-web-sdk/-/spotify-web-sdk-0.0.0-46de68e.tgz#606e3543d561b926ff8875d101dcbc8f0f4bdb8f"
 
 abab@^1.0.3:
   version "1.0.4"

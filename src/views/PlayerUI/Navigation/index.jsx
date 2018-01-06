@@ -4,10 +4,11 @@ import { Link, Route, Switch } from 'react-router-dom';
 import { ViewContainer } from 'components/ViewContainer';
 import { PlaylistDetail } from '../Playlist/Detail';
 import { PlaylistIndex } from '../Playlist/Index';
+import { Search } from '../Search';
 
 export class Navigation extends Component {
   render() {
-    const { player, playlistAPI, playbackAPI } = this.props.applicationState;
+    const { player, playlistAPI, playbackAPI, searchAPI } = this.props.applicationState;
     return (
       <div className="Navigation">
         <ViewContainer>
@@ -34,8 +35,18 @@ export class Navigation extends Component {
                 playbackAPI={playbackAPI}
               />
             </Route>
+            <Route path="/search">
+              <Search player={player} playbackAPI={playbackAPI} searchAPI={searchAPI}/>
+            </Route>
             <Route path="*">
-              <Link to="/playlist">Playlists</Link>
+              <ul>
+                <li>
+                  <Link to="/search">Search</Link>
+                </li>
+                <li>
+                  <Link to="/playlist">Playlists</Link>
+                </li>
+              </ul>
             </Route>
           </Switch>
         </ViewContainer>
