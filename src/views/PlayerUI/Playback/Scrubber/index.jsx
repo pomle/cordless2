@@ -6,7 +6,7 @@ import './Scrubber.css';
 
 export class Scrubber extends Component {
   handleClick = ({nativeEvent, currentTarget}) => {
-    const {player: {context: {duration}}, seek} = this.props;
+    const {context: {duration}, seek} = this.props;
     const fraction = nativeEvent.offsetX / currentTarget.offsetWidth;
     const time = duration * fraction;
     const ms = time.toFixed();
@@ -14,8 +14,7 @@ export class Scrubber extends Component {
   }
 
   render() {
-    const {player, playbackAPI} = this.props;
-    const {context} = player;
+    const {context} = this.props;
 
     const progress = context.duration
       ? context.position / context.duration

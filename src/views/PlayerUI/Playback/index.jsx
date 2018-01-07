@@ -29,15 +29,14 @@ export class Playback extends Component {
   }
 
   render() {
-    const {player, playbackAPI} = this.props;
-    const {context} = player;
+    const {player: {context}} = this.props;
     const trackWindow = context.track_window.toJS();
 
     return (
       <div className="Playback">
         <NowPlaying track={trackWindow.current_track}/>
-        <Scrubber player={player} seek={this.seek}/>
-        <Interface player={player} playbackAPI={playbackAPI}/>
+        <Scrubber context={context} seek={this.seek}/>
+        <Interface prev={this.prev} next={this.next} toggle={this.toggle}/>
       </div>
     );
   }
