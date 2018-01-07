@@ -5,10 +5,12 @@ import './QuickSearch.css';
 export class QuickSearch extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
         visible: false,
     };
   }
+
   componentDidMount() {
     window.addEventListener('keydown', this.keyListener);
   }

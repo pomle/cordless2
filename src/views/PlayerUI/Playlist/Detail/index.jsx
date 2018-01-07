@@ -1,16 +1,25 @@
 import React, { Component } from 'react';
 import { List } from 'immutable';
 
+import { QuickSearch } from 'components/QuickSearch';
 import {Tracklist} from 'fragments/Tracklist';
 import {Track} from 'fragments/Track';
 
 import {PlaylistDetailHeader} from './Header';
+
+function matcher(needle) {
+  needle = needle.toLowerCase();
+  return function match(...haystack) {
+    return haystack.some(word => word.toLowerCase().includes(needle));
+  }
+}
 
 export class PlaylistDetail extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
+      filter: '',
       playlist: null,
       tracks: new List(),
     };
@@ -29,14 +38,35 @@ export class PlaylistDetail extends Component {
     this.setState({playlist});
   }
 
+  getTracks() {
+    let {filter, tracks} = this.state;
+    if (filter.length) {
+      const match = matcher(filter);
+      tracks = tracks.filter(entry => {
+        const words = [
+          entry.track.name,
+          ...entry.track.artists.map(artist => artist.name),
+          entry.track.album.name,
+        ];
+        return match(...words);
+      });
+    }
+    return tracks;
+  }
+
   playTrack = (track) => {
     const { playbackAPI, player } = this.props;
-    const trackURIs = this.state.tracks.map(entry => entry.track.uri);
+    const trackURIs = this.getTracks().map(entry => entry.track.uri);
     playbackAPI.playTracks(trackURIs, track.uri, player.deviceId);
   }
 
+  updateFilter = (filter) => {
+    this.setState({filter});
+  }
+
   render() {
-    const { playlist, tracks } = this.state;
+    const { filter, playlist } = this.state;
+    const tracks = this.getTracks();
 
     if (!playlist) {
       return null;
@@ -44,6 +74,8 @@ export class PlaylistDetail extends Component {
 
     return (
       <div className="PlaylistDetail">
+        <QuickSearch value={filter} onChange={this.updateFilter}/>
+
         <PlaylistDetailHeader playlist={playlist}/>
 
         <Tracklist>
