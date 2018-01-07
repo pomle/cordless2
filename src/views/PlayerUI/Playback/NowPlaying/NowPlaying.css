@@ -1,0 +1,18 @@
+.Playback .NowPlaying {
+    display: grid;
+    grid-template: 1fr 1fr / 4em auto;
+    grid-gap: 0.5em;
+}
+
+.Playback .NowPlaying .Image {
+    border-radius: .5em;
+    overflow: hidden;
+    grid-row: span 2;
+    grid-column: 1 / 2;
+    height: 100%;
+    width: 100%;
+}
+
+.Playback .NowPlaying .Artists {
+    font-size: 0.8em;
+}

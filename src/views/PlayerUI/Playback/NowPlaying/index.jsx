@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import {Image} from 'fragments/Image';
 import {Artists} from 'fragments/Artists';
 
 import './NowPlaying.css';
@@ -10,9 +11,15 @@ export class NowPlaying extends Component {
 
     return (
       <div className="NowPlaying">
+        { track
+          ? <Image candidates={track.album.images}/>
+          : null
+        }
+
         <div className="trackName">
           {track ? track.name : ''}
         </div>
+
         { track
           ? <Artists artists={track.artists}/>
           : null
