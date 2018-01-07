@@ -43,3 +43,12 @@ input {
   color: #fff;
   outline: none;
 }
+
+.QuickSearch input,
+.Search header input {
+    border-radius: 1.5em;
+    font-size: 3em;
+    text-align: center;
+    padding: .2em 0;
+    width: 10em;
+}

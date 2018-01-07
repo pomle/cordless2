@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { List } from 'immutable';
 
+import { QuickSearch } from 'components/QuickSearch';
 import { PlaylistList } from 'fragments/PlaylistList';
 
 export class PlaylistIndex extends Component {
@@ -8,6 +9,7 @@ export class PlaylistIndex extends Component {
     super(props);
 
     this.state = {
+      filter: '',
       playlists: new List(),
     };
   }
@@ -21,15 +23,29 @@ export class PlaylistIndex extends Component {
     });
   }
 
+  getPlaylists() {
+    let {filter, playlists} = this.state;
+    if (filter.length) {
+      playlists = playlists.filter(playlist => playlist.name.includes(filter));
+    }
+    return playlists;
+  }
+
+  updateFilter = (filter) => {
+    this.setState({filter});
+  }
+
   render() {
     const { player, playbackAPI } = this.props;
-    const { playlists } = this.state;
+    const { filter } = this.state;
 
     return (
       <div className="PlaylistIndex">
+        <QuickSearch value={filter} onChange={this.updateFilter}/>
+
         <h2>Your Playlists</h2>
 
-        <PlaylistList playlists={playlists} player={player} playbackAPI={playbackAPI}/>
+        <PlaylistList playlists={this.getPlaylists()} player={player} playbackAPI={playbackAPI}/>
       </div>
     );
   }

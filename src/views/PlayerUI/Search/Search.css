@@ -12,15 +12,10 @@
 }
 
 .Search header input {
-    border-radius: 1.5em;
-    font-size: 3em;
-    text-align: center;
-    padding: .2em 0;
     position: absolute;
     right: 50%;
     top: 0;
     transform: translateX(50%) translateY(40vh);
-    width: 10em;
     z-index: 2;
 }
 
