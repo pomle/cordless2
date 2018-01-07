@@ -1,3 +1,9 @@
-.PlaybackInterface {
+.Playback .Interface {
+    display: grid;
+    grid-template: 1fr / repeat(3, 1fr);
+}
 
+.Playback .Interface > * > button {
+    display: block;
+    margin: auto;
 }

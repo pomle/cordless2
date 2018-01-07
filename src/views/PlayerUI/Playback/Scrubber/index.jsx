@@ -5,14 +5,17 @@ import {ProgressBar} from 'components/ProgressBar';
 import './Scrubber.css';
 
 export class Scrubber extends Component {
-  handleClick = (event) => {
-    console.log(event.nativeEvent);
+  handleClick = ({nativeEvent, currentTarget}) => {
+    const {player: {context: {duration}}, seek} = this.props;
+    const fraction = nativeEvent.offsetX / currentTarget.offsetWidth;
+    const time = duration * fraction;
+    const ms = time.toFixed();
+    seek(ms);
   }
 
   render() {
     const {player, playbackAPI} = this.props;
     const {context} = player;
-    console.log(context.duration, context.position);
 
     const progress = context.duration
       ? context.position / context.duration

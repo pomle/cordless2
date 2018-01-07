@@ -24,6 +24,10 @@ export class Playback extends Component {
     this.props.playbackAPI.prev();
   }
 
+  seek = (ms) => {
+    this.props.playbackAPI.seek(ms);
+  }
+
   render() {
     const {player, playbackAPI} = this.props;
     const {context} = player;
@@ -32,7 +36,7 @@ export class Playback extends Component {
     return (
       <div className="Playback">
         <NowPlaying track={trackWindow.current_track}/>
-        <Scrubber player={player} playbackAPI={playbackAPI}/>
+        <Scrubber player={player} seek={this.seek}/>
         <Interface player={player} playbackAPI={playbackAPI}/>
       </div>
     );

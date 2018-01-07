@@ -22,8 +22,7 @@ export class Interface extends Component {
 
   render() {
     return (
-      <div className="PlaybackInterface">
-        <div className="trackProgress"/>
+      <div className="Interface">
         <div className="previous">
           <button onClick={this.prev}>Prev</button>
         </div>
