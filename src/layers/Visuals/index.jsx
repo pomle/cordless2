@@ -4,43 +4,13 @@ import anime from 'animejs';
 import {timer} from './timing.js';
 import {onChange, loadImage} from './util.js';
 
-import {createShader} from './shader.js';
-import noopVertexShader from './shaders/noop.vertex.glsl';
-import blurVFragmentShader from './shaders/verticalBlur.fragment.glsl';
-import blurHFragmentShader from './shaders/horizontalBlur.fragment.glsl';
-
 import './Visuals.css';
 
 const THREE = window.THREE;
 
-async function compose(scene, camera, renderer) {
-    const vBlur = await createShader({
-      tDiffuse: { value: null },
-      v: { value: 1.0 / 512.0 },
-    }, noopVertexShader, blurVFragmentShader);
-
-    const hBlur = await createShader({
-      tDiffuse: { value: null },
-      h: { value: 1.0 / 512.0 },
-    }, noopVertexShader, blurHFragmentShader);
-
+function compose(scene, camera, renderer) {
     const composer = new THREE.EffectComposer(renderer);
     composer.addPass(new THREE.RenderPass(scene, camera));
-
-    const hblur = new THREE.ShaderPass(hBlur);
-    composer.addPass(hblur);
-
-    const vblur = new THREE.ShaderPass(vBlur);
-    composer.addPass(vblur);
-
-    /*var dotScreenEffect = new THREE.ShaderPass( THREE.DotScreenShader );
-    dotScreenEffect.uniforms[ 'scale' ].value = 4;
-    composer.addPass( dotScreenEffect );*/
-
-    var rgbEffect = new THREE.ShaderPass( THREE.RGBShiftShader );
-    rgbEffect.uniforms[ 'amount' ].value = 0.0045;
-    rgbEffect.renderToScreen = true;
-    composer.addPass( rgbEffect );
 
     return composer;
 }
@@ -57,9 +27,7 @@ export class Visuals extends Component {
     this.renderer = new THREE.WebGLRenderer();
     this.renderer.setSize(800, 450);
 
-    (async () => {
-      this.renderer = await compose(this.scene, this.camera, this.renderer);
-    })();
+    this.composer = compose(this.scene, this.camera, this.renderer);
 
     this.updaters = new Set();
 
