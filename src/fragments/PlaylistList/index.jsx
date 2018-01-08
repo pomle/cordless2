@@ -11,12 +11,14 @@ export class PlaylistList extends Component {
       <div className="PlaylistList">
         {playlists.map(playlist => {
           return (
-            <Playlist
-              key={playlist.id}
-              playlist={playlist}
-              player={player}
-              playbackAPI={playbackAPI}
-            />
+            <div className="item">
+              <Playlist
+                key={playlist.id}
+                playlist={playlist}
+                player={player}
+                playbackAPI={playbackAPI}
+              />
+            </div>
           );
         })}
       </div>

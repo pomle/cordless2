@@ -4,12 +4,19 @@
     margin: -1em;
 }
 
+.PlaylistList .item {
+    perspective: 200px;
+}
+
 .PlaylistList .Playlist {
+    background: rgba(0, 0, 0, .7);
     display: grid;
     grid: repeat(3, 1fr) / 5em 10em;
     grid-column-gap: 0.5em;
     height: 5em;
     margin: 1em;
+    transform: rotateY(7deg) rotateX(-5deg);
+    transform-origin: 50px 50px;
 }
 
 .PlaylistList .Playlist .image {
