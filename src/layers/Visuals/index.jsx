@@ -1,53 +1,11 @@
 import React, { Component } from 'react';
 
+import {timer} from './timing.js';
+import {onChange, loadImage} from './util.js';
+
 import './Visuals.css';
 
 const THREE = window.THREE;
-
-function timer(callback) {
-  let frameId, lastTime;
-
-  function update(time) {
-    if (time && lastTime) {
-      const diff = time - lastTime;
-      callback(diff, time)
-    }
-    lastTime = time;
-    frameId = window.requestAnimationFrame(update);
-  }
-
-  update();
-
-  function stop() {
-    window.cancelAnimationFrame(frameId);
-  }
-
-  return {
-    stop
-  }
-}
-
-function onChange(checkFn, fn) {
-  let oldValue;
-  return function(newValue) {
-    if (checkFn(newValue, oldValue)) {
-      oldValue = newValue;
-      fn(newValue);
-    }
-  }
-}
-
-function loadImage(url) {
-  return new Promise((resolve, reject) => {
-      const image = new Image();
-      image.crossOrigin = 'anonymous';
-      image.addEventListener('load', () => {
-          resolve(image);
-      });
-      image.addEventListener('error', reject);
-      image.src = url;
-  });
-}
 
 export class Visuals extends Component {
   constructor(props) {
