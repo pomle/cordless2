@@ -1,6 +1,7 @@
 .PlaylistList {
     display: flex;
     flex-flow: wrap;
+    justify-content: space-between;
     margin: -1em;
 }
 
