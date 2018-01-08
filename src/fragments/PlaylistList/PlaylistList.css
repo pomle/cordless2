@@ -11,13 +11,19 @@
 
 .PlaylistList .Playlist {
     background: rgba(0, 0, 0, .7);
+    box-shadow: 0 1em 2em -.5em #000;
     display: grid;
     grid: repeat(3, 1fr) / 5em 10em;
     grid-column-gap: 0.5em;
     height: 5em;
     margin: 1em;
-    transform: rotateY(7deg) rotateX(-5deg);
+    transform: rotateY(10deg) rotateX(2deg);
     transform-origin: 50px 50px;
+    transition: all 0.2s ease;
+}
+
+.PlaylistList .item:hover .Playlist  {
+    transform: rotateX(0) rotateY(0) translateZ(30px);
 }
 
 .PlaylistList .Playlist .image {
