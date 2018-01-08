@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import {PlayButton} from 'components/PlayButton';
 import {Artists} from 'fragments/Artists';
 
 export class Track extends Component {
@@ -9,14 +10,14 @@ export class Track extends Component {
   };
 
   render() {
-    const { track } = this.props;
+    const { track, player } = this.props;
     const isLocal = track.uri.startsWith('spotify:local:');
 
     return (
       <div className="Track">
         <div className="playback">
           { !isLocal
-            ? <button onClick={this.play}>Play</button>
+            ? <PlayButton player={player} onClick={this.play}/>
             : <button>Local</button>
           }
         </div>

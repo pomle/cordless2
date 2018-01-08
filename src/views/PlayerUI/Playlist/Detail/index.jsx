@@ -65,6 +65,7 @@ export class PlaylistDetail extends Component {
   }
 
   render() {
+    const { player } = this.props;
     const { filter, playlist } = this.state;
     const tracks = this.getTracks();
 
@@ -82,7 +83,7 @@ export class PlaylistDetail extends Component {
           {tracks.map(entry => {
             const {track} = entry;
             const key = track.id + entry.added_at;
-            return <Track key={key} track={track} play={this.playTrack} />;
+            return <Track key={key} track={track} play={this.playTrack} player={player} />;
           })}
         </Tracklist>
       </div>
