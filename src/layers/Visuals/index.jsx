@@ -4,9 +4,47 @@ import anime from 'animejs';
 import {timer} from './timing.js';
 import {onChange, loadImage} from './util.js';
 
+import {createShader} from './shader.js';
+import noopVertexShader from './shaders/noop.vertex.glsl';
+import blurVFragmentShader from './shaders/verticalBlur.fragment.glsl';
+import blurHFragmentShader from './shaders/horizontalBlur.fragment.glsl';
+
 import './Visuals.css';
 
 const THREE = window.THREE;
+
+async function compose(scene, camera, renderer) {
+    const vBlur = await createShader({
+      tDiffuse: { value: null },
+      v: { value: 1.0 / 512.0 },
+    }, noopVertexShader, blurVFragmentShader);
+
+    const hBlur = await createShader({
+      tDiffuse: { value: null },
+      h: { value: 1.0 / 512.0 },
+    }, noopVertexShader, blurHFragmentShader);
+
+    const composer = new THREE.EffectComposer(renderer);
+    composer.addPass(new THREE.RenderPass(scene, camera));
+
+    const hblur = new THREE.ShaderPass(hBlur);
+    composer.addPass(hblur);
+
+    const vblur = new THREE.ShaderPass(vBlur);
+    composer.addPass(vblur);
+
+    /*var dotScreenEffect = new THREE.ShaderPass( THREE.DotScreenShader );
+    dotScreenEffect.uniforms[ 'scale' ].value = 4;
+    composer.addPass( dotScreenEffect );*/
+
+    var rgbEffect = new THREE.ShaderPass( THREE.RGBShiftShader );
+    rgbEffect.uniforms[ 'amount' ].value = 0.0045;
+    rgbEffect.renderToScreen = true;
+    composer.addPass( rgbEffect );
+
+    return composer;
+}
+
 
 export class Visuals extends Component {
   constructor(props) {
@@ -15,24 +53,13 @@ export class Visuals extends Component {
     this.scene = new THREE.Scene();
     this.scene.add(new THREE.AmbientLight( 0x404040 ));
     this.camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
-    this.camera.position.z = 20;
+    this.camera.position.z = 30;
     this.renderer = new THREE.WebGLRenderer();
     this.renderer.setSize(800, 450);
 
-    this.post = new THREE.DotScreenPass();
-
-    this.composer = new THREE.EffectComposer( this.renderer );
-    this.composer.addPass(new THREE.RenderPass(this.scene, this.camera));
-    var dotScreenEffect = new THREE.ShaderPass( THREE.DotScreenShader );
-    dotScreenEffect.uniforms[ 'scale' ].value = 4;
-    this.composer.addPass( dotScreenEffect );
-
-    var rgbEffect = new THREE.ShaderPass( THREE.RGBShiftShader );
-    rgbEffect.uniforms[ 'amount' ].value = 0.0015;
-    rgbEffect.renderToScreen = true;
-    this.composer.addPass( rgbEffect );
-    this.composer.renderToScreen = true;
-
+    (async () => {
+      this.renderer = await compose(this.scene, this.camera, this.renderer);
+    })();
 
     this.updaters = new Set();
 
@@ -49,6 +76,7 @@ export class Visuals extends Component {
       this.onTrackChange);
 
     this.uris = new Map();
+    this.backgrounds = new Set();
   }
 
   componentDidMount() {
@@ -60,11 +88,22 @@ export class Visuals extends Component {
       this.scene.children.forEach(object => {
         object.userData.update && object.userData.update(diff, total);
       });
-      this.composer.render(this.scene, this.camera);
+      this.renderer.render(this.scene, this.camera);
     });
   }
 
   onTrackChange = (track) => {
+    this.backgrounds.forEach(mesh => {
+      anime({
+        targets: mesh.material,
+        opacity: 0,
+        complete: () => {
+          this.scene.remove(mesh);
+          this.backgrounds.delete(mesh);
+        }
+      });
+    });
+
     this.uris.forEach(mesh => {
       anime({
         targets: mesh.position,
@@ -84,34 +123,48 @@ export class Visuals extends Component {
 
     loadImage(track.album.images[0].url)
     .then(image => {
-      const geometry = new THREE.PlaneGeometry(10, 10);
-      const material = new THREE.MeshBasicMaterial({
+      const texture = new THREE.Texture(image);
+      texture.needsUpdate = true;
+      return texture;
+    })
+    .then(texture => {
+      return new THREE.MeshBasicMaterial({
         color: 0xffffff,
-        map: new THREE.Texture(image),
+        map: texture,
         side: THREE.DoubleSide,
       });
-      const mesh = new THREE.Mesh(geometry, material);
-      mesh.material.map.needsUpdate = true;
-      return mesh;
     })
-    .then(mesh => {
-      mesh.userData.update = ms => {
-        mesh.rotation.y += ms / 5000;
+    .then(material => {
+      const geometry = new THREE.PlaneGeometry(10, 10);
+      const album = new THREE.Mesh(geometry, material);
+      const background = new THREE.Mesh(geometry, material);
+
+      background.scale.multiplyScalar(16);
+      background.material.opacity = 0;
+      background.position.z = -100;
+      background.userData.update = (ms, total) => {
+        background.position.x = Math.sin(total / 50000) * 20;
+        background.position.y = Math.cos(total / 30000) * 20;
       };
 
-      mesh.position.z = -50;
-      mesh.material.opacity = 0;
+      album.userData.update = ms => {
+        album.rotation.y += ms / 5000;
+      };
 
-      this.scene.add(mesh);
+      album.position.z = -50;
+      album.material.opacity = 0;
+
+      this.scene.add(album);
+      //this.scene.add(background);
 
       anime({
-        targets: mesh.position,
+        targets: album.position,
         opacity: 1,
         z: 0,
         easing: 'easeInQuad',
       });
 
-      this.uris.set(track.uri, mesh);
+      this.uris.set(track.uri, album);
     });
   }
 
