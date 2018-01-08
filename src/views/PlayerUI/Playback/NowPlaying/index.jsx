@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import {Image} from 'fragments/Image';
 import {Artists} from 'fragments/Artists';
@@ -12,7 +13,7 @@ export class NowPlaying extends Component {
     return (
       <div className="NowPlaying">
         { track
-          ? <Image candidates={track.album.images}/>
+          ? <Link to='/'><Image candidates={track.album.images}/></Link>
           : null
         }
 
