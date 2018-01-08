@@ -11,9 +11,8 @@ export class PlaylistList extends Component {
       <div className="PlaylistList">
         {playlists.map(playlist => {
           return (
-            <div className="item">
+            <div key={playlist.id} className="item">
               <Playlist
-                key={playlist.id}
                 playlist={playlist}
                 player={player}
                 playbackAPI={playbackAPI}
