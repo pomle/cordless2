@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { List } from 'immutable';
 
 import { QuickSearch } from 'components/QuickSearch';
+import {ViewHeader} from 'components/ViewHeader';
 import { PlaylistList } from 'fragments/PlaylistList';
 
 export class PlaylistIndex extends Component {
@@ -43,7 +44,7 @@ export class PlaylistIndex extends Component {
       <div className="PlaylistIndex">
         <QuickSearch value={filter} onChange={this.updateFilter}/>
 
-        <h2>Your Playlists</h2>
+        <ViewHeader caption='Your Playlists'/>
 
         <PlaylistList playlists={this.getPlaylists()} player={player} playbackAPI={playbackAPI}/>
       </div>
