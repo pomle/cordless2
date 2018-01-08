@@ -30,6 +30,7 @@ button {
   cursor: pointer;
   font-weight: bold;
   letter-spacing: 0.1em;
+  outline: none;
   text-transform: uppercase;
 }
 
