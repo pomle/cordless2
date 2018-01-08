@@ -3,7 +3,7 @@
     grid:  50% 50% / 4em 35% 35% auto;
     grid-gap: 0.2em;
     align-items: center;
-  margin: .5em 0;
+  padding: .5em 0;
 }
 
 .Tracklist .Track {
