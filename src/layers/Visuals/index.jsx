@@ -12,13 +12,28 @@ function compose(scene, camera, renderer) {
     const composer = new THREE.EffectComposer(renderer);
     composer.addPass(new THREE.RenderPass(scene, camera));
 
+    /*var rgbEffect = new THREE.ShaderPass( THREE.RGBShiftShader );
+    rgbEffect.uniforms[ 'amount' ].value = 0.0045;
+    rgbEffect.renderToScreen = true;
+    composer.addPass( rgbEffect );*/
+
+
+    const hblur = new THREE.ShaderPass( THREE.HorizontalBlurShader );
+    //hblur.uniforms.h.value = ;
+    console.log(hblur);
+    composer.addPass( hblur );
+
+    const vblur = new THREE.ShaderPass( THREE.VerticalBlurShader );
+    // set this shader pass to render to screen so we can see the effects
+    vblur.renderToScreen = true;
+    composer.addPass( vblur );
     /*var dotScreenEffect = new THREE.ShaderPass( THREE.DotScreenShader );
     dotScreenEffect.uniforms[ 'scale' ].value = 4;
     composer.addPass( dotScreenEffect );*/
 
     var rgbEffect = new THREE.ShaderPass( THREE.RGBShiftShader );
     rgbEffect.uniforms[ 'amount' ].value = 0.0045;
-    rgbEffect.renderToScreen = true;
+    //rgbEffect.renderToScreen = true;
     composer.addPass( rgbEffect );
 
     return composer;
@@ -31,6 +46,9 @@ export class Visuals extends Component {
 
     this.scene = new THREE.Scene();
     this.scene.add(new THREE.AmbientLight( 0x404040 ));
+    var light = new THREE.PointLight( 0xffffff, 1, 100 );
+    light.position.set( 0, 0, 20);
+    this.scene.add( light );
     this.camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
     this.camera.position.z = 30;
     this.renderer = new THREE.WebGLRenderer();
@@ -105,39 +123,37 @@ export class Visuals extends Component {
       return texture;
     })
     .then(texture => {
-      return new THREE.MeshBasicMaterial({
-        color: 0xffffff,
-        map: texture,
-        side: THREE.DoubleSide,
-      });
-    })
-    .then(material => {
-      const geometry = new THREE.PlaneGeometry(10, 10);
-      const album = new THREE.Mesh(geometry, material);
-      const background = new THREE.Mesh(geometry, material);
+      const background = new THREE.Mesh(
+        new THREE.PlaneGeometry(200, 200),
+        new THREE.MeshPhongMaterial({map: texture, opacity: 0, transparent: true}));
 
-      background.scale.multiplyScalar(16);
+      const album = new THREE.Mesh(
+        new THREE.PlaneGeometry(10, 10),
+        new THREE.MeshPhongMaterial({map: texture, opacity: 0, transparent: true}));
+
+      background.scale.multiplyScalar(10);
       background.material.opacity = 0;
       background.position.z = -100;
       background.userData.update = (ms, total) => {
-        background.position.x = Math.sin(total / 50000) * 20;
-        background.position.y = Math.cos(total / 30000) * 20;
+        background.position.x = (Math.sin(total / 50000) * 20) - 10;
+        background.position.y = (Math.cos(total / 30000) * 20) - 10;
       };
 
       album.userData.update = ms => {
         album.rotation.y += ms / 5000;
       };
 
+      window.bg = background;
       album.position.z = -50;
       album.material.opacity = 0;
 
       this.scene.add(album);
-      //this.scene.add(background);
+      this.scene.add(background);
 
       anime({
-        targets: album.position,
-        opacity: 1,
+        targets: [album.material, album.position, background.material],
         z: 0,
+        opacity: 1,
         easing: 'easeInQuad',
       });
 
