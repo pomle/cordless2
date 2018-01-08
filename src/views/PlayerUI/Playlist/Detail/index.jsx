@@ -30,7 +30,8 @@ export class PlaylistDetail extends Component {
 
     api.consume(api.getPlaylistTracks(userId, playlistId), items => {
       this.setState(prevState => {
-        return { tracks: prevState.tracks.push(...items) };
+        const filtered = items.filter(entry => entry.track.uri.startsWith('spotify:track:'));
+        return { tracks: prevState.tracks.push(...filtered) };
       });
     });
 
