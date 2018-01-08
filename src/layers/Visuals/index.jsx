@@ -139,8 +139,8 @@ export class Visuals extends Component {
         background.position.y = (Math.cos(total / 30000) * 20) - 10;
       };
 
-      album.userData.update = ms => {
-        album.rotation.y += ms / 5000;
+      album.userData.update = (diff, time) => {
+        album.rotation.y = (Math.sin(time / 10000) * 1);
       };
 
       window.bg = background;
