@@ -1,21 +1,12 @@
 import React, { Component } from 'react';
 
-import {Image} from 'fragments/Image';
+import {ViewHeader} from 'components/ViewHeader';
 
 import './Header.css';
 
 export class PlaylistDetailHeader extends Component {
   render() {
     const { playlist } = this.props;
-
-    return (
-      <header className="PlaylistDetailHeader">
-        <div className="image">
-          <Image candidates={playlist.images}/>
-        </div>
-
-        <h2>{playlist.name}</h2>
-      </header>
-    );
+    return <ViewHeader caption={playlist.name} images={playlist.images}/>;
   }
 }

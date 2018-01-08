@@ -1,0 +1,14 @@
+.ViewHeader {
+    display: flex;
+    margin-bottom: 2em;
+}
+
+.ViewHeader h2 {
+    position: relative;
+}
+
+.ViewHeader .Image {
+    margin-right: 2em;
+    height: 15em;
+    width: 15em;
+}
