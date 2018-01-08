@@ -27,6 +27,7 @@ button {
   border: none;
   background: yellow;
   color: black;
+  cursor: pointer;
   font-weight: bold;
   letter-spacing: 0.1em;
   text-transform: uppercase;
