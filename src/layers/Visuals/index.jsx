@@ -12,6 +12,15 @@ function compose(scene, camera, renderer) {
     const composer = new THREE.EffectComposer(renderer);
     composer.addPass(new THREE.RenderPass(scene, camera));
 
+    /*var dotScreenEffect = new THREE.ShaderPass( THREE.DotScreenShader );
+    dotScreenEffect.uniforms[ 'scale' ].value = 4;
+    composer.addPass( dotScreenEffect );*/
+
+    var rgbEffect = new THREE.ShaderPass( THREE.RGBShiftShader );
+    rgbEffect.uniforms[ 'amount' ].value = 0.0045;
+    rgbEffect.renderToScreen = true;
+    composer.addPass( rgbEffect );
+
     return composer;
 }
 
@@ -56,7 +65,7 @@ export class Visuals extends Component {
       this.scene.children.forEach(object => {
         object.userData.update && object.userData.update(diff, total);
       });
-      this.renderer.render(this.scene, this.camera);
+      this.composer.render(this.scene, this.camera);
     });
   }
 
