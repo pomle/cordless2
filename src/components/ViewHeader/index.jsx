@@ -10,9 +10,12 @@ export class ViewHeader extends Component {
 
     return (
       <header className="ViewHeader">
-        <div className="image">
-          <Image candidates={images}/>
-        </div>
+        { images
+          ? <div className="image">
+            <Image candidates={images}/>
+          </div>
+          : null
+        }
 
         <h2>{caption}</h2>
       </header>
