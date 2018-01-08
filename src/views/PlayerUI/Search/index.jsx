@@ -80,6 +80,7 @@ export class Search extends Component {
   }
 
   render() {
+    const { player } = this.props;
     const {query, tracks} = this.state;
 
     const classes = ['Search'];
@@ -98,7 +99,7 @@ export class Search extends Component {
         <div className="results">
           <Tracklist>
              {tracks.map(track => {
-                return <Track key={track.id} track={track} play={this.playTrack}/>
+                return <Track key={track.id} track={track} play={this.playTrack} player={player}/>
              })}
           </Tracklist>
         </div>
