@@ -19,6 +19,21 @@ export class Visuals extends Component {
     this.renderer = new THREE.WebGLRenderer();
     this.renderer.setSize(800, 450);
 
+    this.post = new THREE.DotScreenPass();
+
+    this.composer = new THREE.EffectComposer( this.renderer );
+    this.composer.addPass(new THREE.RenderPass(this.scene, this.camera));
+    var dotScreenEffect = new THREE.ShaderPass( THREE.DotScreenShader );
+    dotScreenEffect.uniforms[ 'scale' ].value = 4;
+    this.composer.addPass( dotScreenEffect );
+
+    var rgbEffect = new THREE.ShaderPass( THREE.RGBShiftShader );
+    rgbEffect.uniforms[ 'amount' ].value = 0.0015;
+    rgbEffect.renderToScreen = true;
+    this.composer.addPass( rgbEffect );
+    this.composer.renderToScreen = true;
+
+
     this.updaters = new Set();
 
     this.onTrackChange = onChange(
@@ -45,7 +60,7 @@ export class Visuals extends Component {
       this.scene.children.forEach(object => {
         object.userData.update && object.userData.update(diff, total);
       });
-      this.renderer.render(this.scene, this.camera);
+      this.composer.render(this.scene, this.camera);
     });
   }
 
