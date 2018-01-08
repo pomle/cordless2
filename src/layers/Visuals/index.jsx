@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import anime from 'animejs';
 import {timer} from './timing.js';
 import {onChange, loadImage} from './util.js';
 
@@ -14,6 +15,7 @@ export class Visuals extends Component {
     this.scene = new THREE.Scene();
     this.scene.add(new THREE.AmbientLight( 0x404040 ));
     this.camera = new THREE.PerspectiveCamera(50, window.innerWidth / window.innerHeight, 0.1, 1000);
+    this.camera.position.z = 20;
     this.renderer = new THREE.WebGLRenderer();
     this.renderer.setSize(800, 450);
 
@@ -49,7 +51,20 @@ export class Visuals extends Component {
 
   onTrackChange = (track) => {
     this.uris.forEach(mesh => {
-      this.scene.remove(mesh);
+      anime({
+        targets: mesh.position,
+        x: 50,
+        easing: [.91,-0.54,.29,1.56],
+        complete: () => {
+          this.scene.remove(mesh);
+        }
+      });
+
+      anime({
+        targets: mesh.position,
+        z: 10,
+        easing: 'easeOutQuad',
+      });
     });
 
     loadImage(track.album.images[0].url)
@@ -65,13 +80,21 @@ export class Visuals extends Component {
       return mesh;
     })
     .then(mesh => {
-      console.log(mesh);
-      this.camera.position.z = 20;
       mesh.userData.update = ms => {
-        mesh.rotation.y += ms / 1000;
+        mesh.rotation.y += ms / 5000;
       };
 
+      mesh.position.z = -50;
+      mesh.material.opacity = 0;
+
       this.scene.add(mesh);
+
+      anime({
+        targets: mesh.position,
+        opacity: 1,
+        z: 0,
+        easing: 'easeInQuad',
+      });
 
       this.uris.set(track.uri, mesh);
     });

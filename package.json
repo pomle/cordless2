@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@pomle/spotify-web-sdk": "0.0.0-d6f0e4f",
+    "animejs": "^2.2.0",
     "immutable": "^3.8.2",
     "prettier": "^1.9.2",
     "query-string": "^5.0.1",
