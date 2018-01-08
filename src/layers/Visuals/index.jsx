@@ -74,6 +74,11 @@ export class Visuals extends Component {
     this.backgrounds = new Set();
   }
 
+  onResize = () => {
+    this.camera.aspect = window.innerWidth / window.innerHeight;
+    this.camera.updateProjectionMatrix();
+  }
+
   componentDidMount() {
     this.element.appendChild(this.renderer.domElement);
     this.renderer.domElement.style.height = null;
@@ -85,6 +90,12 @@ export class Visuals extends Component {
       });
       this.composer.render(this.scene, this.camera);
     });
+
+    window.addEventListener('resize', this.onResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.onResize);
   }
 
   onTrackChange = (track) => {
