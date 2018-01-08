@@ -5,7 +5,10 @@ import { createPlayer, PlaybackAPI, PlaylistAPI, SearchAPI } from '@pomle/spotif
 import {createPoller} from './poller.js';
 import { PlayerState } from './state.js';
 
+import { Visuals } from 'layers/Visuals';
 import { PlayerUI } from 'views/PlayerUI';
+
+import './PlayerApplication.css';
 
 export class PlayerApplication extends Component {
   constructor(props) {
@@ -50,8 +53,13 @@ export class PlayerApplication extends Component {
   }
 
   render() {
+    const {player: {context}} = this.state;
+
     return (
-      <PlayerUI applicationState={this.state}/>
+      <div className="PlayerApplication">
+        <PlayerUI applicationState={this.state}/>
+        <Visuals track={context.toJS().track_window.current_track}/>
+      </div>
     );
   }
 }
