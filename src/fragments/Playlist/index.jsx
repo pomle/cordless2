@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import {PlayButton} from 'components/PlayButton';
 import {Image} from 'fragments/Image';
 
 import './Playlist.css';
@@ -12,7 +13,7 @@ export class Playlist extends Component {
   };
 
   render() {
-    const { playlist } = this.props;
+    const { playlist, player } = this.props;
     const { owner } = playlist;
 
     return (
@@ -41,7 +42,7 @@ export class Playlist extends Component {
         </div>
 
         <div className="playback">
-          <button onClick={this.play}>Play</button>
+          <PlayButton player={player} onClick={this.play}/>
         </div>
       </div>
     );
