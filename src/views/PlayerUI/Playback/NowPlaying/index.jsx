@@ -13,7 +13,7 @@ export class NowPlaying extends Component {
       <div className="NowPlaying">
         { track
           ? <Image candidates={track.album.images}/>
-          : null
+          : ''
         }
 
         <div className="trackName">
