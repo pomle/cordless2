@@ -40,7 +40,7 @@ button:hover {
 }
 
 input {
-  background: #000;
+  background: rgba(0, 0, 0, .5);
   border: solid 2px yellow;
   color: #fff;
   outline: none;
