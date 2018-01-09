@@ -6,7 +6,7 @@ import { createAuthorizationURL } from '@pomle/spotify-web-sdk';
 import {Welcome} from 'views/Welcome';
 
 const CLIENT_ID = 'a7cf3dcdfbd64bd5ac8d960caabbc890';
-const CALLBACK_URL = 'http://localhost:3000/';
+const CALLBACK_URL = process.env.REACT_APP_SITE_URL || 'http://localhost:3000/';
 
 
 const STORAGE_KEY = 'session2';

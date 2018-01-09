@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@pomle/spotify-web-sdk": "0.0.0-d6f0e4f",
+    "@pomle/spotify-web-sdk": "0.0.0-432b8a9",
     "animejs": "^2.2.0",
     "immutable": "^3.8.2",
     "prettier": "^1.9.2",
@@ -12,13 +12,16 @@
     "react-dom": "^16.2.0",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.0.17"
+    "react-scripts": "1.0.17",
+    "serve": "^6.4.4"
   },
   "scripts": {
     "format": "prettier --single-quote --trailing-comma es5 --write 'src/**/*.{js,jsx}'",
     "start": "react-scripts start",
+    "start:prod": "serve ./build -C -s --port $PORT",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "heroku-postbuild": "REACT_APP_SITE_URL=$SITE_URL yarn run build"
   }
 }
