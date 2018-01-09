@@ -1,40 +1,15 @@
 import React, { Component } from 'react';
 
+import {Surface} from "gl-react-dom";
+
 import anime from 'animejs';
-import {timer} from './timing.js';
 import {onChange, loadImage} from './util.js';
 
+import {DiamondCrop, HelloBlue} from './shaders';
+import {BetterBlur as Blur} from './shaders/blur';
+
+
 import './Visuals.css';
-
-const THREE = window.THREE;
-
-function compose(scene, camera, renderer) {
-    const composer = new THREE.EffectComposer(renderer);
-    composer.addPass(new THREE.RenderPass(scene, camera));
-
-    const blur = 1 / 400;
-
-    const hblur = new THREE.ShaderPass( THREE.HorizontalBlurShader );
-    hblur.uniforms.h.value = blur;
-    console.log(hblur);
-    composer.addPass( hblur );
-
-    const vblur = new THREE.ShaderPass( THREE.VerticalBlurShader );
-    // set this shader pass to render to screen so we can see the effects
-    vblur.uniforms.v.value = blur;
-    //vblur.renderToScreen = true;
-    composer.addPass( vblur );
-    /*var dotScreenEffect = new THREE.ShaderPass( THREE.DotScreenShader );
-    dotScreenEffect.uniforms[ 'scale' ].value = 4;
-    composer.addPass( dotScreenEffect );*/
-
-    var rgbEffect = new THREE.ShaderPass( THREE.RGBShiftShader );
-    rgbEffect.uniforms[ 'amount' ].value = 0.0045;
-    rgbEffect.renderToScreen = true;
-    composer.addPass( rgbEffect );
-
-    return composer;
-}
 
 function compareObjectURIs(a, b) {
   if (!a) return false;
@@ -51,7 +26,7 @@ export class Visuals extends Component {
   constructor(props) {
     super(props);
 
-    this.scene = new THREE.Scene();
+    /*this.scene = new THREE.Scene();
     this.scene.add(new THREE.AmbientLight( 0x909090 ));
     var light = new THREE.PointLight( 0xffffff, 1, 100 );
     light.position.set( 0, 0, 20);
@@ -61,7 +36,7 @@ export class Visuals extends Component {
     this.renderer = new THREE.WebGLRenderer();
     this.renderer.setSize(800, 450);
 
-    this.composer = compose(this.scene, this.camera, this.renderer);
+    this.composer = compose(this.scene, this.camera, this.renderer);*/
 
     this.updaters = new Set();
 
@@ -70,24 +45,19 @@ export class Visuals extends Component {
 
     this.uris = new Map();
     this.backgrounds = new Set();
+
+    this.state = {
+      track: null,
+      album: null,
+    }
   }
 
   onResize = () => {
-    this.camera.aspect = window.innerWidth / window.innerHeight;
-    this.camera.updateProjectionMatrix();
+    //this.camera.aspect = window.innerWidth / window.innerHeight;
+    //this.camera.updateProjectionMatrix();
   }
 
   componentDidMount() {
-    this.element.appendChild(this.renderer.domElement);
-    this.renderer.domElement.style.height = null;
-    this.renderer.domElement.style.width = null;
-
-    this.timer = timer((diff, total) => {
-      this.scene.children.forEach(object => {
-        object.userData.update && object.userData.update(diff, total);
-      });
-      this.composer.render(this.scene, this.camera);
-    });
 
     window.addEventListener('resize', this.onResize);
   }
@@ -97,7 +67,8 @@ export class Visuals extends Component {
   }
 
   onAlbumChange = (album) => {
-    this.backgrounds.forEach(mesh => {
+    this.setState({album});
+    /*this.backgrounds.forEach(mesh => {
       anime({
         targets: mesh.material,
         opacity: 0,
@@ -167,10 +138,11 @@ export class Visuals extends Component {
       });
 
       this.uris.set(album.uri, album);
-    });
+    });*/
   }
 
   onTrackChange = (track) => {
+    this.setState({track});
     this.onAlbumChange(track.album);
   }
 
@@ -179,9 +151,16 @@ export class Visuals extends Component {
   }
 
   render() {
+    const {album} = this.state;
     return <div
       className="Visuals"
       ref={node => this.element = node}
-    />;
+    >
+      <Surface width={800} height={450}>
+        <Blur passes={4} factor={10}>
+          {album && album.images[0].url}
+        </Blur>
+      </Surface>
+    </div>;
   }
 }
