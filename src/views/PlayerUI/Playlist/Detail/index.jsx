@@ -56,9 +56,9 @@ export class PlaylistDetail extends Component {
   }
 
   playTrack = (track) => {
-    const { playbackAPI, player } = this.props;
+    const { playbackAPI } = this.props;
     const trackURIs = this.getTracks().map(entry => entry.track.uri);
-    playbackAPI.playTracks(trackURIs, track.uri, player.deviceId);
+    playbackAPI.playTracks(trackURIs, track.uri);
   }
 
   updateFilter = (filter) => {
@@ -66,7 +66,6 @@ export class PlaylistDetail extends Component {
   }
 
   render() {
-    const { player } = this.props;
     const { filter, playlist } = this.state;
     const tracks = this.getTracks();
 
@@ -84,7 +83,7 @@ export class PlaylistDetail extends Component {
           {tracks.map(entry => {
             const {track} = entry;
             const key = track.id + entry.added_at;
-            return <Track key={key} track={track} play={this.playTrack} player={player} />;
+            return <Track key={key} track={track} play={this.playTrack}/>;
           })}
         </Tracklist>
       </div>
