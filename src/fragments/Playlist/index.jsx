@@ -8,8 +8,8 @@ import './Playlist.css';
 
 export class Playlist extends Component {
   play = () => {
-    const { playbackAPI, playlist, player } = this.props;
-    playbackAPI.playContext(playlist.uri, player.deviceId);
+    const { playbackAPI, playlist } = this.props;
+    playbackAPI.playContext(playlist.uri);
   };
 
   render() {

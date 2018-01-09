@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@pomle/spotify-web-sdk": "0.0.0-178cd2b",
+    "@pomle/spotify-web-sdk": "0.0.0-86c39d8",
     "animejs": "^2.2.0",
     "immutable": "^3.8.2",
     "prettier": "^1.9.2",
