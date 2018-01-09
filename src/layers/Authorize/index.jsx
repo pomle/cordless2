@@ -3,8 +3,11 @@ import { parse } from 'query-string';
 
 import { createAuthorizationURL } from '@pomle/spotify-web-sdk';
 
+import {Welcome} from 'views/Welcome';
+
 const CLIENT_ID = 'a7cf3dcdfbd64bd5ac8d960caabbc890';
 const CALLBACK_URL = 'http://localhost:3000/';
+
 
 const STORAGE_KEY = 'session2';
 
@@ -54,14 +57,8 @@ export class Authorize extends Component {
   render() {
     const { token } = this.state;
 
-    return (
-      <div className="Authorize">
-        {token ? (
-          this.props.render(token)
-        ) : (
-          <a href={createAuthorizationURL(CLIENT_ID, CALLBACK_URL)}>Authorize</a>
-        )}
-      </div>
-    );
+    return token
+      ? this.props.render(token)
+      : <Welcome authURL={createAuthorizationURL(CLIENT_ID, CALLBACK_URL)}/>;
   }
 }
