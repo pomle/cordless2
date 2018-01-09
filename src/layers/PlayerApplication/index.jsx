@@ -16,11 +16,14 @@ export class PlayerApplication extends Component {
 
     const { token } = props;
 
-    this.state = {
-      player: new PlayerState(),
+    this.apis = {
       playbackAPI: new PlaybackAPI(token),
       playlistAPI: new PlaylistAPI(token),
       searchAPI: new SearchAPI(token),
+    };
+
+    this.state = {
+      player: new PlayerState(),
     };
   }
 
@@ -57,7 +60,7 @@ export class PlayerApplication extends Component {
 
     return (
       <div className="PlayerApplication">
-        <PlayerUI applicationState={this.state}/>
+        <PlayerUI applicationState={Object.assign({}, this.apis, this.state)}/>
         <Visuals track={context.toJS().track_window.current_track}/>
       </div>
     );
