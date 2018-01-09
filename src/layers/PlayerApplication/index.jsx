@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { createPlayer, PlaybackAPI, PlaylistAPI, SearchAPI } from '@pomle/spotify-web-sdk';
+import { createPlayer, AlbumAPI, PlaybackAPI, PlaylistAPI, SearchAPI } from '@pomle/spotify-web-sdk';
 
 import {createPoller} from './poller.js';
 import { PlayerState } from './state.js';
@@ -17,6 +17,7 @@ export class PlayerApplication extends Component {
     const { token } = props;
 
     this.apis = {
+      albumAPI: new AlbumAPI(token),
       playbackAPI: new PlaybackAPI(token),
       playlistAPI: new PlaylistAPI(token),
       searchAPI: new SearchAPI(token),
