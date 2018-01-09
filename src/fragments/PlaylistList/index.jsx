@@ -5,7 +5,7 @@ import './PlaylistList.css';
 
 export class PlaylistList extends Component {
   render() {
-    const {playlists, player, playbackAPI} = this.props;
+    const {playlists, playbackAPI} = this.props;
 
     return (
       <div className="PlaylistList">
@@ -14,7 +14,6 @@ export class PlaylistList extends Component {
             <div key={playlist.id} className="item">
               <Playlist
                 playlist={playlist}
-                player={player}
                 playbackAPI={playbackAPI}
               />
             </div>

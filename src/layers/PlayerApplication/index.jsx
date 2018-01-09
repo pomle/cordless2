@@ -57,12 +57,19 @@ export class PlayerApplication extends Component {
   }
 
   render() {
-    const {player: {context}} = this.state;
+    const {player} = this.state;
+
+    const classes = ['PlayerApplication'];
+    if (player.deviceId) {
+      classes.push('ready');
+    } else {
+      classes.push('pending');
+    }
 
     return (
-      <div className="PlayerApplication">
+      <div className={classes.join(' ')}>
         <PlayerUI applicationState={Object.assign({}, this.apis, this.state)}/>
-        <Visuals track={context.toJS().track_window.current_track}/>
+        <Visuals track={player.context.toJS().track_window.current_track}/>
       </div>
     );
   }

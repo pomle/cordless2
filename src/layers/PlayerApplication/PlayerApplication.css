@@ -13,3 +13,12 @@
     grid-column: 1 / 1;
     z-index: 1;
 }
+
+.PlayerApplication .PlayButton {
+    transition: all 0.3s ease;
+}
+
+.PlayerApplication.pending .PlayButton {
+    pointer-events: none;
+    opacity: 0;
+}

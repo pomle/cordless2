@@ -8,11 +8,25 @@ import { Search } from '../Search';
 
 export class Navigation extends Component {
   render() {
-    const { player, playlistAPI, playbackAPI, searchAPI } = this.props.applicationState;
+    const { albumAPI, playlistAPI, playbackAPI, searchAPI } = this.props.applicationState;
+
     return (
       <div className="Navigation">
         <ViewContainer>
           <Switch>
+            <Route
+              path="/album/:albumId"
+              render={props => {
+                const { albumId } = props.match.params;
+                return (
+                  <AlbumDetail
+                    albumId={albumId}
+                    albumAPI={albumAPI}
+                    playbackAPI={playbackAPI}
+                  />
+                );
+              }}
+            />
             <Route
               path="/playlist/:playlistId/user/:userId"
               render={props => {
@@ -21,7 +35,6 @@ export class Navigation extends Component {
                   <PlaylistDetail
                     playlistId={playlistId}
                     userId={userId}
-                    player={player}
                     playlistAPI={playlistAPI}
                     playbackAPI={playbackAPI}
                   />
@@ -30,13 +43,12 @@ export class Navigation extends Component {
             />
             <Route exact path="/playlist">
               <PlaylistIndex
-                player={player}
                 playlistAPI={playlistAPI}
                 playbackAPI={playbackAPI}
               />
             </Route>
             <Route path="/search">
-              <Search player={player} playbackAPI={playbackAPI} searchAPI={searchAPI}/>
+              <Search playbackAPI={playbackAPI} searchAPI={searchAPI}/>
             </Route>
             <Route path="*">
               <ul>

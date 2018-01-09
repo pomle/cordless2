@@ -13,7 +13,7 @@ export class Playlist extends Component {
   };
 
   render() {
-    const { playlist, player } = this.props;
+    const { playlist } = this.props;
     const { owner } = playlist;
 
     return (
@@ -42,7 +42,7 @@ export class Playlist extends Component {
         </div>
 
         <div className="playback">
-          <PlayButton player={player} onClick={this.play}/>
+          <PlayButton onClick={this.play}/>
         </div>
       </div>
     );
