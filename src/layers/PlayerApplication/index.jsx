@@ -41,6 +41,7 @@ export class PlayerApplication extends Component {
     this.update(player => player.set('connected', result));
 
     this.player.on('ready', message => {
+      this.apis.playbackAPI.setDevice(message.device_id);
       this.update(player => player.onMessage({ type: 'ready', message }));
     });
 
