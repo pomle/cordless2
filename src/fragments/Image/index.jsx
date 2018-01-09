@@ -5,13 +5,11 @@ import './Image.css';
 export class Image extends Component {
   render() {
     const {candidates} = this.props;
-    const imageURL = candidates.length
-          ? candidates[0].url
-          : 'http://mattislist.com/marketingapp/postimage/noimageavailable.png';
 
-    const style = {
-        backgroundImage: `url(${imageURL})`,
-    };
+    const style = {};
+    if (candidates.length) {
+      style.backgroundImage = `url(${candidates[0].url})`;
+    }
 
     return (
       <div className="Image" style={style}>
