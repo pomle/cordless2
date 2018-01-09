@@ -1,8 +1,0 @@
-.PlayButton {
-    transition: all 0.3s ease;
-}
-
-.PlayButton.pending {
-    pointer-events: none;
-    opacity: 0;
-}
