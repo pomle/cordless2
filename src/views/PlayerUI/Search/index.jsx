@@ -104,8 +104,6 @@ export class Search extends Component {
           </Tracklist>
         </div>
       </div>
-
-
     );
   }
 }

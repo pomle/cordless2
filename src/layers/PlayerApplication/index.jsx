@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 
 import { createPlayer, PlaybackAPI, PlaylistAPI, SearchAPI } from '@pomle/spotify-web-sdk';
 
@@ -67,10 +68,12 @@ export class PlayerApplication extends Component {
     }
 
     return (
-      <div className={classes.join(' ')}>
-        <PlayerUI applicationState={Object.assign({}, this.apis, this.state)}/>
-        <Visuals track={player.context.toJS().track_window.current_track}/>
-      </div>
+      <Route path="*" render={({match}) => {
+        return <div className={classes.join(' ')}>
+          <PlayerUI applicationState={Object.assign({}, this.apis, this.state)}/>
+          <Visuals promote={match.url === '/now-playing'} context={player.context} track={player.context.toJS().track_window.current_track}/>
+        </div>
+      }}/>
     );
   }
 }

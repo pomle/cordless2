@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
-
+import {Motion, spring} from 'react-motion';
 import {Surface} from "gl-react-dom";
 
-import anime from 'animejs';
-import {onChange, loadImage} from './util.js';
+import {onChange} from './util.js';
 
-import {DiamondCrop, HelloBlue} from './shaders';
+import {Pontus, HelloBlue} from './shaders';
 import {BetterBlur as Blur} from './shaders/blur';
 
 
@@ -151,16 +150,37 @@ export class Visuals extends Component {
   }
 
   render() {
+    console.log('Visual props', this.props);
+    const {promote, context} = this.props;
     const {album} = this.state;
+    const image = album && album.images[0].url;
     return <div
       className="Visuals"
       ref={node => this.element = node}
     >
-      <Surface width={800} height={450}>
-        <Blur passes={4} factor={10}>
-          {album && album.images[0].url}
-        </Blur>
-      </Surface>
+      <div className="album">
+        <Surface width={400} height={400}>
+          <Motion defaultStyle={{factor: 0}} style={{factor: spring(promote ? 0 : 4)}}>
+            {({factor}) => <Blur passes={4} factor={factor}>
+              {image}
+            </Blur>}
+          </Motion>
+        </Surface>
+      </div>
+
+      <div className="background">
+        <Surface width={400} height={400}>
+          <Motion defaultStyle={{factor: 0}} style={{factor: spring(promote ? 0 : 1, {stiffness: 70, damping: 5})}}>
+            {({factor}) => <Blur passes={2} factor={factor * 3}>
+              <Pontus>
+                <Blur passes={4} factor={10}>
+                  {image}
+                </Blur>
+              </Pontus>
+            </Blur>}
+          </Motion>
+        </Surface>
+      </div>
     </div>;
   }
 }

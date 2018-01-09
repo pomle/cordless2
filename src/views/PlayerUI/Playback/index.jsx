@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import {Interface} from './Interface';
 import {NowPlaying} from './NowPlaying';
@@ -37,6 +38,9 @@ export class Playback extends Component {
         <NowPlaying track={trackWindow.current_track}/>
         <Scrubber context={context} seek={this.seek}/>
         <Interface prev={this.prev} next={this.next} toggle={this.toggle}/>
+        <div className="vis">
+          <Link to="/now-playing">Now Playing</Link>
+        </div>
       </div>
     );
   }

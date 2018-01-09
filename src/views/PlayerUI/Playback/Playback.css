@@ -2,7 +2,7 @@
     background: rgba(0, 0, 0, .8);
     box-shadow: 0 0 2em #000;
     display: grid;
-        grid:  1fr 4fr / repeat(3, 1fr);
+    grid:  1fr 4fr / repeat(3, 1fr);
 }
 
 .Playback .NowPlaying,
@@ -13,4 +13,9 @@
 .Playback .Scrubber {
     grid-column: 1 / end;
     grid-row: 1 / 1;
+}
+
+.Playback .vis {
+    text-align: right;
+    margin: 0.5em;
 }

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
 
 import { ViewContainer } from 'components/ViewContainer';
+import { AlbumDetail } from '../Album';
 import { PlaylistDetail } from '../Playlist/Detail';
 import { PlaylistIndex } from '../Playlist/Index';
 import { Search } from '../Search';
