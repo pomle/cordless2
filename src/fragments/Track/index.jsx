@@ -27,9 +27,12 @@ export class Track extends Component {
         <div className="artists">
           <Artists artists={track.artists}/>
         </div>
-        <div className="album">
-          <Link to={`/album/${track.album.id}`}>{track.album.name}</Link>
-        </div>
+        { track.album
+          ? <div className="album">
+            <Link to={`/album/${track.album.id}`}>{track.album.name}</Link>
+          </div>
+          : null
+        }
       </div>
     );
   }
