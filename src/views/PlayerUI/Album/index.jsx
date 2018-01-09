@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { List } from 'immutable';
 
 import {ViewHeader} from 'components/ViewHeader';
 import {Tracklist} from 'fragments/Tracklist';
