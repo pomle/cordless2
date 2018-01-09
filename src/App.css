@@ -3,7 +3,7 @@
 }
 
 .App .ProgressBar {
-    background: #000;
+    background: rgba(0, 0, 0, .4);
 }
 
 .App .ProgressBar .progress {
