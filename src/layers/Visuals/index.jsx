@@ -36,6 +36,16 @@ function compose(scene, camera, renderer) {
     return composer;
 }
 
+function compareObjectURIs(a, b) {
+  if (!a) return false;
+
+  if (a.uri) {
+    if (!b) return true;
+    if (a.uri === b.uri) return false;
+    return true;
+  }
+}
+
 
 export class Visuals extends Component {
   constructor(props) {
@@ -55,17 +65,8 @@ export class Visuals extends Component {
 
     this.updaters = new Set();
 
-    this.onTrackChange = onChange(
-      (a, b) => {
-        if (!a) return false;
-
-        if (a.uri) {
-          if (!b) return true;
-          if (a.uri === b.uri) return false;
-          return true;
-        }
-      },
-      this.onTrackChange);
+    this.onAlbumChange = onChange(compareObjectURIs, this.onAlbumChange);
+    this.onTrackChange = onChange(compareObjectURIs, this.onTrackChange);
 
     this.uris = new Map();
     this.backgrounds = new Set();
@@ -95,7 +96,7 @@ export class Visuals extends Component {
     window.removeEventListener('resize', this.onResize);
   }
 
-  onTrackChange = (track) => {
+  onAlbumChange = (album) => {
     this.backgrounds.forEach(mesh => {
       anime({
         targets: mesh.material,
@@ -124,7 +125,7 @@ export class Visuals extends Component {
       });
     });
 
-    loadImage(track.album.images[0].url)
+    loadImage(album.images[0].url)
     .then(image => {
       const texture = new THREE.Texture(image);
       texture.needsUpdate = true;
@@ -165,8 +166,12 @@ export class Visuals extends Component {
         easing: 'easeInQuad',
       });
 
-      this.uris.set(track.uri, album);
+      this.uris.set(album.uri, album);
     });
+  }
+
+  onTrackChange = (track) => {
+    this.onAlbumChange(track.album);
   }
 
   componentWillReceiveProps({track}) {
