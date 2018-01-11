@@ -80,30 +80,36 @@ void main() {
   },
   pontus: {
     frag: GLSL`
-precision highp float;
+precision mediump float;
 varying vec2 uv;
 uniform sampler2D t;
+uniform float intensity;
 uniform float time;
+uniform float thickness;
 
 void main() {
+  float yOffset = 0.1;
+  float spacing = 0.2;
+
   float amnt;
   float nd;
-  vec4 cbuff = vec4(0.0);
-  for(float i=0.0; i<10.0;i++){
-    nd = sin(3.17*0.8*uv.x + (i*0.2+sin(+time)*0.3) + time)*0.8+0.1 + uv.x;
-    amnt = 0.5/abs(nd-uv.y)*0.05;
-    cbuff += vec4(amnt*0.5, 0.0, amnt*uv.y, 1.0);
+  vec4 colorBuffer = vec4(0.0);
+
+  for(float i = 0.0; i < 10.0; i++) {
+    nd = sin(2.536 * uv.x + (i * spacing + sin(time) * 0.3) + time) * 0.8 + yOffset + uv.x;
+    amnt = thickness / abs(nd - uv.y) * 0.05;
+    colorBuffer += vec4(amnt * 0.5, 0.0, amnt, 1.0);
   }
-  for(float i=0.0; i<1.0;i++){
-    nd = sin(3.14*2.0*uv.y + i*40.5 + time)*90.3*(uv.y+80.3)+0.5;
-    amnt = 1.0/abs(nd-uv.x)*0.015;
-    cbuff += vec4(amnt*0.2, amnt*0.2 , 0.1+amnt*uv.x, 1.0);
-  }
+
+  /*for(float i = 0.0; i < 1.0; i++) {
+    nd = sin(3.14 * 2.0 * uv.y + i * 40.5 + time) * 90.3 * (uv.y + 80.3) + 0.5;
+    amnt = 1.0 / abs(nd - uv.x) * 0.015;
+    colorBuffer += vec4(amnt*0.2, amnt*0.2 , 0.1+amnt*uv.x, 1.0);
+  }*/
 
   gl_FragColor = mix(
-    cbuff,
-    texture2D(t, uv*1.0),
-
+    colorBuffer,
+    texture2D(t, uv * 1.0),
     0.5);
 }
 `,
@@ -114,11 +120,12 @@ export const HelloBlue = timed(({ time }) => {
   return <Node shader={shaders.helloBlue} uniforms={{ time: time / 1000 }} />;
 });
 
-export const Pontus = timed(({ time, children: t }) => (
+export const Pontus = timed(({ time, thickness, children: t }) => (
   <Node
     shader={shaders.pontus}
     uniforms={{
       t,
+      thickness,
       time: time / 5000,
     }}
   />

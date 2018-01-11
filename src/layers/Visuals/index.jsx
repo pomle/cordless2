@@ -48,6 +48,7 @@ export class Visuals extends Component {
     this.state = {
       track: null,
       album: null,
+      pulse: 0.3,
     };
   }
 
@@ -148,18 +149,53 @@ export class Visuals extends Component {
       this.analyzer = null;
     }
 
+    function lookAt(prop, callback) {
+      let last = {};
+
+      return function onData(data) {
+        if (data) {
+          if (last[prop] !== data[prop]) {
+            callback(data);
+          }
+          last = data;
+        }
+      };
+    }
+
+    const lookAtSegment = lookAt('loudness_max', data =>
+      console.log('Segment', data.loudness_max)
+    );
+    const lookAtSection = lookAt('start', data => console.log('Section', data));
+
     const data = await this.props.trackAPI.getAudioAnalysis(track.id);
     this.analyzer = analysis.stream(data);
     this.analyzer.on('data', data => {
-        if (data.beat) {
-          console.log(data.position.toFixed(2), '-'.repeat((data.position - data.beat.start) * 10));
-        }
+      if (data.beat) {
+        const beatPosition = data.position - data.beat.start;
+        const beatProgress = beatPosition / data.beat.duration;
+        //console.log(beatProgress, 1 - beatProgress);
 
+        this.setState({
+          pulse: 1 - beatProgress,
+        });
+        //console.log(data.position.toFixed(2), '-'.repeat((data.position - data.beat.start) * 10));
+        //console.log(data.position - data.beat.start, data.beat.start, data.beat.duration);
+      }
+
+      if (data.segment) {
+        this.setState({
+          loudness: data.segment.loudness_max,
+        });
+      }
+
+      lookAtSegment(data.segment);
+      lookAtSection(data.section);
+      //console.log(data.segment);
     });
     this.analyzer.start();
-  }
+  };
 
-  componentWillReceiveProps({context, track}) {
+  componentWillReceiveProps({ context, track }) {
     this.onTrackChange(track);
     if (this.analyzer) {
       console.log('Analyzer run', !context.paused);
@@ -170,7 +206,7 @@ export class Visuals extends Component {
 
   render() {
     const { promote } = this.props;
-    const { album } = this.state;
+    const { album, pulse } = this.state;
     const image = album && album.images[0].url;
     return (
       <div className="Visuals" ref={node => (this.element = node)}>
@@ -199,7 +235,7 @@ export class Visuals extends Component {
             >
               {({ factor }) => (
                 <Blur passes={2} factor={factor * 3}>
-                  <Pontus>
+                  <Pontus thickness={pulse}>
                     <Blur passes={4} factor={10}>
                       {image}
                     </Blur>
