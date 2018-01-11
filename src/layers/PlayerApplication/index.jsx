@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 
-import { createPlayer, PlaybackAPI, PlaylistAPI, SearchAPI } from '@pomle/spotify-web-sdk';
+import { createPlayer, PlaybackAPI, PlaylistAPI, SearchAPI, TrackAPI } from '@pomle/spotify-web-sdk';
 
 import {createPoller} from './poller.js';
 import { PlayerState } from './state.js';
@@ -21,6 +21,7 @@ export class PlayerApplication extends Component {
       playbackAPI: new PlaybackAPI(token),
       playlistAPI: new PlaylistAPI(token),
       searchAPI: new SearchAPI(token),
+      trackAPI: new TrackAPI(token),
     };
 
     this.state = {
@@ -71,7 +72,11 @@ export class PlayerApplication extends Component {
       <Route path="*" render={({match}) => {
         return <div className={classes.join(' ')}>
           <PlayerUI applicationState={Object.assign({}, this.apis, this.state)}/>
-          <Visuals promote={match.url === '/now-playing'} context={player.context} track={player.context.toJS().track_window.current_track}/>
+          <Visuals
+            promote={match.url === '/now-playing'}
+            context={player.context}
+            trackAPI={this.apis.trackAPI}
+            track={player.context.toJS().track_window.current_track}/>
         </div>
       }}/>
     );

@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import {Motion, spring} from 'react-motion';
 import {Surface} from "gl-react-dom";
 
+import {analysis} from '@pomle/spotify-web-sdk';
 import {onChange} from './util.js';
 
 import {Pontus, HelloBlue} from './shaders';
 import {BetterBlur as Blur} from './shaders/blur';
+
 
 
 import './Visuals.css';
@@ -24,6 +26,7 @@ function compareObjectURIs(a, b) {
 export class Visuals extends Component {
   constructor(props) {
     super(props);
+    console.log(props);
 
     /*this.scene = new THREE.Scene();
     this.scene.add(new THREE.AmbientLight( 0x909090 ));
@@ -140,9 +143,14 @@ export class Visuals extends Component {
     });*/
   }
 
-  onTrackChange = (track) => {
+  onTrackChange = async (track) => {
     this.setState({track});
     this.onAlbumChange(track.album);
+
+    const data = this.props.trackAPI.getAudioAnalysis(track.id);
+    const analyser = analysis.stream(data, info => {
+      console.log(info);
+    });
   }
 
   componentWillReceiveProps({track}) {
