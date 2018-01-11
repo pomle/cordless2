@@ -5,5 +5,13 @@
 }
 
 .PlayerUI .viewport {
-    overflow: hidden;
+    overflow: auto;
+}
+
+.PlayerUI .viewport::-webkit-scrollbar {
+    width: 8px;
+}
+
+.PlayerUI .viewport::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.5);
 }
