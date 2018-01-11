@@ -143,14 +143,29 @@ export class Visuals extends Component {
     this.setState({ track });
     this.onAlbumChange(track.album);
 
-    const data = this.props.trackAPI.getAudioAnalysis(track.id);
-    analysis.stream(data, info => {
-      console.log(info);
-    });
-  };
+    if (this.analyzer) {
+      this.analyzer.stop();
+      this.analyzer = null;
+    }
 
-  componentWillReceiveProps({ track }) {
+    const data = await this.props.trackAPI.getAudioAnalysis(track.id);
+    this.analyzer = analysis.stream(data);
+    this.analyzer.on('data', data => {
+        if (data.beat) {
+          console.log(data.position.toFixed(2), '-'.repeat((data.position - data.beat.start) * 10));
+        }
+
+    });
+    this.analyzer.start();
+  }
+
+  componentWillReceiveProps({context, track}) {
     this.onTrackChange(track);
+    if (this.analyzer) {
+      console.log('Analyzer run', !context.paused);
+      this.analyzer.run(!context.paused);
+      this.analyzer.sync(context.position);
+    }
   }
 
   render() {
