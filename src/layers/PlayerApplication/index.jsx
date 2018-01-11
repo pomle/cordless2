@@ -7,9 +7,11 @@ import {
   PlaybackAPI,
   PlaylistAPI,
   SearchAPI,
+  TrackAPI,
 } from '@pomle/spotify-web-sdk';
 
 import { createPoller } from './poller.js';
+
 import { PlayerState } from './state.js';
 
 import { Visuals } from 'layers/Visuals';
@@ -28,6 +30,7 @@ export class PlayerApplication extends Component {
       playbackAPI: new PlaybackAPI(token),
       playlistAPI: new PlaylistAPI(token),
       searchAPI: new SearchAPI(token),
+      trackAPI: new TrackAPI(token),
     };
 
     this.state = {
@@ -88,6 +91,7 @@ export class PlayerApplication extends Component {
               <Visuals
                 promote={match.url === '/now-playing'}
                 context={player.context}
+                trackAPI={this.apis.trackAPI}
                 track={player.context.toJS().track_window.current_track}
               />
             </div>
