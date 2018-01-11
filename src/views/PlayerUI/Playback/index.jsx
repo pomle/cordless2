@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { Interface } from './Interface';
 import { NowPlaying } from './NowPlaying';
 import { Scrubber } from './Scrubber';
+import { Time } from 'components/Time';
 
 import './Playback.css';
 
@@ -40,6 +41,9 @@ export class Playback extends Component {
         <Interface prev={this.prev} next={this.next} toggle={this.toggle} />
         <div className="vis">
           <Link to="/now-playing">Now Playing</Link>
+          <div className="time">
+            <Time seconds={context.position / 1000} />
+          </div>
         </div>
       </div>
     );
