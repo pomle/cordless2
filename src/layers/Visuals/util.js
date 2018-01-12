@@ -19,3 +19,13 @@ export function loadImage(url) {
     image.src = url;
   });
 }
+
+export function compareObjectURIs(a, b) {
+  if (!a) return false;
+
+  if (a.uri) {
+    if (!b) return true;
+    if (a.uri === b.uri) return false;
+    return true;
+  }
+}
