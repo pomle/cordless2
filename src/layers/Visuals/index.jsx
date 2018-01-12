@@ -19,7 +19,6 @@ export class Visuals extends Component {
       track: null,
       album: null,
       pulse: 0.3,
-      loudness: 0,
     };
   }
 
@@ -46,17 +45,8 @@ export class Visuals extends Component {
       this.analyzer = null;
     }
 
-    const lookAtSegment = lookAt('loudness_max', data =>
-      console.log('Segment', data.loudness_max)
-    );
+    const lookAtSegment = lookAt('loudness_max', data => console.log('Segment', data.loudness_max));
     const lookAtSection = lookAt('start', data => console.log('Section', data));
-
-    const lookAtLoudness = lookAt('loudness', data => {
-      const loudness = 1 - -data.loudness / 30;
-      const loudnessQuad = Math.pow(loudness, 2);
-      console.log('Updating loudness', loudnessQuad);
-      this.setState({ loudness: loudnessQuad });
-    });
 
     const data = await this.props.trackAPI.getAudioAnalysis(track.id);
     this.analyzer = analysis.stream(data);
@@ -64,42 +54,27 @@ export class Visuals extends Component {
       if (data.beat) {
         const beatPosition = data.position - data.beat.start;
         const beatProgress = beatPosition / data.beat.duration;
-        //console.log(beatProgress, 1 - beatProgress);
 
         this.setState({
           pulse: 1 - beatProgress,
-        });
-        //console.log(data.position.toFixed(2), '-'.repeat((data.position - data.beat.start) * 10));
-        //console.log(data.position - data.beat.start, data.beat.start, data.beat.duration);
-      }
-
-      if (data.section) {
-        lookAtLoudness(data.section);
-      }
-
-      if (data.segment) {
-        this.setState({
-          loudness: data.segment.loudness_max,
         });
       }
 
       lookAtSegment(data.segment);
       lookAtSection(data.section);
-      //console.log(data.segment);
     });
     this.analyzer.start();
   };
 
   render() {
-    //console.log('Visual props', this.props);
     const { promote } = this.props;
-    const { album, pulse, loudness } = this.state;
+    const { album, pulse } = this.state;
     const image = album && album.images[0].url;
     return (
       <div className="Visuals" ref={node => (this.element = node)}>
         <Album image={image} promote={promote}/>
 
-        <Backdrop image={image} pulse={pulse} promote={promote} loudness={loudness}/>
+        <Backdrop image={image} pulse={pulse} promote={promote}/>
       </div>
     );
   }
