@@ -72,8 +72,8 @@ export class Search extends Component {
 
   playTrack = track => {
     const { playbackAPI } = this.props;
-    const trackURIs = this.state.tracks.map(track => track.uri);
-    playbackAPI.playTracks(trackURIs, track.uri);
+    const trackIds = this.state.tracks.map(track => track.id);
+    playbackAPI.playTracks(trackIds, track.id);
   };
 
   render() {

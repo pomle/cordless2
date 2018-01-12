@@ -21,8 +21,8 @@ export class AlbumDetail extends Component {
   }
 
   playTrack = track => {
-    const { playbackAPI } = this.props;
-    playbackAPI.playAlbum(this.state.album.uri, track.uri);
+    const { playbackAPI, albumId } = this.props;
+    playbackAPI.playAlbum(albumId, track.id);
   };
 
   updateFilter = filter => {

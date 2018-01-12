@@ -58,9 +58,8 @@ export class PlaylistDetail extends Component {
   }
 
   playTrack = track => {
-    const { playbackAPI } = this.props;
-    const trackURIs = this.getTracks().map(entry => entry.track.uri);
-    playbackAPI.playTracks(trackURIs, track.uri);
+    const { playbackAPI, userId, playlistId } = this.props;
+    playbackAPI.playPlaylist(userId, playlistId, track.id);
   };
 
   updateFilter = filter => {
