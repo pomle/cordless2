@@ -11,10 +11,10 @@ export class PlayerUI extends Component {
     console.log(event);
   }
 
-  componentDidMount() {
+  /*componentDidMount() {
     this.viewport.addEventListener('scroll', this.onScroll);
     this.viewport.addEventListener('mousewheel', this.onScroll);
-  }
+  }*/
 
   render() {
     const { applicationState } = this.props;
