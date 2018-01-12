@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import { compareObjectURIs, onChange } from './util.js';
+import { compareObjectURIs, onChange, lookAt } from './util.js';
 import { analysis } from '@pomle/spotify-web-sdk';
 
 import { Album } from './Album';
@@ -44,19 +44,6 @@ export class Visuals extends Component {
     if (this.analyzer) {
       this.analyzer.stop();
       this.analyzer = null;
-    }
-
-    function lookAt(prop, callback) {
-      let last = {};
-
-      return function onData(data) {
-        if (data) {
-          if (last[prop] !== data[prop]) {
-            callback(data);
-          }
-          last = data;
-        }
-      };
     }
 
     const lookAtSegment = lookAt('loudness_max', data =>
