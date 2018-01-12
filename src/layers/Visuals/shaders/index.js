@@ -84,25 +84,25 @@ precision mediump float;
 varying vec2 uv;
 uniform sampler2D t;
 uniform float intensity;
-uniform float time;
+uniform float progress;
 uniform float thickness;
+uniform float spacing;
 
 void main() {
   float yOffset = 0.1;
-  float spacing = 0.2;
 
   float amnt;
   float nd;
   vec4 colorBuffer = vec4(0.0);
 
   for(float i = 0.0; i < 10.0; i++) {
-    nd = sin(2.536 * uv.x + (i * spacing + sin(time) * 0.3) + time) * 0.8 + yOffset + uv.x;
+    nd = sin(2.536 * uv.x + (i * spacing + sin(progress) * 0.3) + progress) * 0.8 + yOffset + uv.x;
     amnt = thickness / abs(nd - uv.y) * 0.05;
     colorBuffer += vec4(amnt * 0.5, 0.0, amnt, 1.0);
   }
 
   /*for(float i = 0.0; i < 1.0; i++) {
-    nd = sin(3.14 * 2.0 * uv.y + i * 40.5 + time) * 90.3 * (uv.y + 80.3) + 0.5;
+    nd = sin(3.14 * 2.0 * uv.y + i * 40.5 + progress) * 90.3 * (uv.y + 80.3) + 0.5;
     amnt = 1.0 / abs(nd - uv.x) * 0.015;
     colorBuffer += vec4(amnt*0.2, amnt*0.2 , 0.1+amnt*uv.x, 1.0);
   }*/
@@ -120,16 +120,37 @@ export const HelloBlue = timed(({ time }) => {
   return <Node shader={shaders.helloBlue} uniforms={{ time: time / 1000 }} />;
 });
 
-export const Pontus = timed(({ time, thickness, children: t }) => (
-  <Node
-    shader={shaders.pontus}
-    uniforms={{
-      t,
-      thickness,
-      time: time / 5000,
-    }}
-  />
-));
+export const Pontus = timed(
+  class extends Component {
+    constructor(props) {
+      super(props);
+      this.lastTime = 0;
+      this.progress = 0;
+    }
+
+    componentWillReceiveProps({ time, timeSpeed }) {
+      const dt = time - this.lastTime;
+      this.progress += dt / 1000 * timeSpeed;
+      this.lastTime = time;
+    }
+
+    render() {
+      const { thickness, spacing, children: t } = this.props;
+
+      return (
+        <Node
+          shader={shaders.pontus}
+          uniforms={{
+            t,
+            thickness,
+            spacing,
+            progress: this.progress,
+          }}
+        />
+      );
+    }
+  }
+);
 
 export const DiamondCrop = ({ children: t }) => (
   <Node shader={shaders.DiamondCrop} uniforms={{ t }} />

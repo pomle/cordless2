@@ -49,6 +49,7 @@ export class Visuals extends Component {
       track: null,
       album: null,
       pulse: 0.3,
+      loudness: 0,
     };
   }
 
@@ -167,6 +168,13 @@ export class Visuals extends Component {
     );
     const lookAtSection = lookAt('start', data => console.log('Section', data));
 
+    const lookAtLoudness = lookAt('loudness', data => {
+      const loudness = 1 - -data.loudness / 30;
+      const loudnessQuad = Math.pow(loudness, 2);
+      console.log('Updating loudness', loudnessQuad);
+      this.setState({ loudness: loudnessQuad });
+    });
+
     const data = await this.props.trackAPI.getAudioAnalysis(track.id);
     this.analyzer = analysis.stream(data);
     this.analyzer.on('data', data => {
@@ -180,6 +188,10 @@ export class Visuals extends Component {
         });
         //console.log(data.position.toFixed(2), '-'.repeat((data.position - data.beat.start) * 10));
         //console.log(data.position - data.beat.start, data.beat.start, data.beat.duration);
+      }
+
+      if (data.section) {
+        lookAtLoudness(data.section);
       }
 
       if (data.segment) {
@@ -198,15 +210,15 @@ export class Visuals extends Component {
   componentWillReceiveProps({ context, track }) {
     this.onTrackChange(track);
     if (this.analyzer) {
-      console.log('Analyzer run', !context.paused);
       this.analyzer.run(!context.paused);
       this.analyzer.sync(context.position);
     }
   }
 
   render() {
+    //console.log('Visual props', this.props);
     const { promote } = this.props;
-    const { album, pulse } = this.state;
+    const { album, pulse, loudness } = this.state;
     const image = album && album.images[0].url;
     return (
       <div className="Visuals" ref={node => (this.element = node)}>
@@ -228,20 +240,39 @@ export class Visuals extends Component {
         <div className="background">
           <Surface width={400} height={400}>
             <Motion
-              defaultStyle={{ factor: 0 }}
+              defaultStyle={{
+                factor: 0,
+                thickness: 0,
+                loudness: 0,
+                spacing: 0.2,
+              }}
               style={{
                 factor: spring(promote ? 0 : 1, { stiffness: 70, damping: 5 }),
+                loudness: spring(loudness),
+                thickness: spring(Math.max(0.1, pulse * loudness)),
+                spacing: spring(loudness ** 2 + 0.4, {
+                  stiffness: 30,
+                  damping: 60,
+                  precision: 0.0001,
+                }),
               }}
             >
-              {({ factor }) => (
-                <Blur passes={2} factor={factor * 3}>
-                  <Pontus thickness={pulse}>
-                    <Blur passes={4} factor={10}>
-                      {image}
-                    </Blur>
-                  </Pontus>
-                </Blur>
-              )}
+              {({ factor, thickness, loudness, spacing }) => {
+                console.log('Loudness', loudness);
+                return (
+                  <Blur passes={2} factor={factor * 3}>
+                    <Pontus
+                      thickness={thickness}
+                      timeSpeed={Math.max(0.01, loudness * loudness * loudness)}
+                      spacing={spacing}
+                    >
+                      <Blur passes={4} factor={10}>
+                        {image}
+                      </Blur>
+                    </Pontus>
+                  </Blur>
+                );
+              }}
             </Motion>
           </Surface>
         </div>
