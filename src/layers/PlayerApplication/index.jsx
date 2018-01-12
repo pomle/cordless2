@@ -3,6 +3,7 @@ import { Route } from 'react-router-dom';
 
 import {
   createPlayer,
+  AlbumAPI,
   PlaybackAPI,
   PlaylistAPI,
   SearchAPI,
@@ -23,6 +24,7 @@ export class PlayerApplication extends Component {
     const { token } = props;
 
     this.apis = {
+      albumAPI: new AlbumAPI(token),
       playbackAPI: new PlaybackAPI(token),
       playlistAPI: new PlaylistAPI(token),
       searchAPI: new SearchAPI(token),
