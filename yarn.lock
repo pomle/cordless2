@@ -5495,10 +5495,6 @@ react-error-overlay@^3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-3.0.0.tgz#c2bc8f4d91f1375b3dad6d75265d51cd5eeaf655"
 
-react-gl-transition@^1.13.0:
-  version "1.13.0"
-  resolved "https://registry.yarnpkg.com/react-gl-transition/-/react-gl-transition-1.13.0.tgz#0a6900c880a180d91b46db1fefdf746d77e027c4"
-
 react-motion@^0.5.2:
   version "0.5.2"
   resolved "https://registry.yarnpkg.com/react-motion/-/react-motion-0.5.2.tgz#0dd3a69e411316567927917c6626551ba0607316"
