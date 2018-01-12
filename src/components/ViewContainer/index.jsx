@@ -4,10 +4,6 @@ import './ViewContainer.css';
 
 export class ViewContainer extends Component {
   render() {
-    return (
-      <div className="ViewContainer">
-        {this.props.children}
-      </div>
-    );
+    return <div className="ViewContainer">{this.props.children}</div>;
   }
 }

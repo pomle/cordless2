@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import {Motion, spring} from 'react-motion';
-import {Surface} from "gl-react-dom";
+import { Motion, spring } from 'react-motion';
+import { Surface } from 'gl-react-dom';
 
-import {onChange} from './util.js';
+import { onChange } from './util.js';
 
-import {Pontus, HelloBlue} from './shaders';
-import {BetterBlur as Blur} from './shaders/blur';
-
+import { Pontus, HelloBlue } from './shaders';
+import { BetterBlur as Blur } from './shaders/blur';
 
 import './Visuals.css';
 
@@ -19,7 +18,6 @@ function compareObjectURIs(a, b) {
     return true;
   }
 }
-
 
 export class Visuals extends Component {
   constructor(props) {
@@ -48,16 +46,15 @@ export class Visuals extends Component {
     this.state = {
       track: null,
       album: null,
-    }
+    };
   }
 
   onResize = () => {
     //this.camera.aspect = window.innerWidth / window.innerHeight;
     //this.camera.updateProjectionMatrix();
-  }
+  };
 
   componentDidMount() {
-
     window.addEventListener('resize', this.onResize);
   }
 
@@ -65,8 +62,8 @@ export class Visuals extends Component {
     window.removeEventListener('resize', this.onResize);
   }
 
-  onAlbumChange = (album) => {
-    this.setState({album});
+  onAlbumChange = album => {
+    this.setState({ album });
     /*this.backgrounds.forEach(mesh => {
       anime({
         targets: mesh.material,
@@ -138,49 +135,60 @@ export class Visuals extends Component {
 
       this.uris.set(album.uri, album);
     });*/
-  }
+  };
 
-  onTrackChange = (track) => {
-    this.setState({track});
+  onTrackChange = track => {
+    this.setState({ track });
     this.onAlbumChange(track.album);
-  }
+  };
 
-  componentWillReceiveProps({track}) {
+  componentWillReceiveProps({ track }) {
     this.onTrackChange(track);
   }
 
   render() {
     console.log('Visual props', this.props);
-    const {promote, context} = this.props;
-    const {album} = this.state;
+    const { promote, context } = this.props;
+    const { album } = this.state;
     const image = album && album.images[0].url;
-    return <div
-      className="Visuals"
-      ref={node => this.element = node}
-    >
-      <div className="album">
-        <Surface width={400} height={400}>
-          <Motion defaultStyle={{factor: 0}} style={{factor: spring(promote ? 0 : 4)}}>
-            {({factor}) => <Blur passes={4} factor={factor}>
-              {image}
-            </Blur>}
-          </Motion>
-        </Surface>
-      </div>
-
-      <div className="background">
-        <Surface width={400} height={400}>
-          <Motion defaultStyle={{factor: 0}} style={{factor: spring(promote ? 0 : 1, {stiffness: 70, damping: 5})}}>
-            {({factor}) => <Blur passes={2} factor={factor * 3}>
-              <Pontus>
-                <Blur passes={4} factor={10}>
+    return (
+      <div className="Visuals" ref={node => (this.element = node)}>
+        <div className="album">
+          <Surface width={400} height={400}>
+            <Motion
+              defaultStyle={{ factor: 0 }}
+              style={{ factor: spring(promote ? 0 : 4) }}
+            >
+              {({ factor }) => (
+                <Blur passes={4} factor={factor}>
                   {image}
                 </Blur>
-              </Pontus>
-            </Blur>}
-          </Motion>
-        </Surface>
+              )}
+            </Motion>
+          </Surface>
+        </div>
+
+        <div className="background">
+          <Surface width={400} height={400}>
+            <Motion
+              defaultStyle={{ factor: 0 }}
+              style={{
+                factor: spring(promote ? 0 : 1, { stiffness: 70, damping: 5 }),
+              }}
+            >
+              {({ factor }) => (
+                <Blur passes={2} factor={factor * 3}>
+                  <Pontus>
+                    <Blur passes={4} factor={10}>
+                      {image}
+                    </Blur>
+                  </Pontus>
+                </Blur>
+              )}
+            </Motion>
+          </Surface>
+        </div>
       </div>
-    </div>;
+    );
   }
 }

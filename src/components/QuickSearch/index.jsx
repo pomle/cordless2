@@ -7,7 +7,7 @@ export class QuickSearch extends Component {
     super(props);
 
     this.state = {
-        visible: false,
+      visible: false,
     };
   }
 
@@ -19,40 +19,45 @@ export class QuickSearch extends Component {
     window.removeEventListener('keydown', this.keyListener);
   }
 
-  keyListener = (event) => {
+  keyListener = event => {
     if (event.code === 'KeyF' && event.ctrlKey) {
-        event.preventDefault();
-        this.setState(({visible}) => ({
-            visible: !visible,
-        }));
-        this.input.focus();
+      event.preventDefault();
+      this.setState(({ visible }) => ({
+        visible: !visible,
+      }));
+      this.input.focus();
     } else if (event.code === 'Escape') {
-        if (this.props.onCancelled) {
-            this.props.onCancelled();
-        }
+      if (this.props.onCancelled) {
+        this.props.onCancelled();
+      }
 
-        this.setState({
-            visible: false,
-        });
+      this.setState({
+        visible: false,
+      });
     }
-  }
+  };
 
-  handleChange = (event) => {
+  handleChange = event => {
     this.props.onChange(event.target.value);
-  }
+  };
 
   render() {
-    const {value} = this.props;
-    const {visible} = this.state;
+    const { value } = this.props;
+    const { visible } = this.state;
 
     const classes = ['QuickSearch'];
     if (visible) {
-        classes.push('isVisible');
+      classes.push('isVisible');
     }
 
     return (
       <div className={classes.join(' ')}>
-        <input ref={node => this.input = node} type='text' value={value} onChange={this.handleChange}/>
+        <input
+          ref={node => (this.input = node)}
+          type="text"
+          value={value}
+          onChange={this.handleChange}
+        />
       </div>
     );
   }

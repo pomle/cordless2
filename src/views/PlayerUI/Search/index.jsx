@@ -1,27 +1,26 @@
 import React, { Component } from 'react';
-import {List} from 'immutable';
+import { List } from 'immutable';
 
-import {Tracklist} from 'fragments/Tracklist';
-import {Track} from 'fragments/Track';
+import { Tracklist } from 'fragments/Tracklist';
+import { Track } from 'fragments/Track';
 
 import './Search.css';
 
-function debounce (func, wait = 500) {
-    let timeout;
-    return function debounceWrapper (...args) {
-        clearTimeout(timeout);
-        const context = this;
-        return new Promise(resolve => {
-            function later () {
-                timeout = null;
-                resolve(Reflect.apply(func, context, args));
-            }
+function debounce(func, wait = 500) {
+  let timeout;
+  return function debounceWrapper(...args) {
+    clearTimeout(timeout);
+    const context = this;
+    return new Promise(resolve => {
+      function later() {
+        timeout = null;
+        resolve(Reflect.apply(func, context, args));
+      }
 
-            timeout = setTimeout(later, wait);
-        });
-    };
+      timeout = setTimeout(later, wait);
+    });
+  };
 }
-
 
 export class Search extends Component {
   constructor(props) {
@@ -38,9 +37,9 @@ export class Search extends Component {
     };
   }
 
-  handleChange = (event) => {
+  handleChange = event => {
     this.handleSearchInput(event.target.value);
-  }
+  };
 
   handleSearchInput(query) {
     this.setState({
@@ -50,8 +49,7 @@ export class Search extends Component {
 
     this.query = query;
 
-    this.performSearch(query)
-    .then(results => {
+    this.performSearch(query).then(results => {
       if (this.query === results.query) {
         if (results.data.error) {
           console.error(results);
@@ -67,21 +65,20 @@ export class Search extends Component {
   }
 
   performSearch(query) {
-    return this.props.searchAPI.search('track', query)
-    .then(data => {
-      return {query, data};
+    return this.props.searchAPI.search('track', query).then(data => {
+      return { query, data };
     });
   }
 
-  playTrack = (track) => {
+  playTrack = track => {
     const { playbackAPI } = this.props;
     const trackURIs = this.state.tracks.map(track => track.uri);
     playbackAPI.playTracks(trackURIs, track.uri);
-  }
+  };
 
   render() {
     const { player } = this.props;
-    const {query, tracks} = this.state;
+    const { query, tracks } = this.state;
 
     const classes = ['Search'];
     if (query.length) {
@@ -93,14 +90,21 @@ export class Search extends Component {
         <header>
           <h2>Search</h2>
 
-          <input type="text" autoFocus onChange={this.handleChange}/>
+          <input type="text" autoFocus onChange={this.handleChange} />
         </header>
 
         <div className="results">
           <Tracklist>
-             {tracks.map(track => {
-                return <Track key={track.id} track={track} play={this.playTrack} player={player}/>
-             })}
+            {tracks.map(track => {
+              return (
+                <Track
+                  key={track.id}
+                  track={track}
+                  play={this.playTrack}
+                  player={player}
+                />
+              );
+            })}
           </Tracklist>
         </div>
       </div>

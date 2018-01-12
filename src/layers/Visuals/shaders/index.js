@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { Shaders, Node, GLSL } from "gl-react";
-import {timed} from '../timed.jsx';
+import { Shaders, Node, GLSL } from 'gl-react';
+import { timed } from '../timed.jsx';
 
 const shaders = Shaders.create({
   helloBlue: {
@@ -10,7 +10,7 @@ varying vec2 uv;
 uniform float blue;
 void main() {
   gl_FragColor = vec4(uv.x / 2.0, uv.y, blue, 1.0);
-}`
+}`,
   },
   DiamondCrop: {
     frag: GLSL`
@@ -24,7 +24,8 @@ gl_FragColor = mix(
   step(0.5, abs(uv.x - 0.5) + abs(uv.y - 0.5))
 );
 }
-` },
+`,
+  },
   animated: {
     frag: GLSL`
 precision highp float;
@@ -50,7 +51,8 @@ void main() {
     1.0 - uv.x + 0.5 * cos(uv.y * 2.0)
   ), 1.0);
 }
-` },
+`,
+  },
   eities: {
     frag: GLSL`
 precision highp float;
@@ -74,7 +76,7 @@ void main() {
   }
   gl_FragColor = cbuff;
 }
-`
+`,
   },
   pontus: {
     frag: GLSL`
@@ -104,40 +106,44 @@ void main() {
 
     0.5);
 }
-`
-  }
+`,
+  },
 });
 
-export const HelloBlue = timed(({time}) => {
-  return <Node
-    shader={shaders.helloBlue}
-    uniforms={{ time: time /1000}}
-  />;
-})
+export const HelloBlue = timed(({ time }) => {
+  return <Node shader={shaders.helloBlue} uniforms={{ time: time / 1000 }} />;
+});
 
-export const Pontus = timed(({ time, children: t }) =>
-  <Node shader={shaders.pontus} uniforms={{
-        t,
-        time: time / 5000,
-      }} />);
+export const Pontus = timed(({ time, children: t }) => (
+  <Node
+    shader={shaders.pontus}
+    uniforms={{
+      t,
+      time: time / 5000,
+    }}
+  />
+));
 
-export const DiamondCrop = ({ children: t }) =>
-  <Node shader={shaders.DiamondCrop} uniforms={{ t }} />;
+export const DiamondCrop = ({ children: t }) => (
+  <Node shader={shaders.DiamondCrop} uniforms={{ t }} />
+);
 
 class Animated extends Component {
   render() {
     const { children: t, time } = this.props;
-    return <Node
-      shader={shaders.animated}
-      uniforms={{
-        t,
-        time,
-        freq: 20 - 14 * Math.sin(time / 7000),
-        amp: 0.05 * (1 - Math.cos(time / 4000)),
-        colorSeparation: 0.02,
-        moving: 1,
-      }}
-    />;
+    return (
+      <Node
+        shader={shaders.animated}
+        uniforms={{
+          t,
+          time,
+          freq: 20 - 14 * Math.sin(time / 7000),
+          amp: 0.05 * (1 - Math.cos(time / 4000)),
+          colorSeparation: 0.02,
+          moving: 1,
+        }}
+      />
+    );
   }
 }
 

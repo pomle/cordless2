@@ -4,7 +4,7 @@ export function timer(callback) {
   function update(time) {
     if (time && lastTime) {
       const diff = time - lastTime;
-      callback(diff, time)
+      callback(diff, time);
     }
     lastTime = time;
     frameId = window.requestAnimationFrame(update);
@@ -17,6 +17,6 @@ export function timer(callback) {
   }
 
   return {
-    stop
-  }
+    stop,
+  };
 }

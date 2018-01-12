@@ -1,10 +1,9 @@
-import React, { PureComponent } from "react";
-import raf from "raf";
-import hoistNonReactStatics from "hoist-non-react-statics";
+import React, { PureComponent } from 'react';
+import raf from 'raf';
+import hoistNonReactStatics from 'hoist-non-react-statics';
 
 // NB this is only an utility for the examples
 export function timed(C, refreshRate = 60) {
-
   class TL extends PureComponent {
     constructor(props) {
       super(props);
@@ -38,14 +37,11 @@ export function timed(C, refreshRate = 60) {
     }
 
     render() {
-      return <C
-        {...this.props}
-        {...this.state}
-      />;
+      return <C {...this.props} {...this.state} />;
     }
   }
 
   hoistNonReactStatics(TL, C);
 
   return TL;
-};
+}

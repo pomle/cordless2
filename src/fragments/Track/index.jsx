@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import {PlayButton} from 'components/PlayButton';
-import {Artists} from 'fragments/Artists';
+import { PlayButton } from 'components/PlayButton';
+import { Artists } from 'fragments/Artists';
 
 export class Track extends Component {
   play = () => {
@@ -16,23 +16,21 @@ export class Track extends Component {
     return (
       <div className="Track">
         <div className="playback">
-          { !isLocal
-            ? <PlayButton onClick={this.play}/>
-            : <button>Local</button>
-          }
+          {!isLocal ? (
+            <PlayButton onClick={this.play} />
+          ) : (
+            <button>Local</button>
+          )}
         </div>
-        <div className="name">
-          {track.name}
-        </div>
+        <div className="name">{track.name}</div>
         <div className="artists">
-          <Artists artists={track.artists}/>
+          <Artists artists={track.artists} />
         </div>
-        { track.album
-          ? <div className="album">
+        {track.album ? (
+          <div className="album">
             <Link to={`/album/${track.album.id}`}>{track.album.name}</Link>
           </div>
-          : null
-        }
+        ) : null}
       </div>
     );
   }

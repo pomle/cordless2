@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import {Image} from 'fragments/Image';
+import { Image } from 'fragments/Image';
 
 import './ViewHeader.css';
 
@@ -10,12 +10,11 @@ export class ViewHeader extends Component {
 
     return (
       <header className="ViewHeader">
-        { images
-          ? <div className="image">
-            <Image candidates={images}/>
+        {images ? (
+          <div className="image">
+            <Image candidates={images} />
           </div>
-          : null
-        }
+        ) : null}
 
         <h2>{caption}</h2>
       </header>

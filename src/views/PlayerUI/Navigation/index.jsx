@@ -9,7 +9,12 @@ import { Search } from '../Search';
 
 export class Navigation extends Component {
   render() {
-    const { albumAPI, playlistAPI, playbackAPI, searchAPI } = this.props.applicationState;
+    const {
+      albumAPI,
+      playlistAPI,
+      playbackAPI,
+      searchAPI,
+    } = this.props.applicationState;
 
     return (
       <div className="Navigation">
@@ -49,7 +54,7 @@ export class Navigation extends Component {
               />
             </Route>
             <Route path="/search">
-              <Search playbackAPI={playbackAPI} searchAPI={searchAPI}/>
+              <Search playbackAPI={playbackAPI} searchAPI={searchAPI} />
             </Route>
             <Route path="*">
               <ul>

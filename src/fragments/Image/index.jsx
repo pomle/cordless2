@@ -14,7 +14,7 @@ function largest(images) {
 
 export class Image extends Component {
   render() {
-    const {candidates} = this.props;
+    const { candidates } = this.props;
 
     const style = {};
     if (candidates.length) {

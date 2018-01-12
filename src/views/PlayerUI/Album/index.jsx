@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 
-import {ViewHeader} from 'components/ViewHeader';
-import {Tracklist} from 'fragments/Tracklist';
-import {Track} from 'fragments/Track';
+import { ViewHeader } from 'components/ViewHeader';
+import { Tracklist } from 'fragments/Tracklist';
+import { Track } from 'fragments/Track';
 
 export class AlbumDetail extends Component {
   constructor(props) {
@@ -17,17 +17,17 @@ export class AlbumDetail extends Component {
     const { albumAPI: api, albumId } = this.props;
 
     const album = await api.getAlbum(albumId);
-    this.setState({album});
- }
+    this.setState({ album });
+  }
 
-  playTrack = (track) => {
+  playTrack = track => {
     const { playbackAPI } = this.props;
     playbackAPI.playAlbum(this.state.album.uri, track.uri);
-  }
+  };
 
-  updateFilter = (filter) => {
-    this.setState({filter});
-  }
+  updateFilter = filter => {
+    this.setState({ filter });
+  };
 
   render() {
     const { player } = this.props;
@@ -43,7 +43,14 @@ export class AlbumDetail extends Component {
 
         <Tracklist>
           {album.tracks.items.map(track => {
-            return <Track key={track.id} track={track} play={this.playTrack} player={player} />;
+            return (
+              <Track
+                key={track.id}
+                track={track}
+                play={this.playTrack}
+                player={player}
+              />
+            );
           })}
         </Tracklist>
       </div>

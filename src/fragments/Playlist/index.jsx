@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
-import {PlayButton} from 'components/PlayButton';
-import {Image} from 'fragments/Image';
+import { PlayButton } from 'components/PlayButton';
+import { Image } from 'fragments/Image';
 
 import './Playlist.css';
 
@@ -19,7 +19,7 @@ export class Playlist extends Component {
     return (
       <div className="Playlist">
         <div className="image">
-          <Image candidates={playlist.images}/>
+          <Image candidates={playlist.images} />
         </div>
 
         <div className="name">
@@ -31,18 +31,14 @@ export class Playlist extends Component {
           </Link>
         </div>
 
-        <div className="trackCount">
-          {playlist.tracks.total}
-        </div>
+        <div className="trackCount">{playlist.tracks.total}</div>
 
         <div className="owner">
-          <Link to={`/user/${owner.id}`}>
-            {owner.display_name}
-          </Link>
+          <Link to={`/user/${owner.id}`}>{owner.display_name}</Link>
         </div>
 
         <div className="playback">
-          <PlayButton onClick={this.play}/>
+          <PlayButton onClick={this.play} />
         </div>
       </div>
     );

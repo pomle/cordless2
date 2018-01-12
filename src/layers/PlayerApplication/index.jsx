@@ -1,9 +1,14 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
 
-import { createPlayer, PlaybackAPI, PlaylistAPI, SearchAPI } from '@pomle/spotify-web-sdk';
+import {
+  createPlayer,
+  PlaybackAPI,
+  PlaylistAPI,
+  SearchAPI,
+} from '@pomle/spotify-web-sdk';
 
-import {createPoller} from './poller.js';
+import { createPoller } from './poller.js';
 import { PlayerState } from './state.js';
 
 import { Visuals } from 'layers/Visuals';
@@ -52,13 +57,15 @@ export class PlayerApplication extends Component {
   }
 
   update(fn) {
-    this.setState(prevState => Object.assign({}, prevState, {
-      player: fn(prevState.player),
-    }));
+    this.setState(prevState =>
+      Object.assign({}, prevState, {
+        player: fn(prevState.player),
+      })
+    );
   }
 
   render() {
-    const {player} = this.state;
+    const { player } = this.state;
 
     const classes = ['PlayerApplication'];
     if (player.deviceId) {
@@ -68,12 +75,23 @@ export class PlayerApplication extends Component {
     }
 
     return (
-      <Route path="*" render={({match}) => {
-        return <div className={classes.join(' ')}>
-          <PlayerUI applicationState={Object.assign({}, this.apis, this.state)}/>
-          <Visuals promote={match.url === '/now-playing'} context={player.context} track={player.context.toJS().track_window.current_track}/>
-        </div>
-      }}/>
+      <Route
+        path="*"
+        render={({ match }) => {
+          return (
+            <div className={classes.join(' ')}>
+              <PlayerUI
+                applicationState={Object.assign({}, this.apis, this.state)}
+              />
+              <Visuals
+                promote={match.url === '/now-playing'}
+                context={player.context}
+                track={player.context.toJS().track_window.current_track}
+              />
+            </div>
+          );
+        }}
+      />
     );
   }
 }
