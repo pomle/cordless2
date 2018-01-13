@@ -1,4 +1,4 @@
-export class LRU {
+export class LRUCache {
   constructor(limit = 1000) {
     this.limit = limit;
     this.items = new Map();

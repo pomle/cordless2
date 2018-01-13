@@ -1,4 +1,4 @@
-import { LRU } from '../cache.js';
+import { LRUCache as LRU } from '../cache.js';
 
 describe('LRU Cache', () => {
   it('stores and retrieves an item', () => {

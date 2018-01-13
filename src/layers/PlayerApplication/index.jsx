@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 
 import {
@@ -10,6 +11,9 @@ import {
   TrackAPI,
 } from '@pomle/spotify-web-sdk';
 
+import { LRUCache } from 'library/cache';
+import { ImagePool } from 'library/ImagePool';
+
 import { createPoller } from './poller.js';
 
 import { PlayerState } from './state.js';
@@ -20,10 +24,16 @@ import { PlayerUI } from 'layers/PlayerUI';
 import './PlayerApplication.css';
 
 export class PlayerApplication extends Component {
+  static childContextTypes = {
+    images: PropTypes.object,
+  };
+
   constructor(props) {
     super(props);
 
     const { token } = props;
+
+    this.images = new ImagePool(new LRUCache(100));
 
     this.apis = {
       albumAPI: new AlbumAPI(token),
@@ -35,6 +45,12 @@ export class PlayerApplication extends Component {
 
     this.state = {
       player: new PlayerState(),
+    };
+  }
+
+  getChildContext() {
+    return {
+      images: this.images,
     };
   }
 
