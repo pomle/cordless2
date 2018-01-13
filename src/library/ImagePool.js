@@ -6,7 +6,6 @@ export class ImagePool {
   }
 
   get(url) {
-    debugger;
     if (!this.storage.get(url)) {
       const promise = loadImage(url);
       this.storage.add(url, promise);
