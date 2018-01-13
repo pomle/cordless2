@@ -7,6 +7,8 @@ import { PlaylistDetail } from 'views/Playlist/Detail';
 import { PlaylistIndex } from 'views/Playlist/Index';
 import { Search } from 'views/Search';
 
+import './Navigation.css';
+
 export class Navigation extends Component {
   render() {
     const {
