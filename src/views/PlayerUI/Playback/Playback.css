@@ -2,12 +2,12 @@
     background: rgba(0, 0, 0, .8);
     box-shadow: 0 0 2em #000;
     display: grid;
-    grid:  1fr 4fr / repeat(3, 1fr);
+    grid:  1em auto / repeat(3, 1fr);
 }
 
 .Playback .NowPlaying,
 .Playback .Interface {
-    margin: 0.5em;
+    margin: 0.8em;
 }
 
 .Playback .Scrubber {
