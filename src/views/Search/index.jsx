@@ -5,23 +5,9 @@ import { List } from 'immutable';
 import { Tracklist } from 'fragments/Tracklist';
 import { Track } from 'fragments/Track';
 
+import { debounce } from 'library/debounce';
+
 import './Search.css';
-
-function debounce(func, wait = 500) {
-  let timeout;
-  return function debounceWrapper(...args) {
-    clearTimeout(timeout);
-    const context = this;
-    return new Promise(resolve => {
-      function later() {
-        timeout = null;
-        resolve(Reflect.apply(func, context, args));
-      }
-
-      timeout = setTimeout(later, wait);
-    });
-  };
-}
 
 export class Search extends Component {
   static contextTypes = {
