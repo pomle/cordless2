@@ -34,13 +34,13 @@ export class Navigation extends Component {
               }}
             />
             <Route
-              path="/playlist/:playlistId/user/:userId"
+              path="/user/:userId/playlist/:playlistId"
               render={props => {
-                const { playlistId, userId } = props.match.params;
+                const { userId, playlistId } = props.match.params;
                 return (
                   <PlaylistDetail
-                    playlistId={playlistId}
                     userId={userId}
+                    playlistId={playlistId}
                     playlistAPI={playlistAPI}
                     playbackAPI={playbackAPI}
                   />

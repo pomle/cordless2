@@ -24,7 +24,7 @@ export class Playlist extends Component {
 
         <div className="name">
           <Link
-            to={`/playlist/${playlist.id}/user/${playlist.owner.id}`}
+            to={`/user/${playlist.owner.id}/playlist/${playlist.id}`}
             className="name"
           >
             {playlist.name}
