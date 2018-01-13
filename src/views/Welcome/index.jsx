@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+import {Splash} from 'components/Splash';
+
 import CordlessLogo from 'assets/cordless-logo.png';
 import SpotifyLogo from './spotify.svg';
 
@@ -9,8 +11,8 @@ export class Welcome extends Component {
   render() {
     const { authURL } = this.props;
 
-    return (
-      <div className="Welcome">
+    return <div className="Welcome">
+      <Splash>
         <h1><img alt="Cordless Logo" src={CordlessLogo}/></h1>
 
         <h2>
@@ -31,7 +33,7 @@ export class Welcome extends Component {
             <a href="https://discord.gg/kc9RRcC">Discord</a>
           </div>
         </div>
-      </div>
-    );
+      </Splash>
+    </div>;
   }
 }

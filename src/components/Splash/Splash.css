@@ -1,0 +1,12 @@
+.Splash {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.Splash button {
+    font-size: 1.2em;
+    margin: 2em;
+}

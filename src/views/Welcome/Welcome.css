@@ -1,10 +1,3 @@
-.Welcome {
-    display: flex;
-    flex-flow: column;
-    align-items: center;
-    justify-content: center;
-}
-
 .Welcome h1 {
     margin: 2em;
 }
@@ -12,11 +5,6 @@
 .Welcome h2 {
     display: flex;
     align-items: center;
-}
-
-.Welcome button {
-    font-size: 1.2em;
-    margin: 2em;
 }
 
 .Welcome .join {
