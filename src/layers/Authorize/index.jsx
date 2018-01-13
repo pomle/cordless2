@@ -10,21 +10,21 @@ const CALLBACK_URL = process.env.REACT_APP_SITE_URL || 'http://localhost:3000/';
 
 const STORAGE_KEY = 'session2';
 
-function getSession() {
+function getSession(storage) {
   try {
-    const data = JSON.parse(localStorage.getItem(STORAGE_KEY));
+    const data = JSON.parse(storage.getItem(STORAGE_KEY));
     const now = new Date().getTime();
     if (data.expiresAt < now) {
       return null;
     }
     return data.session;
   } catch (e) {
-    console.error(e);
+    // console.error(e);
     return null;
   }
 }
 
-function putSession(session) {
+function putSession(storage, session) {
   const now = new Date().getTime();
   const expiresInMs = parseFloat(session.expires_in) * 1000;
 
@@ -33,18 +33,20 @@ function putSession(session) {
     session,
   };
 
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  storage.setItem(STORAGE_KEY, JSON.stringify(data));
 }
 
 export class Authorize extends Component {
   constructor(props) {
     super(props);
 
-    let session = getSession();
+    const {storage} = props;
+
+    let session = getSession(storage);
     if (!session) {
       session = parse(props.route.location.hash);
       if (session.access_token) {
-        putSession(session);
+        putSession(storage, session);
       }
     }
 

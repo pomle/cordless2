@@ -8,6 +8,8 @@ import './App.css';
 
 class App extends Component {
   render() {
+    const {storage} = this.props;
+
     return (
       <BrowserRouter>
         <div className="App">
@@ -16,6 +18,7 @@ class App extends Component {
             render={route => {
               return (
                 <Authorize
+                  storage={storage}
                   route={route}
                   render={token => {
                     return <PlayerApplication token={token} />;
