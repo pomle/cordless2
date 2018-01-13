@@ -1,0 +1,37 @@
+.PlayableList > * {
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-between;
+    margin: -1em;
+}
+
+.PlayableList .item {
+    perspective: 200px;
+}
+
+.PlayableList .item > * {
+    background: rgba(0, 0, 0, .7);
+    box-shadow: 0 1em 2em -.5em #000;
+    transform: rotateY(10deg) rotateX(2deg);
+    transform-origin: 50px 50px;
+    transition: all 0.2s ease;
+}
+
+.PlayableList .item:hover > * {
+    transform: rotateX(0) rotateY(0) translateZ(30px);
+}
+
+.PlayableList .playback {
+    opacity: 0;
+}
+
+.PlayableList .playback button {
+    border-radius: 0 0 2em 0;
+    height: 2.5em;
+    padding: 0 1em 0 .5em;
+    text-align: left;
+}
+
+.PlayableList .item > *:hover .playback {
+    opacity: 1;
+}

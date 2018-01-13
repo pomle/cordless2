@@ -1,29 +1,9 @@
-.PlaylistList {
-    display: flex;
-    flex-flow: wrap;
-    justify-content: space-between;
-    margin: -1em;
-}
-
-.PlaylistList .item {
-    perspective: 200px;
-}
-
 .PlaylistList .Playlist {
-    background: rgba(0, 0, 0, .7);
-    box-shadow: 0 1em 2em -.5em #000;
     display: grid;
     grid: repeat(3, 1fr) / 5em 10em;
     grid-column-gap: 0.5em;
     height: 5em;
     margin: 1em;
-    transform: rotateY(10deg) rotateX(2deg);
-    transform-origin: 50px 50px;
-    transition: all 0.2s ease;
-}
-
-.PlaylistList .item:hover .Playlist  {
-    transform: rotateX(0) rotateY(0) translateZ(30px);
 }
 
 .PlaylistList .Playlist .image {
@@ -37,22 +17,10 @@
 }
 
 .PlaylistList .Playlist .playback {
-    opacity: 0;
     grid-column: 1;
     grid-row: 1;
 }
 
 .PlaylistList .Playlist .owner {
     align-self: end;
-}
-
-.PlaylistList .Playlist .playback button {
-    border-radius: 0 0 2em 0;
-    height: 2.5em;
-    padding: 0 1em 0 .5em;
-    text-align: left;
-}
-
-.PlaylistList .Playlist:hover .playback {
-    opacity: 1;
 }

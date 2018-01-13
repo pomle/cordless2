@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 
+import { PlayableList } from 'components/PlayableList';
 import { Playlist } from 'fragments/Playlist';
 import './PlaylistList.css';
 
@@ -7,7 +8,7 @@ export class PlaylistList extends Component {
   render() {
     const { playlists, playbackAPI } = this.props;
 
-    return (
+    return <PlayableList>
       <div className="PlaylistList">
         {playlists.map(playlist => {
           return (
@@ -17,6 +18,6 @@ export class PlaylistList extends Component {
           );
         })}
       </div>
-    );
+    </PlayableList>;
   }
 }
