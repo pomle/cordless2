@@ -1,12 +1,20 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { ViewHeader } from 'components/ViewHeader';
 import { Tracklist } from 'fragments/Tracklist';
 import { Track } from 'fragments/Track';
 
 export class AlbumDetail extends Component {
-  constructor(props) {
+  static contextTypes = {
+    api: PropTypes.object,
+  };
+
+  constructor(props, context) {
     super(props);
+
+    this.albumAPI = context.api.albumAPI;
+    this.playbackAPI = context.api.playbackAPI;
 
     this.state = {
       album: null,
@@ -14,15 +22,15 @@ export class AlbumDetail extends Component {
   }
 
   async componentDidMount() {
-    const { albumAPI: api, albumId } = this.props;
+    const { albumId } = this.props;
 
-    const album = await api.getAlbum(albumId);
+    const album = await this.albumAPI.getAlbum(albumId);
     this.setState({ album });
   }
 
   playTrack = track => {
-    const { playbackAPI, albumId } = this.props;
-    playbackAPI.playAlbum(albumId, track.id);
+    const { albumId } = this.props;
+    this.playbackAPI.playAlbum(albumId, track.id);
   };
 
   updateFilter = filter => {
@@ -30,7 +38,6 @@ export class AlbumDetail extends Component {
   };
 
   render() {
-    const { player } = this.props;
     const { album } = this.state;
 
     if (!album) {
@@ -48,7 +55,6 @@ export class AlbumDetail extends Component {
                 key={track.id}
                 track={track}
                 play={this.playTrack}
-                player={player}
               />
             );
           })}

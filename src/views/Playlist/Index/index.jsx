@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
 import { QuickSearch } from 'components/QuickSearch';
@@ -6,8 +7,14 @@ import { ViewHeader } from 'components/ViewHeader';
 import { PlaylistList } from 'fragments/PlaylistList';
 
 export class PlaylistIndex extends Component {
-  constructor(props) {
+  static contextTypes = {
+    api: PropTypes.object,
+  };
+
+  constructor(props, context) {
     super(props);
+
+    this.api = context.api.playlistAPI;
 
     this.state = {
       filter: '',
@@ -16,8 +23,7 @@ export class PlaylistIndex extends Component {
   }
 
   componentDidMount() {
-    const api = this.props.playlistAPI;
-    api.consume(api.getPlaylists(), items => {
+    this.api.consume(this.api.getPlaylists(), items => {
       this.setState(prevState => {
         return { playlists: prevState.playlists.push(...items) };
       });
@@ -37,7 +43,7 @@ export class PlaylistIndex extends Component {
   };
 
   render() {
-    const { player, playbackAPI } = this.props;
+    const { player } = this.props;
     const { filter } = this.state;
 
     return (
@@ -49,7 +55,6 @@ export class PlaylistIndex extends Component {
         <PlaylistList
           playlists={this.getPlaylists()}
           player={player}
-          playbackAPI={playbackAPI}
         />
       </div>
     );

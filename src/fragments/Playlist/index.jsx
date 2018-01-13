@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { PlayButton } from 'components/PlayButton';
@@ -7,9 +8,13 @@ import { Image } from 'fragments/Image';
 import './Playlist.css';
 
 export class Playlist extends Component {
+  static contextTypes = {
+    api: PropTypes.object,
+  };
+
   play = () => {
-    const { playbackAPI, playlist } = this.props;
-    playbackAPI.playContext(playlist.uri);
+    const { playlist } = this.props;
+    this.context.api.playbackAPI.playContext(playlist.uri);
   };
 
   render() {

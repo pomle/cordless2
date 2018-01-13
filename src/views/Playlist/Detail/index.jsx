@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
 import { QuickSearch } from 'components/QuickSearch';
@@ -15,8 +16,15 @@ function matcher(needle) {
 }
 
 export class PlaylistDetail extends Component {
-  constructor(props) {
+  static contextTypes = {
+    api: PropTypes.object,
+  };
+
+  constructor(props, context) {
     super(props);
+
+    this.playlistAPI = context.api.playlistAPI;
+    this.playbackAPI = context.api.playbackAPI;
 
     this.state = {
       filter: '',
@@ -26,9 +34,9 @@ export class PlaylistDetail extends Component {
   }
 
   async componentDidMount() {
-    const { playlistAPI: api, userId, playlistId } = this.props;
+    const { userId, playlistId } = this.props;
 
-    api.consume(api.getPlaylistTracks(userId, playlistId), items => {
+    this.playlistAPI.consume(this.playlistAPI.getPlaylistTracks(userId, playlistId), items => {
       this.setState(prevState => {
         const filtered = items.filter(entry =>
           entry.track.uri.startsWith('spotify:track:')
@@ -37,7 +45,7 @@ export class PlaylistDetail extends Component {
       });
     });
 
-    const playlist = await api.getPlaylist(userId, playlistId);
+    const playlist = await this.playlistAPI.getPlaylist(userId, playlistId);
     this.setState({ playlist });
   }
 
@@ -58,8 +66,8 @@ export class PlaylistDetail extends Component {
   }
 
   playTrack = track => {
-    const { playbackAPI, userId, playlistId } = this.props;
-    playbackAPI.playPlaylist(userId, playlistId, track.id);
+    const { userId, playlistId } = this.props;
+    this.playbackAPI.playPlaylist(userId, playlistId, track.id);
   };
 
   updateFilter = filter => {

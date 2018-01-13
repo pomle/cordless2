@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { Interface } from './Interface';
@@ -9,25 +10,34 @@ import { Time } from 'components/Time';
 import './Playback.css';
 
 export class Playback extends Component {
+  static contextTypes = {
+    api: PropTypes.object,
+  };
+
+  constructor(props, context) {
+    super(props);
+    this.api = context.api.playbackAPI;
+  }
+
   toggle = () => {
     const { context } = this.props.player;
     if (context.paused) {
-      this.props.playbackAPI.resume();
+      this.api.resume();
     } else {
-      this.props.playbackAPI.pause();
+      this.api.pause();
     }
   };
 
   next = () => {
-    this.props.playbackAPI.next();
+    this.api.next();
   };
 
   prev = () => {
-    this.props.playbackAPI.prev();
+    this.api.prev();
   };
 
   seek = ms => {
-    this.props.playbackAPI.seek(ms);
+    this.api.seek(ms);
   };
 
   render() {

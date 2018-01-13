@@ -11,13 +11,6 @@ import './Navigation.css';
 
 export class Navigation extends Component {
   render() {
-    const {
-      albumAPI,
-      playlistAPI,
-      playbackAPI,
-      searchAPI,
-    } = this.props.applicationState;
-
     return (
       <div className="Navigation">
         <ViewContainer>
@@ -26,37 +19,21 @@ export class Navigation extends Component {
               path="/album/:albumId"
               render={props => {
                 const { albumId } = props.match.params;
-                return (
-                  <AlbumDetail
-                    albumId={albumId}
-                    albumAPI={albumAPI}
-                    playbackAPI={playbackAPI}
-                  />
-                );
+                return <AlbumDetail albumId={albumId}/>
               }}
             />
             <Route
               path="/user/:userId/playlist/:playlistId"
               render={props => {
                 const { userId, playlistId } = props.match.params;
-                return (
-                  <PlaylistDetail
-                    userId={userId}
-                    playlistId={playlistId}
-                    playlistAPI={playlistAPI}
-                    playbackAPI={playbackAPI}
-                  />
-                );
+                return <PlaylistDetail userId={userId} playlistId={playlistId} />;
               }}
             />
             <Route exact path="/playlist">
-              <PlaylistIndex
-                playlistAPI={playlistAPI}
-                playbackAPI={playbackAPI}
-              />
+              <PlaylistIndex />
             </Route>
             <Route path="/search">
-              <Search playbackAPI={playbackAPI} searchAPI={searchAPI} />
+              <Search />
             </Route>
             <Route path="*">
               <ul>

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { compareObjectURIs, onChange, lookAt } from './util.js';
 import { analysis } from '@pomle/spotify-web-sdk';
@@ -9,8 +10,14 @@ import { Backdrop } from './Backdrop';
 import './Visuals.css';
 
 export class Visuals extends Component {
-  constructor(props) {
+  static contextTypes = {
+    api: PropTypes.object,
+  };
+
+  constructor(props, context) {
     super(props);
+
+    this.trackAPI = context.api.trackAPI;
 
     this.onAlbumChange = onChange(
       compareObjectURIs,
@@ -52,7 +59,7 @@ export class Visuals extends Component {
   }
 
   async updateFeatures(trackId) {
-    const features = await this.props.trackAPI.getAudioFeatures(trackId);
+    const features = await this.trackAPI.getAudioFeatures(trackId);
     this.setState({ features });
   }
 
@@ -67,7 +74,7 @@ export class Visuals extends Component {
     );
     const lookAtSection = lookAt('start', data => console.log('Section', data));
 
-    const data = await this.props.trackAPI.getAudioAnalysis(trackId);
+    const data = await this.trackAPI.getAudioAnalysis(trackId);
     this.analyzer = analysis.stream(data);
     this.analyzer.on('data', data => {
       if (data.beat) {
@@ -90,8 +97,8 @@ export class Visuals extends Component {
     const { album, pulse } = this.state;
     const image = album && album.images[0].url;
     return (
-      <div className="Visuals" ref={node => (this.element = node)}>
-        <Album image={image} promote={promote} />
+      <div className="Visuals">
+        <Album album={album} promote={promote} />
 
         <Backdrop image={image} pulse={pulse} promote={promote} />
       </div>

@@ -1,8 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Motion, spring } from 'react-motion';
 import { Surface } from 'gl-react-dom';
+import anime from 'animejs';
 
 import { Renderer3D } from 'components/Renderer3D';
+
 
 import { BetterBlur as Blur } from '../shaders/blur';
 
@@ -15,7 +17,7 @@ const resolution = {
   y: 450,
 };
 
-export class Album extends Component {
+export class Album extends PureComponent {
   constructor(props) {
     super(props);
 
@@ -36,7 +38,11 @@ export class Album extends Component {
     this.albums = [];
   }
 
-  componentWillReceiveProps({ image }) {
+  componentWillReceiveProps({ album }) {
+    console.log('New album', album);
+
+    const image = album && album.images[0].url;
+
     if (this.image === image) {
       return;
     }

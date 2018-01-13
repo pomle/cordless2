@@ -25,6 +25,7 @@ import './PlayerApplication.css';
 
 export class PlayerApplication extends Component {
   static childContextTypes = {
+    api: PropTypes.object,
     images: PropTypes.object,
   };
 
@@ -33,9 +34,9 @@ export class PlayerApplication extends Component {
 
     const { token } = props;
 
-    this.images = new ImagePool(new LRUCache(100));
+    this.images = new ImagePool(new LRUCache(1000));
 
-    this.apis = {
+    this.api = {
       albumAPI: new AlbumAPI(token),
       playbackAPI: new PlaybackAPI(token),
       playlistAPI: new PlaylistAPI(token),
@@ -50,6 +51,7 @@ export class PlayerApplication extends Component {
 
   getChildContext() {
     return {
+      api: this.api,
       images: this.images,
     };
   }
@@ -68,7 +70,7 @@ export class PlayerApplication extends Component {
     this.update(player => player.set('connected', result));
 
     this.player.on('ready', message => {
-      this.apis.playbackAPI.setDevice(message.device_id);
+      this.api.playbackAPI.setDevice(message.device_id);
       this.update(player => player.onMessage({ type: 'ready', message }));
     });
 
@@ -101,13 +103,11 @@ export class PlayerApplication extends Component {
         render={({ match }) => {
           return (
             <div className={classes.join(' ')}>
-              <PlayerUI
-                applicationState={Object.assign({}, this.apis, this.state)}
-              />
+              <PlayerUI player={player} />
+
               <Visuals
                 promote={match.url === '/now-playing'}
                 context={player.context}
-                trackAPI={this.apis.trackAPI}
                 track={player.context.toJS().track_window.current_track}
               />
             </div>
