@@ -6,7 +6,7 @@ import { Renderer3D } from 'components/Renderer3D';
 
 import { BetterBlur as Blur } from '../shaders/blur';
 
-import { loadImage } from '../util.js';
+import {loadImage} from 'library/image.js';
 
 const THREE = window.THREE;
 
