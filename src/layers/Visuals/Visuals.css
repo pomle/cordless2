@@ -21,12 +21,7 @@
     z-index: 2;
 }
 
-.Visuals .Album canvas {
-    box-shadow: 0 2em 4em -1em #000;
-    height: 60vh !important;
-    width: 60vh !important;
-}
-
+.Visuals .Album canvas,
 .Visuals .Backdrop canvas {
     height: 100vh !important; /* freakin inbread styles */
     width: 100vw !important;

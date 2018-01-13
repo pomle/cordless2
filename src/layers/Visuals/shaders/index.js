@@ -12,6 +12,23 @@ void main() {
   gl_FragColor = vec4(uv.x / 2.0, uv.y, blue, 1.0);
 }`,
   },
+  shrink: {
+    frag: GLSL`
+precision highp float;
+varying vec2 uv;
+uniform sampler2D t;
+void main() {
+  gl_FragColor = texture2D(t, uv.x * 0.9);
+}
+`,
+    vert: GLSL`
+attribute vec4 a_position;
+
+void main() {
+   gl_Position = a_position;
+}
+`
+  },
   DiamondCrop: {
     frag: GLSL`
 precision highp float;
@@ -120,6 +137,10 @@ export const HelloBlue = timed(({ time }) => {
   return <Node shader={shaders.helloBlue} uniforms={{ time: time / 1000 }} />;
 });
 
+export const Shrink = timed(({ children: t }) => {
+  return <Node shader={shaders.shrink} uniforms={{t}} />;
+});
+
 export const Pontus = timed(
   class extends Component {
     constructor(props) {
@@ -152,9 +173,10 @@ export const Pontus = timed(
   }
 );
 
-export const DiamondCrop = ({ children: t }) => (
-  <Node shader={shaders.DiamondCrop} uniforms={{ t }} />
-);
+export const DiamondCrop = ({texture}) => {
+  console.log(texture);
+  return <Node shader={shaders.DiamondCrop} uniforms={{ t: texture }} />;
+}
 
 class Animated extends Component {
   render() {
