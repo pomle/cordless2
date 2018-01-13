@@ -29,12 +29,18 @@ export class Navigation extends Component {
                 return <PlaylistDetail userId={userId} playlistId={playlistId} />;
               }}
             />
+
             <Route exact path="/playlist">
               <PlaylistIndex />
             </Route>
-            <Route path="/search">
-              <Search />
-            </Route>
+
+            <Route path="/search/:query?" render={({history, match}) => {
+              return <Search
+                query={match.params.query}
+                onQuery={query => history.replace(`/search/${encodeURIComponent(query)}`)}
+              />
+            }}/>
+
             <Route path="*">
               <ul>
                 <li>

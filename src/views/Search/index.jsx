@@ -26,41 +26,56 @@ export class Search extends Component {
 
     this.state = {
       busy: false,
-      query: '',
+      query: props.query,
       tracks: new List(),
+      searchWasPerformed: props.query && props.query.length > 0,
     };
   }
 
+  componentDidMount() {
+    if (this.state.query) {
+      this.performSearch(this.state.query);
+    }
+  }
+
   handleChange = event => {
-    this.handleSearchInput(event.target.value);
+    const query = event.target.value;
+    this.setState({query});
+
+    if (query.length > 2) {
+      this.handleSearchInput(query);
+    } else {
+      this.setState({
+        tracks: new List(),
+      });
+    }
   };
 
   handleSearchInput(query) {
+    this.props.onQuery(query);
+    this.performSearch(query)
+  }
+
+  performSearch(query) {
     this.setState({
       busy: true,
-      query,
+      searchWasPerformed: true,
     });
 
     this.query = query;
 
-    this.performSearch(query).then(results => {
-      if (this.query === results.query) {
-        if (results.data.error) {
-          console.error(results);
+    return this.searchAPI.search('track', query).then(data => {
+      if (this.query === query) {
+        if (data.error) {
+          console.error(data);
           return;
         }
 
         this.setState({
           busy: false,
-          tracks: new List(results.data.tracks.items),
+          tracks: new List(data.tracks.items),
         });
       }
-    });
-  }
-
-  performSearch(query) {
-    return this.searchAPI.search('track', query).then(data => {
-      return { query, data };
     });
   }
 
@@ -70,10 +85,10 @@ export class Search extends Component {
   };
 
   render() {
-    const { query, tracks } = this.state;
+    const { query, searchWasPerformed, tracks } = this.state;
 
     const classes = ['Search'];
-    if (query.length) {
+    if (searchWasPerformed) {
       classes.push('hasResults');
     }
 
@@ -82,7 +97,7 @@ export class Search extends Component {
         <header>
           <h2>Search</h2>
 
-          <input type="text" autoFocus onChange={this.handleChange} />
+          <input type="text" autoFocus value={query} onChange={this.handleChange} />
         </header>
 
         <div className="results">
