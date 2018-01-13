@@ -40,7 +40,7 @@ export class Authorize extends Component {
   constructor(props) {
     super(props);
 
-    const {storage} = props;
+    const { storage } = props;
 
     let session = getSession(storage);
     if (!session) {

@@ -15,7 +15,7 @@ import { createPoller } from './poller.js';
 import { PlayerState } from './state.js';
 
 import { Visuals } from 'layers/Visuals';
-import { PlayerUI } from 'views/PlayerUI';
+import { PlayerUI } from 'layers/PlayerUI';
 
 import './PlayerApplication.css';
 

@@ -3,13 +3,13 @@ import ReactDOM from 'react-dom';
 import App from './App';
 
 const fakeStorage = {
-    items: new Map(),
-    getItem(key) {
-        return this.items.get(key);
-    },
-    setItem(key, value) {
-        this.items.set(key, value);
-    }
+  items: new Map(),
+  getItem(key) {
+    return this.items.get(key);
+  },
+  setItem(key, value) {
+    this.items.set(key, value);
+  },
 };
 
 it('renders without crashing', () => {

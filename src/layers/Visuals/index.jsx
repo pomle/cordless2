@@ -12,8 +12,14 @@ export class Visuals extends Component {
   constructor(props) {
     super(props);
 
-    this.onAlbumChange = onChange(compareObjectURIs, this.onAlbumChange.bind(this));
-    this.onTrackChange = onChange(compareObjectURIs, this.onTrackChange.bind(this));
+    this.onAlbumChange = onChange(
+      compareObjectURIs,
+      this.onAlbumChange.bind(this)
+    );
+    this.onTrackChange = onChange(
+      compareObjectURIs,
+      this.onTrackChange.bind(this)
+    );
 
     this.state = {
       track: null,
@@ -34,7 +40,7 @@ export class Visuals extends Component {
 
   onAlbumChange(album) {
     this.setState({ album });
-  };
+  }
 
   onTrackChange(track) {
     this.setState({ track });
@@ -43,11 +49,11 @@ export class Visuals extends Component {
 
     this.updateAnalyser(track.id);
     this.updateFeatures(track.id);
-  };
+  }
 
   async updateFeatures(trackId) {
     const features = await this.props.trackAPI.getAudioFeatures(trackId);
-    this.setState({features});
+    this.setState({ features });
   }
 
   async updateAnalyser(trackId) {
@@ -56,7 +62,9 @@ export class Visuals extends Component {
       this.analyzer = null;
     }
 
-    const lookAtSegment = lookAt('loudness_max', data => console.log('Segment', data.loudness_max));
+    const lookAtSegment = lookAt('loudness_max', data =>
+      console.log('Segment', data.loudness_max)
+    );
     const lookAtSection = lookAt('start', data => console.log('Section', data));
 
     const data = await this.props.trackAPI.getAudioAnalysis(trackId);
@@ -83,9 +91,9 @@ export class Visuals extends Component {
     const image = album && album.images[0].url;
     return (
       <div className="Visuals" ref={node => (this.element = node)}>
-        <Album image={image} promote={promote}/>
+        <Album image={image} promote={promote} />
 
-        <Backdrop image={image} pulse={pulse} promote={promote}/>
+        <Backdrop image={image} pulse={pulse} promote={promote} />
       </div>
     );
   }

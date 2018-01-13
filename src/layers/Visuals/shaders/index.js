@@ -27,7 +27,7 @@ attribute vec4 a_position;
 void main() {
    gl_Position = a_position;
 }
-`
+`,
   },
   DiamondCrop: {
     frag: GLSL`
@@ -138,7 +138,7 @@ export const HelloBlue = timed(({ time }) => {
 });
 
 export const Shrink = timed(({ children: t }) => {
-  return <Node shader={shaders.shrink} uniforms={{t}} />;
+  return <Node shader={shaders.shrink} uniforms={{ t }} />;
 });
 
 export const Pontus = timed(
@@ -173,10 +173,10 @@ export const Pontus = timed(
   }
 );
 
-export const DiamondCrop = ({texture}) => {
+export const DiamondCrop = ({ texture }) => {
   console.log(texture);
   return <Node shader={shaders.DiamondCrop} uniforms={{ t: texture }} />;
-}
+};
 
 class Animated extends Component {
   render() {

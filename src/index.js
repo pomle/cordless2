@@ -4,9 +4,7 @@ import './index.css';
 import App from './App';
 //import registerServiceWorker from './registerServiceWorker';
 
-const ApplicationInstance = <App
-    storage={window.localStorage}
-/>;
+const ApplicationInstance = <App storage={window.localStorage} />;
 
 ReactDOM.render(ApplicationInstance, document.getElementById('root'));
 //registerServiceWorker();

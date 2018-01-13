@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 import { Navigation } from './Navigation';
-import { Playback } from './Playback';
+import { Playback } from 'views/Playback';
 
 import './PlayerUI.css';
 

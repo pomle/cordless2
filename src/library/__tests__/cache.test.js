@@ -1,4 +1,4 @@
-import {LRU} from '../cache.js';
+import { LRU } from '../cache.js';
 
 describe('LRU Cache', () => {
   it('stores and retrieves an item', () => {
@@ -46,5 +46,3 @@ describe('LRU Cache', () => {
     expect(lru.get('b')).toBe(undefined);
   });
 });
-
-

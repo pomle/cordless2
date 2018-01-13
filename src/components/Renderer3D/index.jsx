@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Node, GLSL } from "gl-react";
+import { Node, GLSL } from 'gl-react';
 import { timer } from './timing.js';
 
 /*
@@ -11,7 +11,7 @@ Alternatively if React would allow us to send out the <canvas/> element directly
 that would also work.
 */
 const shader = {
-    frag: GLSL`
+  frag: GLSL`
 precision mediump float;
 varying vec2 uv;
 uniform sampler2D texture;
@@ -19,14 +19,14 @@ uniform sampler2D texture;
 void main() {
   gl_FragColor = texture2D(texture, uv);
 }
-`
+`,
 };
 
 const THREE = window.THREE;
 
 export class Renderer3D extends Component {
   static defaultProps = {
-    size: {x: 800, y: 450},
+    size: { x: 800, y: 450 },
   };
 
   constructor(props) {
@@ -38,7 +38,7 @@ export class Renderer3D extends Component {
 
   componentDidMount() {
     this.timer = timer((diff, total) => {
-      const {scene, camera} = this.props;
+      const { scene, camera } = this.props;
       if (scene) {
         if (camera) {
           this.renderer.render(scene, camera);
@@ -52,9 +52,8 @@ export class Renderer3D extends Component {
   }
 
   render() {
-    return <Node
-      shader={shader}
-      uniforms={{ texture: this.renderer.domElement}}
-    />;
+    return (
+      <Node shader={shader} uniforms={{ texture: this.renderer.domElement }} />
+    );
   }
 }

@@ -8,7 +8,7 @@ import './App.css';
 
 class App extends Component {
   render() {
-    const {storage} = this.props;
+    const { storage } = this.props;
 
     return (
       <BrowserRouter>
