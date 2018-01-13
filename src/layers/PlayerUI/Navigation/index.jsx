@@ -3,6 +3,7 @@ import { Link, Route, Switch } from 'react-router-dom';
 
 import { ViewContainer } from 'components/ViewContainer';
 import { AlbumDetail } from 'views/Album';
+import { ArtistDetail } from 'views/Artist';
 import { PlaylistDetail } from 'views/Playlist/Detail';
 import { PlaylistIndex } from 'views/Playlist/Index';
 import { Search } from 'views/Search';
@@ -20,6 +21,13 @@ export class Navigation extends Component {
               render={props => {
                 const { albumId } = props.match.params;
                 return <AlbumDetail albumId={albumId}/>
+              }}
+            />
+            <Route
+              path="/artist/:artistId"
+              render={props => {
+                const { artistId } = props.match.params;
+                return <ArtistDetail artistId={artistId}/>
               }}
             />
             <Route

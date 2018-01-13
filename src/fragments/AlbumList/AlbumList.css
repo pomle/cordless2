@@ -1,0 +1,27 @@
+.AlbumList .Album {
+    display: grid;
+    grid: 1fr / 1fr;
+    height: 10em;
+    width: 10em;
+    margin: 1em;
+}
+
+.AlbumList .Album .name {
+    align-self: end;
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    margin: 0.2em;
+    opacity: 0;
+    text-shadow: 0 0 0.2em #000;
+    transition: opacity 0.2s;
+}
+
+.AlbumList .Album:hover .name {
+    opacity: 1;
+}
+
+.AlbumList .Album .image,
+.AlbumList .Album .playback {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+}

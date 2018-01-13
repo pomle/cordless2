@@ -2,9 +2,9 @@
 # yarn lockfile v1
 
 
-"@pomle/spotify-web-sdk@0.0.0-5b77ca9":
-  version "0.0.0-5b77ca9"
-  resolved "https://registry.yarnpkg.com/@pomle/spotify-web-sdk/-/spotify-web-sdk-0.0.0-5b77ca9.tgz#e5849b49939abf55b284b66646e7597bae794fc5"
+"@pomle/spotify-web-sdk@0.0.0-55df9f1":
+  version "0.0.0-55df9f1"
+  resolved "https://registry.yarnpkg.com/@pomle/spotify-web-sdk/-/spotify-web-sdk-0.0.0-55df9f1.tgz#e2228be672c045a7e1b0e568560f8bdd2631b88e"
   dependencies:
     eventemitter3 "^3.0.0"
 
