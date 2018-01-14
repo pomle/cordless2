@@ -1,5 +1,9 @@
-.Welcome h1 {
-    margin: 2em;
+.Welcome {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
 }
 
 .Welcome h2 {
@@ -13,4 +17,8 @@
 
 .Welcome .authorize {
     margin: 2em;
+}
+
+.Welcome .authorize button {
+    font-size: 1.4em;
 }
