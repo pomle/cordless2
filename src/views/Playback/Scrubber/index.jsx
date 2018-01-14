@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import { ProgressBar } from 'components/ProgressBar';
+import { Sections } from './Sections';
 
 import './Scrubber.css';
 
@@ -14,13 +15,14 @@ export class Scrubber extends Component {
   };
 
   render() {
-    const { context } = this.props;
+    const { context, analysis } = this.props;
 
     const progress = context.duration ? context.position / context.duration : 0;
 
     return (
       <div className="Scrubber" onClick={this.handleClick}>
         <ProgressBar value={progress} />
+        <Sections sections={analysis ? analysis.sections : []} />
       </div>
     );
   }

@@ -12,6 +12,7 @@ import './Playback.css';
 export class Playback extends Component {
   static contextTypes = {
     api: PropTypes.object,
+    track: PropTypes.object,
   };
 
   constructor(props, context) {
@@ -42,12 +43,13 @@ export class Playback extends Component {
 
   render() {
     const { player: { context } } = this.props;
+    const { track } = this.context;
     const trackWindow = context.track_window;
 
     return (
       <div className="Playback">
         <NowPlaying track={trackWindow.current_track} />
-        <Scrubber context={context} seek={this.seek} />
+        <Scrubber context={context} seek={this.seek} analysis={track.analysis} />
         <Interface prev={this.prev} next={this.next} toggle={this.toggle} />
         <div className="vis">
           <Link to="/now-playing">Now Playing</Link>
