@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { withRouter } from 'react-router'
 
 import { compareObjectURIs, onChange, lookAt } from './util.js';
 import { analysis } from '@pomle/spotify-web-sdk';
@@ -9,7 +10,7 @@ import { Backdrop } from './Backdrop';
 
 import './Visuals.css';
 
-export class Visuals extends Component {
+export const Visuals = withRouter(class extends Component {
   static contextTypes = {
     api: PropTypes.object,
   };
@@ -93,7 +94,9 @@ export class Visuals extends Component {
   }
 
   render() {
-    const { promote } = this.props;
+    const { location } = this.props;
+    const promote = location.pathname === '/now-playing';
+
     const { album, pulse } = this.state;
     const image = album && album.images[0].url;
     return (
@@ -104,4 +107,4 @@ export class Visuals extends Component {
       </div>
     );
   }
-}
+});

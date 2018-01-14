@@ -44,8 +44,6 @@ export class Image extends Component {
       style.backgroundImage = `url(${image.src})`;
     }
 
-
-
     return (
       <div className={classes.join(' ')} style={style}>
         {this.props.children}

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Route } from 'react-router-dom';
 
 import {
   AlbumAPI,
@@ -79,23 +78,13 @@ export class PlayerApplication extends Component {
       classes.push('pending');
     }
 
-    return (
-      <Route
-        path="*"
-        render={({ match }) => {
-          return (
-            <div className={classes.join(' ')}>
-              <PlayerUI player={player} />
+    return <div className={classes.join(' ')}>
+      <PlayerUI player={player} />
 
-              <Visuals
-                promote={match.url === '/now-playing'}
-                context={player.context}
-                track={player.context.toJS().track_window.current_track}
-              />
-            </div>
-          );
-        }}
+      <Visuals
+        context={player.context}
+        track={player.context.toJS().track_window.current_track}
       />
-    );
+    </div>;
   }
 }
