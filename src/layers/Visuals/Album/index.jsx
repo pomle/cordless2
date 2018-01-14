@@ -39,8 +39,6 @@ export class Album extends PureComponent {
   }
 
   componentWillReceiveProps({ album }) {
-    console.log('New album', album);
-
     const image = album && album.images[0].url;
 
     if (this.image === image) {

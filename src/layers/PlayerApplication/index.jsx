@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Route } from 'react-router-dom';
 
 import {
-  createPlayer,
   AlbumAPI,
   ArtistAPI,
   PlaybackAPI,
@@ -12,12 +11,10 @@ import {
   TrackAPI,
 } from '@pomle/spotify-web-sdk';
 
+import { CordlessPlayer } from './CordlessPlayer';
+
 import { LRUCache } from 'library/cache';
 import { ImagePool } from 'library/ImagePool';
-
-import { createPoller } from './poller.js';
-
-import { PlayerState } from './state.js';
 
 import { Visuals } from 'layers/Visuals';
 import { PlayerUI } from 'layers/PlayerUI';
@@ -36,6 +33,11 @@ export class PlayerApplication extends Component {
     const { token } = props;
 
     this.images = new ImagePool(new LRUCache(1000));
+    this.cordless = new CordlessPlayer(token);
+
+    this.state = {
+      player: this.cordless.getState(),
+    };
 
     this.api = {
       albumAPI: new AlbumAPI(token),
@@ -44,10 +46,6 @@ export class PlayerApplication extends Component {
       playlistAPI: new PlaylistAPI(token),
       searchAPI: new SearchAPI(token),
       trackAPI: new TrackAPI(token),
-    };
-
-    this.state = {
-      player: new PlayerState(),
     };
   }
 
@@ -58,35 +56,17 @@ export class PlayerApplication extends Component {
     };
   }
 
-  async componentDidMount() {
-    this.player = await createPlayer(this.props.token, {
-      name: 'Cordless',
-    });
+  componentDidMount() {
+    this.cordless.onUpdate = player => {
+      this.api.playbackAPI.setDevice(player.deviceId);
+      this.setState({player});
+    };
 
-    this.poller = createPoller(this.player, state => {
-      this.update(player => player.updateState(state));
-    });
-
-    const result = await this.player.connect();
-
-    this.update(player => player.set('connected', result));
-
-    this.player.on('ready', message => {
-      this.api.playbackAPI.setDevice(message.device_id);
-      this.update(player => player.onMessage({ type: 'ready', message }));
-    });
-
-    this.player.on('player_state_changed', message => {
-      this.update(player => player.onMessage({ type: 'state', message }));
-    });
+    this.cordless.initialize();
   }
 
-  update(fn) {
-    this.setState(prevState =>
-      Object.assign({}, prevState, {
-        player: fn(prevState.player),
-      })
-    );
+  componentWillUnmount() {
+    this.cordless.destroy();
   }
 
   render() {
