@@ -36,6 +36,7 @@ export class PlayerApplication extends Component {
 
     this.state = {
       player: this.cordless.getState(),
+      track: null,
     };
 
     this.api = {
@@ -58,7 +59,11 @@ export class PlayerApplication extends Component {
   componentDidMount() {
     this.cordless.onUpdate = player => {
       this.api.playbackAPI.setDevice(player.deviceId);
-      this.setState({player});
+
+      this.setState({
+        player,
+        track: player.context.toJS().track_window.current_track,
+      });
     };
 
     this.cordless.initialize();
@@ -69,7 +74,7 @@ export class PlayerApplication extends Component {
   }
 
   render() {
-    const { player } = this.state;
+    const { player, track } = this.state;
 
     const classes = ['PlayerApplication'];
     if (player.deviceId) {
@@ -83,7 +88,7 @@ export class PlayerApplication extends Component {
 
       <Visuals
         context={player.context}
-        track={player.context.toJS().track_window.current_track}
+        track={track}
       />
     </div>;
   }
