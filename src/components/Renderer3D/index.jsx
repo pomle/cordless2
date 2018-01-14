@@ -34,6 +34,10 @@ export class Renderer3D extends Component {
 
     this.renderer = new THREE.WebGLRenderer({ alpha: true });
     this.renderer.setSize(props.size.x, props.size.y);
+
+    this.state = {
+      time: null,
+    };
   }
 
   componentDidMount() {
@@ -44,6 +48,10 @@ export class Renderer3D extends Component {
           this.renderer.render(scene, camera);
         }
       }
+
+      this.setState({
+        time: total,
+      });
     });
   }
 
@@ -53,7 +61,7 @@ export class Renderer3D extends Component {
 
   render() {
     return (
-      <Node shader={shader} uniforms={{ texture: this.renderer.domElement }} />
+      <Node shader={shader} uniforms={{ texture: this.renderer.domElement}} />
     );
   }
 }
