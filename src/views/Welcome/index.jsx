@@ -21,9 +21,11 @@ export class Welcome extends Component {
           </a>&ensp;Player
         </h2>
 
-        <a href={authURL}>
-          <button>Authorize</button>
-        </a>
+        <div className="authorize">
+          <a href={authURL}>
+            <button>Authorize</button>
+          </a>
+        </div>
 
         <div className="join">
           Join development

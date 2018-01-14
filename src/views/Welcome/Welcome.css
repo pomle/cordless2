@@ -10,3 +10,7 @@
 .Welcome .join {
     text-align: center;
 }
+
+.Welcome .authorize {
+    margin: 2em;
+}
