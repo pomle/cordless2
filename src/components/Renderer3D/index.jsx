@@ -42,7 +42,11 @@ export class Renderer3D extends Component {
 
   componentDidMount() {
     this.timer = timer((diff, total) => {
-      const { scene, camera } = this.props;
+      const { scene, camera, onUpdate } = this.props;
+      if (onUpdate) {
+        onUpdate(diff, total);
+      }
+
       if (scene) {
         if (camera) {
           this.renderer.render(scene, camera);
