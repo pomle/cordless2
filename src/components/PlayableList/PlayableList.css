@@ -17,7 +17,7 @@
     transition: all 0.2s ease;
 }
 
-.PlayableList .item:hover > * {
+.PlayableList .item > *:hover {
     transform: rotateX(0) rotateY(0) translateZ(30px);
 }
 
