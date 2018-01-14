@@ -12,7 +12,7 @@
 .PlayableList .item > * {
     background: rgba(0, 0, 0, .7);
     box-shadow: 0 1em 2em -.5em #000;
-    transform: rotateY(10deg) rotateX(2deg);
+    transform: rotateY(6deg) rotateX(2deg);
     transform-origin: 50px 50px;
     transition: all 0.2s ease;
 }
