@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { ViewHeader } from 'components/ViewHeader';
-import { Tracklist } from 'fragments/Tracklist';
+import { TrackList } from 'fragments/TrackList';
 import { Track } from 'fragments/Track';
 
 export class AlbumDetail extends Component {
@@ -48,7 +48,7 @@ export class AlbumDetail extends Component {
       <div className="AlbumDetail">
         <ViewHeader caption={album.name} images={album.images} />
 
-        <Tracklist>
+        <TrackList>
           {album.tracks.items.map(track => {
             return (
               <Track
@@ -58,7 +58,7 @@ export class AlbumDetail extends Component {
               />
             );
           })}
-        </Tracklist>
+        </TrackList>
       </div>
     );
   }

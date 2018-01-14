@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
-import { Tracklist } from 'fragments/Tracklist';
+import { TrackList } from 'fragments/TrackList';
 import { Track } from 'fragments/Track';
 
 import { debounce } from 'library/debounce';
@@ -101,7 +101,7 @@ export class Search extends Component {
         </header>
 
         <div className="results">
-          <Tracklist>
+          <TrackList>
             {tracks.map(track => {
               return (
                 <Track
@@ -111,7 +111,7 @@ export class Search extends Component {
                 />
               );
             })}
-          </Tracklist>
+          </TrackList>
         </div>
       </div>
     );
