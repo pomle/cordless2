@@ -42,7 +42,7 @@ export class Playback extends Component {
 
   render() {
     const { player: { context } } = this.props;
-    const trackWindow = context.track_window.toJS();
+    const trackWindow = context.track_window;
 
     return (
       <div className="Playback">

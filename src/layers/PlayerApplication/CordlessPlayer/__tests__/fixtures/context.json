@@ -1,0 +1,201 @@
+{
+  "context": {
+    "uri": "spotify:user:pomle:playlist:3a62rGDJlZoJxSMt4tpAMo",
+    "metadata": {
+      "context_description": "AP"
+    }
+  },
+  "bitrate": 256000,
+  "position": 738,
+  "duration": 187570,
+  "paused": true,
+  "shuffle": false,
+  "repeat_mode": 0,
+  "track_window": {
+    "current_track": {
+      "id": "1Nk3rKuQwAgVNqT93pFvAd",
+      "uri": "spotify:track:1Nk3rKuQwAgVNqT93pFvAd",
+      "type": "track",
+      "linked_from_uri": null,
+      "linked_from": {
+        "uri": null,
+        "id": null
+      },
+      "media_type": "audio",
+      "name": "The Way That I Am",
+      "duration_ms": 187570,
+      "artists": [
+        {
+          "name": "Tove Lo",
+          "uri": "spotify:artist:4NHQUGzhtTLFvgF5SZesLK"
+        }
+      ],
+      "album": {
+        "uri": "spotify:album:64TLRZtPXB8eiqj3HHIEJF",
+        "name": "Queen Of The Clouds (Blueprint Edition)",
+        "images": [
+          {
+            "url": "https://i.scdn.co/image/cba8abaed00a90a6f760561a3cc67a38a862350f",
+            "height": 300,
+            "width": 300
+          },
+          {
+            "url": "https://i.scdn.co/image/951c9a17164defc36bcb6d90a3a7b04cf4867978",
+            "height": 64,
+            "width": 64
+          },
+          {
+            "url": "https://i.scdn.co/image/ad65197ee5ec68bd0405f14859feb8b95a0ca4f5",
+            "height": 640,
+            "width": 640
+          }
+        ]
+      },
+      "is_playable": true
+    },
+    "next_tracks": [
+      {
+        "id": "1gFwPpN5n2oG0Sha0kYiaq",
+        "uri": "spotify:track:1gFwPpN5n2oG0Sha0kYiaq",
+        "type": "track",
+        "linked_from_uri": null,
+        "linked_from": {
+          "uri": null,
+          "id": null
+        },
+        "media_type": "audio",
+        "name": "Keep It Simple",
+        "duration_ms": 231025,
+        "artists": [
+          {
+            "name": "Tove Lo",
+            "uri": "spotify:artist:4NHQUGzhtTLFvgF5SZesLK"
+          }
+        ],
+        "album": {
+          "uri": "spotify:album:2cX9e3renOX5bUQEXWFrJr",
+          "name": "Lady Wood",
+          "images": [
+            {
+              "url": "https://i.scdn.co/image/8cfa3825ec8ba1f76ecbfb2aac7829daed0c2c11",
+              "height": 300,
+              "width": 300
+            },
+            {
+              "url": "https://i.scdn.co/image/3b96882ed5404720ae9ad01c19a1b02387d68924",
+              "height": 64,
+              "width": 64
+            },
+            {
+              "url": "https://i.scdn.co/image/3f671114f7432c120e811e07358002bcc790cb38",
+              "height": 640,
+              "width": 640
+            }
+          ]
+        },
+        "is_playable": true
+      },
+      {
+        "id": "04R63LtwXGvm2OO5zyDa3h",
+        "uri": "spotify:track:04R63LtwXGvm2OO5zyDa3h",
+        "type": "track",
+        "linked_from_uri": null,
+        "linked_from": {
+          "uri": null,
+          "id": null
+        },
+        "media_type": "audio",
+        "name": "Saw It Coming (from the \"Ghostbusters\" Original Motion Picture Soundtrack)",
+        "duration_ms": 1,
+        "artists": [
+          {
+            "name": "G-Eazy",
+            "uri": "spotify:artist:02kJSzxNuaWGqwubyUba0Z"
+          },
+          {
+            "name": "Jeremih",
+            "uri": "spotify:artist:3KV3p5EY4AvKxOlhGHORLg"
+          }
+        ],
+        "album": {
+          "uri": "spotify:album:3McJzWoX8PR6Y3rPWoLUMZ",
+          "name": "Saw It Coming (from the \"Ghostbusters\" Original Motion Picture Soundtrack)",
+          "images": [
+            {
+              "url": "https://i.scdn.co/image/74ba92e0548f3ab8256fe29ebf0c7d39941c5e2e",
+              "height": 300,
+              "width": 300
+            },
+            {
+              "url": "https://i.scdn.co/image/891c9364ce206de01b5ce5d36d38c1835320feeb",
+              "height": 64,
+              "width": 64
+            },
+            {
+              "url": "https://i.scdn.co/image/49b4c1a8059baf63525f0e820472fec0a9cc2cfb",
+              "height": 640,
+              "width": 640
+            }
+          ]
+        },
+        "is_playable": true
+      }
+    ],
+    "previous_tracks": [
+      {
+        "id": "6520aj0B4FSKGVuKNsOCOi",
+        "uri": "spotify:track:6520aj0B4FSKGVuKNsOCOi",
+        "type": "track",
+        "linked_from_uri": "spotify:track:5ndfVSDyPq90jaIUhNPeby",
+        "linked_from": {
+          "uri": "spotify:track:5ndfVSDyPq90jaIUhNPeby",
+          "id": "5ndfVSDyPq90jaIUhNPeby"
+        },
+        "media_type": "audio",
+        "name": "Chained To The Rhythm",
+        "duration_ms": 237734,
+        "artists": [
+          {
+            "name": "Katy Perry",
+            "uri": "spotify:artist:6jJ0s89eD6GaHleKKya26X"
+          },
+          {
+            "name": "Skip Marley",
+            "uri": "spotify:artist:4ryoUS0W8qXokfMxrlJt6O"
+          }
+        ],
+        "album": {
+          "uri": "spotify:album:03ntx95u0wotf68NnE3aGw",
+          "name": "Witness",
+          "images": [
+            {
+              "url": "https://i.scdn.co/image/34579dcaeff1bde471dc12657d257fe783d77db7",
+              "height": 300,
+              "width": 300
+            },
+            {
+              "url": "https://i.scdn.co/image/040bd8f927e173fbd03c5522d1f99176b2dd99e8",
+              "height": 64,
+              "width": 64
+            },
+            {
+              "url": "https://i.scdn.co/image/d5d9826e2a0f63a63c6c32d11d5a114d69559739",
+              "height": 640,
+              "width": 640
+            }
+          ]
+        },
+        "is_playable": true
+      }
+    ]
+  },
+  "timestamp": 1515928410567,
+  "restrictions": {
+    "disallow_pausing_reasons": [
+      "already_paused"
+    ]
+  },
+  "disallows": {
+    "pausing": true
+  }
+}

@@ -28,7 +28,7 @@ export class CordlessPlayer {
       });
 
       this.poller = createPoller(this.player, context => {
-        this.update(state => state.updateState(context));
+        this.update(state => state.updateContext(context));
       });
 
       return this.player.connect();

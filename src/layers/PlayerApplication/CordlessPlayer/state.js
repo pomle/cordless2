@@ -1,10 +1,4 @@
-import { Record, List } from 'immutable';
-
-const TrackWindow = Record({
-  current_track: null,
-  next_tracks: new List(),
-  previous_tracks: new List(),
-});
+import { Record } from 'immutable';
 
 const Context = Record({
   bitrate: null,
@@ -17,7 +11,9 @@ const Context = Record({
   restrictions: null,
   shuffle: null,
   timestamp: null,
-  track_window: new TrackWindow(),
+  track_window: {
+    current_track: null,
+  },
 });
 
 const State = Record({
@@ -33,13 +29,21 @@ export class PlayerState extends State {
       case 'ready':
         return this.set('ready', true).set('deviceId', message.device_id);
       case 'state':
-        return this.updateState(message);
+        return this.updateContext(message);
       default:
         return this;
     }
   }
 
-  updateState(state) {
-    return this.set('context', this.context.merge(state));
+  updateContext(state) {
+    return this.set(
+      'context',
+      this.context.withMutations(context => {
+        Object.keys(state).forEach(key => {
+          context.set(key, state[key]);
+        });
+        return context;
+      })
+    );
   }
 }

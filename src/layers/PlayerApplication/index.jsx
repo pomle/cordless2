@@ -60,10 +60,9 @@ export class PlayerApplication extends Component {
     this.cordless.onUpdate = player => {
       this.api.playbackAPI.setDevice(player.deviceId);
 
-      this.setState({
-        player,
-        track: player.context.toJS().track_window.current_track,
-      });
+      const track = player.context.track_window.current_track;
+
+      this.setState({player, track});
     };
 
     this.cordless.initialize();
