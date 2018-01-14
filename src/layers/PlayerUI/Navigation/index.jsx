@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import { Link, Route, Switch } from 'react-router-dom';
 
 import { ViewContainer } from 'components/ViewContainer';
+
 import { AlbumDetail } from 'views/Album';
 import { ArtistDetail } from 'views/Artist';
 import { PlaylistDetail } from 'views/Playlist/Detail';
 import { PlaylistIndex } from 'views/Playlist/Index';
 import { Search } from 'views/Search';
+import { TrackInfo } from 'views/TrackInfo';
 
 import './Navigation.css';
 
@@ -49,6 +51,10 @@ export class Navigation extends Component {
               />
             }}/>
 
+            <Route path="/track-info">
+              <TrackInfo/>
+            </Route>
+
             <Route path="*">
               <ul>
                 <li>
@@ -56,6 +62,12 @@ export class Navigation extends Component {
                 </li>
                 <li>
                   <Link to="/playlist">Playlists</Link>
+                </li>
+                <li>
+                  <Link to="/now-playing">Now Playing</Link>
+                </li>
+                <li>
+                  <Link to="/track-info">Track Info</Link>
                 </li>
               </ul>
             </Route>

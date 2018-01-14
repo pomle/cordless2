@@ -1,0 +1,48 @@
+.TrackInfo .ProgressBar .progress {
+    height: 12px;
+    transition: width 1s ease;
+}
+
+.TrackInfo .danceability .progress {
+    background: #f71dbf;
+}
+
+.TrackInfo .energy .progress {
+    background: #89ff89;
+}
+
+.TrackInfo .instrumentalness .progress {
+    background: #fb0080;
+}
+
+.TrackInfo .speechiness .progress {
+    background: #00ffcf;
+}
+
+.TrackInfo .liveness .progress {
+    background: yellow;
+}
+
+.TrackInfo .valence .progress {
+    background: orange;
+}
+
+.TrackInfo table th {
+    text-align: left;
+}
+
+.TrackInfo table {
+    width: 100%;
+}
+
+.TrackInfo tr {
+    display: flex;
+}
+
+.TrackInfo table th {
+    flex: 0 1 20%;
+}
+
+.TrackInfo table td {
+    flex: 1 1 auto;
+}
