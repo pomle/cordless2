@@ -18,17 +18,36 @@ export class Image extends Component {
     images: PropTypes.object,
   };
 
-  constructor(props, {images}) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
 
     this.state = {
       image: null,
     };
 
-    if (props.candidates.length) {
-      const image = largest(props.candidates);
-      images.get(image.url).then(image => {
-        this.setState({image});
+    this.currentURL = null;
+
+    this.componentWillReceiveProps(props);
+  }
+
+  componentWillReceiveProps({candidates}) {
+    if (candidates.length) {
+      const image = largest(candidates);
+      if (image.url === this.currentURL) {
+        return;
+      }
+
+      this.setState({
+        image: null,
+      });
+
+      this.currentURL = image.url;
+
+      this.context.images.get(image.url).then(image => {
+        // Ensure the last requested matches the loaded if there is a race.
+        if (this.currentURL === image.src) {
+          this.setState({image});
+        }
       });
     }
   }
