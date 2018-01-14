@@ -1,5 +1,6 @@
 .Artists {
   display: flex;
+  flex-flow: row wrap;
 }
 
 .Artists .artist:not(:first-child):before {
