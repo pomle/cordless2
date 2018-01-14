@@ -2,11 +2,11 @@
 
 }
 
-.App .ProgressBar {
+.ProgressBar {
     background: rgba(0, 0, 0, .4);
 }
 
-.App .ProgressBar .progress {
+.ProgressBar .progress {
     background: yellow;
     height: 0.3em;
 }
