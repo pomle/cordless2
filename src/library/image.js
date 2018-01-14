@@ -9,3 +9,13 @@ export function loadImage(url) {
     image.src = url;
   });
 }
+
+export function largest(images) {
+  let largest = images[0];
+  for (const image in images) {
+    if (image.width > largest.width) {
+      largest = image;
+    }
+  }
+  return largest;
+}

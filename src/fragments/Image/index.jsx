@@ -1,17 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import './Image.css';
+import {largest} from 'library/image';
 
-function largest(images) {
-  let largest = images[0];
-  for (const image in images) {
-    if (image.width > largest.width) {
-      largest = image;
-    }
-  }
-  return largest;
-}
+import './Image.css';
 
 export class Image extends Component {
   static contextTypes = {
