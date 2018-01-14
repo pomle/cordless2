@@ -24,6 +24,11 @@ export class CordlessPlayer {
       });
 
       this.player.on('player_state_changed', message => {
+        if (!message) {
+          console.warn('player_state_changed message was empty', message);
+          return;
+        }
+
         this.update(state => state.onMessage({ type: 'state', message }));
       });
 
