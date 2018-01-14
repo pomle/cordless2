@@ -8,12 +8,18 @@
 
 .AlbumList .Album .name {
     align-self: end;
+    background: rgba(0, 0, 0, .8);
+    font-size: 0.8em;
     grid-column: 1 / 2;
     grid-row: 1 / 2;
-    margin: 0.2em;
+    line-height: 1.5;
     opacity: 0;
-    text-shadow: 0 0 0.2em #000;
     transition: opacity 0.2s;
+}
+
+.AlbumList .Album .name a {
+    display: block;
+    margin: 0.5em;
 }
 
 .AlbumList .Album:hover .name {
