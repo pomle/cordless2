@@ -22,7 +22,7 @@ export class Scrubber extends Component {
     return (
       <div className="Scrubber" onClick={this.handleClick}>
         <ProgressBar value={progress} />
-        <Sections sections={analysis ? analysis.sections : []} />
+        <Sections sections={analysis ? analysis.sections : null} />
       </div>
     );
   }

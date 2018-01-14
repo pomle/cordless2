@@ -4,7 +4,17 @@
 
 .Playback .Sections {
     display: flex;
+    opacity: 0;
     pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+.Playback .Sections.ready {
+    opacity: 0.2;
+}
+
+.Playback:hover .Sections.ready {
+    opacity: 1;
 }
 
 .Playback .Sections .section {
