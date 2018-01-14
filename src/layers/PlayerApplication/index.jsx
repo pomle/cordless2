@@ -12,6 +12,8 @@ import {
 
 import { CordlessPlayer } from './CordlessPlayer';
 
+import { onURIChange } from 'library/compare.js';
+
 import { LRUCache } from 'library/cache';
 import { ImagePool } from 'library/ImagePool';
 
@@ -24,6 +26,7 @@ export class PlayerApplication extends Component {
   static childContextTypes = {
     api: PropTypes.object,
     images: PropTypes.object,
+    track: PropTypes.object,
   };
 
   constructor(props) {
@@ -37,6 +40,8 @@ export class PlayerApplication extends Component {
     this.state = {
       player: this.cordless.getState(),
       track: null,
+      features: null,
+      analysis: null,
     };
 
     this.api = {
@@ -53,16 +58,25 @@ export class PlayerApplication extends Component {
     return {
       api: this.api,
       images: this.images,
+      track: {
+        meta: this.state.track,
+        features: this.state.features,
+        analysis: this.state.analysis,
+      },
     };
   }
 
   componentDidMount() {
+    const onTrack = onURIChange(track => {
+      this.onTrackChange(track);
+    });
+
     this.cordless.onUpdate = player => {
       this.api.playbackAPI.setDevice(player.deviceId);
 
-      const track = player.context.track_window.current_track;
+      onTrack(player.context.track_window.current_track);
 
-      this.setState({player, track});
+      this.setState({player});
     };
 
     this.cordless.initialize();
@@ -72,8 +86,24 @@ export class PlayerApplication extends Component {
     this.cordless.destroy();
   }
 
+  onTrackChange(track) {
+    this.setState({
+      track,
+      analysis: null,
+      features: null,
+    });
+
+    const api = this.api.trackAPI;
+
+    api.getAudioFeatures(track.id)
+    .then(features => this.setState({features}));
+
+    api.getAudioAnalysis(track.id)
+    .then(analysis => this.setState({analysis}));
+  }
+
   render() {
-    const { player, track } = this.state;
+    const { player, track, analysis } = this.state;
 
     const classes = ['PlayerApplication'];
     if (player.deviceId) {
@@ -88,6 +118,7 @@ export class PlayerApplication extends Component {
       <Visuals
         context={player.context}
         track={track}
+        analysis={analysis}
       />
     </div>;
   }
