@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Motion, spring } from 'react-motion';
 import { Surface } from 'gl-react-dom';
-import anime from 'animejs';
+//import anime from 'animejs';
 
 import { Renderer3D } from 'components/Renderer3D';
 
