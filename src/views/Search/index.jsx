@@ -26,7 +26,7 @@ export class Search extends Component {
 
     this.state = {
       busy: false,
-      query: props.query,
+      query: props.query || '',
       tracks: new List(),
       searchWasPerformed: props.query && props.query.length > 0,
     };
