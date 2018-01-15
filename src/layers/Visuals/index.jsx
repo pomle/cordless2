@@ -89,7 +89,17 @@ export const Visuals = withRouter(class extends Component {
         const beatProgress = beatPosition / data.beat.duration;
 
         this.setState({
+          beat: beatProgress,
           pulse: 1 - beatProgress,
+        });
+      }
+
+      if (data.bar) {
+        const barPosition = data.position - data.bar.start;
+        const barProgress = barPosition / data.bar.duration;
+
+        this.setState({
+          bar: barProgress,
         });
       }
 
