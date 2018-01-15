@@ -77,7 +77,7 @@ export class Backdrop extends Component {
         album.userData.inAnimation = anime({
           targets: [album.position, album.material],
           z: 0,
-          opacity: .8,
+          opacity: 1,
           delay: 2000,
           duration: 8000,
           easing: 'easeOutQuint',
@@ -100,15 +100,21 @@ export class Backdrop extends Component {
           <Motion
             defaultStyle={{
               factor: 0,
+              effectMix: 1.0,
             }}
             style={{
               factor: spring(promote ? 0 : 1, { stiffness: 70, damping: 5 }),
+              effectMix: spring(0.5),
             }}
           >
-            {({ factor, thickness }) => {
+            {({ factor, thickness, effectMix }) => {
               return (
                 <Blur passes={2} factor={factor * 3}>
-                  <Pontus thickness={pulse} timeSpeed={0.1} spacing={0.2}>
+                  <Pontus
+                    effectMix={effectMix}
+                    thickness={pulse}
+                    timeSpeed={0.1}
+                    spacing={0.2}>
                     <Blur passes={4} factor={4}>
                       <Renderer3D
                         size={resolution}

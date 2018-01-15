@@ -104,9 +104,11 @@ uniform float intensity;
 uniform float progress;
 uniform float thickness;
 uniform float spacing;
+uniform float effectMix;
 
 void main() {
   float yOffset = 0.1;
+  ;
 
   float amnt;
   float nd;
@@ -125,9 +127,9 @@ void main() {
   }*/
 
   gl_FragColor = mix(
-    colorBuffer,
-    texture2D(t, uv * 1.0),
-    0.5);
+    max(colorBuffer, texture2D(t, uv * 1.0)),
+    vec4(0.0),
+    effectMix);
 }
 `,
   },
@@ -156,13 +158,14 @@ export const Pontus = timed(
     }
 
     render() {
-      const { thickness, spacing, children: t } = this.props;
+      const { thickness, effectMix, spacing, children: t } = this.props;
 
       return (
         <Node
           shader={shaders.pontus}
           uniforms={{
             t,
+            effectMix,
             thickness,
             spacing,
             progress: this.progress,
