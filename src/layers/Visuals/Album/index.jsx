@@ -4,8 +4,9 @@ import { Surface } from 'gl-react-dom';
 import anime from 'animejs';
 
 import { largest } from 'library/image';
-import { Renderer3D } from 'components/Renderer3D';
 
+import { Renderer3D } from 'components/Renderer3D';
+import { imageToPlane } from 'components/Renderer3D/mesh';
 
 import { BetterBlur as Blur } from '../shaders/blur';
 
@@ -65,21 +66,8 @@ export class Album extends PureComponent {
     });
 
     loadImage(image)
-      .then(image => {
-        const texture = new THREE.Texture(image);
-        texture.needsUpdate = true;
-        return texture;
-      })
-      .then(texture => {
-        const album = new THREE.Mesh(
-          new THREE.PlaneGeometry(10, 10),
-          new THREE.MeshPhongMaterial({
-            map: texture,
-            opacity: 1,
-            transparent: true,
-          })
-        );
-
+      .then(imageToPlane)
+      .then(album => {
         album.position.z = -50;
         album.material.opacity = 0;
 
