@@ -56,6 +56,9 @@ export const Visuals = withRouter(class extends Component {
   onAlbumChange(album) {
     this.setState({ album });
 
+    this.trackAPI.request(`https://vibrant.pomle.com/v1/album/${album.uri.split(':')[2]}`)
+    .then(palette => this.setState({palette}));
+
     this.context.images.get(largest(album.images).url)
     .then(artwork => this.setState({artwork}));
   }
