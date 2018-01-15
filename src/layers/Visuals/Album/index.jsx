@@ -3,14 +3,10 @@ import { Motion, spring } from 'react-motion';
 import { Surface } from 'gl-react-dom';
 import anime from 'animejs';
 
-import { largest } from 'library/image';
-
 import { Renderer3D, THREE } from 'components/Renderer3D';
 import { imageToPlane } from 'components/Renderer3D/mesh';
 
 import { BetterBlur as Blur } from '../shaders/blur';
-
-import {loadImage} from 'library/image.js';
 
 const resolution = {
   x: 1280,
@@ -38,14 +34,12 @@ export class Album extends PureComponent {
     this.albums = new Set();
   }
 
-  componentWillReceiveProps({ album }) {
-    const image = album && largest(album.images).url;
-
-    if (this.image === image) {
+  componentWillReceiveProps({ artwork }) {
+    if (this.image === artwork) {
       return;
     }
 
-    this.image = image;
+    this.image = artwork;
 
     this.albums.forEach(album => {
       album.userData.entryAnim.pause();
@@ -65,24 +59,21 @@ export class Album extends PureComponent {
       this.albums.delete(album);
     });
 
-    loadImage(image)
-      .then(imageToPlane)
-      .then(album => {
-        album.position.z = -50;
-        album.material.opacity = 0;
+    const album = imageToPlane(artwork);
+    album.position.z = -50;
+    album.material.opacity = 0;
 
-        this.scene.add(album);
+    this.scene.add(album);
 
-        album.userData.entryAnim = anime({
-          targets: [album.position, album.material],
-          z: 0,
-          opacity: 1,
-          duration: 2000,
-          easing: 'easeOutQuad',
-        });
+    album.userData.entryAnim = anime({
+      targets: [album.position, album.material],
+      z: 0,
+      opacity: 1,
+      duration: 2000,
+      easing: 'easeOutQuad',
+    });
 
-        this.albums.add(album);
-      });
+    this.albums.add(album);
   }
 
   /*

@@ -4,8 +4,6 @@ import { Surface } from 'gl-react-dom';
 
 import anime from 'animejs';
 
-import { loadImage, largest } from 'library/image';
-
 import { Renderer3D, THREE } from 'components/Renderer3D';
 import { imageToPlane } from 'components/Renderer3D/mesh';
 
@@ -39,14 +37,12 @@ export class Backdrop extends Component {
   }
 
 
-  componentWillReceiveProps({ album }) {
-    const image = album && largest(album.images).url;
-
-    if (this.image === image) {
+  componentWillReceiveProps({ artwork }) {
+    if (this.image === artwork) {
       return;
     }
 
-    this.image = image;
+    this.image = artwork;
 
     this.albums.forEach(album => {
       album.userData.inAnimation.pause();
@@ -65,27 +61,22 @@ export class Backdrop extends Component {
       this.albums.delete(album);
     });
 
-    loadImage(image)
-      .then(imageToPlane)
-      .then(album => {
-        album.scale.set(4, 4, 1);
-        album.position.z = -5;
-        album.material.opacity = 0;
+    const album = imageToPlane(artwork);
+    album.scale.set(4, 4, 1);
+    album.position.z = -5;
+    album.material.opacity = 0;
 
-        window.album = album;
-
-        album.userData.inAnimation = anime({
-          targets: [album.position, album.material],
-          z: 0,
-          opacity: 1,
-          delay: 2000,
-          duration: 8000,
-          easing: 'easeOutQuint',
-        });
-
-        this.scene.add(album);
-        this.albums.add(album);
+    album.userData.inAnimation = anime({
+      targets: [album.position, album.material],
+      z: 0,
+      opacity: 1,
+      delay: 2000,
+      duration: 8000,
+      easing: 'easeOutQuint',
     });
+
+    this.scene.add(album);
+    this.albums.add(album);
   }
 
   onUpdate = (diff, total) => {
