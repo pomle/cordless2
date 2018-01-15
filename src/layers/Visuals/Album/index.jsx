@@ -5,14 +5,12 @@ import anime from 'animejs';
 
 import { largest } from 'library/image';
 
-import { Renderer3D } from 'components/Renderer3D';
+import { Renderer3D, THREE } from 'components/Renderer3D';
 import { imageToPlane } from 'components/Renderer3D/mesh';
 
 import { BetterBlur as Blur } from '../shaders/blur';
 
 import {loadImage} from 'library/image.js';
-
-const THREE = window.THREE;
 
 const resolution = {
   x: 1280,
@@ -50,6 +48,8 @@ export class Album extends PureComponent {
     this.image = image;
 
     this.albums.forEach(album => {
+      album.userData.entryAnim.pause();
+
       anime({
         targets: [album.position, album.material],
         z: 10,
@@ -73,7 +73,7 @@ export class Album extends PureComponent {
 
         this.scene.add(album);
 
-        anime({
+        album.userData.entryAnim = anime({
           targets: [album.position, album.material],
           z: 0,
           opacity: 1,
@@ -119,7 +119,7 @@ export class Album extends PureComponent {
           >
             {({ factor }) => (
               <Blur passes={4} factor={factor}>
-                <Renderer3D size={resolution} scene={this.scene} camera={this.camera} onUpdate={this.update} />
+                <Renderer3D alpha size={resolution} scene={this.scene} camera={this.camera} onUpdate={this.update} />
               </Blur>
             )}
           </Motion>

@@ -93,15 +93,14 @@ export const Visuals = withRouter(class extends Component {
 
   render() {
     const { location } = this.props;
+    const { album, pulse } = this.state;
     const promote = location.pathname === '/now-playing';
 
-    const { album, pulse } = this.state;
-    const image = album && album.images[0].url;
     return (
       <div className="Visuals">
         <Album album={album} promote={promote} />
 
-        <Backdrop image={image} pulse={pulse} promote={promote} />
+        <Backdrop album={album} pulse={pulse} promote={promote} />
       </div>
     );
   }

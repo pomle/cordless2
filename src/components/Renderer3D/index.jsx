@@ -24,15 +24,20 @@ void main() {
 
 const THREE = window.THREE;
 
+export {
+  THREE,
+};
+
 export class Renderer3D extends Component {
   static defaultProps = {
+    alpha: false,
     size: { x: 800, y: 450 },
   };
 
   constructor(props) {
     super(props);
 
-    this.renderer = new THREE.WebGLRenderer({ alpha: true });
+    this.renderer = new THREE.WebGLRenderer({ alpha: props.alpha });
     this.renderer.setSize(props.size.x, props.size.y);
 
     this.state = {
