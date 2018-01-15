@@ -55,7 +55,7 @@ export class Navigation extends Component {
               <TrackInfo/>
             </Route>
 
-            <Route path="*">
+            <Route exact path="/">
               <ul>
                 <li>
                   <Link to="/search">Search</Link>
