@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
@@ -15,7 +15,7 @@ function matcher(needle) {
   };
 }
 
-export class PlaylistDetail extends Component {
+export class PlaylistDetail extends PureComponent {
   static contextTypes = {
     api: PropTypes.object,
   };

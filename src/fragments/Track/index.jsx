@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { Link } from 'react-router-dom';
 
 import { PlayButton } from 'components/PlayButton';
 import { Artists } from 'fragments/Artists';
 
-export class Track extends Component {
+export class Track extends PureComponent {
   play = () => {
     this.props.play(this.props.track);
   };
