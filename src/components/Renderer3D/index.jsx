@@ -22,11 +22,7 @@ void main() {
 `,
 };
 
-const THREE = window.THREE;
-
-export {
-  THREE,
-};
+export const THREE = window.THREE;
 
 export class Renderer3D extends Component {
   static defaultProps = {
