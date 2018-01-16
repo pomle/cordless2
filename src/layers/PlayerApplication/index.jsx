@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {Provider} from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {
@@ -11,6 +12,7 @@ import {
 } from '@pomle/spotify-web-sdk';
 
 import { CordlessPlayer } from './CordlessPlayer';
+import {createStore} from './store';
 
 import { onURIChange } from 'library/compare.js';
 
@@ -43,6 +45,8 @@ export class PlayerApplication extends Component {
       features: null,
       analysis: null,
     };
+
+    this.store = createStore();
 
     this.api = {
       albumAPI: new AlbumAPI(token),
@@ -112,14 +116,16 @@ export class PlayerApplication extends Component {
       classes.push('pending');
     }
 
-    return <div className={classes.join(' ')}>
-      <PlayerUI player={player} />
+    return <Provider store={this.store}>
+      <div className={classes.join(' ')}>
+        <PlayerUI player={player} />
 
-      <Visuals
-        context={player.context}
-        track={track}
-        analysis={analysis}
-      />
-    </div>;
+        <Visuals
+          context={player.context}
+          track={track}
+          analysis={analysis}
+        />
+      </div>
+    </Provider>
   }
 }
