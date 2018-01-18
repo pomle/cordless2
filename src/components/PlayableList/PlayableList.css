@@ -34,7 +34,7 @@
 }
 
 .PlayableList .playback {
-    display: none;
+    opacity: 0;
 }
 
 .PlayableList .playback button {
@@ -45,5 +45,5 @@
 }
 
 .PlayableList .item > *:hover .playback {
-    display: initial;
+    opacity: 1;
 }
