@@ -1,11 +1,12 @@
 .PlayerUI {
-    display: grid;
-    grid-template-rows: auto 100px;
+    display: flex;
+    flex-flow: column;
     height: 100vh;
 }
 
 .PlayerUI .viewport {
     overflow: auto;
+    flex: 1;
 }
 
 .PlayerUI .viewport::-webkit-scrollbar {
@@ -14,4 +15,8 @@
 
 .PlayerUI .viewport::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.5);
+}
+
+.PlayerUI > .Playback {
+    flex: 0 0 100px;
 }
