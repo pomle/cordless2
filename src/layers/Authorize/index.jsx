@@ -6,8 +6,20 @@ import { UserAPI, createAuthorizationURL } from '@pomle/spotify-web-sdk';
 import { Splash } from 'components/Splash';
 import { Welcome } from 'views/Welcome';
 
+const SCOPE = [
+  'user-read-private',
+  'user-read-playback-state',
+  'user-modify-playback-state',
+  'playlist-read-private',
+  'playlist-read-collaborative',
+  'streaming',
+];
+
 const CLIENT_ID = 'a7cf3dcdfbd64bd5ac8d960caabbc890';
 const CALLBACK_URL = process.env.REACT_APP_SITE_URL || 'http://localhost:3000/';
+const AUTH_URI = process.env.REACT_APP_AUTH_URI
+  ? process.env.REACT_APP_AUTH_URI + '?scope=' + SCOPE.join(' ')
+  : createAuthorizationURL(CLIENT_ID, CALLBACK_URL);
 
 const STORAGE_KEY = 'session2';
 
@@ -93,6 +105,6 @@ export class Authorize extends Component {
       </Splash>;
     }
 
-    return <Welcome authURL={createAuthorizationURL(CLIENT_ID, CALLBACK_URL)} />;
+    return <Welcome authURL={AUTH_URI} />;
   }
 }
