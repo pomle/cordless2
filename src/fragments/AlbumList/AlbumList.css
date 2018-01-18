@@ -3,7 +3,7 @@
     grid: 1fr / 1fr;
     height: 10em;
     width: 10em;
-    margin: 1em;
+    margin: 0.5em;
 }
 
 .AlbumList .Album .name {

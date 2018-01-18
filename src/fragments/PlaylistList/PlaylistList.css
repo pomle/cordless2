@@ -1,9 +1,10 @@
 .PlaylistList .Playlist {
     display: grid;
-    grid: repeat(3, 1fr) / 5em 10em;
+    grid: repeat(3, 1fr) / 7em 10em;
     grid-column-gap: 0.5em;
-    height: 5em;
-    margin: 1em;
+    height: 7em;
+    width: 20em;
+    margin: 0.5em;
 }
 
 .PlaylistList .Playlist .image {
