@@ -6,6 +6,7 @@ export class CordlessPlayer {
   constructor(token) {
     this.token = token;
     this.state = new PlayerState();
+    this.destroyed = false;
   }
 
   getState() {
@@ -17,6 +18,10 @@ export class CordlessPlayer {
       name: 'Cordless',
     })
     .then(player => {
+      if (this.destroyed) {
+        return;
+      }
+
       this.player = player;
 
       this.player.on('ready', message => {
@@ -44,8 +49,13 @@ export class CordlessPlayer {
   }
 
   destroy() {
-    this.poller.destroy();
-    this.player.disconnect();
+    if (this.poller) {
+      this.poller.destroy();
+    }
+    if (this.player) {
+      this.player.disconnect();
+    }
+    this.destroyed = true;
   }
 
   update(fn) {
