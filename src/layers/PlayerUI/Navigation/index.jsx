@@ -6,11 +6,13 @@ import { ViewContainer } from 'components/ViewContainer';
 import { AlbumDetail } from 'views/Album';
 import { ArtistDetail } from 'views/Artist';
 import { PlaylistDetail } from 'views/Playlist/Detail';
-import { PlaylistView } from 'views/Playlist/Index';
+import PlaylistView from 'views/Playlist/Index';
 import { Search } from 'views/Search';
 import { TrackInfo } from 'views/TrackInfo';
 
 import './Navigation.css';
+
+const ME = Symbol('me');
 
 export class Navigation extends Component {
   render() {
@@ -40,8 +42,8 @@ export class Navigation extends Component {
               }}
             />
 
-            <Route exact path="/playlist">
-              <PlaylistView />
+            <Route exact path="/playlists">
+              <PlaylistView userId={ME} />
             </Route>
 
             <Route path="/search/:query?" render={({history, match}) => {
@@ -61,7 +63,7 @@ export class Navigation extends Component {
                   <Link to="/search">Search</Link>
                 </li>
                 <li>
-                  <Link to="/playlist">Playlists</Link>
+                  <Link to="/playlists">Playlists</Link>
                 </li>
                 <li>
                   <Link to="/now-playing">Now Playing</Link>

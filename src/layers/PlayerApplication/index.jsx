@@ -22,6 +22,8 @@ import { ImagePool } from 'library/ImagePool';
 import { Visuals } from 'layers/Visuals';
 import { PlayerUI } from 'layers/PlayerUI';
 
+import { setToken } from './store/session';
+
 import './PlayerApplication.css';
 
 export class PlayerApplication extends Component {
@@ -46,8 +48,6 @@ export class PlayerApplication extends Component {
       analysis: null,
     };
 
-    this.store = createStore();
-
     this.api = {
       albumAPI: new AlbumAPI(token),
       artistAPI: new ArtistAPI(token),
@@ -56,6 +56,9 @@ export class PlayerApplication extends Component {
       searchAPI: new SearchAPI(token),
       trackAPI: new TrackAPI(token),
     };
+
+    this.store = createStore();
+    this.store.dispatch(setToken(token));
   }
 
   getChildContext() {

@@ -1,36 +1,49 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
 import { PlaylistIndex } from 'fragments/PlaylistIndex';
+import { fetchUserPlaylists } from 'layers/PlayerApplication/store/playlist';
 
-export class PlaylistView extends Component {
-  static contextTypes = {
-    api: PropTypes.object,
+class PlaylistView extends Component {
+  static propTypes = {
+    userId: PropTypes.string.isRequired,
+    playlists: PropTypes.instanceOf(List).isRequired,
   };
 
-  constructor(props, context) {
-    super(props);
-
-    this.api = context.api.playlistAPI;
-
-    this.state = {
-      playlists: new List(),
-    };
+  componentWillMount() {
+    this.onUpdate(this.props);
   }
 
-  componentDidMount() {
-    this.api.consume(this.api.getPlaylists(), items => {
-      this.setState(prevState => {
-        return { playlists: prevState.playlists.push(...items) };
-      });
-    });
+  componentWillReceiveProps(nextProps) {
+    this.onUpdate(nextProps);
+  }
+
+  onUpdate({userId, fetch}) {
+    if (this.userId === userId) {
+      return;
+    }
+
+    this.userId = userId;
+
+    fetch(userId);
   }
 
   render() {
+    console.log('PlaylistView props', this.props);
     return <PlaylistIndex
       caption="Your Playlists"
-      playlists={this.state.playlists}
+      playlists={this.props.playlists}
     />;
   }
 }
+
+export default connect((state, props) => {
+  console.log(state, props);
+  return {
+    playlists: state.playlist.getEntries(props.userId),
+  };
+}, {
+  fetch: fetchUserPlaylists,
+})(PlaylistView);
