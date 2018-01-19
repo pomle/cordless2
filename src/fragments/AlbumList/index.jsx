@@ -10,8 +10,8 @@ export class AlbumList extends Component {
     const { albums } = this.props;
 
     return (
-      <PlayableList>
-        <div className="AlbumList">
+      <div className="AlbumList">
+        <PlayableList>
           {albums.map(album => {
             return (
               <div key={album.id} className="item">
@@ -19,8 +19,8 @@ export class AlbumList extends Component {
               </div>
             );
           })}
-        </div>
-      </PlayableList>
+        </PlayableList>
+      </div>
     );
   }
 }

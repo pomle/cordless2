@@ -10,8 +10,8 @@ export class PlaylistList extends Component {
     const { playlists, playbackAPI } = this.props;
 
     return (
-      <PlayableList>
-        <div className="PlaylistList">
+      <div className="PlaylistList">
+        <PlayableList>
           {playlists.map(playlist => {
             return (
               <div key={playlist.id} className="item">
@@ -19,8 +19,8 @@ export class PlaylistList extends Component {
               </div>
             );
           })}
-        </div>
-      </PlayableList>
+        </PlayableList>
+      </div>
     );
   }
 }
