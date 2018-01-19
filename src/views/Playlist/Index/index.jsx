@@ -2,11 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
-import { QuickSearch } from 'components/QuickSearch';
-import { ViewHeader } from 'components/ViewHeader';
-import { PlaylistList } from 'fragments/PlaylistList';
+import { PlaylistIndex } from 'fragments/PlaylistIndex';
 
-export class PlaylistIndex extends Component {
+export class PlaylistView extends Component {
   static contextTypes = {
     api: PropTypes.object,
   };
@@ -17,7 +15,6 @@ export class PlaylistIndex extends Component {
     this.api = context.api.playlistAPI;
 
     this.state = {
-      filter: '',
       playlists: new List(),
     };
   }
@@ -30,33 +27,10 @@ export class PlaylistIndex extends Component {
     });
   }
 
-  getPlaylists() {
-    let { filter, playlists } = this.state;
-    if (filter.length) {
-      playlists = playlists.filter(playlist => playlist.name.includes(filter));
-    }
-    return playlists;
-  }
-
-  updateFilter = filter => {
-    this.setState({ filter });
-  };
-
   render() {
-    const { player } = this.props;
-    const { filter } = this.state;
-
-    return (
-      <div className="PlaylistIndex">
-        <QuickSearch value={filter} onChange={this.updateFilter} />
-
-        <ViewHeader caption="Your Playlists" />
-
-        <PlaylistList
-          playlists={this.getPlaylists()}
-          player={player}
-        />
-      </div>
-    );
+    return <PlaylistIndex
+      caption="Your Playlists"
+      playlists={this.state.playlists}
+    />;
   }
 }

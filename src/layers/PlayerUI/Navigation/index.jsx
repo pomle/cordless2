@@ -6,7 +6,7 @@ import { ViewContainer } from 'components/ViewContainer';
 import { AlbumDetail } from 'views/Album';
 import { ArtistDetail } from 'views/Artist';
 import { PlaylistDetail } from 'views/Playlist/Detail';
-import { PlaylistIndex } from 'views/Playlist/Index';
+import { PlaylistView } from 'views/Playlist/Index';
 import { Search } from 'views/Search';
 import { TrackInfo } from 'views/TrackInfo';
 
@@ -41,7 +41,7 @@ export class Navigation extends Component {
             />
 
             <Route exact path="/playlist">
-              <PlaylistIndex />
+              <PlaylistView />
             </Route>
 
             <Route path="/search/:query?" render={({history, match}) => {
