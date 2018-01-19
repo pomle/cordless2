@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {List} from 'immutable';
+import { List } from 'immutable';
 
 import { ViewHeader } from 'components/ViewHeader';
 import { AlbumList } from 'fragments/AlbumList';
@@ -31,8 +31,7 @@ export class ArtistDetail extends Component {
       });
     });
 
-    this.artistAPI.getArtist(artistId)
-    .then(artist => {
+    this.artistAPI.getArtist(artistId).then(artist => {
       this.setState({ artist });
     });
   }
@@ -58,7 +57,7 @@ export class ArtistDetail extends Component {
       <div className="ArtistDetail">
         <ViewHeader caption={artist.name} images={artist.images} />
 
-        <AlbumList albums={albums}/>
+        <AlbumList albums={albums} />
       </div>
     );
   }

@@ -66,7 +66,7 @@ export class Renderer3D extends Component {
 
   render() {
     return (
-      <Node shader={shader} uniforms={{ texture: this.renderer.domElement}} />
+      <Node shader={shader} uniforms={{ texture: this.renderer.domElement }} />
     );
   }
 }

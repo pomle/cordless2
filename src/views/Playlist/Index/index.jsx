@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
@@ -20,7 +20,7 @@ class PlaylistView extends Component {
     this.onUpdate(nextProps);
   }
 
-  onUpdate({userId, fetch}) {
+  onUpdate({ userId, fetch }) {
     if (this.userId === userId) {
       return;
     }
@@ -32,18 +32,23 @@ class PlaylistView extends Component {
 
   render() {
     console.log('PlaylistView props', this.props);
-    return <PlaylistIndex
-      caption="Your Playlists"
-      playlists={this.props.playlists}
-    />;
+    return (
+      <PlaylistIndex
+        caption="Your Playlists"
+        playlists={this.props.playlists}
+      />
+    );
   }
 }
 
-export default connect((state, props) => {
-  console.log(state, props);
-  return {
-    playlists: state.playlist.getEntries(props.userId),
-  };
-}, {
-  fetch: fetchUserPlaylists,
-})(PlaylistView);
+export default connect(
+  (state, props) => {
+    console.log(state, props);
+    return {
+      playlists: state.playlist.getEntries(props.userId),
+    };
+  },
+  {
+    fetch: fetchUserPlaylists,
+  }
+)(PlaylistView);

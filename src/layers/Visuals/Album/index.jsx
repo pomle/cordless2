@@ -53,7 +53,7 @@ export class Album extends PureComponent {
         easing: 'easeInQuad',
         complete: () => {
           this.scene.remove(album);
-        }
+        },
       });
 
       this.albums.delete(album);
@@ -96,7 +96,7 @@ export class Album extends PureComponent {
         album.userData.update(diff, total);
       }
     }
-  }
+  };
 
   render() {
     const { promote } = this.props;
@@ -110,7 +110,13 @@ export class Album extends PureComponent {
           >
             {({ factor }) => (
               <Blur passes={4} factor={factor}>
-                <Renderer3D alpha size={resolution} scene={this.scene} camera={this.camera} onUpdate={this.update} />
+                <Renderer3D
+                  alpha
+                  size={resolution}
+                  scene={this.scene}
+                  camera={this.camera}
+                  onUpdate={this.update}
+                />
               </Blur>
             )}
           </Motion>

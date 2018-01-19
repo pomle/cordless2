@@ -40,7 +40,7 @@ export class Search extends Component {
 
   handleChange = event => {
     const query = event.target.value;
-    this.setState({query});
+    this.setState({ query });
 
     if (query.length > 2) {
       this.handleSearchInput(query);
@@ -53,7 +53,7 @@ export class Search extends Component {
 
   handleSearchInput(query) {
     this.props.onQuery(query);
-    this.performSearch(query)
+    this.performSearch(query);
   }
 
   performSearch(query) {
@@ -97,18 +97,19 @@ export class Search extends Component {
         <header>
           <h2>Search</h2>
 
-          <input type="text" autoFocus value={query} onChange={this.handleChange} />
+          <input
+            type="text"
+            autoFocus
+            value={query}
+            onChange={this.handleChange}
+          />
         </header>
 
         <div className="results">
           <TrackList>
             {tracks.map(track => {
               return (
-                <Track
-                  key={track.id}
-                  track={track}
-                  play={this.playTrack}
-                />
+                <Track key={track.id} track={track} play={this.playTrack} />
               );
             })}
           </TrackList>

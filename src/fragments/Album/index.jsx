@@ -27,9 +27,7 @@ export class Album extends Component {
         </div>
 
         <div className="name">
-          <Link to={`/album/${album.id}`}>
-            {album.name}
-          </Link>
+          <Link to={`/album/${album.id}`}>{album.name}</Link>
         </div>
 
         <div className="playback">

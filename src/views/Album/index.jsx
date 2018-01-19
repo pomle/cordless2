@@ -50,13 +50,7 @@ export class AlbumDetail extends Component {
 
         <TrackList>
           {album.tracks.items.map(track => {
-            return (
-              <Track
-                key={track.id}
-                track={track}
-                play={this.playTrack}
-              />
-            );
+            return <Track key={track.id} track={track} play={this.playTrack} />;
           })}
         </TrackList>
       </div>

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {List} from 'immutable';
+import { List } from 'immutable';
 
 import { QuickSearch } from 'components/QuickSearch';
 import { ViewHeader } from 'components/ViewHeader';
@@ -9,7 +9,7 @@ import { PlaylistList } from 'fragments/PlaylistList';
 export class PlaylistIndex extends Component {
   static propTypes = {
     caption: PropTypes.string.isRequired,
-    playlists: PropTypes.instanceOf(List)
+    playlists: PropTypes.instanceOf(List),
   };
 
   constructor(props, context) {
@@ -44,9 +44,7 @@ export class PlaylistIndex extends Component {
 
         <ViewHeader caption={caption} />
 
-        <PlaylistList
-          playlists={this.filter(playlists)}
-        />
+        <PlaylistList playlists={this.filter(playlists)} />
       </div>
     );
   }

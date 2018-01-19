@@ -100,9 +100,11 @@ export class Authorize extends Component {
     }
 
     if (token) {
-      return <Splash>
-        <h1>Authorizing...</h1>
-      </Splash>;
+      return (
+        <Splash>
+          <h1>Authorizing...</h1>
+        </Splash>
+      );
     }
 
     return <Welcome authURL={AUTH_URI} />;

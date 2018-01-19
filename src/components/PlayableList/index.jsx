@@ -4,10 +4,6 @@ import './PlayableList.css';
 
 export class PlayableList extends Component {
   render() {
-    return (
-      <div className="PlayableList">
-        {this.props.children}
-      </div>
-    );
+    return <div className="PlayableList">{this.props.children}</div>;
   }
 }

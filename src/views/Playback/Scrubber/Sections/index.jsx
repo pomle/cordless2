@@ -19,12 +19,16 @@ export class Sections extends Component {
 
     return (
       <div className={classes.join(' ')}>
-        { sections.map(section => {
+        {sections.map(section => {
           const fr = section.duration / total;
-          return <div key={section.start} className="section" style={{width: `${fr * 100}%`}}>
-
-          </div>;
-        }) }
+          return (
+            <div
+              key={section.start}
+              className="section"
+              style={{ width: `${fr * 100}%` }}
+            />
+          );
+        })}
       </div>
     );
   }

@@ -9,16 +9,18 @@ export class PlaylistList extends Component {
   render() {
     const { playlists, playbackAPI } = this.props;
 
-    return <PlayableList>
-      <div className="PlaylistList">
-        {playlists.map(playlist => {
-          return (
-            <div key={playlist.id} className="item">
-              <Playlist playlist={playlist} playbackAPI={playbackAPI} />
-            </div>
-          );
-        })}
-      </div>
-    </PlayableList>;
+    return (
+      <PlayableList>
+        <div className="PlaylistList">
+          {playlists.map(playlist => {
+            return (
+              <div key={playlist.id} className="item">
+                <Playlist playlist={playlist} playbackAPI={playbackAPI} />
+              </div>
+            );
+          })}
+        </div>
+      </PlayableList>
+    );
   }
 }

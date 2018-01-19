@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import {
@@ -12,7 +12,7 @@ import {
 } from '@pomle/spotify-web-sdk';
 
 import { CordlessPlayer } from './CordlessPlayer';
-import {createStore} from './store';
+import { createStore } from './store';
 
 import { onURIChange } from 'library/compare.js';
 
@@ -83,7 +83,7 @@ export class PlayerApplication extends Component {
 
       onTrack(player.context.track_window.current_track);
 
-      this.setState({player});
+      this.setState({ player });
     };
 
     this.cordless.initialize();
@@ -102,11 +102,13 @@ export class PlayerApplication extends Component {
 
     const api = this.api.trackAPI;
 
-    api.getAudioFeatures(track.id)
-    .then(features => this.setState({features}));
+    api
+      .getAudioFeatures(track.id)
+      .then(features => this.setState({ features }));
 
-    api.getAudioAnalysis(track.id)
-    .then(analysis => this.setState({analysis}));
+    api
+      .getAudioAnalysis(track.id)
+      .then(analysis => this.setState({ analysis }));
   }
 
   render() {
@@ -119,16 +121,14 @@ export class PlayerApplication extends Component {
       classes.push('pending');
     }
 
-    return <Provider store={this.store}>
-      <div className={classes.join(' ')}>
-        <PlayerUI player={player} />
+    return (
+      <Provider store={this.store}>
+        <div className={classes.join(' ')}>
+          <PlayerUI player={player} />
 
-        <Visuals
-          context={player.context}
-          track={track}
-          analysis={analysis}
-        />
-      </div>
-    </Provider>
+          <Visuals context={player.context} track={track} analysis={analysis} />
+        </div>
+      </Provider>
+    );
   }
 }

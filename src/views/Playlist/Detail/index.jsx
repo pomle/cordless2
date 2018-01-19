@@ -36,14 +36,17 @@ export class PlaylistDetail extends PureComponent {
   async componentDidMount() {
     const { userId, playlistId } = this.props;
 
-    this.playlistAPI.consume(this.playlistAPI.getPlaylistTracks(userId, playlistId), items => {
-      this.setState(prevState => {
-        const filtered = items.filter(entry =>
-          entry.track.uri.startsWith('spotify:track:')
-        );
-        return { tracks: prevState.tracks.push(...filtered) };
-      });
-    });
+    this.playlistAPI.consume(
+      this.playlistAPI.getPlaylistTracks(userId, playlistId),
+      items => {
+        this.setState(prevState => {
+          const filtered = items.filter(entry =>
+            entry.track.uri.startsWith('spotify:track:')
+          );
+          return { tracks: prevState.tracks.push(...filtered) };
+        });
+      }
+    );
 
     const playlist = await this.playlistAPI.getPlaylist(userId, playlistId);
     this.setState({ playlist });

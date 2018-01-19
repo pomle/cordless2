@@ -24,21 +24,23 @@ export class Navigation extends Component {
               path="/album/:albumId"
               render={props => {
                 const { albumId } = props.match.params;
-                return <AlbumDetail albumId={albumId}/>
+                return <AlbumDetail albumId={albumId} />;
               }}
             />
             <Route
               path="/artist/:artistId"
               render={props => {
                 const { artistId } = props.match.params;
-                return <ArtistDetail artistId={artistId}/>
+                return <ArtistDetail artistId={artistId} />;
               }}
             />
             <Route
               path="/user/:userId/playlist/:playlistId"
               render={props => {
                 const { userId, playlistId } = props.match.params;
-                return <PlaylistDetail userId={userId} playlistId={playlistId} />;
+                return (
+                  <PlaylistDetail userId={userId} playlistId={playlistId} />
+                );
               }}
             />
 
@@ -46,15 +48,22 @@ export class Navigation extends Component {
               <PlaylistView userId={ME} />
             </Route>
 
-            <Route path="/search/:query?" render={({history, match}) => {
-              return <Search
-                query={match.params.query}
-                onQuery={query => history.replace(`/search/${encodeURIComponent(query)}`)}
-              />
-            }}/>
+            <Route
+              path="/search/:query?"
+              render={({ history, match }) => {
+                return (
+                  <Search
+                    query={match.params.query}
+                    onQuery={query =>
+                      history.replace(`/search/${encodeURIComponent(query)}`)
+                    }
+                  />
+                );
+              }}
+            />
 
             <Route path="/track-info">
-              <TrackInfo/>
+              <TrackInfo />
             </Route>
 
             <Route exact path="/">

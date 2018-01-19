@@ -1,9 +1,9 @@
-import {createStore as createReduxStore, applyMiddleware} from 'redux';
-import {reducer} from './reducer';
+import { createStore as createReduxStore, applyMiddleware } from 'redux';
+import { reducer } from './reducer';
 
 function createThunkMiddleware() {
   return ({ dispatch, getState }) => next => action => {
-    if (typeof action === "function") {
+    if (typeof action === 'function') {
       return action(dispatch, getState);
     }
 
@@ -12,6 +12,6 @@ function createThunkMiddleware() {
 }
 
 export function createStore() {
-    const thunk = createThunkMiddleware();
-    return createReduxStore(reducer, applyMiddleware(thunk));
+  const thunk = createThunkMiddleware();
+  return createReduxStore(reducer, applyMiddleware(thunk));
 }

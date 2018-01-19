@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import {largest} from 'library/image';
+import { largest } from 'library/image';
 
 import './Image.css';
 
@@ -22,7 +22,7 @@ export class Image extends Component {
     this.componentWillReceiveProps(props);
   }
 
-  componentWillReceiveProps({candidates}) {
+  componentWillReceiveProps({ candidates }) {
     if (candidates.length) {
       const image = largest(candidates);
       if (image.url === this.currentURL) {
@@ -38,7 +38,7 @@ export class Image extends Component {
       this.context.images.get(image.url).then(image => {
         // Ensure the last requested matches the loaded if there is a race.
         if (this.currentURL === image.src) {
-          this.setState({image});
+          this.setState({ image });
         }
       });
     }

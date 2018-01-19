@@ -1,7 +1,7 @@
-import {List} from "immutable";
-import {createIndex} from "library/store/object-index";
+import { List } from 'immutable';
+import { createIndex } from 'library/store/object-index';
 
-const {reducer, setResult, setEntries} = createIndex('playlist');
+const { reducer, setResult, setEntries } = createIndex('playlist');
 
 export function fetchUserPlaylists(userId) {
   return async (dispatch, getState) => {
@@ -10,18 +10,20 @@ export function fetchUserPlaylists(userId) {
     let results = new List();
 
     api.consume(api.getPlaylists(), items => {
-        dispatch(setEntries(items.map(item => ({
+      dispatch(
+        setEntries(
+          items.map(item => ({
             id: item.id,
             object: item,
-        }))));
+          }))
+        )
+      );
 
-        results = results.push(...items.map(item => item.id));
+      results = results.push(...items.map(item => item.id));
 
-        dispatch(setResult(userId, results));
+      dispatch(setResult(userId, results));
     });
   };
 }
 
-export {
-    reducer,
-};
+export { reducer };

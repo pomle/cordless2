@@ -49,7 +49,11 @@ export class Playback extends Component {
     return (
       <div className="Playback">
         <NowPlaying track={trackWindow.current_track} />
-        <Scrubber context={context} seek={this.seek} analysis={track.analysis} />
+        <Scrubber
+          context={context}
+          seek={this.seek}
+          analysis={track.analysis}
+        />
         <Interface prev={this.prev} next={this.next} toggle={this.toggle} />
         <div className="vis">
           <Link to="/now-playing">Now Playing</Link>
