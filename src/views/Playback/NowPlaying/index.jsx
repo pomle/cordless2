@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {fromJS} from "immutable";
 
 import { Image } from 'fragments/Image';
 import { Artists } from 'fragments/Artists';
@@ -15,7 +16,7 @@ export class NowPlaying extends Component {
 
         <div className="trackName">{track ? track.name : ''}</div>
 
-        {track ? <Artists artists={track.artists} /> : null}
+        {track ? <Artists artists={fromJS(track.artists)} /> : null}
       </div>
     );
   }

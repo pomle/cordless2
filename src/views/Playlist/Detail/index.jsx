@@ -12,6 +12,10 @@ import {matcher, matchTrack} from "library/search";
 import { fetchPlaylist, fetchPlaylistTracks } from 'layers/PlayerApplication/store/playlist';
 
 export class PlaylistDetail extends PureComponent {
+  static contextTypes = {
+    api: PropTypes.object,
+  };
+
   static propTypes = {
     fetchPlaylist: PropTypes.func.isRequired,
     fetchPlaylistTracks: PropTypes.func.isRequired,
@@ -19,6 +23,8 @@ export class PlaylistDetail extends PureComponent {
 
   constructor(props, context) {
     super(props);
+
+    this.playbackAPI = context.api.playbackAPI;
 
     this.state = {
       filter: '',
@@ -47,7 +53,7 @@ export class PlaylistDetail extends PureComponent {
 
   playTrack = track => {
     const { userId, playlistId } = this.props;
-    this.playbackAPI.playPlaylist(userId, playlistId, track.id);
+    this.playbackAPI.playPlaylist(userId, playlistId, track.get('id'));
   };
 
   updateFilter = filter => {
