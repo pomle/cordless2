@@ -19,10 +19,14 @@ export class Image extends Component {
 
     this.currentURL = null;
 
-    this.componentWillReceiveProps(props);
+    this.componentWillReceiveProps = this.update;
   }
 
-  componentWillReceiveProps({ candidates }) {
+  componentWillMount() {
+    this.update(this.props);
+  }
+
+  update({candidates}) {
     if (candidates.size) {
       const image = largest(candidates);
       if (image.url === this.currentURL) {
