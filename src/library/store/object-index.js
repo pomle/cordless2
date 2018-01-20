@@ -1,6 +1,6 @@
 import { Record, List, Map, Seq } from 'immutable';
 
-class State extends Record({
+class NormalizedState extends Record({
   entries: new Map(),
   results: new Map(),
 }) {
@@ -79,7 +79,7 @@ export function createIndex(namespace) {
     };
   }
 
-  function reducer(state = new State(), action = {}) {
+  function reducer(state = new NormalizedState(), action = {}) {
     switch (action.type) {
       case SET_RESULT:
         return state.set(
