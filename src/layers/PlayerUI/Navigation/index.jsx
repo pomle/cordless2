@@ -12,8 +12,6 @@ import { TrackInfo } from 'views/TrackInfo';
 
 import './Navigation.css';
 
-const ME = Symbol('me');
-
 export class Navigation extends Component {
   render() {
     return (
@@ -45,7 +43,7 @@ export class Navigation extends Component {
             />
 
             <Route exact path="/playlists">
-              <PlaylistView userId={ME} />
+              <PlaylistView />
             </Route>
 
             <Route

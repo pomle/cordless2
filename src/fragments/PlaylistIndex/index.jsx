@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { List } from 'immutable';
+import { Iterable } from 'immutable';
 
 import { QuickSearch } from 'components/QuickSearch';
 import { ViewHeader } from 'components/ViewHeader';
@@ -11,7 +11,7 @@ import {matcher, matchPlaylist} from "library/search";
 export class PlaylistIndex extends Component {
   static propTypes = {
     caption: PropTypes.string.isRequired,
-    playlists: PropTypes.instanceOf(List),
+    playlists: PropTypes.instanceOf(Iterable).isRequired,
   };
 
   constructor(props, context) {

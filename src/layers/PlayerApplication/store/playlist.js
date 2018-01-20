@@ -1,13 +1,27 @@
 import { OrderedSet } from 'immutable';
 import { createIndex, createFetcher } from 'library/store/object-index';
 
-const { reducer, updateResult, mergeEntry, mergeEntries, setResult, setEntries } = createIndex('playlist');
+const { reducer, updateResult, mergeEntry, mergeEntries, setResult } = createIndex('playlist');
 
 export function fetchPlaylist(userId, playlistId) {
   return async (dispatch, getState) => {
     const api = getState().session.playlistAPI;
+
     const playlist = await api.getPlaylist(userId, playlistId);
-    dispatch(mergeEntry(playlist.id, playlist));
+
+    const entries = getState().playlist.entries;
+    const snapshotId = entries.getIn([playlistId, 'snapshot_id']);
+    const snapshotsMatch = snapshotId === playlist.snapshot_id;
+    if (!snapshotsMatch) {
+      console.log('Updated snapshot', snapshotId);
+      dispatch(mergeEntry(playlistId, playlist));
+    }
+
+    const tracks = entries.getIn([playlistId, 'tracks', 'items']);
+    const trackCountMatch = tracks && tracks.size === playlist.tracks.total;
+    if (!trackCountMatch || !snapshotsMatch) {
+      dispatch(fetchPlaylistTracks(userId, playlistId));
+    }
   };
 }
 
@@ -45,8 +59,7 @@ export const fetchPlaylistTracks = createFetcher((userId, playlistId) => {
     },
 
     onFinish: () => {
-      return setEntries([]);
-      //console.log('Finish');
+      return mergeEntry(playlistId);
     }
   };
 }, {

@@ -9,7 +9,7 @@ import { PlaylistDetailHeader } from './Header';
 
 import {matcher, matchTrack} from "library/search";
 
-import { fetchPlaylist, fetchPlaylistTracks } from 'layers/PlayerApplication/store/playlist';
+import { fetchPlaylist } from 'layers/PlayerApplication/store/playlist';
 
 export class PlaylistDetail extends PureComponent {
   static contextTypes = {
@@ -18,7 +18,6 @@ export class PlaylistDetail extends PureComponent {
 
   static propTypes = {
     fetchPlaylist: PropTypes.func.isRequired,
-    fetchPlaylistTracks: PropTypes.func.isRequired,
   };
 
   constructor(props, context) {
@@ -32,9 +31,8 @@ export class PlaylistDetail extends PureComponent {
   }
 
   componentWillMount() {
-    const { userId, playlistId, fetchPlaylist, fetchPlaylistTracks } = this.props;
+    const { userId, playlistId, fetchPlaylist } = this.props;
     fetchPlaylist(userId, playlistId);
-    fetchPlaylistTracks(userId, playlistId);
   }
 
   getEntries() {
@@ -93,6 +91,5 @@ export default connect(
   },
   {
     fetchPlaylist,
-    fetchPlaylistTracks,
   }
 )(PlaylistDetail);

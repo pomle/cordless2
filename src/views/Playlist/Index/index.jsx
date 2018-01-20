@@ -1,15 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { List } from 'immutable';
+import { Iterable } from 'immutable';
 
 import { PlaylistIndex } from 'fragments/PlaylistIndex';
 import { fetchUserPlaylists } from 'layers/PlayerApplication/store/playlist';
 
+const ME = Symbol('default user');
+
 class PlaylistView extends Component {
+  static defaultProps = {
+    userId: ME,
+  };
+
   static propTypes = {
-    userId: PropTypes.string.isRequired,
-    playlists: PropTypes.instanceOf(List).isRequired,
+    userId: PropTypes.string,
+    playlists: PropTypes.instanceOf(Iterable).isRequired,
   };
 
   componentWillMount() {
@@ -27,7 +33,7 @@ class PlaylistView extends Component {
 
     this.userId = userId;
 
-    fetch(userId);
+    fetch(userId === ME ? undefined : userId);
   }
 
   render() {
