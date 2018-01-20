@@ -1,30 +1,21 @@
 import { List } from 'immutable';
-import { createIndex } from 'library/store/object-index';
+import { createIndex, createFetcher } from 'library/store/object-index';
 
-const { reducer, setResult, setEntry, setEntries } = createIndex('playlist');
+const { reducer, updateResult, setResult, setEntry, setEntries } = createIndex('playlist');
 
-export function fetchUserPlaylists(userId) {
-  return async (dispatch, getState) => {
-    const api = getState().session.playlistAPI;
-
-    let results = new List();
-
-    api.consume(api.getPlaylists(), items => {
-      dispatch(
-        setEntries(
-          items.map(item => ({
-            id: item.id,
-            object: item,
-          }))
-        )
-      );
-
-      results = results.push(...items.map(item => item.id));
-
-      dispatch(setResult(userId, results));
-    });
+export const fetchUserPlaylists = createFetcher(userId => {
+  return {
+    request: state => {
+      const api = state.session.playlistAPI;
+      return api.consumer(api.getPlaylists());
+    },
+    onEntries: entries => setEntries(entries),
+    onResult: result => updateResult(userId, result),
+    onFinish: finalResult => setResult(userId, finalResult),
   };
-}
+}, {
+  refresh: 10000,
+});
 
 export function fetchPlaylist(userId, playlistId) {
   return async (dispatch, getState) => {

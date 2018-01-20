@@ -1,4 +1,4 @@
-import { Record, List, Map } from 'immutable';
+import { Record, List, Map, OrderedSet } from 'immutable';
 
 class State extends Record({
   entries: new Map(),
@@ -25,6 +25,7 @@ class State extends Record({
 
 export function createIndex(namespace) {
   const SET_RESULT = `r/${namespace}/object-index/set-result`;
+  const UPDATE_RESULT = `r/${namespace}/object-index/update-result`;
   const SET_ENTRIES = `r/${namespace}/object-index/set-entries`;
   const DELETE_ENTRY = `r/${namespace}/object-index/delete-entry`;
 
@@ -47,6 +48,14 @@ export function createIndex(namespace) {
     };
   }
 
+  function updateResult(namespace, result) {
+    return {
+      type: UPDATE_RESULT,
+      namespace,
+      result,
+    };
+  }
+
   function deleteEntry(id) {
     return {
       type: DELETE_ENTRY,
@@ -60,6 +69,11 @@ export function createIndex(namespace) {
         return state.set(
           'results',
           state.results.set(action.namespace, action.result)
+        );
+      case UPDATE_RESULT:
+        return state.set(
+          'results',
+          state.results.mergeDeep({[action.namespace]: action.result})
         );
       case SET_ENTRIES:
         return state.set(
@@ -81,6 +95,7 @@ export function createIndex(namespace) {
   return {
     reducer,
     setResult,
+    updateResult,
     setEntry,
     setEntries,
     deleteEntry,
@@ -110,6 +125,7 @@ export function createFetcher(callback, {refresh = 10000, interval = 500}) {
       function finish() {
         clearInterval(timer);
         flush();
+        dispatch(handler.onFinish(results));
       }
 
       function flush() {
@@ -131,7 +147,7 @@ export function createFetcher(callback, {refresh = 10000, interval = 500}) {
       const timer = setInterval(flush, interval);
 
       let items = new List();
-      let results = new List();
+      let results = new OrderedSet();
 
       flush();
 
