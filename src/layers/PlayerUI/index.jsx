@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Navigation } from './Navigation';
 import { Playback } from 'views/Playback';
 
+import './Animation.css';
 import './PlayerUI.css';
 
 export class PlayerUI extends Component {

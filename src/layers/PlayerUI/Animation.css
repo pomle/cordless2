@@ -1,0 +1,30 @@
+@keyframes fade-in-from-below {
+  0% {
+    opacity: 0;
+    transform: translateY(100px);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes reveal {
+  0% {
+    opacity: 0;
+    transform: translateY(50px) scale(0.8);
+  }
+  100% {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.TrackList .Track,
+.Navigation .ViewContainer > * {
+    animation: fade-in-from-below 0.4s 1 cubic-bezier(0, 0, 0, 1.0);
+}
+
+.PlayableList .item {
+    animation: reveal 0.5s 1 cubic-bezier(0, 0, 0, 1.0);
+}
