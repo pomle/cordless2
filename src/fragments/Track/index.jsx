@@ -4,16 +4,7 @@ import { Link } from 'react-router-dom';
 import { PlayButton } from 'components/PlayButton';
 import { Artists } from 'fragments/Artists';
 
-const PLACEHOLDER = {
-  uri: '',
-  artists: [],
-};
-
 export class Track extends PureComponent {
-  static defaultProps = {
-    track: PLACEHOLDER,
-  };
-
   play = () => {
     this.props.play(this.props.track);
   };
