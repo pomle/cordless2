@@ -19,7 +19,6 @@ export class Playlist extends Component {
 
   render() {
     const { playlist } = this.props;
-    console.log('Rendering playlist', playlist);
     const owner = playlist.get('owner');
 
     return (

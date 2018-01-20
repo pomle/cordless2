@@ -14,7 +14,10 @@ class PlaylistView extends Component {
   };
 
   static propTypes = {
-    userId: PropTypes.string,
+    userId: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.symbol,
+    ]),
     playlists: PropTypes.instanceOf(Iterable).isRequired,
   };
 
@@ -37,7 +40,6 @@ class PlaylistView extends Component {
   }
 
   render() {
-    console.log('PlaylistView props', this.props);
     return (
       <PlaylistIndex
         caption="Your Playlists"

@@ -14,7 +14,7 @@ export class PlaylistList extends Component {
         <PlayableList>
           {playlists.map(playlist => {
             return (
-              <div key={playlist.id} className="item">
+              <div key={playlist.get('id')} className="item">
                 <Playlist playlist={playlist} playbackAPI={playbackAPI} />
               </div>
             );
