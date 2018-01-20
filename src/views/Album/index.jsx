@@ -6,7 +6,7 @@ import { ViewHeader } from 'components/ViewHeader';
 import { TrackList } from 'fragments/TrackList';
 import { Track } from 'fragments/Track';
 
-import { fetchAlbum } from 'layers/PlayerApplication/store/album';
+import { fetchAlbum } from 'store/player/album';
 
 export class AlbumDetail extends Component {
   static contextTypes = {

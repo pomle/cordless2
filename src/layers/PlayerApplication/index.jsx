@@ -12,7 +12,6 @@ import {
 } from '@pomle/spotify-web-sdk';
 
 import { CordlessPlayer } from './CordlessPlayer';
-import { createStore } from './store';
 
 import { onURIChange } from 'library/compare.js';
 
@@ -22,7 +21,8 @@ import { ImagePool } from 'library/ImagePool';
 import { Visuals } from 'layers/Visuals';
 import { PlayerUI } from 'layers/PlayerUI';
 
-import { setToken } from './store/session';
+import { createStore } from 'store/player';
+import { setToken } from 'store/player/session';
 
 import './PlayerApplication.css';
 

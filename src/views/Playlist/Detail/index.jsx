@@ -9,7 +9,7 @@ import { PlaylistDetailHeader } from './Header';
 
 import {matcher, matchTrack} from "library/search";
 
-import { fetchPlaylist } from 'layers/PlayerApplication/store/playlist';
+import { fetchPlaylist } from 'store/player/playlist';
 
 export class PlaylistDetail extends PureComponent {
   static contextTypes = {

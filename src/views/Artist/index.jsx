@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { ViewHeader } from 'components/ViewHeader';
 import { AlbumList } from 'fragments/AlbumList';
 
-import { fetchArtist } from 'layers/PlayerApplication/store/artist';
+import { fetchArtist } from 'store/player/artist';
 
 export class ArtistDetail extends Component {
   static contextTypes = {

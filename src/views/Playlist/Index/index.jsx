@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Iterable } from 'immutable';
 
 import { PlaylistIndex } from 'fragments/PlaylistIndex';
-import { fetchUserPlaylists } from 'layers/PlayerApplication/store/playlist';
+import { fetchUserPlaylists } from 'store/player/playlist';
 
 const ME = Symbol('default user');
 

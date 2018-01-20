@@ -6,7 +6,7 @@ import { TrackList } from 'fragments/TrackList';
 import { Track } from 'fragments/Track';
 
 import { debounce } from 'library/debounce';
-import { search } from 'layers/PlayerApplication/store/search';
+import { search } from 'store/player/search';
 
 import './Search.css';
 
