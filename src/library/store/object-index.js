@@ -8,13 +8,16 @@ class State extends Record({
     return this.entries.get(id);
   }
 
-  getEntries(namespace) {
+  getResult(namespace) {
     if (!this.results.has(namespace)) {
       return new List();
     }
 
-    return this.results
-      .get(namespace)
+    return this.results.get(namespace);
+  }
+
+  getEntries(namespace) {
+    return this.getResult(namespace)
       .filter(id => this.entries.has(id))
       .map(id => this.entries.get(id));
   }
