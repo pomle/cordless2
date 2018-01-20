@@ -7,7 +7,7 @@ import { AlbumDetail } from 'views/Album';
 import { ArtistDetail } from 'views/Artist';
 import PlaylistDetail from 'views/Playlist/Detail';
 import PlaylistView from 'views/Playlist/Index';
-import { Search } from 'views/Search';
+import Search from 'views/Search';
 import { TrackInfo } from 'views/TrackInfo';
 
 import './Navigation.css';
