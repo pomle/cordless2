@@ -4,14 +4,23 @@ import { Link } from 'react-router-dom';
 import { PlayButton } from 'components/PlayButton';
 import { Artists } from 'fragments/Artists';
 
+const PLACEHOLDER = {
+  uri: '',
+  artists: [],
+};
+
 export class Track extends PureComponent {
+  static defaultProps = {
+    track: PLACEHOLDER,
+  };
+
   play = () => {
     this.props.play(this.props.track);
   };
 
   render() {
     const { track } = this.props;
-    const isLocal = track.uri.startsWith('spotify:local:');
+    const isLocal = track.get('uri').startsWith('spotify:local:');
 
     return (
       <div className="Track">
@@ -22,13 +31,13 @@ export class Track extends PureComponent {
             <button>Local</button>
           )}
         </div>
-        <div className="name">{track.name}</div>
+        <div className="name">{track.get('name')}</div>
         <div className="artists">
-          <Artists artists={track.artists} />
+          <Artists artists={track.get('artists')} />
         </div>
-        {track.album ? (
+        {track.has('album') ? (
           <div className="album">
-            <Link to={`/album/${track.album.id}`}>{track.album.name}</Link>
+            <Link to={`/album/${track.getIn(['album','id'])}`}>{track.getIn(['album','name'])}</Link>
           </div>
         ) : null}
       </div>

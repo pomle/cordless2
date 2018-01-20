@@ -43,7 +43,6 @@ class PlaylistView extends Component {
 
 export default connect(
   (state, props) => {
-    console.log(state, props);
     return {
       playlists: state.playlist.getEntries(props.userId),
     };

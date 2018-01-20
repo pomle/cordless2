@@ -23,7 +23,7 @@ export class Image extends Component {
   }
 
   componentWillReceiveProps({ candidates }) {
-    if (candidates.length) {
+    if (candidates.size) {
       const image = largest(candidates);
       if (image.url === this.currentURL) {
         return;
@@ -35,7 +35,7 @@ export class Image extends Component {
 
       this.currentURL = image.url;
 
-      this.context.images.get(image.url).then(image => {
+      this.context.images.get(this.currentURL).then(image => {
         // Ensure the last requested matches the loaded if there is a race.
         if (this.currentURL === image.src) {
           this.setState({ image });

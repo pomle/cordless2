@@ -1,4 +1,4 @@
-import { Record, List, Map, OrderedSet } from 'immutable';
+import { Record, List, Map, Seq } from 'immutable';
 
 class State extends Record({
   entries: new Map(),
@@ -10,7 +10,7 @@ class State extends Record({
 
   getResult(namespace) {
     if (!this.results.has(namespace)) {
-      return new List();
+      return new Seq();
     }
 
     return this.results.get(namespace);
@@ -23,10 +23,15 @@ class State extends Record({
   }
 }
 
+function preferNew(a, b) {
+  return a || b;
+}
+
 export function createIndex(namespace) {
   const SET_RESULT = `r/${namespace}/object-index/set-result`;
   const UPDATE_RESULT = `r/${namespace}/object-index/update-result`;
   const SET_ENTRIES = `r/${namespace}/object-index/set-entries`;
+  const MERGE_ENTRIES = `r/${namespace}/object-index/merge-entries`;
   const DELETE_ENTRY = `r/${namespace}/object-index/delete-entry`;
 
   function setEntry(id, object) {
@@ -36,6 +41,17 @@ export function createIndex(namespace) {
   function setEntries(entries) {
     return {
       type: SET_ENTRIES,
+      entries,
+    };
+  }
+
+  function mergeEntry(id, object) {
+    return mergeEntries({[id]: object});
+  }
+
+  function mergeEntries(entries) {
+    return {
+      type: MERGE_ENTRIES,
       entries,
     };
   }
@@ -75,6 +91,10 @@ export function createIndex(namespace) {
           'results',
           state.results.mergeDeep({[action.namespace]: action.result})
         );
+
+      case MERGE_ENTRIES:
+        return state.setIn(['entries'], state.entries.mergeDeepWith(preferNew, action.entries));
+
       case SET_ENTRIES:
         return state.set(
           'entries',
@@ -96,64 +116,41 @@ export function createIndex(namespace) {
     reducer,
     setResult,
     updateResult,
+    mergeEntry,
+    mergeEntries,
     setEntry,
     setEntries,
     deleteEntry,
   };
 }
 
-function ts() {
-  return new Date().getTime();
-}
-
-export function createFetcher(callback, {refresh = 10000, interval = 500}) {
-
-  let refreshAfter = 0;
-
+export function createFetcher(callback, {interval = 500}) {
   return function fetch(...args) {
-    const now = ts();
+    const all = [];
+    let results = new List();
 
     return async (dispatch, getState) => {
-      if (now < refreshAfter) {
-        return;
-      }
-
-      refreshAfter = now + refresh;
-
-      const handler = callback(...args);
+      const {request, onFlush, onFinish} = callback(...args);
 
       function finish() {
         clearInterval(timer);
         flush();
-        dispatch(handler.onFinish(results));
+        dispatch(onFinish(new List(all)));
       }
 
       function flush() {
-        const entries = items.map(item => {
-          return {
-            id: item.id,
-            object: item,
-          };
-        });
-
-        results = results.concat(items.map(item => item.id));
-
-        dispatch(handler.onEntries(entries));
-        dispatch(handler.onResult(results));
-
-        items = items.clear();
+        dispatch(onFlush(results));
+        results = results.clear();
       }
 
       const timer = setInterval(flush, interval);
 
-      let items = new List();
-      let results = new OrderedSet();
+      const consumer = request(getState());
 
-      flush();
-
-      const consumer = handler.request(getState());
-
-      consumer.onData(data => items = items.concat(data.items));
+      consumer.onData(data => {
+        all.push(data);
+        results = results.push(data);
+      });
 
       consumer.onDone(finish);
     };

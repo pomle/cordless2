@@ -1,0 +1,685 @@
+{
+  "href" : "https://api.spotify.com/v1/users/pomle/playlists?offset=0&limit=20",
+  "items" : [ {
+    "collaborative" : false,
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/user/1199986717/playlist/5DFWdG2F1hqfEr9dxn4AOX"
+    },
+    "href" : "https://api.spotify.com/v1/users/1199986717/playlists/5DFWdG2F1hqfEr9dxn4AOX",
+    "id" : "5DFWdG2F1hqfEr9dxn4AOX",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://mosaic.scdn.co/640/1d35a28144308bd7974bed0b1ab4455b79f71c9393f2a5851eff335cccb839eac537792b7a9bbe51e2933825b67606c8a224fe08c6142b710f27c27752f994604f0c0e6cae6d3ec8e4672066ef92f758",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://mosaic.scdn.co/300/1d35a28144308bd7974bed0b1ab4455b79f71c9393f2a5851eff335cccb839eac537792b7a9bbe51e2933825b67606c8a224fe08c6142b710f27c27752f994604f0c0e6cae6d3ec8e4672066ef92f758",
+      "width" : 300
+    }, {
+      "height" : 60,
+      "url" : "https://mosaic.scdn.co/60/1d35a28144308bd7974bed0b1ab4455b79f71c9393f2a5851eff335cccb839eac537792b7a9bbe51e2933825b67606c8a224fe08c6142b710f27c27752f994604f0c0e6cae6d3ec8e4672066ef92f758",
+      "width" : 60
+    } ],
+    "name" : "80s",
+    "owner" : {
+      "display_name" : "Pedro Mancheno",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/1199986717"
+      },
+      "href" : "https://api.spotify.com/v1/users/1199986717",
+      "id" : "1199986717",
+      "type" : "user",
+      "uri" : "spotify:user:1199986717"
+    },
+    "public" : false,
+    "snapshot_id" : "zqgpkMaddg3b9CKuMqzrlqhnEiIaICKral+3Bz7vsb8mie8Bvy1joBF1GMeuDnNt",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/users/1199986717/playlists/5DFWdG2F1hqfEr9dxn4AOX/tracks",
+      "total" : 65
+    },
+    "type" : "playlist",
+    "uri" : "spotify:user:1199986717:playlist:5DFWdG2F1hqfEr9dxn4AOX"
+  }, {
+    "collaborative" : false,
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/user/pomle/playlist/3a62rGDJlZoJxSMt4tpAMo"
+    },
+    "href" : "https://api.spotify.com/v1/users/pomle/playlists/3a62rGDJlZoJxSMt4tpAMo",
+    "id" : "3a62rGDJlZoJxSMt4tpAMo",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://mosaic.scdn.co/640/d5d9826e2a0f63a63c6c32d11d5a114d69559739ad65197ee5ec68bd0405f14859feb8b95a0ca4f53f671114f7432c120e811e07358002bcc790cb3849b4c1a8059baf63525f0e820472fec0a9cc2cfb",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://mosaic.scdn.co/300/d5d9826e2a0f63a63c6c32d11d5a114d69559739ad65197ee5ec68bd0405f14859feb8b95a0ca4f53f671114f7432c120e811e07358002bcc790cb3849b4c1a8059baf63525f0e820472fec0a9cc2cfb",
+      "width" : 300
+    }, {
+      "height" : 60,
+      "url" : "https://mosaic.scdn.co/60/d5d9826e2a0f63a63c6c32d11d5a114d69559739ad65197ee5ec68bd0405f14859feb8b95a0ca4f53f671114f7432c120e811e07358002bcc790cb3849b4c1a8059baf63525f0e820472fec0a9cc2cfb",
+      "width" : 60
+    } ],
+    "name" : "AP",
+    "owner" : {
+      "display_name" : "Pontus Alexander",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/pomle"
+      },
+      "href" : "https://api.spotify.com/v1/users/pomle",
+      "id" : "pomle",
+      "type" : "user",
+      "uri" : "spotify:user:pomle"
+    },
+    "public" : true,
+    "snapshot_id" : "vnezZILxPqTbVDtk1nwtslF8wRUAWmEJtuvnmPMa7u92ptGEPljiJxo5yuNfiXjq",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/users/pomle/playlists/3a62rGDJlZoJxSMt4tpAMo/tracks",
+      "total" : 12
+    },
+    "type" : "playlist",
+    "uri" : "spotify:user:pomle:playlist:3a62rGDJlZoJxSMt4tpAMo"
+  }, {
+    "collaborative" : true,
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/user/1263130477/playlist/0qxFsIV2oh7Nk8cXhG761H"
+    },
+    "href" : "https://api.spotify.com/v1/users/1263130477/playlists/0qxFsIV2oh7Nk8cXhG761H",
+    "id" : "0qxFsIV2oh7Nk8cXhG761H",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://pl.scdn.co/images/pl/default/d275a08f714da9f8be584c73c0e2d02e780a85bc",
+      "width" : null
+    } ],
+    "name" : "Desktop Squad Fridays",
+    "owner" : {
+      "display_name" : "Brendan Marsh",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/1263130477"
+      },
+      "href" : "https://api.spotify.com/v1/users/1263130477",
+      "id" : "1263130477",
+      "type" : "user",
+      "uri" : "spotify:user:1263130477"
+    },
+    "public" : true,
+    "snapshot_id" : "xupu3fsv1n9+YqPomZgLuVsE/wWG9cdHmKNW3NbuTmSIgPwvggK9lyb5DEzJ58wX",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/users/1263130477/playlists/0qxFsIV2oh7Nk8cXhG761H/tracks",
+      "total" : 190
+    },
+    "type" : "playlist",
+    "uri" : "spotify:user:1263130477:playlist:0qxFsIV2oh7Nk8cXhG761H"
+  }, {
+    "collaborative" : false,
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/user/spotify/playlist/37i9dQZF1DX9Z3vMB2b8im"
+    },
+    "href" : "https://api.spotify.com/v1/users/spotify/playlists/37i9dQZF1DX9Z3vMB2b8im",
+    "id" : "37i9dQZF1DX9Z3vMB2b8im",
+    "images" : [ {
+      "height" : 300,
+      "url" : "https://i.scdn.co/image/e67bed3a250942e3f9e84c5459cb3be313cafb37",
+      "width" : 300
+    } ],
+    "name" : "The Most Beautiful Songs in the World",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "public" : false,
+    "snapshot_id" : "BRANV6+9IFPldOVWWEu1hlUlgcgTG3/oEZNSBfCtpdusimnbNtSrDQRd8+4By8E0AYYWdBWFOjM=",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/users/spotify/playlists/37i9dQZF1DX9Z3vMB2b8im/tracks",
+      "total" : 80
+    },
+    "type" : "playlist",
+    "uri" : "spotify:user:spotify:playlist:37i9dQZF1DX9Z3vMB2b8im"
+  }, {
+    "collaborative" : false,
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/user/pomle/playlist/21NWVcrVBT6MHAS1jcdoW3"
+    },
+    "href" : "https://api.spotify.com/v1/users/pomle/playlists/21NWVcrVBT6MHAS1jcdoW3",
+    "id" : "21NWVcrVBT6MHAS1jcdoW3",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://mosaic.scdn.co/640/12a94fe500df1758d81d27dabf76cf85896ebb3814f7158395c151516cbbb6365cb899c517202e115216d00e34f8d46f439dcf66d6a72cd8e4c87cc01b113ca3c510268732f049cfbba04cd177da63ac",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://mosaic.scdn.co/300/12a94fe500df1758d81d27dabf76cf85896ebb3814f7158395c151516cbbb6365cb899c517202e115216d00e34f8d46f439dcf66d6a72cd8e4c87cc01b113ca3c510268732f049cfbba04cd177da63ac",
+      "width" : 300
+    }, {
+      "height" : 60,
+      "url" : "https://mosaic.scdn.co/60/12a94fe500df1758d81d27dabf76cf85896ebb3814f7158395c151516cbbb6365cb899c517202e115216d00e34f8d46f439dcf66d6a72cd8e4c87cc01b113ca3c510268732f049cfbba04cd177da63ac",
+      "width" : 60
+    } ],
+    "name" : "Starred",
+    "owner" : {
+      "display_name" : "Pontus Alexander",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/pomle"
+      },
+      "href" : "https://api.spotify.com/v1/users/pomle",
+      "id" : "pomle",
+      "type" : "user",
+      "uri" : "spotify:user:pomle"
+    },
+    "public" : true,
+    "snapshot_id" : "mG4oCukFoV94iMxVhnCZtQF3N8lF4CQGimu/k4Vd/UVklg6lfhnu0jYSWwleeeuz",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/users/pomle/playlists/21NWVcrVBT6MHAS1jcdoW3/tracks",
+      "total" : 272
+    },
+    "type" : "playlist",
+    "uri" : "spotify:user:pomle:playlist:21NWVcrVBT6MHAS1jcdoW3"
+  }, {
+    "collaborative" : false,
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/user/thesoundsofspotify/playlist/70z5dMlsS9fPudWdQ9ebqP"
+    },
+    "href" : "https://api.spotify.com/v1/users/thesoundsofspotify/playlists/70z5dMlsS9fPudWdQ9ebqP",
+    "id" : "70z5dMlsS9fPudWdQ9ebqP",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://pl.scdn.co/images/pl/default/98f96088261bb0f50f6200dc19d0c298ef54a457",
+      "width" : null
+    } ],
+    "name" : "The Sound of Metropopolis",
+    "owner" : {
+      "display_name" : "The Sounds of Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/thesoundsofspotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/thesoundsofspotify",
+      "id" : "thesoundsofspotify",
+      "type" : "user",
+      "uri" : "spotify:user:thesoundsofspotify"
+    },
+    "public" : false,
+    "snapshot_id" : "jxptCTPSE4lwlKv+4vKxauF47JAN7GBVWOm0Flvrp8LeRkRuGyZ4j7ibexaPsuic",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/users/thesoundsofspotify/playlists/70z5dMlsS9fPudWdQ9ebqP/tracks",
+      "total" : 330
+    },
+    "type" : "playlist",
+    "uri" : "spotify:user:thesoundsofspotify:playlist:70z5dMlsS9fPudWdQ9ebqP"
+  }, {
+    "collaborative" : false,
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/user/1249969162/playlist/5CEVGxtPYiLpfuWIwLBsgV"
+    },
+    "href" : "https://api.spotify.com/v1/users/1249969162/playlists/5CEVGxtPYiLpfuWIwLBsgV",
+    "id" : "5CEVGxtPYiLpfuWIwLBsgV",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://mosaic.scdn.co/640/60fc55b47eac06477947387a13a02aaa9763bd315d72fb14686e8d73aeff87d4eac86a444e2d7a5ea294def26f33150596ddf73853e6b2461e6e5f36d3ae3e4651b1b64e57c2204f115c8df5d8893261",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://mosaic.scdn.co/300/60fc55b47eac06477947387a13a02aaa9763bd315d72fb14686e8d73aeff87d4eac86a444e2d7a5ea294def26f33150596ddf73853e6b2461e6e5f36d3ae3e4651b1b64e57c2204f115c8df5d8893261",
+      "width" : 300
+    }, {
+      "height" : 60,
+      "url" : "https://mosaic.scdn.co/60/60fc55b47eac06477947387a13a02aaa9763bd315d72fb14686e8d73aeff87d4eac86a444e2d7a5ea294def26f33150596ddf73853e6b2461e6e5f36d3ae3e4651b1b64e57c2204f115c8df5d8893261",
+      "width" : 60
+    } ],
+    "name" : "ASMR",
+    "owner" : {
+      "display_name" : "Peter Parker",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/1249969162"
+      },
+      "href" : "https://api.spotify.com/v1/users/1249969162",
+      "id" : "1249969162",
+      "type" : "user",
+      "uri" : "spotify:user:1249969162"
+    },
+    "public" : true,
+    "snapshot_id" : "IFTOnQm2A+NgLLtPyUIftuXBFJPO4kpKxy81AuLuW5RrapSinN3VGQZ+SIm7uNFW",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/users/1249969162/playlists/5CEVGxtPYiLpfuWIwLBsgV/tracks",
+      "total" : 63
+    },
+    "type" : "playlist",
+    "uri" : "spotify:user:1249969162:playlist:5CEVGxtPYiLpfuWIwLBsgV"
+  }, {
+    "collaborative" : false,
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/user/spotify/playlist/37i9dQZEVXbrJRHvzej6dJ"
+    },
+    "href" : "https://api.spotify.com/v1/users/spotify/playlists/37i9dQZEVXbrJRHvzej6dJ",
+    "id" : "37i9dQZEVXbrJRHvzej6dJ",
+    "images" : [ {
+      "height" : 300,
+      "url" : "https://i.scdn.co/image/15257888e3e25c93e436ecdc3368a5fa8184e14e",
+      "width" : 300
+    } ],
+    "name" : "Release Radar",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "public" : false,
+    "snapshot_id" : "UEeFLFVrD53iN6WXWsV2+WdafOYnQsriiSeXlNJf4aNKjNTyER02Sl6exAnVyPY96PBbIXqQIxQ=",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/users/spotify/playlists/37i9dQZEVXbrJRHvzej6dJ/tracks",
+      "total" : 30
+    },
+    "type" : "playlist",
+    "uri" : "spotify:user:spotify:playlist:37i9dQZEVXbrJRHvzej6dJ"
+  }, {
+    "collaborative" : false,
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/user/spotify/playlist/37i9dQZEVXcQEtjDN5XuVW"
+    },
+    "href" : "https://api.spotify.com/v1/users/spotify/playlists/37i9dQZEVXcQEtjDN5XuVW",
+    "id" : "37i9dQZEVXcQEtjDN5XuVW",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://pl.scdn.co/images/pl/default/873a67793cf238e0c4a41c616bcd782ef48d1d25",
+      "width" : null
+    } ],
+    "name" : "Discover Weekly",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "public" : false,
+    "snapshot_id" : "1RnrvFNGFwHiN6WXWsV2+ZiHaejQwVPRzUSbfJ5Y/DtiAdXls661m854HJg54F+9r9Fi4UBPj3w=",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/users/spotify/playlists/37i9dQZEVXcQEtjDN5XuVW/tracks",
+      "total" : 30
+    },
+    "type" : "playlist",
+    "uri" : "spotify:user:spotify:playlist:37i9dQZEVXcQEtjDN5XuVW"
+  }, {
+    "collaborative" : false,
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/user/pomle/playlist/1dpgtb3nmBBBQhuEDPvSh8"
+    },
+    "href" : "https://api.spotify.com/v1/users/pomle/playlists/1dpgtb3nmBBBQhuEDPvSh8",
+    "id" : "1dpgtb3nmBBBQhuEDPvSh8",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://pl.scdn.co/images/pl/default/3ce93fe39296ad17b8337ac538feed0a204c47b2",
+      "width" : null
+    } ],
+    "name" : "Pomami",
+    "owner" : {
+      "display_name" : "Pontus Alexander",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/pomle"
+      },
+      "href" : "https://api.spotify.com/v1/users/pomle",
+      "id" : "pomle",
+      "type" : "user",
+      "uri" : "spotify:user:pomle"
+    },
+    "public" : true,
+    "snapshot_id" : "mYdFy1JqyGGlxKNGcX25TiVdJk50UvkeUp0lkBtKPQFy34kxr4cm3qtvtKKZR47d",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/users/pomle/playlists/1dpgtb3nmBBBQhuEDPvSh8/tracks",
+      "total" : 582
+    },
+    "type" : "playlist",
+    "uri" : "spotify:user:pomle:playlist:1dpgtb3nmBBBQhuEDPvSh8"
+  }, {
+    "collaborative" : false,
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/user/spotify/playlist/37i9dQZEVXcPjvMvCQvf93"
+    },
+    "href" : "https://api.spotify.com/v1/users/spotify/playlists/37i9dQZEVXcPjvMvCQvf93",
+    "id" : "37i9dQZEVXcPjvMvCQvf93",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://pl.scdn.co/images/pl/default/ec3219bf7d09e0ac56fdd2cff2fb286338666031",
+      "width" : null
+    } ],
+    "name" : "Discover Weekly",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "public" : false,
+    "snapshot_id" : "1RnrvFNGFwHiN6WXWsV2+TGl4Uwq2Fw/6dMiIK8TX6iUNoX1gVa5LZ8r9JLt5LPh6PBbIXqQIxQ=",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/users/spotify/playlists/37i9dQZEVXcPjvMvCQvf93/tracks",
+      "total" : 30
+    },
+    "type" : "playlist",
+    "uri" : "spotify:user:spotify:playlist:37i9dQZEVXcPjvMvCQvf93"
+  }, {
+    "collaborative" : false,
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/user/spotify/playlist/37i9dQZEVXcTMUUA5tjp7n"
+    },
+    "href" : "https://api.spotify.com/v1/users/spotify/playlists/37i9dQZEVXcTMUUA5tjp7n",
+    "id" : "37i9dQZEVXcTMUUA5tjp7n",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://pl.scdn.co/images/pl/default/14b721d588aea546483fc3def91ea547ca467dbe",
+      "width" : null
+    } ],
+    "name" : "Discover Weekly",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "public" : false,
+    "snapshot_id" : "gRxxVrP9A0LiN6WXWsV2+XHnjv/2BoG3LHf1fFcVLwh7lo3vBVZ57I7HPfMBsHCotsK9TFtN79Q=",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/users/spotify/playlists/37i9dQZEVXcTMUUA5tjp7n/tracks",
+      "total" : 30
+    },
+    "type" : "playlist",
+    "uri" : "spotify:user:spotify:playlist:37i9dQZEVXcTMUUA5tjp7n"
+  }, {
+    "collaborative" : false,
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/user/spotify/playlist/37i9dQZEVXcWv85K1yTJAS"
+    },
+    "href" : "https://api.spotify.com/v1/users/spotify/playlists/37i9dQZEVXcWv85K1yTJAS",
+    "id" : "37i9dQZEVXcWv85K1yTJAS",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://pl.scdn.co/images/pl/default/d2a3afc7fc7ca567569fe1f0be0b70f57d19c5b4",
+      "width" : null
+    } ],
+    "name" : "Discover Weekly",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "public" : false,
+    "snapshot_id" : "1RnrvFNGFwHiN6WXWsV2+bUbjH1BTU0GQsDEtkGwzi8MxAC1AFGQ59f/HHLa/VitronwG7jFHuE=",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/users/spotify/playlists/37i9dQZEVXcWv85K1yTJAS/tracks",
+      "total" : 30
+    },
+    "type" : "playlist",
+    "uri" : "spotify:user:spotify:playlist:37i9dQZEVXcWv85K1yTJAS"
+  }, {
+    "collaborative" : false,
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/user/glennpmcdonald/playlist/70q0hmSgnsEPnnrAggUKKy"
+    },
+    "href" : "https://api.spotify.com/v1/users/glennpmcdonald/playlists/70q0hmSgnsEPnnrAggUKKy",
+    "id" : "70q0hmSgnsEPnnrAggUKKy",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://mosaic.scdn.co/640/ef8c35bbc28c95ceb5b517766e6a0bcdc892fd53088894376cd2361d7f02a0cfa1c914985964af90b30e1840b076761a5047b16263f591d0a811a67476e033c9a5c8ddd8f8f82c841f9bf1469e315b45",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://mosaic.scdn.co/300/ef8c35bbc28c95ceb5b517766e6a0bcdc892fd53088894376cd2361d7f02a0cfa1c914985964af90b30e1840b076761a5047b16263f591d0a811a67476e033c9a5c8ddd8f8f82c841f9bf1469e315b45",
+      "width" : 300
+    }, {
+      "height" : 60,
+      "url" : "https://mosaic.scdn.co/60/ef8c35bbc28c95ceb5b517766e6a0bcdc892fd53088894376cd2361d7f02a0cfa1c914985964af90b30e1840b076761a5047b16263f591d0a811a67476e033c9a5c8ddd8f8f82c841f9bf1469e315b45",
+      "width" : 60
+    } ],
+    "name" : "The Noodle",
+    "owner" : {
+      "display_name" : "glenn mcdonald",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/glennpmcdonald"
+      },
+      "href" : "https://api.spotify.com/v1/users/glennpmcdonald",
+      "id" : "glennpmcdonald",
+      "type" : "user",
+      "uri" : "spotify:user:glennpmcdonald"
+    },
+    "public" : false,
+    "snapshot_id" : "+qMfp+mc/0GtXOeF0ygNMGwxzxF6oTsFc9PPGE4kus6TTJWVfp0624dI0MrZ4TPt",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/users/glennpmcdonald/playlists/70q0hmSgnsEPnnrAggUKKy/tracks",
+      "total" : 881
+    },
+    "type" : "playlist",
+    "uri" : "spotify:user:glennpmcdonald:playlist:70q0hmSgnsEPnnrAggUKKy"
+  }, {
+    "collaborative" : false,
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/user/spotify/playlist/37i9dQZF1DX4JAvHpjipBk"
+    },
+    "href" : "https://api.spotify.com/v1/users/spotify/playlists/37i9dQZF1DX4JAvHpjipBk",
+    "id" : "37i9dQZF1DX4JAvHpjipBk",
+    "images" : [ {
+      "height" : 300,
+      "url" : "https://i.scdn.co/image/259a26ea4f8dc6ad1b96eb125e3476a2adacff07",
+      "width" : 300
+    } ],
+    "name" : "New Music Friday",
+    "owner" : {
+      "display_name" : "Spotify",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/spotify"
+      },
+      "href" : "https://api.spotify.com/v1/users/spotify",
+      "id" : "spotify",
+      "type" : "user",
+      "uri" : "spotify:user:spotify"
+    },
+    "public" : true,
+    "snapshot_id" : "/Z8A0/hpYKreiI0NbgJ9+n0L60rtxTs39+LX9GjrRpmFJMOjeuxh3FAUvW5EQDNWU4GyenXis9M=",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/users/spotify/playlists/37i9dQZF1DX4JAvHpjipBk/tracks",
+      "total" : 78
+    },
+    "type" : "playlist",
+    "uri" : "spotify:user:spotify:playlist:37i9dQZF1DX4JAvHpjipBk"
+  }, {
+    "collaborative" : false,
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/user/pomle/playlist/2gNjfk8DpOIBI4l9NxtO84"
+    },
+    "href" : "https://api.spotify.com/v1/users/pomle/playlists/2gNjfk8DpOIBI4l9NxtO84",
+    "id" : "2gNjfk8DpOIBI4l9NxtO84",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://mosaic.scdn.co/640/7a008ddf657645e60cc6e5780dc720586f545032b2aa2ffe72981ec07fa86b863abb38b029dd745730c50d7ecab9f36f330aa4a06c37468089c91b47b126cb7121e27e8ac41817f64a85641363c2a494",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://mosaic.scdn.co/300/7a008ddf657645e60cc6e5780dc720586f545032b2aa2ffe72981ec07fa86b863abb38b029dd745730c50d7ecab9f36f330aa4a06c37468089c91b47b126cb7121e27e8ac41817f64a85641363c2a494",
+      "width" : 300
+    }, {
+      "height" : 60,
+      "url" : "https://mosaic.scdn.co/60/7a008ddf657645e60cc6e5780dc720586f545032b2aa2ffe72981ec07fa86b863abb38b029dd745730c50d7ecab9f36f330aa4a06c37468089c91b47b126cb7121e27e8ac41817f64a85641363c2a494",
+      "width" : 60
+    } ],
+    "name" : "Swits",
+    "owner" : {
+      "display_name" : "Pontus Alexander",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/pomle"
+      },
+      "href" : "https://api.spotify.com/v1/users/pomle",
+      "id" : "pomle",
+      "type" : "user",
+      "uri" : "spotify:user:pomle"
+    },
+    "public" : true,
+    "snapshot_id" : "SoXcOpgHARM1KGXriOsD5YjFL9PQVsJM1Ikwe8BrkxnEBlrJ1AM3Dohq6f3h0dV6",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/users/pomle/playlists/2gNjfk8DpOIBI4l9NxtO84/tracks",
+      "total" : 30
+    },
+    "type" : "playlist",
+    "uri" : "spotify:user:pomle:playlist:2gNjfk8DpOIBI4l9NxtO84"
+  }, {
+    "collaborative" : false,
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/user/pomle/playlist/1A1Nos9OBbX2ha6NbBVJtG"
+    },
+    "href" : "https://api.spotify.com/v1/users/pomle/playlists/1A1Nos9OBbX2ha6NbBVJtG",
+    "id" : "1A1Nos9OBbX2ha6NbBVJtG",
+    "images" : [ {
+      "height" : 640,
+      "url" : "https://mosaic.scdn.co/640/d09104b900aa08ba53de9550f3701552e9dbafc2e09599907aa9a048e8be1a8248a7ca1ab625bb1901da360bbf9e27cb9314421521de8d0468ddda6722eda2005c6522d8111708f0b60a051a0ccee137",
+      "width" : 640
+    }, {
+      "height" : 300,
+      "url" : "https://mosaic.scdn.co/300/d09104b900aa08ba53de9550f3701552e9dbafc2e09599907aa9a048e8be1a8248a7ca1ab625bb1901da360bbf9e27cb9314421521de8d0468ddda6722eda2005c6522d8111708f0b60a051a0ccee137",
+      "width" : 300
+    }, {
+      "height" : 60,
+      "url" : "https://mosaic.scdn.co/60/d09104b900aa08ba53de9550f3701552e9dbafc2e09599907aa9a048e8be1a8248a7ca1ab625bb1901da360bbf9e27cb9314421521de8d0468ddda6722eda2005c6522d8111708f0b60a051a0ccee137",
+      "width" : 60
+    } ],
+    "name" : "French Success Stories",
+    "owner" : {
+      "display_name" : "Pontus Alexander",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/pomle"
+      },
+      "href" : "https://api.spotify.com/v1/users/pomle",
+      "id" : "pomle",
+      "type" : "user",
+      "uri" : "spotify:user:pomle"
+    },
+    "public" : true,
+    "snapshot_id" : "kOrUlHLMXfJOkBLRotq4JdlwaZ4w25J7ngww61956GzUUft6Z7vV6GBlBuiNvB9/",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/users/pomle/playlists/1A1Nos9OBbX2ha6NbBVJtG/tracks",
+      "total" : 7
+    },
+    "type" : "playlist",
+    "uri" : "spotify:user:pomle:playlist:1A1Nos9OBbX2ha6NbBVJtG"
+  }, {
+    "collaborative" : false,
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/user/pomle/playlist/06BoXRJHQ3C45CpcYj2PIP"
+    },
+    "href" : "https://api.spotify.com/v1/users/pomle/playlists/06BoXRJHQ3C45CpcYj2PIP",
+    "id" : "06BoXRJHQ3C45CpcYj2PIP",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://pl.scdn.co/images/pl/default/f405f7a0c48a320e1292eec879e7b509e4805444",
+      "width" : null
+    } ],
+    "name" : "Always After Work",
+    "owner" : {
+      "display_name" : "Pontus Alexander",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/pomle"
+      },
+      "href" : "https://api.spotify.com/v1/users/pomle",
+      "id" : "pomle",
+      "type" : "user",
+      "uri" : "spotify:user:pomle"
+    },
+    "public" : true,
+    "snapshot_id" : "G6ejTYJR0wboDEIewbz1FtwwNKCazahXALDk55QJd4emMIRwGLtVvJ9pljVeb+ut",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/users/pomle/playlists/06BoXRJHQ3C45CpcYj2PIP/tracks",
+      "total" : 150
+    },
+    "type" : "playlist",
+    "uri" : "spotify:user:pomle:playlist:06BoXRJHQ3C45CpcYj2PIP"
+  }, {
+    "collaborative" : false,
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/user/pomle/playlist/4uO2HEt7LzGB02mfv1mAFk"
+    },
+    "href" : "https://api.spotify.com/v1/users/pomle/playlists/4uO2HEt7LzGB02mfv1mAFk",
+    "id" : "4uO2HEt7LzGB02mfv1mAFk",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://pl.scdn.co/images/pl/default/efb6c696e9ddae7824ba53a28a3ba20974343ead",
+      "width" : null
+    } ],
+    "name" : "Retronica",
+    "owner" : {
+      "display_name" : "Pontus Alexander",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/pomle"
+      },
+      "href" : "https://api.spotify.com/v1/users/pomle",
+      "id" : "pomle",
+      "type" : "user",
+      "uri" : "spotify:user:pomle"
+    },
+    "public" : true,
+    "snapshot_id" : "+ejQ3G3xif3hJqhLNW/hQCI7cOv+Rc89nOST1iZhS/coZL88x/vjofOmDZnn/DO5",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/users/pomle/playlists/4uO2HEt7LzGB02mfv1mAFk/tracks",
+      "total" : 145
+    },
+    "type" : "playlist",
+    "uri" : "spotify:user:pomle:playlist:4uO2HEt7LzGB02mfv1mAFk"
+  }, {
+    "collaborative" : true,
+    "external_urls" : {
+      "spotify" : "https://open.spotify.com/user/pomle/playlist/0zQKSTTlYvCUr4WUlERpNI"
+    },
+    "href" : "https://api.spotify.com/v1/users/pomle/playlists/0zQKSTTlYvCUr4WUlERpNI",
+    "id" : "0zQKSTTlYvCUr4WUlERpNI",
+    "images" : [ {
+      "height" : null,
+      "url" : "https://pl.scdn.co/images/pl/default/17c0065c5caa48397e699b6075f89892dc0ccb78",
+      "width" : null
+    } ],
+    "name" : "Chichotas Partydress",
+    "owner" : {
+      "display_name" : "Pontus Alexander",
+      "external_urls" : {
+        "spotify" : "https://open.spotify.com/user/pomle"
+      },
+      "href" : "https://api.spotify.com/v1/users/pomle",
+      "id" : "pomle",
+      "type" : "user",
+      "uri" : "spotify:user:pomle"
+    },
+    "public" : false,
+    "snapshot_id" : "oeggzxRR+f8u34pJB7Kd7h7UZF6/FI6dA9R9S5zweLQ7Qb3VUNAMQxivc0ls3ggC",
+    "tracks" : {
+      "href" : "https://api.spotify.com/v1/users/pomle/playlists/0zQKSTTlYvCUr4WUlERpNI/tracks",
+      "total" : 57
+    },
+    "type" : "playlist",
+    "uri" : "spotify:user:pomle:playlist:0zQKSTTlYvCUr4WUlERpNI"
+  } ],
+  "limit" : 20,
+  "next" : "https://api.spotify.com/v1/users/pomle/playlists?offset=20&limit=20",
+  "offset" : 0,
+  "previous" : null,
+  "total" : 100
+}

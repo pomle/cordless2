@@ -7,6 +7,7 @@ import './Header.css';
 export class PlaylistDetailHeader extends Component {
   render() {
     const { playlist } = this.props;
-    return <ViewHeader caption={playlist.name} images={playlist.images} />;
+    console.log(playlist);
+    return <ViewHeader caption={playlist.get('name')} images={playlist.get('images')}/>;
   }
 }

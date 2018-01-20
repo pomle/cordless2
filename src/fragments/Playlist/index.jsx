@@ -14,32 +14,33 @@ export class Playlist extends Component {
 
   play = () => {
     const { playlist } = this.props;
-    this.context.api.playbackAPI.playContext(playlist.uri);
+    this.context.api.playbackAPI.playContext(playlist.get('uri'));
   };
 
   render() {
     const { playlist } = this.props;
-    const { owner } = playlist;
+    console.log('Rendering playlist', playlist);
+    const owner = playlist.get('owner');
 
     return (
       <div className="Playlist">
         <div className="image">
-          <Image candidates={playlist.images} />
+          <Image candidates={playlist.get('images')} />
         </div>
 
         <div className="name">
           <Link
-            to={`/user/${playlist.owner.id}/playlist/${playlist.id}`}
+            to={`/user/${owner.get('id')}/playlist/${playlist.get('id')}`}
             className="name"
           >
-            {playlist.name}
+            {playlist.get('name')}
           </Link>
         </div>
 
-        <div className="trackCount">{playlist.tracks.total}</div>
+        <div className="trackCount">{playlist.get('tracks').get('total')}</div>
 
         <div className="owner">
-          <Link to={`/user/${owner.id}`}>{owner.display_name}</Link>
+          <Link to={`/user/${owner.get('id')}`}>{owner.get('display_name')}</Link>
         </div>
 
         <div className="playback">

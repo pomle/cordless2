@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { List } from 'immutable';
 
 import { QuickSearch } from 'components/QuickSearch';
 import { TrackList } from 'fragments/TrackList';
@@ -9,8 +8,7 @@ import { Track } from 'fragments/Track';
 
 import { PlaylistDetailHeader } from './Header';
 
-import { fetchPlaylist } from 'layers/PlayerApplication/store/playlist';
-import { fetchPlaylistTracks } from 'layers/PlayerApplication/store/playlist-entry';
+import { fetchPlaylist, fetchPlaylistTracks } from 'layers/PlayerApplication/store/playlist';
 
 function matcher(needle) {
   needle = needle.toLowerCase();
@@ -21,9 +19,6 @@ function matcher(needle) {
 
 export class PlaylistDetail extends PureComponent {
   static propTypes = {
-    playlist: PropTypes.object.isRequired,
-    entries: PropTypes.instanceOf(List).isRequired,
-    tracks: PropTypes.instanceOf(Map).isRequired,
     fetchPlaylist: PropTypes.func.isRequired,
     fetchPlaylistTracks: PropTypes.func.isRequired,
   };
@@ -43,24 +38,23 @@ export class PlaylistDetail extends PureComponent {
   }
 
   getEntries() {
-    const { tracks } = this.props;
+    const { playlist } = this.props;
     const { filter } = this.state;
-    console.log(this.props.entries);
-    const entries = this.props.entries.map(entry => Object.assign({}, entry, {
-      track: tracks.get(entry.track.id),
-    }));
+
+    const entries = playlist.getIn(['tracks', 'items']);
 
     if (filter.length) {
       const match = matcher(filter);
       return entries.filter(entry => {
         const words = [
-          entry.track.name,
-          ...entry.track.artists.map(artist => artist.name),
-          entry.track.album.name,
+          entry.getIn(['track','name']),
+          ...entry.getIn(['track', 'artists']).map(artist => artist.get('name')),
+          entry.getIn(['track','album','name']),
         ];
         return match(...words);
       });
     }
+
     return entries;
   }
 
@@ -74,10 +68,8 @@ export class PlaylistDetail extends PureComponent {
   };
 
   render() {
-    console.log('Render props', this.props);
     const { playlist } = this.props;
     const { filter } = this.state;
-    const entries = this.getEntries();
 
     if (!playlist) {
       return null;
@@ -90,10 +82,9 @@ export class PlaylistDetail extends PureComponent {
         <PlaylistDetailHeader playlist={playlist} />
 
         <TrackList>
-          {entries.map(entry => {
-            const { track } = entry;
-            const key = track.id + entry.added_at;
-            return <Track key={key} track={track} play={this.playTrack} />;
+          {this.getEntries().map(entry => {
+            const key = entry.getIn(['track', 'id']) + entry.get('added_at');
+            return <Track key={key} track={entry.get('track')} play={this.playTrack} />;
           })}
         </TrackList>
       </div>
@@ -103,11 +94,8 @@ export class PlaylistDetail extends PureComponent {
 
 export default connect(
   (state, {playlistId}) => {
-    console.log('Connect props', state, playlistId);
     return {
       playlist: state.playlist.getEntry(playlistId),
-      entries: state.playlistEntry.getResult(playlistId),
-      tracks: state.track.entries,
     };
   },
   {

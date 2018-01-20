@@ -25,7 +25,7 @@ describe('Store', () => {
   let store;
 
   beforeEach(() => {
-    global.fetch = sinon.stub();
+    global.fetch = jest.fn();
     jest.useFakeTimers();
     store = createStore();
   });
