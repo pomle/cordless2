@@ -74,7 +74,10 @@ export class Authorize extends Component {
   }
 
   async componentDidMount() {
-    console.log('mount');
+    const {token} = this.state;
+    if (!token) {
+      return;
+    }
 
     const api = new UserAPI(this.state.token);
     const data = await api.getMe();
