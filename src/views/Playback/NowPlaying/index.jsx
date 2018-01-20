@@ -12,7 +12,7 @@ export class NowPlaying extends Component {
 
     return (
       <div className="NowPlaying">
-        {track ? <Image candidates={track.album.images} /> : ''}
+        {track ? <Image candidates={fromJS(track.album.images)} /> : ''}
 
         <div className="trackName">{track ? track.name : ''}</div>
 
