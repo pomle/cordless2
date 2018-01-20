@@ -14,7 +14,7 @@ export class Album extends Component {
 
   play = () => {
     const { album } = this.props;
-    this.context.api.playbackAPI.playAlbum(album.id);
+    this.context.api.playbackAPI.playAlbum(album.get('id'));
   };
 
   render() {

@@ -3,7 +3,7 @@ import { Link, Route, Switch } from 'react-router-dom';
 
 import { ViewContainer } from 'components/ViewContainer';
 
-import { AlbumDetail } from 'views/Album';
+import AlbumDetail from 'views/Album';
 import ArtistDetail from 'views/Artist';
 import PlaylistDetail from 'views/Playlist/Detail';
 import PlaylistView from 'views/Playlist/Index';
