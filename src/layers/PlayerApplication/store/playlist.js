@@ -42,8 +42,6 @@ export const fetchUserPlaylists = createFetcher(userId => {
 
     onFinish: () => setResult(userId, list)
   };
-}, {
-  refresh: 10000,
 });
 
 
@@ -62,8 +60,6 @@ export const fetchPlaylistTracks = createFetcher((userId, playlistId) => {
       return mergeEntry(playlistId);
     }
   };
-}, {
-  refresh: 10000,
 });
 
 export function addPlaylist(payload) {
