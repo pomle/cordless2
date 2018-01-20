@@ -6,6 +6,8 @@ import { QuickSearch } from 'components/QuickSearch';
 import { ViewHeader } from 'components/ViewHeader';
 import { PlaylistList } from 'fragments/PlaylistList';
 
+import {matcher, matchPlaylist} from "library/search";
+
 export class PlaylistIndex extends Component {
   static propTypes = {
     caption: PropTypes.string.isRequired,
@@ -24,7 +26,8 @@ export class PlaylistIndex extends Component {
     const { filter } = this.state;
 
     if (filter.length) {
-      return playlists.filter(playlist => playlist.name.includes(filter));
+      const match = matcher(filter);
+      return playlists.filter(playlist => matchPlaylist(playlist, match));
     }
 
     return playlists;

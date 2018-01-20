@@ -5,6 +5,12 @@ export function matcher(needle) {
   };
 }
 
+export function matchPlaylist(playlist, match) {
+  return match([
+    playlist.get('name'),
+  ]);
+}
+
 export function matchTrack(track, match) {
   return match([
     track.get('name'),
