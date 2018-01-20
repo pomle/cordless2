@@ -27,15 +27,6 @@ export class ArtistDetail extends Component {
     this.props.fetchArtist(this.props.artistId);
   }
 
-  playTrack = track => {
-    const { albumId } = this.props;
-    this.playbackAPI.playAlbum(albumId, track.id);
-  };
-
-  updateFilter = filter => {
-    this.setState({ filter });
-  };
-
   render() {
     const { artist } = this.props;
     console.log('Artist view', artist);
