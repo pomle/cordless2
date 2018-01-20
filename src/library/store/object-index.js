@@ -86,3 +86,60 @@ export function createIndex(namespace) {
     deleteEntry,
   };
 }
+
+function ts() {
+  return new Date().getTime();
+}
+
+export function createFetcher(callback, {refresh = 10000, interval = 500}) {
+
+  let refreshAfter = 0;
+
+  return function fetch(...args) {
+    const now = ts();
+
+    return async (dispatch, getState) => {
+      if (now < refreshAfter) {
+        return;
+      }
+
+      refreshAfter = now + refresh;
+
+      const handler = callback(...args);
+
+      function finish() {
+        clearInterval(timer);
+        flush();
+      }
+
+      function flush() {
+        const entries = items.map(item => {
+          return {
+            id: item.id,
+            object: item,
+          };
+        });
+
+        results = results.concat(items.map(item => item.id));
+
+        dispatch(handler.onEntries(entries));
+        dispatch(handler.onResult(results));
+
+        items = items.clear();
+      }
+
+      const timer = setInterval(flush, interval);
+
+      let items = new List();
+      let results = new List();
+
+      flush();
+
+      const consumer = handler.request(getState());
+
+      consumer.onData(data => items = items.concat(data.items));
+
+      consumer.onDone(finish);
+    };
+  }
+}
