@@ -1,12 +1,16 @@
 import { Record } from 'immutable';
 
-import { PlaylistAPI, SearchAPI } from '@pomle/spotify-web-sdk';
+import { ArtistAPI, PlaylistAPI, SearchAPI } from '@pomle/spotify-web-sdk';
 
 const State = Record({
   token: null,
 });
 
 class Session extends State {
+  get artistAPI() {
+    return new ArtistAPI(this.token);
+  }
+
   get playlistAPI() {
     return new PlaylistAPI(this.token);
   }

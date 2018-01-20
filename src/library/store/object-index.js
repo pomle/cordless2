@@ -135,7 +135,9 @@ export function createFetcher(callback, {interval} = {interval:  500}) {
       function finish() {
         clearInterval(timer);
         flush();
-        dispatch(onFinish(new List(all)));
+        if (onFinish) {
+          dispatch(onFinish(new List(all)));
+        }
       }
 
       function flush() {

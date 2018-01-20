@@ -14,7 +14,7 @@ export class AlbumList extends Component {
         <PlayableList>
           {albums.map(album => {
             return (
-              <div key={album.id} className="item">
+              <div key={album.get('id')} className="item">
                 <Album album={album} />
               </div>
             );

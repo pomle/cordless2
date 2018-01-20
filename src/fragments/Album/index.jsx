@@ -23,11 +23,11 @@ export class Album extends Component {
     return (
       <div className="Album">
         <div className="image">
-          <Image candidates={album.images} />
+          <Image candidates={album.get('images')} />
         </div>
 
         <div className="name">
-          <Link to={`/album/${album.id}`}>{album.name}</Link>
+          <Link to={`/album/${album.get('id')}`}>{album.get('name')}</Link>
         </div>
 
         <div className="playback">
