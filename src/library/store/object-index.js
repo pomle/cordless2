@@ -124,7 +124,7 @@ export function createIndex(namespace) {
   };
 }
 
-export function createFetcher(callback, {interval = 500}) {
+export function createFetcher(callback, {interval} = {interval:  500}) {
   return function fetch(...args) {
     const all = [];
     let results = new List();
