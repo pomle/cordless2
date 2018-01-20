@@ -5,17 +5,11 @@ import { connect } from 'react-redux';
 import { QuickSearch } from 'components/QuickSearch';
 import { TrackList } from 'fragments/TrackList';
 import { Track } from 'fragments/Track';
-
 import { PlaylistDetailHeader } from './Header';
 
-import { fetchPlaylist, fetchPlaylistTracks } from 'layers/PlayerApplication/store/playlist';
+import {matcher, matchTrack} from "library/search";
 
-function matcher(needle) {
-  needle = needle.toLowerCase();
-  return function match(...haystack) {
-    return haystack.some(word => word.toLowerCase().includes(needle));
-  };
-}
+import { fetchPlaylist, fetchPlaylistTracks } from 'layers/PlayerApplication/store/playlist';
 
 export class PlaylistDetail extends PureComponent {
   static propTypes = {
@@ -41,18 +35,11 @@ export class PlaylistDetail extends PureComponent {
     const { playlist } = this.props;
     const { filter } = this.state;
 
-    const entries = playlist.getIn(['tracks', 'items']);
+    const entries = playlist.getIn(['tracks', 'items'], []);
 
     if (filter.length) {
       const match = matcher(filter);
-      return entries.filter(entry => {
-        const words = [
-          entry.getIn(['track','name']),
-          ...entry.getIn(['track', 'artists']).map(artist => artist.get('name')),
-          entry.getIn(['track','album','name']),
-        ];
-        return match(...words);
-      });
+      return entries.filter(entry => matchTrack(entry.get('track'), match));
     }
 
     return entries;
