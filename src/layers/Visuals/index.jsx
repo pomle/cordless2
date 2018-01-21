@@ -13,6 +13,17 @@ import { Backdrop } from './Backdrop';
 
 import './Visuals.css';
 
+function ramp(start, exp) {
+  return function(x) {
+    if (x < -start) return 0;
+
+    const d = x / start + 1;
+    return d ** exp;
+  }
+}
+
+const loudnessToIntensity = ramp(40, 2);
+
 export const Visuals = withRouter(connect([withPlayingTrack])(class extends Component {
   static contextTypes = {
     images: PropTypes.object,
@@ -34,6 +45,7 @@ export const Visuals = withRouter(connect([withPlayingTrack])(class extends Comp
       artwork: null,
       track: null,
       pulse: 0.3,
+      loudness: 0,
     };
 
     this.updateAnalyser = onChange(is, this.updateAnalyser.bind(this));
@@ -72,12 +84,15 @@ export const Visuals = withRouter(connect([withPlayingTrack])(class extends Comp
       this.analyzer = null;
     }
 
-    const lookAtSegment = lookAt('loudness_max', data =>
-      console.log('Segment', data.loudness_max)
-    );
-    const lookAtSection = lookAt('start', data =>
-      console.log('Section', data)
-    );
+    const lookAtSegment = lookAt('start', data => {
+      //console.log('Segment', data);
+      this.setState({
+        loudness: data.loudness_max,
+      });
+    });
+    const lookAtSection = lookAt('start', data => {
+      //console.log('Section', data)
+    });
 
     this.analyzer = analysis.stream(data);
     this.analyzer.on('data', data => {
@@ -108,14 +123,16 @@ export const Visuals = withRouter(connect([withPlayingTrack])(class extends Comp
 
   render() {
     const { location } = this.props;
-    const { artwork, pulse } = this.state;
+    const { artwork, pulse, loudness } = this.state;
     const promote = location.pathname === '/now-playing';
+    const effectIntensity = loudnessToIntensity(loudness);
+    //console.log('EffectIntensity', effectIntensity);
 
     return (
       <div className="Visuals">
         <Album artwork={artwork} promote={promote} />
 
-        <Backdrop artwork={artwork} pulse={pulse} promote={promote} />
+        <Backdrop artwork={artwork} pulse={pulse} effectIntensity={effectIntensity} promote={promote} />
       </div>
     );
   }

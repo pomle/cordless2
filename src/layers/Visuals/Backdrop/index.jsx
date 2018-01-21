@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Motion, spring } from 'react-motion';
 import { Surface } from 'gl-react-dom';
+import { connect } from '@pomle/spotify-react';
 
 import anime from 'animejs';
 
 import { Renderer3D, followAspect, THREE } from 'components/Renderer3D';
 import { imageToPlane } from 'components/Renderer3D/mesh';
 
-import { Pontus } from '../shaders';
+import { Mood } from '../shaders';
 import { BetterBlur as Blur } from '../shaders/blur';
 
 const resolution = {
@@ -15,7 +16,14 @@ const resolution = {
   y: 400,
 };
 
-export class Backdrop extends Component {
+const cameraDistance = 20;
+
+export const Backdrop = connect([state => {
+  const albumId = state.player.getIn(['context', 'track_window', 'current_track', 'album', 'uri'], '').split(':')[2];
+  return {
+    color: state.color.getIn(['album', albumId]),
+  };
+}])(class Backdrop extends Component {
   constructor(props) {
     super(props);
 
@@ -30,7 +38,7 @@ export class Backdrop extends Component {
       0.1,
       1000
     );
-    this.camera.position.z = 30;
+    this.camera.position.z = cameraDistance;
 
     this.onResize = followAspect(this.camera);
 
@@ -80,10 +88,17 @@ export class Backdrop extends Component {
     this.albums.add(album);
   }
 
-  onUpdate = (diff, total) => {};
+  onUpdate = (diff, total) => {
+    this.camera.position.z = cameraDistance + Math.sin(total / 25000) * 10;
+    this.albums.forEach(album => {
+      album.rotation.x = Math.sin(total / 5368.9) * 0.2;
+      album.rotation.y = Math.sin(total / 3923.4) * 0.2;
+    });
+  };
 
   render() {
-    const { promote, pulse } = this.props;
+    const { color, promote, effectIntensity } = this.props;
+
     return (
       <div className="Backdrop">
         <Surface width={resolution.x} height={resolution.x}>
@@ -94,28 +109,23 @@ export class Backdrop extends Component {
             }}
             style={{
               factor: spring(promote ? 0 : 1, { stiffness: 70, damping: 5 }),
-              effectMix: spring(0.5),
+              effectMix: spring(effectIntensity, { stiffness: 10, damping: 50 }),
             }}
           >
             {({ factor, thickness, effectMix }) => {
               return (
                 <Blur passes={2} factor={factor * 3}>
-                  <Pontus
-                    effectMix={effectMix}
-                    thickness={pulse}
-                    timeSpeed={0.1}
-                    spacing={0.2}
-                  >
+                  <Mood colors={color} mix={effectMix * 0.8}>
                     <Blur passes={4} factor={4}>
                       <Renderer3D
                         size={resolution}
                         scene={this.scene}
                         camera={this.camera}
-                        onUpdate={this.update}
+                        onUpdate={this.onUpdate}
                         onResize={this.onResize}
                       />
                     </Blur>
-                  </Pontus>
+                  </Mood>
                 </Blur>
               );
             }}
@@ -124,4 +134,4 @@ export class Backdrop extends Component {
       </div>
     );
   }
-}
+});
