@@ -3,7 +3,7 @@ import { Motion, spring } from 'react-motion';
 import { Surface } from 'gl-react-dom';
 import anime from 'animejs';
 
-import { Renderer3D, THREE } from 'components/Renderer3D';
+import { Renderer3D, THREE, followAspect } from 'components/Renderer3D';
 import { imageToPlane } from 'components/Renderer3D/mesh';
 
 import { BetterBlur as Blur } from '../shaders/blur';
@@ -29,6 +29,8 @@ export class Album extends PureComponent {
       1000
     );
     this.camera.position.z = 30;
+
+    this.onResize = followAspect(this.camera);
 
     this.image = null;
     this.albums = new Set();
@@ -116,6 +118,7 @@ export class Album extends PureComponent {
                   scene={this.scene}
                   camera={this.camera}
                   onUpdate={this.update}
+                  onResize={this.onResize}
                 />
               </Blur>
             )}

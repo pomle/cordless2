@@ -3,8 +3,8 @@
 
 
 "@pomle/spotify-react@^0.0.0-7":
-  version "0.0.0-8"
-  resolved "https://registry.yarnpkg.com/@pomle/spotify-react/-/spotify-react-0.0.0-8.tgz#0f53e5cdd4a92699ed04486164b0ef2ef369fba6"
+  version "0.0.0-10"
+  resolved "https://registry.yarnpkg.com/@pomle/spotify-react/-/spotify-react-0.0.0-10.tgz#d86528d5b173d4458e909bdf0b61841efa8bd4ca"
 
 "@pomle/spotify-redux@^0.0.0-5":
   version "0.0.0-6"

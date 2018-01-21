@@ -1,22 +1,13 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { connect, withPlayingTrack } from '@pomle/spotify-react';
 
 import { ProgressBar } from 'components/ProgressBar';
 
 import './TrackInfo.css';
 
-export class TrackInfo extends Component {
-  static contextTypes = {
-    track: PropTypes.object,
-  };
-
+export const TrackInfo = connect([withPlayingTrack])(class TrackInfo extends Component {
   render() {
-    const { track } = this.context;
-    if (track.features) {
-      this.features = track.features;
-    }
-
-    const features = this.features || {};
+    const features = this.features = this.props.features || this.features || {};
 
     return (
       <div className="TrackInfo">
@@ -83,4 +74,4 @@ export class TrackInfo extends Component {
       </div>
     );
   }
-}
+});
