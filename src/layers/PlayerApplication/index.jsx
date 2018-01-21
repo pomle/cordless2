@@ -3,6 +3,8 @@ import { Provider } from 'react-redux';
 import PropTypes from 'prop-types';
 
 import { Player } from '@pomle/spotify-react';
+import { createStore, setToken } from '@pomle/spotify-redux';
+
 import PlayerWindow from './PlayerWindow';
 
 import { LRUCache } from 'library/cache';
@@ -10,8 +12,6 @@ import { ImagePool } from 'library/ImagePool';
 
 import { Visuals } from 'layers/Visuals';
 import { PlayerUI } from 'layers/PlayerUI';
-
-import { createStore, setToken } from '@pomle/spotify-redux';
 
 export class PlayerApplication extends Component {
   static childContextTypes = {
