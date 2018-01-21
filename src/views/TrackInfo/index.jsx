@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect, withPlayingTrack } from '@pomle/spotify-react';
-import PropTypes from 'prop-types';
 
 import { ProgressBar } from 'components/ProgressBar';
 
