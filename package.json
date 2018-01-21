@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@pomle/spotify-react": "^0.0.0-3",
+    "@pomle/spotify-redux": "^0.0.0-5",
     "@pomle/spotify-web-sdk": "0.0.0-2ac06e2",
     "animejs": "^2.2.0",
     "gl-react": "^3.13.0",
     "gl-react-dom": "^3.13.0",
-    "gl-transitions": "^1.27.0",
     "immutable": "^3.8.2",
     "prettier": "^1.9.2",
     "prop-types": "^15.6.0",
