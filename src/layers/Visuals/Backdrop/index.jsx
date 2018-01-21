@@ -15,6 +15,8 @@ const resolution = {
   y: 400,
 };
 
+const cameraDistance = 20;
+
 export class Backdrop extends Component {
   constructor(props) {
     super(props);
@@ -30,7 +32,7 @@ export class Backdrop extends Component {
       0.1,
       1000
     );
-    this.camera.position.z = 30;
+    this.camera.position.z = cameraDistance;
 
     this.onResize = followAspect(this.camera);
 
@@ -80,7 +82,13 @@ export class Backdrop extends Component {
     this.albums.add(album);
   }
 
-  onUpdate = (diff, total) => {};
+  onUpdate = (diff, total) => {
+    this.camera.position.z = cameraDistance + Math.sin(total / 25000) * 10;
+    this.albums.forEach(album => {
+      album.rotation.x = Math.sin(total / 5368.9) * 0.2;
+      album.rotation.y = Math.sin(total / 3923.4) * 0.2;
+    });
+  };
 
   render() {
     const { promote, pulse } = this.props;
