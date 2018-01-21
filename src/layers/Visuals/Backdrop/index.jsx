@@ -111,7 +111,7 @@ export class Backdrop extends Component {
                         size={resolution}
                         scene={this.scene}
                         camera={this.camera}
-                        onUpdate={this.update}
+                        onUpdate={this.onUpdate}
                         onResize={this.onResize}
                       />
                     </Blur>
