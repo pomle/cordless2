@@ -91,7 +91,7 @@ export class Backdrop extends Component {
   };
 
   render() {
-    const { promote, pulse } = this.props;
+    const { promote, pulse, effectIntensity } = this.props;
     return (
       <div className="Backdrop">
         <Surface width={resolution.x} height={resolution.x}>
@@ -102,14 +102,14 @@ export class Backdrop extends Component {
             }}
             style={{
               factor: spring(promote ? 0 : 1, { stiffness: 70, damping: 5 }),
-              effectMix: spring(0.5),
+              effectMix: spring(effectIntensity, { stiffness: 20, damping: 50 }),
             }}
           >
             {({ factor, thickness, effectMix }) => {
               return (
                 <Blur passes={2} factor={factor * 3}>
                   <Pontus
-                    effectMix={effectMix}
+                    effectMix={1 - effectMix}
                     thickness={pulse}
                     timeSpeed={0.1}
                     spacing={0.2}

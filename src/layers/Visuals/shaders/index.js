@@ -108,11 +108,11 @@ uniform float effectMix;
 
 void main() {
   float yOffset = 0.1;
-  ;
+  vec4 sourceColor = texture2D(t, uv);
+  vec4 colorBuffer = vec4(0.0);
 
   float amnt;
   float nd;
-  vec4 colorBuffer = vec4(0.0);
 
   for(float i = 0.0; i < 10.0; i++) {
     nd = sin(2.536 * uv.x + (i * spacing + sin(progress) * 0.3) + progress) * 0.8 + yOffset + uv.x;
@@ -127,8 +127,8 @@ void main() {
   }*/
 
   gl_FragColor = mix(
-    max(colorBuffer, texture2D(t, uv * 1.0)),
-    vec4(0.0),
+    max(colorBuffer * effectMix, sourceColor),
+    sourceColor,
     effectMix);
 }
 `,
