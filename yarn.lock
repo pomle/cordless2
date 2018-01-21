@@ -2,7 +2,7 @@
 # yarn lockfile v1
 
 
-"@pomle/spotify-react@0.0.0-7":
+"@pomle/spotify-react@^0.0.0-7":
   version "0.0.0-7"
   resolved "https://registry.yarnpkg.com/@pomle/spotify-react/-/spotify-react-0.0.0-7.tgz#a479adf1e19c4983b1ce8fe004f54bf5706c3329"
 
