@@ -3,6 +3,7 @@
   flex-flow: row wrap;
 }
 
-.Artists .artist:not(:first-child):before {
-  content: ', ';
+.Artists .artist:not(:last-child):after {
+  content: ',  ';
+  white-space: pre-wrap;
 }
