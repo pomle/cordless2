@@ -29,20 +29,6 @@ void main() {
 }
 `,
   },
-  DiamondCrop: {
-    frag: GLSL`
-precision highp float;
-varying vec2 uv;
-uniform sampler2D t;
-void main() {
-gl_FragColor = mix(
-  texture2D(t, uv),
-  texture2D(t, uv*2.0),
-  step(0.5, abs(uv.x - 0.5) + abs(uv.y - 0.5))
-);
-}
-`,
-  },
   animated: {
     frag: GLSL`
 precision highp float;
@@ -67,31 +53,6 @@ void main() {
     0.6 * uv.x + 0.2 * sin(uv.y * 30.0),
     1.0 - uv.x + 0.5 * cos(uv.y * 2.0)
   ), 1.0);
-}
-`,
-  },
-  eities: {
-    frag: GLSL`
-precision highp float;
-varying vec2 uv;
-
-uniform float time;
-
-void main() {
-  float amnt;
-  float nd;
-  vec4 cbuff = vec4(0.0);
-  for(float i=0.0; i<5.0;i++){
-    nd = sin(3.17*0.8*uv.x + (i*0.1+sin(+time)*0.2) + time)*0.8+0.1 + uv.x;
-    amnt = 1.0/abs(nd-uv.y)*0.01;
-    cbuff += vec4(amnt, amnt*0.3 , amnt*uv.y, 90.0);
-  }
-  for(float i=0.0; i<1.0;i++){
-    nd = sin(3.14*2.0*uv.y + i*40.5 + time)*90.3*(uv.y+80.3)+0.5;
-    amnt = 1.0/abs(nd-uv.x)*0.015;
-    cbuff += vec4(amnt*0.2, amnt*0.2 , amnt*uv.x, 1.0);
-  }
-  gl_FragColor = cbuff;
 }
 `,
   },
@@ -133,7 +94,79 @@ void main() {
 }
 `,
   },
+
+  mood: {
+    frag: GLSL`
+precision mediump float;
+varying vec2 uv;
+uniform sampler2D t;
+uniform vec3 color1;
+uniform vec3 color2;
+uniform vec3 color3;
+uniform float colorMix;
+
+void main() {
+  vec4 sourceColor = texture2D(t, uv);
+
+  gl_FragColor = mix(
+    mix(vec4(mix(color1, color2, uv.x), 1.0), vec4(color3, 1.0), uv.y),
+    sourceColor,
+    colorMix);
+}
+`,
+  },
 });
+
+function createFade(initial) {
+  let last = initial;
+  return function(goals) {
+    return goals.map((goal, index) => {
+      last[index] = last[index] + (goal - last[index]) / 200;
+      return last[index];
+    });
+  };
+}
+
+function toVec3(color, name) {
+  if (color) {
+    if (color[name]) {
+      return color[name].rgb.map(x => x / 255);
+    }
+  }
+
+  return [.2, .2, .4];
+}
+
+function createExtractColor(primary, secondary) {
+  let prev;
+  let color = [0, 0, 0];
+  const fade = createFade(color);
+  return function getColor(colors) {
+    if (prev !== colors) {
+      color = toVec3(colors, primary) || toVec3(colors, secondary);
+      prev = colors;
+    }
+    return fade(color);
+  }
+}
+
+const color1 = createExtractColor('vibrant', 'muted');
+const color2 = createExtractColor('darkvibrant', 'lightvibrant');
+const color3 = createExtractColor('darkmuted', 'lightmuted');
+
+export const Mood = ({children: t, colors, mix}) => {
+  return <Node shader={shaders.mood} uniforms={{
+    t,
+    colorMix: mix,
+    color1: color1(colors),
+    color2: color2(colors),
+    color3: color3(colors),
+  }} />;
+}
+
+export const Noise = ({children: t}) => {
+  return <Node shader={shaders.noise} uniforms={{t}} />;
+}
 
 export const HelloBlue = timed(({ time }) => {
   return <Node shader={shaders.helloBlue} uniforms={{ time: time / 1000 }} />;
