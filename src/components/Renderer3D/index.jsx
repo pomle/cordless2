@@ -24,6 +24,13 @@ void main() {
 
 export const THREE = window.THREE;
 
+export function followAspect(camera) {
+  return function onResize(event) {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+  };
+}
+
 export class Renderer3D extends Component {
   static defaultProps = {
     alpha: false,
@@ -42,6 +49,8 @@ export class Renderer3D extends Component {
   }
 
   componentDidMount() {
+    window.addEventListener('resize', this.onResize);
+
     this.timer = timer((diff, total) => {
       const { scene, camera, onUpdate } = this.props;
       if (onUpdate) {
@@ -61,7 +70,15 @@ export class Renderer3D extends Component {
   }
 
   componentWillUnmount() {
+    window.removeEventListener('resize', this.onResize);
+
     this.timer.stop();
+  }
+
+  onResize = (event) => {
+    if (this.props.onResize) {
+      this.props.onResize(event);
+    }
   }
 
   render() {

@@ -4,7 +4,7 @@ import { Surface } from 'gl-react-dom';
 
 import anime from 'animejs';
 
-import { Renderer3D, THREE } from 'components/Renderer3D';
+import { Renderer3D, followAspect, THREE } from 'components/Renderer3D';
 import { imageToPlane } from 'components/Renderer3D/mesh';
 
 import { Pontus } from '../shaders';
@@ -31,6 +31,8 @@ export class Backdrop extends Component {
       1000
     );
     this.camera.position.z = 30;
+
+    this.onResize = followAspect(this.camera);
 
     this.image = null;
     this.albums = new Set();
@@ -110,6 +112,7 @@ export class Backdrop extends Component {
                         scene={this.scene}
                         camera={this.camera}
                         onUpdate={this.update}
+                        onResize={this.onResize}
                       />
                     </Blur>
                   </Pontus>
