@@ -1,20 +1,18 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import React, { PureComponent } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { PlayButton } from 'components/PlayButton';
 import { Image } from 'fragments/Image';
 
+import { playContext } from '@pomle/spotify-redux';
+
 import './Playlist.css';
 
-export class Playlist extends Component {
-  static contextTypes = {
-    api: PropTypes.object,
-  };
-
+export const Playlist = connect(null, {playContext})(class Playlist extends PureComponent {
   play = () => {
-    const { playlist } = this.props;
-    this.context.api.playbackAPI.playContext(playlist.get('uri'));
+    const { playlist, playContext } = this.props;
+    playContext(playlist.get('uri'));
   };
 
   render() {
@@ -48,4 +46,4 @@ export class Playlist extends Component {
       </div>
     );
   }
-}
+});

@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import { Iterable } from 'immutable';
 
 import { PlaylistIndex } from 'fragments/PlaylistIndex';
-import { fetchUserPlaylists } from 'store/player/playlist';
+import { fetchUserPlaylists } from '@pomle/spotify-redux';
 
 const ME = Symbol('default user');
 

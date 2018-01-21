@@ -6,7 +6,7 @@ import { TrackList } from 'fragments/TrackList';
 import { Track } from 'fragments/Track';
 
 import { debounce } from 'library/debounce';
-import { search } from 'store/player/search';
+import { search, playTracks } from '@pomle/spotify-redux';
 
 import './Search.css';
 
@@ -59,8 +59,9 @@ export class Search extends Component {
   }
 
   playTrack = track => {
-    const trackIds = this.props.tracks.map(track => track.get('id'));
-    this.playbackAPI.playTracks(trackIds, track.get('id'));
+    const { playTracks, tracks } = this.props;
+    const trackIds = tracks.map(track => track.get('id'));
+    playTracks(trackIds, track.get('id'));
   };
 
   render() {
@@ -107,5 +108,6 @@ export default connect(
   },
   {
     search,
+    playTracks,
   }
 )(Search);

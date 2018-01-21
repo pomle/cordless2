@@ -9,21 +9,16 @@ import { PlaylistDetailHeader } from './Header';
 
 import {matcher, matchTrack} from "library/search";
 
-import { fetchPlaylist } from 'store/player/playlist';
+import { fetchPlaylist, playPlaylist } from '@pomle/spotify-redux';
 
 export class PlaylistDetail extends PureComponent {
-  static contextTypes = {
-    api: PropTypes.object,
-  };
-
   static propTypes = {
     fetchPlaylist: PropTypes.func.isRequired,
+    playPlaylist: PropTypes.func.isRequired,
   };
 
   constructor(props, context) {
     super(props);
-
-    this.playbackAPI = context.api.playbackAPI;
 
     this.state = {
       filter: '',
@@ -50,8 +45,8 @@ export class PlaylistDetail extends PureComponent {
   }
 
   playTrack = track => {
-    const { userId, playlistId } = this.props;
-    this.playbackAPI.playPlaylist(userId, playlistId, track.get('id'));
+    const { userId, playlistId, playPlaylist } = this.props;
+    playPlaylist(userId, playlistId, track.get('id'));
   };
 
   updateFilter = filter => {
@@ -91,5 +86,6 @@ export default connect(
   },
   {
     fetchPlaylist,
+    playPlaylist,
   }
 )(PlaylistDetail);

@@ -1,35 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 
 import { ViewHeader } from 'components/ViewHeader';
 import { TrackList } from 'fragments/TrackList';
 import { Track } from 'fragments/Track';
 
-import { fetchAlbum } from 'store/player/album';
+import { fetchAlbum, playAlbum } from '@pomle/spotify-redux';
+
+import './AlbumDetail.css';
 
 export class AlbumDetail extends Component {
-  static contextTypes = {
-    api: PropTypes.object,
-  };
-
-  constructor(props, context) {
-    super(props);
-
-    this.playbackAPI = context.api.playbackAPI;
-  }
-
   componentWillMount() {
     this.props.fetchAlbum(this.props.albumId);
   }
 
   playTrack = track => {
-    const { albumId } = this.props;
-    this.playbackAPI.playAlbum(albumId, track.get('id'));
-  };
-
-  updateFilter = filter => {
-    this.setState({ filter });
+    const { playAlbum, albumId } = this.props;
+    playAlbum(albumId, track.get('id'));
   };
 
   render() {
@@ -61,5 +48,6 @@ export default connect(
   },
   {
     fetchAlbum,
+    playAlbum,
   }
 )(AlbumDetail);

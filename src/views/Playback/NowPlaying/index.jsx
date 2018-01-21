@@ -1,22 +1,19 @@
-import React, { Component } from 'react';
-import {fromJS} from "immutable";
-
+import React, { PureComponent } from 'react';
 import { Image } from 'fragments/Image';
 import { Artists } from 'fragments/Artists';
-
 import './NowPlaying.css';
 
-export class NowPlaying extends Component {
+export class NowPlaying extends PureComponent {
   render() {
     const { track } = this.props;
 
     return (
       <div className="NowPlaying">
-        {track ? <Image candidates={fromJS(track.album.images)} /> : ''}
+        {track ? <Image candidates={track.getIn(['album', 'images'])} /> : ''}
 
-        <div className="trackName">{track ? track.name : ''}</div>
+        <div className="trackName">{track ? track.get('name') : ''}</div>
 
-        {track ? <Artists artists={fromJS(track.artists)} /> : null}
+        {track ? <Artists artists={track.get('artists')} /> : null}
       </div>
     );
   }

@@ -1,35 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 
 import { ViewHeader } from 'components/ViewHeader';
 import { AlbumList } from 'fragments/AlbumList';
 
-import { fetchArtist } from 'store/player/artist';
+import { fetchArtist } from '@pomle/spotify-redux';
 
 export class ArtistDetail extends Component {
-  static contextTypes = {
-    api: PropTypes.object,
-  };
-
-  constructor(props, context) {
-    super(props);
-
-    this.playbackAPI = context.api.playbackAPI;
-
-    this.state = {
-      artist: null,
-    };
-  }
-
   componentWillMount() {
-    console.log(this.props);
     this.props.fetchArtist(this.props.artistId);
   }
 
   render() {
     const { artist } = this.props;
-    console.log('Artist view', artist);
 
     if (!artist) {
       return null;
@@ -47,7 +30,6 @@ export class ArtistDetail extends Component {
 
 export default connect(
   (state, {artistId}) => {
-    console.log(state.artist, artistId);
     return {
       artist: state.artist.getEntry(artistId),
     };

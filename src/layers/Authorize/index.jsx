@@ -65,6 +65,7 @@ export const Authorize = withRouter(class extends Component {
       session = parse(props.location.hash);
       if (session.access_token) {
         putSession(storage, session);
+        props.history.replace('/');
       }
     }
 
@@ -93,8 +94,6 @@ export const Authorize = withRouter(class extends Component {
       this.setState({
         ready: true,
       });
-
-      this.props.history.replace('/');
     }
   }
 

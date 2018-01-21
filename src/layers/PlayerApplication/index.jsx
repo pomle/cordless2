@@ -2,18 +2,8 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import {
-  AlbumAPI,
-  ArtistAPI,
-  PlaybackAPI,
-  PlaylistAPI,
-  SearchAPI,
-  TrackAPI,
-} from '@pomle/spotify-web-sdk';
-
-import { CordlessPlayer } from './CordlessPlayer';
-
-import { onURIChange } from 'library/compare.js';
+import { Player } from '@pomle/spotify-react';
+import PlayerWindow from './PlayerWindow';
 
 import { LRUCache } from 'library/cache';
 import { ImagePool } from 'library/ImagePool';
@@ -21,16 +11,11 @@ import { ImagePool } from 'library/ImagePool';
 import { Visuals } from 'layers/Visuals';
 import { PlayerUI } from 'layers/PlayerUI';
 
-import { createStore } from 'store/player';
-import { setToken } from 'store/player/session';
-
-import './PlayerApplication.css';
+import { createStore, setToken } from '@pomle/spotify-redux';
 
 export class PlayerApplication extends Component {
   static childContextTypes = {
-    api: PropTypes.object,
     images: PropTypes.object,
-    track: PropTypes.object,
   };
 
   constructor(props) {
@@ -39,23 +24,6 @@ export class PlayerApplication extends Component {
     const { token } = props;
 
     this.images = new ImagePool(new LRUCache(1000));
-    this.cordless = new CordlessPlayer(token);
-
-    this.state = {
-      player: this.cordless.getState(),
-      track: null,
-      features: null,
-      analysis: null,
-    };
-
-    this.api = {
-      albumAPI: new AlbumAPI(token),
-      artistAPI: new ArtistAPI(token),
-      playbackAPI: new PlaybackAPI(token),
-      playlistAPI: new PlaylistAPI(token),
-      searchAPI: new SearchAPI(token),
-      trackAPI: new TrackAPI(token),
-    };
 
     this.store = createStore();
     this.store.dispatch(setToken(token));
@@ -63,34 +31,8 @@ export class PlayerApplication extends Component {
 
   getChildContext() {
     return {
-      api: this.api,
       images: this.images,
-      track: {
-        meta: this.state.track,
-        features: this.state.features,
-        analysis: this.state.analysis,
-      },
     };
-  }
-
-  componentDidMount() {
-    const onTrack = onURIChange(track => {
-      this.onTrackChange(track);
-    });
-
-    this.cordless.onUpdate = player => {
-      this.api.playbackAPI.setDevice(player.deviceId);
-
-      onTrack(player.context.track_window.current_track);
-
-      this.setState({ player });
-    };
-
-    this.cordless.initialize();
-  }
-
-  componentWillUnmount() {
-    this.cordless.destroy();
   }
 
   onTrackChange(track) {
@@ -112,22 +54,15 @@ export class PlayerApplication extends Component {
   }
 
   render() {
-    const { player, track, analysis } = this.state;
-
-    const classes = ['PlayerApplication'];
-    if (player.deviceId) {
-      classes.push('ready');
-    } else {
-      classes.push('pending');
-    }
-
     return (
       <Provider store={this.store}>
-        <div className={classes.join(' ')}>
-          <PlayerUI player={player} />
+        <Player name="Cordless">
+          <PlayerWindow>
+            <PlayerUI/>
 
-          <Visuals context={player.context} track={track} analysis={analysis} />
-        </div>
+            <Visuals />
+          </PlayerWindow>
+        </Player>
       </Provider>
     );
   }
