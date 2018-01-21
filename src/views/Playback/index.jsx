@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
@@ -7,57 +8,58 @@ import { NowPlaying } from './NowPlaying';
 import { Scrubber } from './Scrubber';
 import { Time } from 'components/Time';
 
+import { pause, resume, seek, next, prev } from '@pomle/spotify-redux';
+
 import './Playback.css';
 
 export class Playback extends Component {
-  static contextTypes = {
-    api: PropTypes.object,
-    track: PropTypes.object,
+  static propTypes = {
+    pause: PropTypes.func.isRequired,
+    resume: PropTypes.func.isRequired,
+    seek: PropTypes.func.isRequired,
+    next: PropTypes.func.isRequired,
+    prev: PropTypes.func.isRequired,
   };
 
-  constructor(props, context) {
-    super(props);
-    this.api = context.api.playbackAPI;
-  }
-
   toggle = () => {
-    const { context } = this.props.player;
+    const { resume, pause, player: {context} } = this.props;
     if (context.paused) {
-      this.api.resume();
+      resume();
     } else {
-      this.api.pause();
+      pause();
     }
   };
 
-  next = () => {
-    this.api.next();
-  };
-
-  prev = () => {
-    this.api.prev();
-  };
-
-  seek = ms => {
-    this.api.seek(ms);
-  };
-
   render() {
-    const { player: { context } } = this.props;
-    const { track } = this.context;
-    const trackWindow = context.track_window;
+    const { prev, next, seek, player, analysis } = this.props;
 
     return (
       <div className="Playback">
-        <NowPlaying track={trackWindow.current_track} />
-        <Scrubber context={context} seek={this.seek} analysis={track.analysis} />
-        <Interface prev={this.prev} next={this.next} toggle={this.toggle} />
+        <NowPlaying track={player.currentTrack} />
+        <Scrubber
+          context={player.context}
+          seek={seek}
+          analysis={analysis}
+        />
+        <Interface prev={prev} next={next} toggle={this.toggle} />
         <div className="vis">
           <Link to="/now-playing">Now Playing</Link>
           <div className="time">
-            <Time seconds={context.position / 1000} />
+            <Time seconds={player.context.position / 1000} />
           </div>
         </div>
       </div>
     );
   }
 }
+
+export default connect(state => {
+  const track = state.player.currentTrack;
+  const trackId = track && track.get('id');
+  return {
+    analysis: state.track.analysis.get(trackId),
+    player: state.player,
+  };
+}, {
+  pause, resume, seek, next, prev
+})(Playback);

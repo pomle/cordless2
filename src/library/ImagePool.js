@@ -1,4 +1,4 @@
-import {loadImage} from './image.js';
+import { loadImage } from './image.js';
 
 export class ImagePool {
   constructor(storage) {

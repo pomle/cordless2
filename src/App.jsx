@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 
 import { Authorize } from 'layers/Authorize';
 import { PlayerApplication } from 'layers/PlayerApplication';
@@ -13,18 +13,10 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="App">
-          <Route
-            path="*"
-            render={route => {
-              return (
-                <Authorize
-                  storage={storage}
-                  route={route}
-                  render={token => {
-                    return <PlayerApplication token={token} />;
-                  }}
-                />
-              );
+          <Authorize
+            storage={storage}
+            render={token => {
+              return <PlayerApplication token={token} />;
             }}
           />
         </div>

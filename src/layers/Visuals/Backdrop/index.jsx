@@ -36,7 +36,6 @@ export class Backdrop extends Component {
     this.albums = new Set();
   }
 
-
   componentWillReceiveProps({ artwork }) {
     if (this.image === artwork) {
       return;
@@ -55,7 +54,7 @@ export class Backdrop extends Component {
         easing: 'easeInQuad',
         complete: () => {
           this.scene.remove(album);
-        }
+        },
       });
 
       this.albums.delete(album);
@@ -79,9 +78,7 @@ export class Backdrop extends Component {
     this.albums.add(album);
   }
 
-  onUpdate = (diff, total) => {
-
-  }
+  onUpdate = (diff, total) => {};
 
   render() {
     const { promote, pulse } = this.props;
@@ -105,7 +102,8 @@ export class Backdrop extends Component {
                     effectMix={effectMix}
                     thickness={pulse}
                     timeSpeed={0.1}
-                    spacing={0.2}>
+                    spacing={0.2}
+                  >
                     <Blur passes={4} factor={4}>
                       <Renderer3D
                         size={resolution}

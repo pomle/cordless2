@@ -15,9 +15,9 @@ export function is(a, b) {
 export function compareObjectURIs(a, b) {
   if (!a) return false;
 
-  if (a.uri) {
+  if (a.get('uri')) {
     if (!b) return true;
-    if (a.uri === b.uri) return false;
+    if (a.get('uri') === b.get('uri')) return false;
     return true;
   }
 }

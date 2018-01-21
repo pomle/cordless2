@@ -1,20 +1,18 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 
 import { PlayButton } from 'components/PlayButton';
 import { Image } from 'fragments/Image';
 
+import { playAlbum } from '@pomle/spotify-redux';
+
 import './Album.css';
 
-export class Album extends Component {
-  static contextTypes = {
-    api: PropTypes.object,
-  };
-
+export const Album = connect(null, {playAlbum})(class Album extends Component {
   play = () => {
-    const { album } = this.props;
-    this.context.api.playbackAPI.playAlbum(album.id);
+    const { album, playAlbum } = this.props;
+    playAlbum(album.get('id'));
   };
 
   render() {
@@ -23,13 +21,11 @@ export class Album extends Component {
     return (
       <div className="Album">
         <div className="image">
-          <Image candidates={album.images} />
+          <Image candidates={album.get('images')} />
         </div>
 
         <div className="name">
-          <Link to={`/album/${album.id}`}>
-            {album.name}
-          </Link>
+          <Link to={`/album/${album.get('id')}`}>{album.get('name')}</Link>
         </div>
 
         <div className="playback">
@@ -38,4 +34,4 @@ export class Album extends Component {
       </div>
     );
   }
-}
+});

@@ -3,11 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@pomle/spotify-web-sdk": "0.0.0-55df9f1",
+    "@pomle/spotify-react": "^0.0.0-7",
+    "@pomle/spotify-redux": "^0.0.0-5",
+    "@pomle/spotify-web-sdk": "^0.0.0-31",
     "animejs": "^2.2.0",
     "gl-react": "^3.13.0",
     "gl-react-dom": "^3.13.0",
-    "gl-transitions": "^1.27.0",
     "immutable": "^3.8.2",
     "prettier": "^1.9.2",
     "prop-types": "^15.6.0",
@@ -15,9 +16,11 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-motion": "^0.5.2",
+    "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.17",
+    "redux": "^3.7.2",
     "serve": "^6.4.4"
   },
   "scripts": {

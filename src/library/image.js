@@ -1,3 +1,5 @@
+import {fromJS} from "immutable";
+
 export function loadImage(url) {
   return new Promise((resolve, reject) => {
     const image = new Image();
@@ -11,11 +13,12 @@ export function loadImage(url) {
 }
 
 export function largest(images) {
-  let largest = images[0];
-  for (const image in images) {
-    if (image.width > largest.width) {
+  images = fromJS(images);
+  let largest = images.get(0);
+  for (const image of images) {
+    if (image.get('width') > largest.get('width')) {
       largest = image;
     }
   }
-  return largest;
+  return largest.toJS();
 }

@@ -1,15 +1,4 @@
-@keyframes reveal {
-  0% {
-    opacity: 0;
-    transform: translateY(50px) scale(0.8);
-  }
-  100% {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-.PlayableList > * {
+.PlayableList {
     display: flex;
     flex-flow: wrap;
     justify-content: space-between;
@@ -34,7 +23,7 @@
 }
 
 .PlayableList .playback {
-    display: none;
+    opacity: 0;
 }
 
 .PlayableList .playback button {
@@ -45,5 +34,5 @@
 }
 
 .PlayableList .item > *:hover .playback {
-    display: initial;
+    opacity: 1;
 }

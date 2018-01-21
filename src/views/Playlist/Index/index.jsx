@@ -1,62 +1,61 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { List } from 'immutable';
+import { Iterable } from 'immutable';
 
-import { QuickSearch } from 'components/QuickSearch';
-import { ViewHeader } from 'components/ViewHeader';
-import { PlaylistList } from 'fragments/PlaylistList';
+import { PlaylistIndex } from 'fragments/PlaylistIndex';
+import { fetchUserPlaylists } from '@pomle/spotify-redux';
 
-export class PlaylistIndex extends Component {
-  static contextTypes = {
-    api: PropTypes.object,
+const ME = Symbol('default user');
+
+class PlaylistView extends Component {
+  static defaultProps = {
+    userId: ME,
   };
 
-  constructor(props, context) {
-    super(props);
+  static propTypes = {
+    userId: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.symbol,
+    ]),
+    playlists: PropTypes.instanceOf(Iterable).isRequired,
+  };
 
-    this.api = context.api.playlistAPI;
-
-    this.state = {
-      filter: '',
-      playlists: new List(),
-    };
+  componentWillMount() {
+    this.onUpdate(this.props);
   }
 
-  componentDidMount() {
-    this.api.consume(this.api.getPlaylists(), items => {
-      this.setState(prevState => {
-        return { playlists: prevState.playlists.push(...items) };
-      });
-    });
+  componentWillReceiveProps(nextProps) {
+    this.onUpdate(nextProps);
   }
 
-  getPlaylists() {
-    let { filter, playlists } = this.state;
-    if (filter.length) {
-      playlists = playlists.filter(playlist => playlist.name.includes(filter));
+  onUpdate({ userId, fetch }) {
+    if (this.userId === userId) {
+      return;
     }
-    return playlists;
-  }
 
-  updateFilter = filter => {
-    this.setState({ filter });
-  };
+    this.userId = userId;
+
+    fetch(userId === ME ? undefined : userId);
+  }
 
   render() {
-    const { player } = this.props;
-    const { filter } = this.state;
-
     return (
-      <div className="PlaylistIndex">
-        <QuickSearch value={filter} onChange={this.updateFilter} />
-
-        <ViewHeader caption="Your Playlists" />
-
-        <PlaylistList
-          playlists={this.getPlaylists()}
-          player={player}
-        />
-      </div>
+      <PlaylistIndex
+        caption="Your Playlists"
+        playlists={this.props.playlists}
+      />
     );
   }
 }
+
+export default connect(
+  (state, props) => {
+    return {
+      playlists: state.playlist.getEntries(props.userId),
+    };
+  },
+  {
+    fetch: fetchUserPlaylists,
+  }
+)(PlaylistView);

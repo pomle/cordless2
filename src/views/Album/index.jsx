@@ -1,44 +1,26 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import { ViewHeader } from 'components/ViewHeader';
 import { TrackList } from 'fragments/TrackList';
 import { Track } from 'fragments/Track';
 
+import { fetchAlbum, playAlbum } from '@pomle/spotify-redux';
+
+import './AlbumDetail.css';
+
 export class AlbumDetail extends Component {
-  static contextTypes = {
-    api: PropTypes.object,
-  };
-
-  constructor(props, context) {
-    super(props);
-
-    this.albumAPI = context.api.albumAPI;
-    this.playbackAPI = context.api.playbackAPI;
-
-    this.state = {
-      album: null,
-    };
-  }
-
-  async componentDidMount() {
-    const { albumId } = this.props;
-
-    const album = await this.albumAPI.getAlbum(albumId);
-    this.setState({ album });
+  componentWillMount() {
+    this.props.fetchAlbum(this.props.albumId);
   }
 
   playTrack = track => {
-    const { albumId } = this.props;
-    this.playbackAPI.playAlbum(albumId, track.id);
-  };
-
-  updateFilter = filter => {
-    this.setState({ filter });
+    const { playAlbum, albumId } = this.props;
+    playAlbum(albumId, track.get('id'));
   };
 
   render() {
-    const { album } = this.state;
+    const { album } = this.props;
 
     if (!album) {
       return null;
@@ -46,20 +28,26 @@ export class AlbumDetail extends Component {
 
     return (
       <div className="AlbumDetail">
-        <ViewHeader caption={album.name} images={album.images} />
+        <ViewHeader caption={album.get('name')} images={album.get('images')} />
 
         <TrackList>
-          {album.tracks.items.map(track => {
-            return (
-              <Track
-                key={track.id}
-                track={track}
-                play={this.playTrack}
-              />
-            );
+          {album.getIn(['tracks', 'items'], []).map(track => {
+            return <Track key={track.get('id')} track={track} play={this.playTrack} />;
           })}
         </TrackList>
       </div>
     );
   }
 }
+
+export default connect(
+  (state, {albumId}) => {
+    return {
+      album: state.album.getEntry(albumId),
+    };
+  },
+  {
+    fetchAlbum,
+    playAlbum,
+  }
+)(AlbumDetail);

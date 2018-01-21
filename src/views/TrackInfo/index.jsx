@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import {ProgressBar} from 'components/ProgressBar';
+import { ProgressBar } from 'components/ProgressBar';
 
 import './TrackInfo.css';
 
@@ -11,7 +11,7 @@ export class TrackInfo extends Component {
   };
 
   render() {
-    const {track} = this.context;
+    const { track } = this.context;
     if (track.features) {
       this.features = track.features;
     }
@@ -19,32 +19,44 @@ export class TrackInfo extends Component {
     const features = this.features || {};
 
     return (
-      <div className='TrackInfo'>
+      <div className="TrackInfo">
         <table>
           <tbody>
             <tr className="danceability">
               <th>Danceability</th>
-              <td><ProgressBar value={features.danceability}/></td>
+              <td>
+                <ProgressBar value={features.danceability} />
+              </td>
             </tr>
             <tr className="energy">
               <th>Energy</th>
-              <td><ProgressBar value={features.energy}/></td>
+              <td>
+                <ProgressBar value={features.energy} />
+              </td>
             </tr>
             <tr className="instrumentalness">
               <th>Instrumentalness</th>
-              <td><ProgressBar value={features.instrumentalness}/></td>
+              <td>
+                <ProgressBar value={features.instrumentalness} />
+              </td>
             </tr>
             <tr className="liveness">
               <th>Liveness</th>
-              <td><ProgressBar value={features.liveness}/></td>
+              <td>
+                <ProgressBar value={features.liveness} />
+              </td>
             </tr>
             <tr className="speechiness">
               <th>Speechiness</th>
-              <td><ProgressBar value={features.speechiness}/></td>
+              <td>
+                <ProgressBar value={features.speechiness} />
+              </td>
             </tr>
             <tr className="valence">
               <th>Valence</th>
-              <td><ProgressBar value={features.valence}/></td>
+              <td>
+                <ProgressBar value={features.valence} />
+              </td>
             </tr>
             <tr className="key">
               <th>Key</th>

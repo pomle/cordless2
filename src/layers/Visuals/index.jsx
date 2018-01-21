@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import { withRouter } from 'react-router'
+import { withRouter } from 'react-router';
 
 import { lookAt } from './util.js';
 import { largest } from 'library/image';
@@ -12,16 +13,22 @@ import { Backdrop } from './Backdrop';
 
 import './Visuals.css';
 
-export const Visuals = withRouter(class extends Component {
+export const Visuals = withRouter(connect(state => {
+  const track = state.player.currentTrack;
+  const trackId = track && track.get('id');
+  return {
+    track,
+    analysis: state.track.analysis.get(trackId),
+    features: state.track.feature.get(trackId),
+    context: state.player.context,
+  };
+})(class extends Component {
   static contextTypes = {
-    api: PropTypes.object,
     images: PropTypes.object,
   };
 
   constructor(props, context) {
     super(props);
-
-    this.trackAPI = context.api.trackAPI;
 
     this.onAlbumChange = onChange(
       compareObjectURIs,
@@ -33,16 +40,15 @@ export const Visuals = withRouter(class extends Component {
     );
 
     this.state = {
-      track: null,
-      album: null,
       artwork: null,
+      track: null,
       pulse: 0.3,
     };
 
     this.updateAnalyser = onChange(is, this.updateAnalyser.bind(this));
   }
 
-  componentWillReceiveProps({ context, track, analysis }) {
+  componentWillReceiveProps({ context, track, analysis, trackAPI }) {
     this.onTrackChange(track);
 
     if (this.analyzer) {
@@ -56,17 +62,15 @@ export const Visuals = withRouter(class extends Component {
   onAlbumChange(album) {
     this.setState({ album });
 
-    this.trackAPI.request(`https://vibrant.pomle.com/v1/album/${album.uri.split(':')[2]}`)
-    .then(palette => this.setState({palette}));
-
-    this.context.images.get(largest(album.images).url)
-    .then(artwork => this.setState({artwork}));
+    this.context.images
+      .get(largest(album.get('images')).url)
+      .then(artwork => this.setState({ artwork }));
   }
 
   onTrackChange(track) {
     this.setState({ track });
 
-    this.onAlbumChange(track.album);
+    this.onAlbumChange(track.get('album'));
   }
 
   updateAnalyser(data) {
@@ -80,7 +84,9 @@ export const Visuals = withRouter(class extends Component {
     const lookAtSegment = lookAt('loudness_max', data =>
       console.log('Segment', data.loudness_max)
     );
-    const lookAtSection = lookAt('start', data => console.log('Section', data));
+    const lookAtSection = lookAt('start', data =>
+      console.log('Section', data)
+    );
 
     this.analyzer = analysis.stream(data);
     this.analyzer.on('data', data => {
@@ -122,4 +128,4 @@ export const Visuals = withRouter(class extends Component {
       </div>
     );
   }
-});
+}));

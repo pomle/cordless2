@@ -9,16 +9,18 @@ export class AlbumList extends Component {
   render() {
     const { albums } = this.props;
 
-    return <PlayableList>
+    return (
       <div className="AlbumList">
-        {albums.map(album => {
-          return (
-            <div key={album.id} className="item">
-              <Album album={album}/>
-            </div>
-          );
-        })}
+        <PlayableList>
+          {albums.map(album => {
+            return (
+              <div key={album.get('id')} className="item">
+                <Album album={album} />
+              </div>
+            );
+          })}
+        </PlayableList>
       </div>
-    </PlayableList>;
+    );
   }
 }

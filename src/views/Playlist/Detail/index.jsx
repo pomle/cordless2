@@ -1,73 +1,52 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
-import { List } from 'immutable';
+import { connect } from 'react-redux';
 
 import { QuickSearch } from 'components/QuickSearch';
 import { TrackList } from 'fragments/TrackList';
 import { Track } from 'fragments/Track';
-
 import { PlaylistDetailHeader } from './Header';
 
-function matcher(needle) {
-  needle = needle.toLowerCase();
-  return function match(...haystack) {
-    return haystack.some(word => word.toLowerCase().includes(needle));
-  };
-}
+import {matcher, matchTrack} from "library/search";
+
+import { fetchPlaylist, playPlaylist } from '@pomle/spotify-redux';
 
 export class PlaylistDetail extends PureComponent {
-  static contextTypes = {
-    api: PropTypes.object,
+  static propTypes = {
+    fetchPlaylist: PropTypes.func.isRequired,
+    playPlaylist: PropTypes.func.isRequired,
   };
 
   constructor(props, context) {
     super(props);
 
-    this.playlistAPI = context.api.playlistAPI;
-    this.playbackAPI = context.api.playbackAPI;
-
     this.state = {
       filter: '',
-      playlist: null,
-      tracks: new List(),
     };
   }
 
-  async componentDidMount() {
-    const { userId, playlistId } = this.props;
-
-    this.playlistAPI.consume(this.playlistAPI.getPlaylistTracks(userId, playlistId), items => {
-      this.setState(prevState => {
-        const filtered = items.filter(entry =>
-          entry.track.uri.startsWith('spotify:track:')
-        );
-        return { tracks: prevState.tracks.push(...filtered) };
-      });
-    });
-
-    const playlist = await this.playlistAPI.getPlaylist(userId, playlistId);
-    this.setState({ playlist });
+  componentWillMount() {
+    const { userId, playlistId, fetchPlaylist } = this.props;
+    fetchPlaylist(userId, playlistId);
   }
 
-  getTracks() {
-    let { filter, tracks } = this.state;
+  getEntries() {
+    const { playlist } = this.props;
+    const { filter } = this.state;
+
+    const entries = playlist.getIn(['tracks', 'items'], []);
+
     if (filter.length) {
       const match = matcher(filter);
-      tracks = tracks.filter(entry => {
-        const words = [
-          entry.track.name,
-          ...entry.track.artists.map(artist => artist.name),
-          entry.track.album.name,
-        ];
-        return match(...words);
-      });
+      return entries.filter(entry => matchTrack(entry.get('track'), match));
     }
-    return tracks;
+
+    return entries;
   }
 
   playTrack = track => {
-    const { userId, playlistId } = this.props;
-    this.playbackAPI.playPlaylist(userId, playlistId, track.id);
+    const { userId, playlistId, playPlaylist } = this.props;
+    playPlaylist(userId, playlistId, track.get('id'));
   };
 
   updateFilter = filter => {
@@ -75,8 +54,8 @@ export class PlaylistDetail extends PureComponent {
   };
 
   render() {
-    const { filter, playlist } = this.state;
-    const tracks = this.getTracks();
+    const { playlist } = this.props;
+    const { filter } = this.state;
 
     if (!playlist) {
       return null;
@@ -89,13 +68,24 @@ export class PlaylistDetail extends PureComponent {
         <PlaylistDetailHeader playlist={playlist} />
 
         <TrackList>
-          {tracks.map(entry => {
-            const { track } = entry;
-            const key = track.id + entry.added_at;
-            return <Track key={key} track={track} play={this.playTrack} />;
+          {this.getEntries().map(entry => {
+            const key = entry.getIn(['track', 'id']) + entry.get('added_at');
+            return <Track key={key} track={entry.get('track')} play={this.playTrack} />;
           })}
         </TrackList>
       </div>
     );
   }
 }
+
+export default connect(
+  (state, {playlistId}) => {
+    return {
+      playlist: state.playlist.getEntry(playlistId),
+    };
+  },
+  {
+    fetchPlaylist,
+    playPlaylist,
+  }
+)(PlaylistDetail);

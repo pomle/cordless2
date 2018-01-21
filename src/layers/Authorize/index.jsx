@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router';
 import { parse } from 'query-string';
 
 import { UserAPI, createAuthorizationURL } from '@pomle/spotify-web-sdk';
@@ -53,7 +54,7 @@ function purgeSession(storage) {
   storage.removeItem(STORAGE_KEY);
 }
 
-export class Authorize extends Component {
+export const Authorize = withRouter(class extends Component {
   constructor(props) {
     super(props);
 
@@ -61,9 +62,10 @@ export class Authorize extends Component {
 
     let session = getSession(storage);
     if (!session) {
-      session = parse(props.route.location.hash);
+      session = parse(props.location.hash);
       if (session.access_token) {
         putSession(storage, session);
+        props.history.replace('/');
       }
     }
 
@@ -74,7 +76,10 @@ export class Authorize extends Component {
   }
 
   async componentDidMount() {
-    console.log('mount');
+    const {token} = this.state;
+    if (!token) {
+      return;
+    }
 
     const api = new UserAPI(this.state.token);
     const data = await api.getMe();
@@ -100,11 +105,13 @@ export class Authorize extends Component {
     }
 
     if (token) {
-      return <Splash>
-        <h1>Authorizing...</h1>
-      </Splash>;
+      return (
+        <Splash>
+          <h1>Authorizing...</h1>
+        </Splash>
+      );
     }
 
     return <Welcome authURL={AUTH_URI} />;
   }
-}
+});

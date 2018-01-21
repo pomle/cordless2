@@ -1,24 +1,24 @@
-.PlayerApplication {
+.PlayerWindow {
     display: grid;
 }
 
-.PlayerApplication .PlayerUI {
+.PlayerWindow .PlayerUI {
     grid-row: 1 / 1;
     grid-column: 1 / 1;
     z-index: 2;
 }
 
-.PlayerApplication .Visuals {
+.PlayerWindow .Visuals {
     grid-row: 1 / 1;
     grid-column: 1 / 1;
     z-index: 1;
 }
 
-.PlayerApplication .PlayButton {
+.PlayerWindow .PlayButton {
     transition: all 0.3s ease;
 }
 
-.PlayerApplication.pending .PlayButton {
+.PlayerWindow.pending .PlayButton {
     pointer-events: none;
     opacity: 0;
 }
