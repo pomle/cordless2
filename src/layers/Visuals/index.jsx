@@ -1,28 +1,19 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
+import { analysis } from '@pomle/spotify-web-sdk';
+import { connect, withPlayingTrack } from '@pomle/spotify-react';
 
 import { lookAt } from './util.js';
 import { largest } from 'library/image';
 import { compareObjectURIs, onChange, is } from 'library/compare';
-import { analysis } from '@pomle/spotify-web-sdk';
 
 import { Album } from './Album';
 import { Backdrop } from './Backdrop';
 
 import './Visuals.css';
 
-export const Visuals = withRouter(connect(state => {
-  const track = state.player.currentTrack;
-  const trackId = track && track.get('id');
-  return {
-    track,
-    analysis: state.track.analysis.get(trackId),
-    features: state.track.feature.get(trackId),
-    context: state.player.context,
-  };
-})(class extends Component {
+export const Visuals = withRouter(connect([withPlayingTrack])(class extends Component {
   static contextTypes = {
     images: PropTypes.object,
   };
