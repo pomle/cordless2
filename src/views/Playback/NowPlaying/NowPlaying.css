@@ -6,8 +6,6 @@
 }
 
 .Playback .NowPlaying .Image {
-    border-radius: .5em;
-    overflow: hidden;
     grid-row: 1 / 4;
     grid-column: 1 / 2;
     height: 100%;
