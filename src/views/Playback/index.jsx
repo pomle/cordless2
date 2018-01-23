@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { Interface } from './Interface';
@@ -15,17 +14,6 @@ import './Playback.css';
 const REPEAT_MODES = ['off', 'context', 'track'];
 
 export class Playback extends Component {
-  static propTypes = {
-    pause: PropTypes.func.isRequired,
-    resume: PropTypes.func.isRequired,
-    seek: PropTypes.func.isRequired,
-    next: PropTypes.func.isRequired,
-    prev: PropTypes.func.isRequired,
-    repeat: PropTypes.func.isRequired,
-    shuffle: PropTypes.func.isRequired,
-    volume: PropTypes.func.isRequired,
-  };
-
   render() {
     const { cycleRepeat, cycleShuffle, cyclePlayback, prev, next, seek, player, analysis } = this.props;
     const context = player.context;
