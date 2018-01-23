@@ -11,9 +11,9 @@ export class Artists extends Component {
       <div className="Artists">
         {artists.map(artist => {
           return (
-            <div key={artist.get('id') || artist.get('name')} className="artist">
+            <div key={artist.get('id', artist.get('name'))} className="artist">
               {artist.get('uri') ? (
-                <Link to={`/artist/${artist.get('uri').split(':')[2]}`}>
+                <Link to={`/artist/${artist.get('id')}`}>
                   {artist.get('name')}
                 </Link>
               ) : (

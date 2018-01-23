@@ -8,9 +8,11 @@ import { NowPlaying } from './NowPlaying';
 import { Scrubber } from './Scrubber';
 import { Time } from 'components/Time';
 
-import { pause, resume, seek, next, prev } from '@pomle/spotify-redux';
+import { cyclePlayback, cycleRepeat, cycleShuffle, seek, next, prev, volume } from '@pomle/spotify-redux';
 
 import './Playback.css';
+
+const REPEAT_MODES = ['off', 'context', 'track'];
 
 export class Playback extends Component {
   static propTypes = {
@@ -19,33 +21,39 @@ export class Playback extends Component {
     seek: PropTypes.func.isRequired,
     next: PropTypes.func.isRequired,
     prev: PropTypes.func.isRequired,
-  };
-
-  toggle = () => {
-    const { resume, pause, player: {context} } = this.props;
-    if (context.paused) {
-      resume();
-    } else {
-      pause();
-    }
+    repeat: PropTypes.func.isRequired,
+    shuffle: PropTypes.func.isRequired,
+    volume: PropTypes.func.isRequired,
   };
 
   render() {
-    const { prev, next, seek, player, analysis } = this.props;
+    const { cycleRepeat, cycleShuffle, cyclePlayback, prev, next, seek, player, analysis } = this.props;
+    const context = player.context;
+
+    const classes = ['Playback'];
+
+    classes.push(context.shuffle ? 'shuffle-on' : 'shuffle-off');
+    classes.push('repeat-' + REPEAT_MODES[context.repeat_mode]);
 
     return (
-      <div className="Playback">
+      <div className={classes.join(' ')}>
         <NowPlaying track={player.currentTrack} />
         <Scrubber
-          context={player.context}
+          context={context}
           seek={seek}
           analysis={analysis}
         />
-        <Interface prev={prev} next={next} toggle={this.toggle} />
+        <Interface
+          next={next}
+          prev={prev}
+          repeat={cycleRepeat}
+          shuffle={cycleShuffle}
+          toggle={cyclePlayback}
+        />
         <div className="vis">
           <Link to="/now-playing">Now Playing</Link>
           <div className="time">
-            <Time seconds={player.context.position / 1000} />
+            <Time seconds={context.position / 1000} />
           </div>
         </div>
       </div>
@@ -59,7 +67,8 @@ export default connect(state => {
   return {
     analysis: state.track.analysis.get(trackId),
     player: state.player,
+    playbackAPI: state.session.playbackAPI,
   };
 }, {
-  pause, resume, seek, next, prev
+  seek, next, prev, cycleRepeat, cycleShuffle, cyclePlayback, volume,
 })(Playback);

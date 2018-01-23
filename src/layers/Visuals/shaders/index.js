@@ -133,26 +133,24 @@ function toVec3(color, name) {
       return color[name].rgb.map(x => x / 255);
     }
   }
-
-  return [.2, .2, .4];
 }
 
-function createExtractColor(primary, secondary) {
-  let prev;
-  let color = [0, 0, 0];
+function createExtractColor(primary, secondary, fallback) {
+  let prev = null;
+  let color = fallback;
   const fade = createFade(color);
   return function getColor(colors) {
     if (prev !== colors) {
-      color = toVec3(colors, primary) || toVec3(colors, secondary);
+      color = toVec3(colors, primary) || toVec3(colors, secondary) || fallback;
       prev = colors;
     }
     return fade(color);
   }
 }
 
-const color1 = createExtractColor('vibrant', 'muted');
-const color2 = createExtractColor('darkvibrant', 'lightvibrant');
-const color3 = createExtractColor('darkmuted', 'lightmuted');
+const color1 = createExtractColor('vibrant', 'muted', [1, .2, 3]);
+const color2 = createExtractColor('darkvibrant', 'lightvibrant', [3, .2, 1]);
+const color3 = createExtractColor('darkmuted', 'lightmuted', [.6, .0, .6]);
 
 export const Mood = ({children: t, colors, mix}) => {
   return <Node shader={shaders.mood} uniforms={{

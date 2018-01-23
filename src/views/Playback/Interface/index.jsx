@@ -15,6 +15,12 @@ export class Interface extends Component {
         <div className="next">
           <button onClick={this.props.next}>Next</button>
         </div>
+        <div className="shuffle">
+          <button onClick={this.props.shuffle}>Shuffle</button>
+        </div>
+        <div className="repeat">
+          <button onClick={this.props.repeat}>Repeat</button>
+        </div>
       </div>
     );
   }
