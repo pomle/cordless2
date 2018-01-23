@@ -44,6 +44,7 @@ export class Playback extends Component {
           analysis={analysis}
         />
         <Interface
+          context={context}
           next={next}
           prev={prev}
           repeat={cycleRepeat}
