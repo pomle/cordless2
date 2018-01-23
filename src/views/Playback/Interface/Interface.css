@@ -1,9 +1,23 @@
 .Playback .Interface {
     display: grid;
-    grid-template: 1fr / repeat(3, 1fr);
+    grid-template: repeat(3, 1fr) / repeat(3, 1fr);
+    align-items: center;
 }
 
 .Playback .Interface > * > button {
     display: block;
     margin: auto;
+}
+
+.Playback .Interface .shuffle,
+.Playback .Interface .repeat {
+    grid-row: 3 / 4;
+}
+
+.Playback .Interface .shuffle {
+    grid-column: 1 / 2;
+}
+
+.Playback .Interface .repeat {
+    grid-column: 3 / 4;
 }
