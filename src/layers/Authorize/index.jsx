@@ -23,22 +23,22 @@ export const Authorize = withRouter(class Authorize extends Component {
 
   componentDidMount() {
     this.initializeSession();
-
-    const refreshInterval = 60 * 5 * 1000;
-
-    const refreshPoll = () => {
-      const session = this.getSession();
-      if (session.refresh_token) {
-        this.refreshSession(session.refresh_token);
-      }
-      this.timer = setInterval(refreshPoll, refreshInterval);
-    };
-
-    refreshPoll();
   }
 
   componenWillUnmount() {
     clearTimeout(this.timer);
+  }
+
+  queueRefresh(refreshToken, waitSeconds = 600) {
+    clearTimeout(this.timer);
+
+    const refreshInMs = waitSeconds * 1000;
+    console.log('Queueing refresh in', refreshInMs);
+
+    this.timer = setTimeout(() => {
+      console.log('Queued refresh!', refreshToken);
+      this.refreshSession(refreshToken);
+    }, refreshInMs);
   }
 
   initializeSession() {
@@ -53,6 +53,7 @@ export const Authorize = withRouter(class Authorize extends Component {
 
     auth.refreshToken(refreshToken)
     .then(session => {
+      console.log('Refreshed session', session);
       return this.validateSession(session);
     });
   }
@@ -102,6 +103,10 @@ export const Authorize = withRouter(class Authorize extends Component {
 
       this.saveSession(session);
 
+      if (session.refresh_token) {
+        this.queueRefresh(session.refresh_token, 600);
+      }
+
       return true;
     });
   }
@@ -115,6 +120,8 @@ export const Authorize = withRouter(class Authorize extends Component {
   }
 
   saveSession(session) {
+    const mergedSession = Object.assign(this.getSession(), session);
+    console.log('Storing session', mergedSession);
     auth.putSession(this.props.storage, session);
   }
 
