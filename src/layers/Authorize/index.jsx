@@ -126,6 +126,9 @@ export const Authorize = withRouter(class Authorize extends Component {
       return this.props.render(token);
     }
 
+    // It is important that ready is checked first or
+    // user gets thrown out of the UI when refreshing token.
+    // Refactor this if it needs to change.
     if (busy) {
       return (
         <Splash>
