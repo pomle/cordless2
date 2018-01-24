@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import { Link, Route, Switch } from 'react-router-dom';
+import React, { PureComponent } from 'react';
+import { withRouter, Link, Route, Switch } from 'react-router-dom';
 
 import { ViewContainer } from 'components/ViewContainer';
 
@@ -12,7 +12,7 @@ import { TrackInfo } from 'views/TrackInfo';
 
 import './Navigation.css';
 
-export class Navigation extends Component {
+export const Navigation = withRouter(class Navigation extends PureComponent {
   render() {
     return (
       <div className="Navigation">
@@ -85,4 +85,4 @@ export class Navigation extends Component {
       </div>
     );
   }
-}
+});
