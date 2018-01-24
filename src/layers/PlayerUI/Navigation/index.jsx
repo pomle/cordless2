@@ -78,6 +78,9 @@ export const Navigation = withRouter(class Navigation extends PureComponent {
                 <li>
                   <Link to="/track-info">Track Info</Link>
                 </li>
+                <li>
+                  <Link to="/logout">Logout</Link>
+                </li>
               </ul>
             </Route>
           </Switch>
