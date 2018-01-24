@@ -2,109 +2,116 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { parse } from 'query-string';
 
-import { UserAPI, createAuthorizationURL } from '@pomle/spotify-web-sdk';
+import { UserAPI } from '@pomle/spotify-web-sdk';
 
 import { Splash } from 'components/Splash';
 import { Welcome } from 'views/Welcome';
 
-const SCOPE = [
-  'user-read-private',
-  'user-read-playback-state',
-  'user-modify-playback-state',
-  'playlist-read-private',
-  'playlist-read-collaborative',
-  'streaming',
-];
+import * as auth from './auth';
 
-const CLIENT_ID = 'a7cf3dcdfbd64bd5ac8d960caabbc890';
-const CALLBACK_URL = process.env.REACT_APP_SITE_URL || 'http://localhost:3000/';
-const AUTH_URI = process.env.REACT_APP_AUTH_URI
-  ? process.env.REACT_APP_AUTH_URI + '?scope=' + SCOPE.join(' ')
-  : createAuthorizationURL(CLIENT_ID, CALLBACK_URL);
-
-const STORAGE_KEY = 'session2';
-
-function getSession(storage) {
-  try {
-    const data = JSON.parse(storage.getItem(STORAGE_KEY));
-    const now = new Date().getTime();
-    if (data.expiresAt < now) {
-      return null;
-    }
-    return data.session;
-  } catch (e) {
-    // console.error(e);
-    return null;
-  }
-}
-
-function putSession(storage, session) {
-  const now = new Date().getTime();
-  const expiresInMs = parseFloat(session.expires_in) * 1000;
-
-  const data = {
-    expiresAt: now + expiresInMs,
-    session,
-  };
-
-  storage.setItem(STORAGE_KEY, JSON.stringify(data));
-}
-
-function purgeSession(storage) {
-  storage.removeItem(STORAGE_KEY);
-}
-
-export const Authorize = withRouter(class extends Component {
+export const Authorize = withRouter(class Authorize extends Component {
   constructor(props) {
     super(props);
 
-    const { storage } = props;
-
-    let session = getSession(storage);
-    if (!session) {
-      session = parse(props.location.hash);
-      if (session.access_token) {
-        putSession(storage, session);
-        props.history.replace('/');
-      }
-    }
+    this.timer = null;
 
     this.state = {
+      busy: false,
       ready: false,
-      token: session.access_token,
+      token: null,
     };
   }
 
-  async componentDidMount() {
-    const {token} = this.state;
-    if (!token) {
-      return;
-    }
+  componentDidMount() {
+    this.initializeSession();
+  }
 
-    const api = new UserAPI(this.state.token);
-    const data = await api.getMe();
-    if (data.error) {
-      this.setState({
-        ready: false,
-        token: null,
-      });
-
-      purgeSession(this.props.storage);
-    } else {
-      this.setState({
-        ready: true,
+  initializeSession() {
+    const session = this.getSessionFromEnvironment();
+    if (session) {
+      this.validateToken(session.access_token)
+      .then(isValid => {
+        if (isValid) {
+          this.saveSession(session);
+        } else if (session.refresh_token) {
+          this.refreshSession(session.refresh_token);
+        } else {
+          this.purgeSession();
+        }
       });
     }
   }
 
+  refreshSession(refreshToken) {
+    this.setState({busy: true});
+
+    auth.refreshToken(refreshToken)
+    .then(session => {
+      this.validateToken(session.access_token);
+    });
+  }
+
+  getSessionFromEnvironment() {
+    let session = parse(this.props.location.hash);
+    if (session.access_token) {
+      return session;
+    }
+
+    session = this.getSession();
+    if (session) {
+      return session;
+    }
+
+    return null;
+  }
+
+  validateToken(token) {
+    this.setState({busy: true});
+
+    const api = new UserAPI(token);
+
+    return api.getMe()
+    .then(data => {
+      this.setState({busy: false});
+
+      if (data.error) {
+        this.setState({
+          ready: false,
+          token: null,
+        });
+
+        return false;
+      }
+
+      this.setState({
+        ready: true,
+        token,
+      });
+
+      return true;
+    });
+  }
+
+  getSession() {
+    return auth.getSession(this.props.storage);
+  }
+
+  purgeSession() {
+    auth.purgeSession(this.props.storage);
+  }
+
+  saveSession(session) {
+    auth.putSession(this.props.storage, session);
+  }
+
   render() {
-    const { ready, token } = this.state;
+    const { busy, ready, token } = this.state;
 
     if (ready) {
       return this.props.render(token);
     }
 
-    if (token) {
+    if (busy) {
       return (
         <Splash>
           <h1>Authorizing...</h1>
@@ -112,6 +119,6 @@ export const Authorize = withRouter(class extends Component {
       );
     }
 
-    return <Welcome authURL={AUTH_URI} />;
+    return <Welcome authURL={auth.createAuthURL()} />;
   }
 });
