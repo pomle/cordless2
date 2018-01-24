@@ -110,10 +110,6 @@ export const Authorize = withRouter(class Authorize extends Component {
 
       this.saveSession(session);
 
-      if (session.refresh_token) {
-        this.queueRefresh(session.refresh_token, 600);
-      }
-
       return true;
     });
   }
@@ -133,8 +129,13 @@ export const Authorize = withRouter(class Authorize extends Component {
   }
 
   saveSession(session) {
-    const mergedSession = Object.assign(this.getSession(), session);
+    const mergedSession = Object.assign({}, this.getSession(), session);
     console.log('Storing session', mergedSession);
+
+    if (mergedSession.refresh_token) {
+      this.queueRefresh(mergedSession.refresh_token, 60);
+    }
+
     auth.putSession(this.props.storage, session);
   }
 
