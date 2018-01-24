@@ -44,16 +44,7 @@ export const Authorize = withRouter(class Authorize extends Component {
   initializeSession() {
     const session = this.getSessionFromEnvironment();
     if (session) {
-      this.validateToken(session.access_token)
-      .then(isValid => {
-        if (isValid) {
-          this.saveSession(session);
-        } else if (session.refresh_token) {
-          this.refreshSession(session.refresh_token);
-        } else {
-          this.purgeSession();
-        }
-      });
+      this.validateSession(session);
     }
   }
 
@@ -62,7 +53,7 @@ export const Authorize = withRouter(class Authorize extends Component {
 
     auth.refreshToken(refreshToken)
     .then(session => {
-      this.validateToken(session.access_token);
+      return this.validateSession(session);
     });
   }
 
@@ -80,10 +71,10 @@ export const Authorize = withRouter(class Authorize extends Component {
     return null;
   }
 
-  validateToken(token) {
+  validateSession(session) {
     this.setState({busy: true});
 
-    const api = new UserAPI(token);
+    const api = new UserAPI(session.access_token);
 
     return api.getMe()
     .then(data => {
@@ -95,13 +86,21 @@ export const Authorize = withRouter(class Authorize extends Component {
           token: null,
         });
 
+        if (session.refresh_token) {
+          return this.refreshSession(session.refresh_token);
+        }
+
+        this.purgeSession();
+
         return false;
       }
 
       this.setState({
         ready: true,
-        token,
+        token: session.access_token,
       });
+
+      this.saveSession(session);
 
       return true;
     });
