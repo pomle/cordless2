@@ -71,3 +71,7 @@ export function refreshToken(refreshTokenThatIsNotAccessToken) {
   const url = AUTH_SERVER + '/refresh_token?refresh_token=' + refreshTokenThatIsNotAccessToken;
   return fetch(url).then(response => response.json());
 }
+
+export function parseQueryString(qs) {
+  return parse(qs);
+}

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router';
-import { parse } from 'query-string';
 
 import { UserAPI } from '@pomle/spotify-web-sdk';
 
@@ -52,7 +51,7 @@ export const Authorize = withRouter(class Authorize extends Component {
   }
 
   getSessionFromEnvironment() {
-    let session = parse(this.props.location.hash);
+    let session = auth.parseQueryString(this.props.location.hash);
     if (session.access_token) {
       return session;
     }
