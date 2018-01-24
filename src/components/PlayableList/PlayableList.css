@@ -1,7 +1,7 @@
 .PlayableList {
     display: flex;
     flex-flow: wrap;
-    justify-content: space-between;
+    justify-content: space-evenly;
     margin: -1em;
 }
 
