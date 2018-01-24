@@ -26,13 +26,21 @@ export class PlayerApplication extends Component {
     this.images = new ImagePool(new LRUCache(1000));
 
     this.store = createStore();
-    this.store.dispatch(setToken(token));
+    this.handleToken(token);
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.handleToken(nextProps.token);
   }
 
   getChildContext() {
     return {
       images: this.images,
     };
+  }
+
+  handleToken(token) {
+    this.store.dispatch(setToken(token));
   }
 
   onTrackChange(track) {
