@@ -42,7 +42,9 @@ export function createAuthURL() {
 export function getSession(storage) {
   try {
     const data = JSON.parse(storage.getItem(SESSION_STORAGE_KEY));
-    return data.session;
+    if (data) {
+      return data.session;
+    }
   } catch (e) {
     console.error(e);
     return null;
