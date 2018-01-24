@@ -64,6 +64,10 @@ export function purgeSession(storage) {
 }
 
 export function refreshToken(refreshTokenThatIsNotAccessToken) {
+  if (!AUTH_SERVER) {
+    throw new Error('Can not refresh without authentication server');
+  }
+
   const url = AUTH_SERVER + '/refresh_token?refresh_token=' + refreshTokenThatIsNotAccessToken;
   return fetch(url).then(response => response.json());
 }
