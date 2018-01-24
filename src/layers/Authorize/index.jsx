@@ -29,6 +29,13 @@ export const Authorize = withRouter(class Authorize extends Component {
     clearTimeout(this.timer);
   }
 
+  componentWillReceiveProps(props) {
+    if (props.location.pathname === '/logout') {
+      this.purgeSession();
+      props.history.replace('/');
+    }
+  }
+
   queueRefresh(refreshToken, waitSeconds = 600) {
     clearTimeout(this.timer);
 
@@ -116,6 +123,12 @@ export const Authorize = withRouter(class Authorize extends Component {
   }
 
   purgeSession() {
+    this.setState({
+      busy: false,
+      ready: false,
+      token: null,
+    });
+
     auth.purgeSession(this.props.storage);
   }
 
