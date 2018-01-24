@@ -40,10 +40,8 @@ export const Authorize = withRouter(class Authorize extends Component {
     clearTimeout(this.timer);
 
     const refreshInMs = waitSeconds * 1000;
-    console.log('Queueing refresh in', refreshInMs);
 
     this.timer = setTimeout(() => {
-      console.log('Queued refresh!', refreshToken);
       this.refreshSession(refreshToken);
     }, refreshInMs);
   }
@@ -60,7 +58,6 @@ export const Authorize = withRouter(class Authorize extends Component {
 
     auth.refreshToken(refreshToken)
     .then(session => {
-      console.log('Refreshed session', session);
       return this.validateSession(session);
     });
   }
@@ -130,13 +127,12 @@ export const Authorize = withRouter(class Authorize extends Component {
 
   saveSession(session) {
     const mergedSession = Object.assign({}, this.getSession(), session);
-    console.log('Storing session', mergedSession);
 
     if (mergedSession.refresh_token) {
-      this.queueRefresh(mergedSession.refresh_token, 60);
+      this.queueRefresh(mergedSession.refresh_token, 900);
     }
 
-    auth.putSession(this.props.storage, session);
+    auth.putSession(this.props.storage, mergedSession);
   }
 
   render() {
