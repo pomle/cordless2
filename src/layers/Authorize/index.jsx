@@ -23,6 +23,22 @@ export const Authorize = withRouter(class Authorize extends Component {
 
   componentDidMount() {
     this.initializeSession();
+
+    const refreshInterval = 60 * 5 * 1000;
+
+    const refreshPoll = () => {
+      const session = this.getSession();
+      if (session.refresh_token) {
+        this.refreshSession(session.refresh_token);
+      }
+      this.timer = setInterval(refreshPoll, refreshInterval);
+    };
+
+    refreshPoll();
+  }
+
+  componenWillUnmount() {
+    clearTimeout(this.timer);
   }
 
   initializeSession() {
