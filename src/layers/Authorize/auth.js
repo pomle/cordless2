@@ -1,3 +1,5 @@
+import { parse } from 'query-string';
+
 const SESSION_STORAGE_KEY = 'session2';
 const AUTH_SERVER = process.env.REACT_APP_AUTH_SERVER;
 
@@ -29,7 +31,7 @@ function createImplicitFlowURL(clientId, callbackURL) {
 
 export function createAuthURL() {
   if (AUTH_SERVER) {
-    return AUTH_SERVER + '?scope=' + SCOPE.join(' ');
+    return AUTH_SERVER + '/login?scope=' + SCOPE.join(' ');
   } else {
     const CLIENT_ID = 'a7cf3dcdfbd64bd5ac8d960caabbc890';
     const CALLBACK_URL = process.env.REACT_APP_SITE_URL || 'http://localhost:3000/';
