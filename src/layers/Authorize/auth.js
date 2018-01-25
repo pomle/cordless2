@@ -63,8 +63,12 @@ export function purgeSession(storage) {
   storage.removeItem(SESSION_STORAGE_KEY);
 }
 
+export function canRefresh() {
+  return !!AUTH_SERVER;
+}
+
 export function refreshToken(refreshTokenThatIsNotAccessToken) {
-  if (!AUTH_SERVER) {
+  if (!canRefresh()) {
     throw new Error('Can not refresh without authentication server');
   }
 

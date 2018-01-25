@@ -91,7 +91,7 @@ export const Authorize = withRouter(class Authorize extends Component {
           token: null,
         });
 
-        if (session.refresh_token) {
+        if (auth.canRefresh() && session.refresh_token) {
           return this.refreshSession(session.refresh_token);
         }
 
