@@ -2,6 +2,7 @@
     display: flex;
     flex-flow: column;
     height: 100vh;
+    perspective: 1000px;
 }
 
 .PlayerUI > .viewport {
@@ -29,4 +30,10 @@
 
 .PlayerUI > .playback > .Playback {
     height: 100px;
+    transform: translateZ(220px);
+    transition: transform 2s ease-out;
+}
+
+.PlayerWindow.with-track .PlayerUI > .playback > .Playback {
+    transform: none;
 }
