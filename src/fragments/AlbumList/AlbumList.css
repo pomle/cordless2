@@ -3,27 +3,33 @@
     grid: 1fr / 1fr;
     height: 10em;
     width: 10em;
-    margin: 0.5em;
+    margin: 0.8em;
+    perspective: 500px;
 }
 
 .AlbumList .Album .name {
     align-self: end;
-    background: rgba(0, 0, 0, .8);
     font-size: 0.7em;
     grid-column: 1 / 2;
     grid-row: 1 / 2;
     line-height: 1.5;
     opacity: 0;
-    transition: opacity 0.3s;
+    transform: translateY(100%) translateX(-10%) translateZ(100px);
+    transition: all 0.3s;
+    text-align: center;
+    width: 120%;
 }
 
 .AlbumList .Album .name a {
+    color: #fff;
     display: block;
     margin: 0.5em;
+    text-shadow: 0 0.2em #000;
 }
 
 .AlbumList .Album:hover .name {
     opacity: 1;
+    transform: translateY(100%) translateX(-10%) translateZ(0);
 }
 
 .AlbumList .Album .image,
