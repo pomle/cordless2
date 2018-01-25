@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
+import { Player } from '@pomle/spotify-react';
+import { Visuals } from 'layers/Visuals';
+import { PlayerUI } from 'layers/PlayerUI';
+
 import './PlayerWindow.css';
 
 export class PlayerWindow extends Component {
   render() {
-    const { player } = this.props;
+    const { player, session } = this.props;
 
     const classes = ['PlayerWindow'];
     if (player.deviceId) {
@@ -20,7 +24,9 @@ export class PlayerWindow extends Component {
 
     return (
       <div className={classes.join(' ')}>
-        {this.props.children}
+        <Player session={session} name="Cordless"/>
+        <PlayerUI/>
+        <Visuals />
       </div>
     );
   }
@@ -29,5 +35,6 @@ export class PlayerWindow extends Component {
 export default connect(state => {
   return {
     player: state.player,
+    session: state.session,
   };
 })(PlayerWindow);
