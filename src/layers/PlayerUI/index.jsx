@@ -14,7 +14,9 @@ export class PlayerUI extends Component {
           <Navigation />
         </div>
 
-        <Playback />
+        <div className="playback">
+          <Playback />
+        </div>
       </div>
     );
   }

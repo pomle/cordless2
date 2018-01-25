@@ -4,19 +4,29 @@
     height: 100vh;
 }
 
-.PlayerUI .viewport {
+.PlayerUI > .viewport {
     overflow: auto;
     flex: 1;
 }
 
-.PlayerUI .viewport::-webkit-scrollbar {
+.PlayerUI > .viewport > .Navigation {
+    margin-bottom: calc(2em + 100px);
+}
+
+.PlayerUI > .viewport::-webkit-scrollbar {
     width: 8px;
 }
 
-.PlayerUI .viewport::-webkit-scrollbar-thumb {
+.PlayerUI > .viewport::-webkit-scrollbar-thumb {
     background: rgba(255, 255, 255, 0.5);
 }
 
-.PlayerUI > .Playback {
-    flex: 0 0 100px;
+.PlayerUI > .playback {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
+
+.PlayerUI > .playback > .Playback {
+    height: 100px;
 }
