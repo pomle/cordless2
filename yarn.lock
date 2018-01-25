@@ -7,8 +7,8 @@
   resolved "https://registry.yarnpkg.com/@pomle/spotify-react/-/spotify-react-0.0.0-10.tgz#d86528d5b173d4458e909bdf0b61841efa8bd4ca"
 
 "@pomle/spotify-redux@^0.0.0-5":
-  version "0.0.0-13"
-  resolved "https://registry.yarnpkg.com/@pomle/spotify-redux/-/spotify-redux-0.0.0-13.tgz#2d2b9d13594ab14c29e9c227a14de6678eb8ede9"
+  version "0.0.0-15"
+  resolved "https://registry.yarnpkg.com/@pomle/spotify-redux/-/spotify-redux-0.0.0-15.tgz#dcacf81895e8ce01ebd76f511c0a06f06b67030f"
 
 "@pomle/spotify-web-sdk@^0.0.0-31":
   version "0.0.0-31"
