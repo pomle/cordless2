@@ -43,24 +43,6 @@ export class PlayerApplication extends Component {
     this.store.dispatch(setToken(token));
   }
 
-  onTrackChange(track) {
-    this.setState({
-      track,
-      analysis: null,
-      features: null,
-    });
-
-    const api = this.api.trackAPI;
-
-    api
-      .getAudioFeatures(track.id)
-      .then(features => this.setState({ features }));
-
-    api
-      .getAudioAnalysis(track.id)
-      .then(analysis => this.setState({ analysis }));
-  }
-
   render() {
     return (
       <Provider store={this.store}>
