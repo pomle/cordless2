@@ -2,16 +2,12 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { Player } from '@pomle/spotify-react';
 import { createStore, setToken } from '@pomle/spotify-redux';
 
 import PlayerWindow from './PlayerWindow';
 
 import { LRUCache } from 'library/cache';
 import { ImagePool } from 'library/ImagePool';
-
-import { Visuals } from 'layers/Visuals';
-import { PlayerUI } from 'layers/PlayerUI';
 
 export class PlayerApplication extends Component {
   static childContextTypes = {
@@ -44,13 +40,7 @@ export class PlayerApplication extends Component {
   render() {
     return (
       <Provider store={this.store}>
-        <Player name="Cordless">
-          <PlayerWindow>
-            <PlayerUI/>
-
-            <Visuals />
-          </PlayerWindow>
-        </Player>
+        <PlayerWindow/>
       </Provider>
     );
   }
