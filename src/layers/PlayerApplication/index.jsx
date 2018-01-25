@@ -21,12 +21,10 @@ export class PlayerApplication extends Component {
   constructor(props) {
     super(props);
 
-    const { token } = props;
-
     this.images = new ImagePool(new LRUCache(1000));
 
     this.store = createStore();
-    this.handleToken(token);
+    this.handleToken(props.token);
   }
 
   componentWillReceiveProps(nextProps) {
