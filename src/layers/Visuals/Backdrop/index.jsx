@@ -105,7 +105,7 @@ export const Backdrop = connect([state => {
           <Motion
             defaultStyle={{
               factor: 0,
-              effectMix: 1.0,
+              effectMix: 0.5,
             }}
             style={{
               factor: spring(promote ? 0 : 1, { stiffness: 70, damping: 5 }),

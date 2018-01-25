@@ -148,7 +148,7 @@ function createExtractColor(primary, secondary, fallback) {
   }
 }
 
-const color1 = createExtractColor('vibrant', 'muted', [1, .2, 3]);
+const color1 = createExtractColor('vibrant', 'muted', [0, .5, 1]);
 const color2 = createExtractColor('darkvibrant', 'lightvibrant', [3, .2, 1]);
 const color3 = createExtractColor('darkmuted', 'lightmuted', [.6, .0, .6]);
 
