@@ -1,8 +1,8 @@
 .AlbumList .Album {
     display: grid;
     grid: 1fr / 1fr;
-    height: 10em;
-    width: 10em;
+    height: 12em;
+    width: 12em;
     margin: 0.5em;
 }
 
