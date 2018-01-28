@@ -11,7 +11,7 @@ import {matcher, matchTrack} from "library/search";
 
 import { fetchPlaylist, playPlaylist } from 'store';
 
-export class PlaylistDetail extends PureComponent {
+export class PlaylistView extends PureComponent {
   static propTypes = {
     fetchPlaylist: PropTypes.func.isRequired,
     playPlaylist: PropTypes.func.isRequired,
@@ -62,7 +62,7 @@ export class PlaylistDetail extends PureComponent {
     }
 
     return (
-      <div className="PlaylistDetail">
+      <div className="PlaylistView">
         <QuickSearch value={filter} onChange={this.updateFilter} />
 
         <PlaylistDetailHeader playlist={playlist} />
@@ -88,4 +88,4 @@ export default connect(
     fetchPlaylist,
     playPlaylist,
   }
-)(PlaylistDetail);
+)(PlaylistView);
