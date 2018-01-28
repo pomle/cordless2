@@ -7,9 +7,9 @@ import { Track } from 'fragments/Track';
 
 import { fetchAlbum, playAlbum } from 'store';
 
-import './AlbumDetail.css';
+import './AlbumView.css';
 
-export class AlbumDetail extends Component {
+class AlbumView extends Component {
   componentWillMount() {
     this.props.fetchAlbum(this.props.albumId);
   }
@@ -50,4 +50,4 @@ export default connect(
     fetchAlbum,
     playAlbum,
   }
-)(AlbumDetail);
+)(AlbumView);
