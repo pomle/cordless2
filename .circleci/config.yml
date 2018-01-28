@@ -10,7 +10,7 @@ jobs:
     docker:
       - image: circleci/node:8
 
-    working_directory: ~/repo
+    working_directory: ~/repo/player-ui
 
     steps:
       - checkout
