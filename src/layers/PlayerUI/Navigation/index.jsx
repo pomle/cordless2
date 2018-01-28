@@ -21,9 +21,7 @@ export const Navigation = withRouter(class Navigation extends PureComponent {
             <Route path="/artist/:artistId" component={ArtistRoute} />
             <Route path="/user/:userId/playlist/:playlistId" component={PlaylistRoute} />
 
-            <Route exact path="/playlists">
-              <PlaylistIndex />
-            </Route>
+            <Route exact path="/playlists" component={PlaylistIndex}/>
 
             <Route path="/search/:query?" component={SearchRoute}/>
 
