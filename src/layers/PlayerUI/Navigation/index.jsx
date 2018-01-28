@@ -25,9 +25,7 @@ export const Navigation = withRouter(class Navigation extends PureComponent {
 
             <Route path="/search/:query?" component={SearchRoute}/>
 
-            <Route path="/track-info">
-              <TrackInfo />
-            </Route>
+            <Route path="/track-info" component={TrackInfo}/>
 
             <Route exact path="/">
               <ul>
