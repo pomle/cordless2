@@ -4,7 +4,7 @@ import { withRouter, Link, Route, Switch } from 'react-router-dom';
 import { ViewContainer } from 'components/ViewContainer';
 
 import {AlbumRoute, ArtistRoute, PlaylistRoute, SearchRoute} from './Routes';
-import PlaylistIndex from 'views/Playlist/Index';
+import UserPlaylistsView from 'views/User/Playlists';
 import { TrackInfo } from 'views/TrackInfo';
 
 import PlaylistAdapter from 'store/adapter/Playlist';
@@ -21,7 +21,7 @@ export const Navigation = withRouter(class Navigation extends PureComponent {
             <Route path="/artist/:artistId" component={ArtistRoute} />
             <Route path="/user/:userId/playlist/:playlistId" component={PlaylistRoute} />
 
-            <Route exact path="/playlists" component={PlaylistIndex}/>
+            <Route exact path="/playlists" component={UserPlaylistsView}/>
 
             <Route path="/search/:query?" component={SearchRoute}/>
 
