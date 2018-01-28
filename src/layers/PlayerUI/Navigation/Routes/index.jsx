@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {PureComponent} from 'react';
 
 import AlbumView from 'views/Album';
 import ArtistView from 'views/Artist';
 import PlaylistView from 'views/Playlist/Detail';
+import SearchView from 'views/Search';
 
 export function AlbumRoute({match}) {
   return <AlbumView albumId={match.params.albumId}/>
@@ -17,4 +18,18 @@ export function PlaylistRoute({match}) {
     userId={match.params.userId}
     playlistId={match.params.playlistId}
   />
+}
+
+export class SearchRoute extends PureComponent {
+  onQuery = (query) => {
+    this.props.history.replace(`/search/${encodeURIComponent(query)}`);
+  }
+
+  render() {
+    const {match} = this.props;
+    return <SearchView
+      query={match.params.query}
+      onQuery={this.onQuery}
+    />
+  }
 }

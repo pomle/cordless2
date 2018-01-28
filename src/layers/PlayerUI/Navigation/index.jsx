@@ -3,9 +3,8 @@ import { withRouter, Link, Route, Switch } from 'react-router-dom';
 
 import { ViewContainer } from 'components/ViewContainer';
 
-import {AlbumRoute, ArtistRoute, PlaylistRoute} from './Routes';
+import {AlbumRoute, ArtistRoute, PlaylistRoute, SearchRoute} from './Routes';
 import PlaylistIndex from 'views/Playlist/Index';
-import Search from 'views/Search';
 import { TrackInfo } from 'views/TrackInfo';
 
 import './Navigation.css';
@@ -24,19 +23,7 @@ export const Navigation = withRouter(class Navigation extends PureComponent {
               <PlaylistIndex />
             </Route>
 
-            <Route
-              path="/search/:query?"
-              render={({ history, match }) => {
-                return (
-                  <Search
-                    query={match.params.query}
-                    onQuery={query =>
-                      history.replace(`/search/${encodeURIComponent(query)}`)
-                    }
-                  />
-                );
-              }}
-            />
+            <Route path="/search/:query?" component={SearchRoute}/>
 
             <Route path="/track-info">
               <TrackInfo />

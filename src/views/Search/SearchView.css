@@ -1,17 +1,17 @@
-.Search header,
-.Search header input,
-.Search .results {
+.SearchView header,
+.SearchView header input,
+.SearchView .results {
     transition: all 0.5s ease;
 }
 
-.Search header {
+.SearchView header {
     position: relative;
 }
 
-.Search.hasResults header {
+.SearchView.hasResults header {
 }
 
-.Search header input {
+.SearchView header input {
     position: absolute;
     right: 50%;
     top: 0;
@@ -19,17 +19,17 @@
     z-index: 2;
 }
 
-.Search.hasResults header input {
+.SearchView.hasResults header input {
     font-size: 1.5em;
     transform: translateX(50%) translateY(0);
 }
 
-.Search .results {
+.SearchView .results {
     pointer-events: none;
     opacity: 0;
 }
 
-.Search.hasResults .results {
+.SearchView.hasResults .results {
     pointer-events: auto;
     opacity: 1;
 }
