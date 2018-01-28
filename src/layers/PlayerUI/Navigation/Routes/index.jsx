@@ -2,7 +2,7 @@ import React, {PureComponent} from 'react';
 
 import AlbumView from 'views/Album';
 import ArtistView from 'views/Artist';
-import PlaylistView from 'views/Playlist/Detail';
+import PlaylistView from 'views/Playlist';
 import SearchView from 'views/Search';
 
 export function AlbumRoute({match}) {
