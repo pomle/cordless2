@@ -6,7 +6,7 @@ import { AlbumList } from 'fragments/AlbumList';
 
 import { fetchArtist } from 'store';
 
-export class ArtistDetail extends Component {
+export class ArtistView extends Component {
   componentWillMount() {
     this.props.fetchArtist(this.props.artistId);
   }
@@ -19,7 +19,7 @@ export class ArtistDetail extends Component {
     }
 
     return (
-      <div className="ArtistDetail">
+      <div className="ArtistView">
         <ViewHeader caption={artist.get('name')} images={artist.get('images')} />
 
         <AlbumList albums={artist.getIn(['albums', 'items'], [])} />
@@ -37,4 +37,4 @@ export default connect(
   {
     fetchArtist,
   }
-)(ArtistDetail);
+)(ArtistView);
