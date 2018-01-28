@@ -8,7 +8,7 @@ import { fetchUserPlaylists } from 'store';
 
 const ME = Symbol('default user');
 
-class PlaylistView extends Component {
+class UserPlaylistsView extends Component {
   static defaultProps = {
     userId: ME,
   };
@@ -58,4 +58,4 @@ export default connect(
   {
     fetch: fetchUserPlaylists,
   }
-)(PlaylistView);
+)(UserPlaylistsView);
