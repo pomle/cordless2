@@ -3,8 +3,7 @@ import { withRouter, Link, Route, Switch } from 'react-router-dom';
 
 import { ViewContainer } from 'components/ViewContainer';
 
-import {AlbumRoute} from './Routes';
-import ArtistDetail from 'views/Artist';
+import {AlbumRoute, ArtistRoute} from './Routes';
 import PlaylistDetail from 'views/Playlist/Detail';
 import PlaylistView from 'views/Playlist/Index';
 import Search from 'views/Search';
@@ -21,15 +20,7 @@ export const Navigation = withRouter(class Navigation extends PureComponent {
         <ViewContainer>
           <Switch>
             <Route path="/album/:albumId" component={AlbumRoute} />
-            <Route
-              path="/artist/:artistId"
-              render={props => {
-                const { artistId } = props.match.params;
-                return <ArtistDetail artistId={artistId} />;
-              }}
-            />
-
-            <Route path="/playlist2" component={PlaylistAdapter}/>
+            <Route path="/artist/:artistId" component={ArtistRoute} />
 
             <Route
               path="/user/:userId/playlist/:playlistId"
