@@ -10,6 +10,8 @@ import PlaylistView from 'views/Playlist/Index';
 import Search from 'views/Search';
 import { TrackInfo } from 'views/TrackInfo';
 
+import PlaylistAdapter from 'store/adapter/Playlist';
+
 import './Navigation.css';
 
 export const Navigation = withRouter(class Navigation extends PureComponent {
@@ -32,6 +34,9 @@ export const Navigation = withRouter(class Navigation extends PureComponent {
                 return <ArtistDetail artistId={artistId} />;
               }}
             />
+
+            <Route path="/playlist2" component={PlaylistAdapter}/>
+
             <Route
               path="/user/:userId/playlist/:playlistId"
               render={props => {
