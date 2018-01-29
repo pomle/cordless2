@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { ViewHeader } from 'components/ViewHeader';
 import { AlbumList } from 'fragments/AlbumList';
 
-import { fetchArtist } from '@pomle/spotify-redux';
+import { fetchArtist } from 'store';
 
 export class ArtistDetail extends Component {
   componentWillMount() {
