@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Motion, spring } from 'react-motion';
 import { Surface } from 'gl-react-dom';
-import { connect } from '@pomle/spotify-react';
+import { connect } from 'react-redux';
 
 import anime from 'animejs';
 
@@ -18,12 +18,12 @@ const resolution = {
 
 const cameraDistance = 20;
 
-export const Backdrop = connect([state => {
+export const Backdrop = connect(state => {
   const albumId = state.player.getIn(['context', 'track_window', 'current_track', 'album', 'uri'], '').split(':')[2];
   return {
     color: state.color.getIn(['album', albumId]),
   };
-}])(class Backdrop extends Component {
+})(class Backdrop extends Component {
   constructor(props) {
     super(props);
 

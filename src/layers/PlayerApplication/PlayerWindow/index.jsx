@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { withRouter } from 'react-router';
 import { connect } from 'react-redux';
 
-import { Player } from '@pomle/spotify-react';
+import Player from 'fragments/Player';
 import { Visuals } from 'layers/Visuals';
 import { PlayerUI } from 'layers/PlayerUI';
 

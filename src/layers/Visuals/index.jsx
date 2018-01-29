@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { withRouter } from 'react-router';
 import { analysis } from '@pomle/spotify-web-sdk';
-import { connect, withPlayingTrack } from '@pomle/spotify-react';
+import { withPlayingTrack } from 'store/hoc';
 
 import { lookAt } from './util.js';
 import { largest } from 'library/image';
@@ -24,7 +25,7 @@ function ramp(start, exp) {
 
 const loudnessToIntensity = ramp(40, 2);
 
-export const Visuals = withRouter(connect([withPlayingTrack])(class extends Component {
+export const Visuals = withRouter(connect(withPlayingTrack)(class extends Component {
   static contextTypes = {
     images: PropTypes.object,
   };
