@@ -5,7 +5,7 @@ import { ViewHeader } from 'components/ViewHeader';
 import { TrackList } from 'fragments/TrackList';
 import { Track } from 'fragments/Track';
 
-import { fetchAlbum, playAlbum } from '@pomle/spotify-redux';
+import { fetchAlbum, playAlbum } from 'store';
 
 import './AlbumDetail.css';
 

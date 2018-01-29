@@ -5,7 +5,7 @@ import { TrackList } from 'fragments/TrackList';
 import { Track } from 'fragments/Track';
 
 import { debounce } from 'library/debounce';
-import { search, playTracks } from '@pomle/spotify-redux';
+import { search, playTracks } from 'store';
 
 import './Search.css';
 
