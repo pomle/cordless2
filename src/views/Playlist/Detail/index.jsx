@@ -9,7 +9,7 @@ import { PlaylistDetailHeader } from './Header';
 
 import {matcher, matchTrack} from "library/search";
 
-import { fetchPlaylist, playPlaylist } from '@pomle/spotify-redux';
+import { fetchPlaylist, playPlaylist } from 'store';
 
 export class PlaylistDetail extends PureComponent {
   static propTypes = {

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { connect, withPlayingTrack } from '@pomle/spotify-react';
+import { connect } from 'react-redux';
+import { withPlayingTrack } from 'store/hoc';
 
 import { ProgressBar } from 'components/ProgressBar';
 
 import './TrackInfo.css';
 
-export const TrackInfo = connect([withPlayingTrack])(class TrackInfo extends Component {
+export const TrackInfo = connect(withPlayingTrack)(class TrackInfo extends Component {
   render() {
     const features = this.features = this.props.features || this.features || {};
 
