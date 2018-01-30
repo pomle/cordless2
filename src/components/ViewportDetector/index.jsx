@@ -1,19 +1,22 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Set } from 'immutable';
 
 class ViewportDetector extends PureComponent {
   static propTypes = {
-    children: PropTypes.node.isRequired,
-    onChange: PropTypes.func.isRequired,
+    count: PropTypes.number.isRequired,
+    onDraw: PropTypes.func.isRequired,
   };
 
   static contextTypes = {
     viewport: PropTypes.object,
   };
 
-  componentDidMount() {
+  componentWillMount() {
     this.visible = new Set();
+  }
+
+  componentDidMount() {
     this.timer = setInterval(this.pollScroll, 500);
   }
 
@@ -24,7 +27,6 @@ class ViewportDetector extends PureComponent {
   pollScroll = () => {
     if (this.context.viewport) {
       const start = this.context.viewport.scrollTop;
-      console.log(start);
       const end = start + this.context.viewport.offsetHeight;
       this.checkInViewItems(start, end);
     }
@@ -33,8 +35,8 @@ class ViewportDetector extends PureComponent {
   checkInViewItems(startX, endX) {
     const visible = this.visible.clear().withMutations(visible => {
 
-      let index = 0;
-      for (const child of this.element.children) {
+      let index = -1;
+      for (const child of this.element.parentNode.children) {
         const childStart = child.offsetTop;
         const childEnd = childStart + child.offsetHeight;
         if (childStart < endX && childEnd > startX) {
@@ -45,15 +47,24 @@ class ViewportDetector extends PureComponent {
     });
 
     if (!this.visible.equals(visible)) {
-      this.props.onChange(visible);
       this.visible = visible;
+      this.forceUpdate();
     }
   }
 
   render() {
-    return <div className="ViewportDetector" ref={node => this.element = node}>
-      {this.props.children}
-    </div>;
+    const {count, onDraw} = this.props;
+
+    const children = [];
+
+    for (let i = 0; i < count; i++) {
+      children.push(onDraw(i, this.visible.has(i)));
+    }
+
+    return <Fragment>
+      <div className="ViewportDetector" ref={node => this.element = node}/>
+      {children}
+    </Fragment>;
   }
 }
 
