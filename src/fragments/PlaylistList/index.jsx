@@ -7,12 +7,6 @@ import ViewportDetector from 'components/ViewportDetector';
 import './PlaylistList.css';
 
 export class PlaylistList extends Component {
-  constructor(props) {
-    super(props);
-
-    this.seen = new Set();
-  }
-
   render() {
     const { playlists, playbackAPI, onViewportChange } = this.props;
     const items = playlists.items;
@@ -20,15 +14,12 @@ export class PlaylistList extends Component {
     return (
       <div className="PlaylistList">
         <PlayableList>
-          <ViewportDetector count={playlists.total} onDraw={(index, visible) => {
-            if (!items.has(index) || (!this.seen.has(index) && !visible)) {
-              return <div key={`placeholder-${index}`} className="placeholder"/>;
+          <ViewportDetector count={playlists.total} onDraw={index => {
+            if (!items.has(index)) {
+              return null;
             }
 
-            this.seen.add(index);
-
             const playlist = items.get(index);
-
             return <div key={playlist.get('id') + '-' + index} className="item">
                 <Playlist playlist={playlist} playbackAPI={playbackAPI} />
             </div>
