@@ -1,3 +1,8 @@
+.PlaylistList .placeholder {
+    height: 7em;
+    width: 20em;
+}
+
 .PlaylistList .Playlist {
     display: grid;
     grid: repeat(3, 1fr) / 7em 10em;
