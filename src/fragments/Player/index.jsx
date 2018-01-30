@@ -82,6 +82,19 @@ class Player extends PureComponent {
     });
   }
 
+  componentWillReceiveProps({context}) {
+    this.onTrackChange(context.getIn(['track_window', 'current_track', 'id']));
+    this.onAlbumChange(context.getIn(['track_window', 'current_track', 'album', 'uri']));
+  }
+
+  onAlbumChange = onChange(albumURI => {
+    const {session, setAlbumPalette} = this.props;
+    const api = session.trackAPI;
+    const albumId = albumURI.split(':')[2];
+    api.request(`https://vibrant.pomle.com/v1/album/${albumId}`)
+    .then(palette => setAlbumPalette(albumId, palette));
+  });
+
   onTrackChange = onChange(trackId => {
     const {session, setAnalysis, setFeature} = this.props;
     const api = session.trackAPI;
@@ -91,14 +104,6 @@ class Player extends PureComponent {
 
     api.getAudioAnalysis(trackId)
     .then(data => setAnalysis(trackId, data));
-  });
-
-  onAlbumChange = onChange(albumURI => {
-    const {session, setAlbumPalette} = this.props;
-    const api = session.trackAPI;
-    const albumId = albumURI.split(':')[2];
-    api.request(`https://vibrant.pomle.com/v1/album/${albumId}`)
-    .then(palette => setAlbumPalette(albumId, palette));
   });
 
   render() {
@@ -114,6 +119,7 @@ class Player extends PureComponent {
 
 export default connect(state => {
   return {
+    context: state.player.context,
     session: state.session,
   }
 }, {
