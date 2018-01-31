@@ -19,7 +19,7 @@
 }
 
 .PlayableList .item > *:hover {
-    transform: rotateX(0) rotateY(0) translateZ(0);
+    transform: none;
 }
 
 .PlayableList .playback {
