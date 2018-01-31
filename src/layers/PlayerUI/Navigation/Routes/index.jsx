@@ -4,6 +4,7 @@ import AlbumView from 'views/Album';
 import ArtistView from 'views/Artist';
 import PlaylistView from 'views/Playlist';
 import SearchView from 'views/Search';
+import UserPlaylistsView from 'views/User/Playlists';
 
 export function AlbumRoute({match}) {
   return <AlbumView albumId={match.params.albumId}/>
@@ -32,4 +33,10 @@ export class SearchRoute extends PureComponent {
       onQuery={this.onQuery}
     />
   }
+}
+
+export function UserPlaylistsRoute({match}) {
+  return <UserPlaylistsView
+    userId={match.params.userId}
+  />;
 }
