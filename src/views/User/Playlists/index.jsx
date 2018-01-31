@@ -1,50 +1,94 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { Iterable } from 'immutable';
+import { Record, List, fromJS } from 'immutable';
 
-import { PlaylistIndex } from 'fragments/PlaylistIndex';
-import { fetchUserPlaylists } from 'store';
+import ViewportDetector from 'components/ViewportDetector';
+import { PlaylistList } from 'fragments/PlaylistList';
+import { Playlist } from 'fragments/Playlist';
 
-const ME = Symbol('default user');
+const ItemSet = Record({
+  total: null,
+  items: new List(),
+});
+
+const PAGE_LEN = 50;
 
 class UserPlaylistsView extends Component {
-  static defaultProps = {
-    userId: ME,
-  };
+  constructor(props) {
+    super(props);
 
-  static propTypes = {
-    userId: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.symbol,
-    ]),
-    playlists: PropTypes.instanceOf(Iterable).isRequired,
-  };
+    this.state = {
+      playlistSet: new ItemSet(),
+    };
+
+    this.offsetsFulfilled = new Set();
+  }
 
   componentWillMount() {
     this.onUpdate(this.props);
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.onUpdate(nextProps);
+  onUpdate() {
+    this.fetch();
   }
 
-  onUpdate({ userId, fetch }) {
-    if (this.userId === userId) {
+  async fetch(offset = 0, limit = PAGE_LEN) {
+    const { userId, playlistAPI } = this.props;
+
+    if (this.offsetsFulfilled.has(offset)) {
+      console.log(`Not fetching offset ${offset} again`);
       return;
     }
 
-    this.userId = userId;
+    this.offsetsFulfilled.add(offset);
 
-    fetch(userId === ME ? undefined : userId);
+    console.log(`Fetching offset ${offset}`);
+    const response = await playlistAPI.getPlaylists(userId, {offset, limit});
+    console.log('Response total', response.total);
+
+    this.setState(({playlistSet}) => {
+      return {
+        playlistSet: playlistSet
+          .set('total', response.total)
+          .set('items', playlistSet.items.withMutations(items => {
+            response.items.forEach((playlist, index) => {
+              const position = index + offset;
+              items.set(position, fromJS(playlist));
+            })
+            return items;
+          })),
+      };
+    });
+  }
+
+  onMissing = (missing) => {
+    const first = missing[0];
+    const last = missing[missing.length - 1];
+
+    let offset = first - (first % PAGE_LEN);
+    const offsets = [];
+    while (offset < last) {
+      offsets.push(offset);
+      offset += PAGE_LEN;
+    }
+
+    offsets.forEach(offset => this.fetch(offset));
   }
 
   render() {
+    const {playlistSet} = this.state;
+
     return (
-      <PlaylistIndex
-        caption="Your Playlists"
-        playlists={this.props.playlists}
-      />
+      <PlaylistList>
+        <ViewportDetector
+          count={playlistSet.total || 0}
+          items={playlistSet.items}
+          onMissing={this.onMissing}
+          onDraw={playlist => {
+            return <Playlist playlist={playlist} />
+          }}
+        />
+      </PlaylistList>
     );
   }
 }
@@ -52,10 +96,7 @@ class UserPlaylistsView extends Component {
 export default connect(
   (state, props) => {
     return {
-      playlists: state.playlist.getEntries(props.userId),
+      playlistAPI: state.session.playlistAPI,
     };
-  },
-  {
-    fetch: fetchUserPlaylists,
   }
 )(UserPlaylistsView);
