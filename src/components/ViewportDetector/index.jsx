@@ -1,15 +1,17 @@
 import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Set as ImmutableSet } from 'immutable';
+import { Set as ImmutableSet, Iterable } from 'immutable';
 
 const NO_DISPLAY = {display: 'none'};
 const VIEWPORT_WAIT_INTERVAL = 100;
-const SCROLL_GRACE_TIMEOUT = 200;
+const SCROLL_GRACE_TIMEOUT = 50;
 
 class ViewportDetector extends PureComponent {
   static propTypes = {
     count: PropTypes.number.isRequired,
+    items: PropTypes.instanceOf(Iterable).isRequired,
     onDraw: PropTypes.func.isRequired,
+    onMissing: PropTypes.func.isRequired,
   };
 
   static contextTypes = {
@@ -19,8 +21,10 @@ class ViewportDetector extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.seen = new Set();
+    this.seen = new Map();
     this.visible = new ImmutableSet();
+    this.children = null;
+    this.allowUpdate = true;
   }
 
   componentDidMount() {
@@ -32,6 +36,7 @@ class ViewportDetector extends PureComponent {
       this.viewport = this.context.viewport;
       console.log('Viewport found');
       this.viewport.addEventListener('scroll', this.onScroll);
+      window.addEventListener('resize', this.onScroll);
 
       clearInterval(this.viewportTimer);
 
@@ -42,6 +47,7 @@ class ViewportDetector extends PureComponent {
   componentWillUnmount() {
     if (this.viewport) {
       this.viewport.removeEventListener('scroll', this.onScroll);
+      window.removeEventListener('resize', this.onScroll);
     }
 
     clearInterval(this.viewportTimer);
@@ -81,33 +87,54 @@ class ViewportDetector extends PureComponent {
     if (!this.visible.equals(visible)) {
       this.visible = visible;
       this.forceUpdate();
+      this.allowUpdate = false;
     }
   }
 
-  handleIndex(index, onDraw) {
-    if (this.seen.has(index) || this.visible.has(index)) {
-      const child = onDraw(index);
-      if (child) {
-        this.seen.add(index);
-        return <div key={`ready-${index}`} className="item">{child}</div>;
+  componentWillUpdate({count, items, onDraw}) {
+    const children = [];
+    const missing = [];
+
+    for (let index = 0; index < count; index++) {
+      let child;
+
+      if (this.visible.has(index)) {
+        if (this.seen.has(index)) {
+          child = this.seen.get(index);
+        } else {
+          const item = items.get(index);
+          if (item !== undefined) {
+            child = <div key={`ready-${index}`} className="item">
+              {onDraw(item)}
+            </div>;
+            this.seen.set(child);
+          } else {
+            missing.push(index);
+          }
+        }
+      } else {
+        child = <div key={`placeholder-${index}`} className="item placeholder"/>;
       }
+
+      children.push(child);
     }
 
-    return <div key={`placeholder-${index}`} className="item placeholder"/>;
+    if (missing.length) {
+      this.props.onMissing(missing);
+    }
+
+    this.children = children;
+  }
+
+  shouldComponentUpdate({items}) {
+    return this.allowUpdate || items !== this.props.items;
   }
 
   render() {
-    const {count, onDraw} = this.props;
     console.log('Rerender');
 
-    const children = [];
-
-    for (let index = 0; index < count; index++) {
-      children.push(this.handleIndex(index, onDraw));
-    }
-
     return <Fragment>
-      {children}
+      {this.children}
       <div style={NO_DISPLAY} className="ViewportDetector" ref={node => this.element = node}/>
     </Fragment>;
   }

@@ -30,7 +30,7 @@ class MyPlaylistsView extends Component {
       playlistAPI.getMyPlaylists({limit: 50, offset: 50}),
     ]);
 
-    const items = [].concat(responses[0].items, responses[1].items, responses[1].items, responses[1].items, responses[1].items, responses[1].items, responses[1].items);
+    const items = [].concat(responses[0].items, responses[1].items);
 
     this.setState(({playlistSet}) => {
       return {
