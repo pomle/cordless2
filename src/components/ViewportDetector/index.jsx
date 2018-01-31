@@ -2,6 +2,10 @@ import React, { PureComponent, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { Set as ImmutableSet } from 'immutable';
 
+const NO_DISPLAY = {display: 'none'};
+const VIEWPORT_WAIT_INTERVAL = 100;
+const SCROLL_GRACE_TIMEOUT = 200;
+
 class ViewportDetector extends PureComponent {
   static propTypes = {
     count: PropTypes.number.isRequired,
@@ -16,36 +20,54 @@ class ViewportDetector extends PureComponent {
     super(props);
 
     this.seen = new Set();
-
-    this.state = {
-      visible: new ImmutableSet(),
-    }
+    this.visible = new ImmutableSet();
   }
 
   componentDidMount() {
-    this.timer = setInterval(this.pollScroll, 500);
+    this.viewportTimer = setInterval(this.waitForViewport, VIEWPORT_WAIT_INTERVAL);
   }
 
-  componentWillReceiveProps(nextProps) {
-    console.log('CWRP', nextProps);
-  }
-
-  componentWillUnmount() {
-    clearInterval(this.timer);
-  }
-
-  pollScroll = () => {
+  waitForViewport = () => {
     if (this.context.viewport) {
-      const start = this.context.viewport.scrollTop;
-      const end = start + this.context.viewport.offsetHeight;
-      this.checkInViewItems(start, end);
+      this.viewport = this.context.viewport;
+      console.log('Viewport found');
+      this.viewport.addEventListener('scroll', this.onScroll);
+
+      clearInterval(this.viewportTimer);
+
+      this.pollScroll();
     }
   };
 
-  checkInViewItems(startX, endX) {
-    const visible = this.state.visible.clear().withMutations(visible => {
+  componentWillUnmount() {
+    if (this.viewport) {
+      this.viewport.removeEventListener('scroll', this.onScroll);
+    }
 
+    clearInterval(this.viewportTimer);
+  }
+
+  doUpdate = (s, e) => {
+    this.checkInViewItems(s, e);
+  };
+
+  onScroll = (event) => {
+    this.pollScroll();
+  };
+
+  pollScroll = () => {
+    clearTimeout(this.checkTimer);
+
+    const start = this.viewport.scrollTop;
+    const end = start + this.viewport.offsetHeight * 1.2;
+
+    this.checkTimer = setTimeout(this.doUpdate, SCROLL_GRACE_TIMEOUT, start, end);
+  };
+
+  checkInViewItems(startX, endX) {
+    const visible = this.visible.clear().withMutations(visible => {
       let index = 0;
+
       for (const child of this.element.parentNode.children) {
         const childStart = child.offsetTop;
         const childEnd = childStart + child.offsetHeight;
@@ -56,21 +78,22 @@ class ViewportDetector extends PureComponent {
       }
     });
 
-    if (!this.state.visible.equals(visible)) {
-      this.setState({visible});
+    if (!this.visible.equals(visible)) {
+      this.visible = visible;
+      this.forceUpdate();
     }
   }
 
   handleIndex(index, onDraw) {
-    if (this.seen.has(index) || this.state.visible.has(index)) {
+    if (this.seen.has(index) || this.visible.has(index)) {
       const child = onDraw(index);
       if (child) {
         this.seen.add(index);
-        return child;
+        return <div key={`ready-${index}`} className="item">{child}</div>;
       }
     }
 
-    return <div key={`placeholder-${index}`} className="placeholder"/>;
+    return <div key={`placeholder-${index}`} className="item placeholder"/>;
   }
 
   render() {
@@ -85,7 +108,7 @@ class ViewportDetector extends PureComponent {
 
     return <Fragment>
       {children}
-      <div style={{display: 'none'}} className="ViewportDetector" ref={node => this.element = node}/>
+      <div style={NO_DISPLAY} className="ViewportDetector" ref={node => this.element = node}/>
     </Fragment>;
   }
 }
