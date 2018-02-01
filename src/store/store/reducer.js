@@ -9,6 +9,7 @@ import { reducer as search } from './search';
 import { reducer as session } from './session';
 import { reducer as track } from './track';
 import { reducer as user } from './user';
+import { reducer as stash } from './stash';
 
 export const reducer = combineReducers({
   album,
@@ -18,6 +19,7 @@ export const reducer = combineReducers({
   playlist,
   search,
   session,
+  stash,
   track,
   user,
 });

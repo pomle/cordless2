@@ -18,8 +18,9 @@ export const Navigation = withRouter(class Navigation extends PureComponent {
           <Switch>
             <Route path="/album/:albumId" component={AlbumRoute} />
             <Route path="/artist/:artistId" component={ArtistRoute} />
-            <Route path="/user/:userId" component={UserPlaylistsRoute} />
             <Route path="/user/:userId/playlist/:playlistId" component={PlaylistRoute} />
+            <Route path="/user/:userId" component={UserPlaylistsRoute} />
+
 
             <Route exact path="/playlists" component={MyPlaylists}/>
 
