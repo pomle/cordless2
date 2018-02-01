@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Set as ImmutableSet, Iterable } from 'immutable';
 
 const NO_DISPLAY = {display: 'none'};
-const VIEWPORT_WAIT_INTERVAL = 100;
+const VIEWPORT_WAIT_INTERVAL = 10;
 const SCROLL_GRACE_TIMEOUT = 50;
 
 class ViewportDetector extends PureComponent {
@@ -21,13 +21,12 @@ class ViewportDetector extends PureComponent {
   constructor(props) {
     super(props);
 
-    this.seen = new Map();
+    console.log('afafgag');
     this.visible = new ImmutableSet();
     this.children = null;
-    this.allowUpdate = true;
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.viewportTimer = setInterval(this.waitForViewport, VIEWPORT_WAIT_INTERVAL);
   }
 
@@ -35,6 +34,7 @@ class ViewportDetector extends PureComponent {
     if (this.context.viewport) {
       this.viewport = this.context.viewport;
       console.log('Viewport found');
+
       this.viewport.addEventListener('scroll', this.onScroll);
       window.addEventListener('resize', this.onScroll);
 
@@ -54,7 +54,7 @@ class ViewportDetector extends PureComponent {
   }
 
   doUpdate = (s, e) => {
-    this.checkInViewItems(s, e);
+    this.detectVisible(s, e);
   };
 
   onScroll = (event) => {
@@ -64,17 +64,20 @@ class ViewportDetector extends PureComponent {
   pollScroll = () => {
     clearTimeout(this.checkTimer);
 
-    const start = this.viewport.scrollTop;
-    const end = start + this.viewport.offsetHeight * 1.2;
+    const vh = this.viewport.offsetHeight;
+    const start = this.viewport.scrollTop - vh;
+    const end = start + vh * 3;
 
     this.checkTimer = setTimeout(this.doUpdate, SCROLL_GRACE_TIMEOUT, start, end);
   };
 
-  checkInViewItems(startX, endX) {
+  detectVisible(startX, endX) {
     const visible = this.visible.clear().withMutations(visible => {
       let index = 0;
 
-      for (const child of this.element.parentNode.children) {
+      const children = this.element.parentNode.children;
+      for (let i = 0; i < children.length - 1; ++i) {
+        const child = children[i];
         const childStart = child.offsetTop;
         const childEnd = childStart + child.offsetHeight;
         if (childStart < endX && childEnd > startX) {
@@ -87,8 +90,11 @@ class ViewportDetector extends PureComponent {
     if (!this.visible.equals(visible)) {
       this.visible = visible;
       this.forceUpdate();
-      this.allowUpdate = false;
     }
+  }
+
+  componentWillReceiveProps(props) {
+    console.log('CWRP', props);
   }
 
   componentWillUpdate({count, items, onDraw}) {
@@ -99,21 +105,20 @@ class ViewportDetector extends PureComponent {
       let child;
 
       if (this.visible.has(index)) {
-        if (this.seen.has(index)) {
-          child = this.seen.get(index);
+        const item = items.get(index);
+        if (item !== undefined) {
+          child = <div key={`item-${index}`} className="item visible">
+            {onDraw(item)}
+          </div>;
         } else {
-          const item = items.get(index);
-          if (item !== undefined) {
-            child = <div key={`ready-${index}`} className="item">
-              {onDraw(item)}
-            </div>;
-            this.seen.set(child);
-          } else {
-            missing.push(index);
-          }
+          missing.push(index);
         }
-      } else {
-        child = <div key={`placeholder-${index}`} className="item placeholder"/>;
+      }
+
+      if (!child) {
+        child = <div key={`item-${index}`} className="item">
+          <div/>
+        </div>;
       }
 
       children.push(child);
@@ -126,12 +131,8 @@ class ViewportDetector extends PureComponent {
     this.children = children;
   }
 
-  shouldComponentUpdate({items}) {
-    return this.allowUpdate || items !== this.props.items;
-  }
-
   render() {
-    console.log('Rerender');
+    console.log('Rerender', this.props, this.children);
 
     return <Fragment>
       {this.children}

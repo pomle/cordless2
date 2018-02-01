@@ -5,11 +5,6 @@
     margin: -1em;
 }
 
-.PlayableList .placeholder {
-    background: rgba(0, 0, 0, 0.6);
-    transform: scale(0.7);
-}
-
 .PlayableList .item {
     perspective: 200px;
     animation: reveal 3s 1 cubic-bezier(0, 0, 0, 1.0);
