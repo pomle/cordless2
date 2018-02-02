@@ -33,10 +33,7 @@ class Yxa extends Component {
       this.touched.add(index);
     }
 
-    console.log('Fetching', namespace)
     const response = await fetcher(offset, PAGE_LEN);
-
-    console.log('Response total', response.total);
 
     setTotal(namespace, response.total);
     addItems(namespace, offset, response.items);
@@ -45,13 +42,10 @@ class Yxa extends Component {
   onMissing = (missing) => {
     clearTimeout(this.timer);
 
-    console.log('Testing', missing);
     if (this.touched.has(missing)) {
-      console.log('Ignoring', missing);
       return;
     }
 
-    console.log('Missing', missing);
     const first = missing;
 
     let offset = first - (first % PAGE_LEN);
