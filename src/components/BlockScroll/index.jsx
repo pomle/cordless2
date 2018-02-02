@@ -90,11 +90,11 @@ class BlockScroll extends PureComponent {
 
     const itemsStyle = {
       position: 'absolute',
-      top: `${scroll + -(scroll % rowHeight)}px`,
+      top: `${scrollTop + -(scrollTop % rowHeight)}px`,
     };
 
     return <div className="container" style={containerStyle}>
-      <div className="items" style={itemsStyle}>
+      <div className="items" style={itemsStyle} ref={node => this.items = node}>
         {children}
       </div>
     </div>;
