@@ -1,4 +1,4 @@
-.PlayableList {
+.PlayableList .items {
     display: flex;
     flex-flow: wrap;
     justify-content: space-evenly;
@@ -7,7 +7,6 @@
 
 .PlayableList .item {
     perspective: 200px;
-    animation: reveal 3s 1 cubic-bezier(0, 0, 0, 1.0);
 }
 
 .PlayableList .item > * {
