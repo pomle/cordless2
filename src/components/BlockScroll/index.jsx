@@ -22,6 +22,7 @@ class BlockScroll extends PureComponent {
     this.state = {
       scrollTop: 0,
       offsetHeight: 500,
+      offsetTop: 0,
     };
   }
 
@@ -45,6 +46,7 @@ class BlockScroll extends PureComponent {
     this.setState(prevState => ({
       scrollTop: event.target.scrollTop,
       offsetHeight: event.target.offsetHeight,
+      offsetTop: this.container.offsetTop,
     }));
   };
 
@@ -59,15 +61,18 @@ class BlockScroll extends PureComponent {
 
   render() {
     const {count, items, onDraw, onMissing} = this.props;
-    const { scrollTop, offsetHeight } = this.state;
+    const { scrollTop, offsetHeight, offsetTop } = this.state;
+
+    // Actual start of scrollable element.
+    const realScrollTop = Math.max(0, scrollTop - offsetTop);
 
     const rowLen = 4;
     const rowHeight = 112;
-    const offset = Math.floor(scrollTop / rowHeight) * rowLen;
+    const offset = Math.floor(realScrollTop / rowHeight) * rowLen;
     const rows = (offsetHeight / rowHeight) + 2;
     const limit = rows * rowLen;
 
-    console.log(scrollTop, offset);
+    //console.log(realScrollTop, offset);
 
     function renderItem(items, index) {
       const item = items.get(index);
@@ -90,11 +95,11 @@ class BlockScroll extends PureComponent {
 
     const itemsStyle = {
       position: 'absolute',
-      top: `${scrollTop + -(scrollTop % rowHeight)}px`,
+      top: `${realScrollTop + -(realScrollTop % rowHeight)}px`,
     };
 
-    return <div className="container" style={containerStyle}>
-      <div className="items" style={itemsStyle} ref={node => this.items = node}>
+    return <div className="container" style={containerStyle} ref={node => this.container = node}>
+      <div className="items" style={itemsStyle}>
         {children}
       </div>
     </div>;
