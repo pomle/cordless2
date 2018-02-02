@@ -54,11 +54,16 @@ class BlockScroll extends PureComponent {
     this.viewportTimer = setInterval(this.waitForViewport, VIEWPORT_WAIT_INTERVAL);
   }
 
+  componentWillUnmount() {
+    this.viewport.removeEventListener('scroll', this.onScroll);
+    window.removeEventListener('resize', this.onResize);
+  }
+
   waitForViewport = () => {
     if (this.context.viewport) {
       this.viewport = this.context.viewport;
       this.viewport.addEventListener('scroll', this.onScroll);
-      //window.addEventListener('resize', this.onScroll);
+      window.addEventListener('resize', this.onResize);
 
       clearInterval(this.viewportTimer);
 
@@ -66,15 +71,18 @@ class BlockScroll extends PureComponent {
     }
   };
 
+  onResize = event => {
+    this.calculateState(this.viewport, this.container);
+  }
+
   onScroll = event => {
     this.calculateState(this.viewport, this.container);
   }
 
   calculateState(viewport, container) {
     const {count} = this.props;
-
-    const rowLen = 4;
-    const rowHeight = 112;
+    const {rowLen, rowHeight} = this.calculateLines();
+    console.log(rowLen, rowHeight);
 
     const offsetHeight = viewport.offsetHeight;
     const scrollTop = Math.max(0, viewport.scrollTop - container.offsetTop);
@@ -89,7 +97,28 @@ class BlockScroll extends PureComponent {
       offset,
       end,
     });
-  };
+  }
+
+  calculateLines() {
+    const children = this.itemsNode.children;
+    const len = children.length;
+
+    for (let i = 1; i < len; ++i) {
+      const a = children[i];
+      const b = children[i - 1];
+      if (a.offsetTop > b.offsetTop) {
+        return {
+          rowHeight: a.offsetTop - b.offsetTop,
+          rowLen: i,
+        };
+      }
+    }
+
+    return {
+      rowHeight: 100,
+      rowLen: 1,
+    };
+  }
 
   render() {
     const { items, onDraw, onMissing } = this.props;
@@ -106,7 +135,7 @@ class BlockScroll extends PureComponent {
     };
 
     return <div className="container" style={containerStyle} ref={node => this.container = node}>
-      <div className="items" style={itemsStyle}>
+      <div className="items" style={itemsStyle} ref={node => this.itemsNode = node}>
         <BlockScrollItems
           items={items}
           offset={offset}
