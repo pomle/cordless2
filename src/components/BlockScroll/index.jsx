@@ -31,7 +31,6 @@ class BlockScroll extends PureComponent {
   }
 
   waitForViewport = () => {
-    console.log(this.context);
     if (this.context.viewport) {
       this.viewport = this.context.viewport;
       this.viewport.addEventListener('scroll', this.onScroll);
@@ -42,7 +41,6 @@ class BlockScroll extends PureComponent {
   };
 
   onScroll = event => {
-    console.log(event);
     this.setState(prevState => ({
       scrollTop: event.target.scrollTop,
       offsetHeight: event.target.offsetHeight,
