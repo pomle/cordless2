@@ -4,29 +4,6 @@ import { Iterable } from 'immutable';
 
 const VIEWPORT_WAIT_INTERVAL = 10;
 
-class BlockScrollItems extends PureComponent {
-  renderItem(items, index) {
-    const item = items.get(index);
-    if (item) {
-      return this.props.onDraw(item);
-    }
-    this.props.onMissing(index);
-    return <div className="Playlist"/>;
-  }
-
-  render() {
-    console.log('Rendering children', this.props);
-    const {items, offset, end} = this.props;
-
-    const children = [];
-    for (let index = offset; index < end; ++index) {
-      children.push(<div className="item" key={index}>{this.renderItem(items, index)}</div>);
-    }
-
-    return children;
-  }
-}
-
 class BlockScroll extends PureComponent {
   static propTypes = {
     count: PropTypes.number.isRequired,
@@ -42,10 +19,9 @@ class BlockScroll extends PureComponent {
   constructor(props, context) {
     super(props, context);
 
-    this.rowLen = 10;
-    this.rowHeight = 100;
-
     this.state = {
+      rowLen: 10,
+      rowHeight: 100,
       containerHeight: 200,
       itemsTop: 0,
       offset: 0,
@@ -62,6 +38,10 @@ class BlockScroll extends PureComponent {
     window.removeEventListener('resize', this.onResize);
   }
 
+  componentDidUpdate() {
+    this.calculateHeight();
+  }
+
   waitForViewport = () => {
     if (this.context.viewport) {
       this.viewport = this.context.viewport;
@@ -70,39 +50,42 @@ class BlockScroll extends PureComponent {
 
       clearInterval(this.viewportTimer);
 
-      this.calculateState(this.viewport, this.container);
+      this.calculateHeight();
+      this.calculateOffset();
     }
   };
 
-  onResize = event => {
-    this.calculateState(this.viewport, this.container);
+  onResize = () => {
+    this.calculateHeight();
+    this.calculateOffset();
   }
 
-  onScroll = event => {
-    this.calculateState(this.viewport, this.container);
+  onScroll = () => {
+    this.calculateOffset();
   }
 
-  calculateState(viewport, container) {
+  calculateOffset() {
     const {count} = this.props;
-    this.calculateLines();
-    const {rowLen, rowHeight} = this;
 
-    const offsetHeight = viewport.offsetHeight;
-    const scrollTop = Math.max(0, viewport.scrollTop - container.offsetTop);
+    this.setState(({rowLen, rowHeight}) => {
+      console.log('Len', rowLen, 'height', rowHeight);
 
-    const offset = Math.floor(scrollTop / rowHeight) * rowLen;
-    const rows = Math.floor(offsetHeight / rowHeight) + 2;
-    const end = Math.min(count, offset + rows * rowLen);
+      const offsetHeight = this.viewport.offsetHeight;
+      const scrollTop = Math.max(0, this.viewport.scrollTop - this.container.offsetTop);
 
-    this.setState({
-      containerHeight: rowHeight * count / rowLen,
-      itemsTop: scrollTop + -(scrollTop % rowHeight),
-      offset,
-      end,
+      const offset = Math.floor(scrollTop / rowHeight) * rowLen;
+      const rows = Math.floor(offsetHeight / rowHeight) + 2;
+      const end = Math.min(count, offset + rows * rowLen);
+
+      return {
+        itemsTop: scrollTop + -(scrollTop % rowHeight),
+        offset,
+        end,
+      };
     });
   }
 
-  calculateLines() {
+  calculateHeight() {
     const children = this.itemsNode.children;
     const len = children.length;
 
@@ -110,8 +93,13 @@ class BlockScroll extends PureComponent {
       const a = children[i];
       const b = children[i - 1];
       if (a.offsetTop > b.offsetTop) {
-        this.rowHeight = a.offsetTop - b.offsetTop;
-        this.rowLen = i;
+        const rowLen = i;
+        const rowHeight = a.offsetTop - b.offsetTop;
+        this.setState({
+            rowHeight,
+            rowLen,
+            containerHeight: rowHeight * this.props.count / rowLen,
+        });
         break;
       }
     }
@@ -142,6 +130,29 @@ class BlockScroll extends PureComponent {
         />
       </div>
     </div>;
+  }
+}
+
+class BlockScrollItems extends PureComponent {
+  renderItem(items, index) {
+    const item = items.get(index);
+    if (item) {
+      return this.props.onDraw(item);
+    }
+    this.props.onMissing(index);
+    return <div className="Playlist"/>;
+  }
+
+  render() {
+    console.log('Rendering children', this.props);
+    const {items, offset, end} = this.props;
+
+    const children = [];
+    for (let index = offset; index < end; ++index) {
+      children.push(<div className="item" key={index}>{this.renderItem(items, index)}</div>);
+    }
+
+    return children;
   }
 }
 
