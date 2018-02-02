@@ -44,11 +44,11 @@ class BlockScroll extends PureComponent {
 
   waitForViewport = () => {
     if (this.context.viewport) {
+      clearInterval(this.viewportTimer);
+
       this.viewport = this.context.viewport;
       this.viewport.addEventListener('scroll', this.onScroll);
       window.addEventListener('resize', this.onResize);
-
-      clearInterval(this.viewportTimer);
 
       this.calculateHeight();
       this.calculateOffset();
