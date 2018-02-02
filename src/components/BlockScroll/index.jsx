@@ -42,6 +42,9 @@ class BlockScroll extends PureComponent {
   constructor(props, context) {
     super(props, context);
 
+    this.rowLen = 10;
+    this.rowHeight = 100;
+
     this.state = {
       containerHeight: 200,
       itemsTop: 0,
@@ -81,8 +84,8 @@ class BlockScroll extends PureComponent {
 
   calculateState(viewport, container) {
     const {count} = this.props;
-    const {rowLen, rowHeight} = this.calculateLines();
-    console.log(rowLen, rowHeight);
+    this.calculateLines();
+    const {rowLen, rowHeight} = this;
 
     const offsetHeight = viewport.offsetHeight;
     const scrollTop = Math.max(0, viewport.scrollTop - container.offsetTop);
@@ -107,17 +110,11 @@ class BlockScroll extends PureComponent {
       const a = children[i];
       const b = children[i - 1];
       if (a.offsetTop > b.offsetTop) {
-        return {
-          rowHeight: a.offsetTop - b.offsetTop,
-          rowLen: i,
-        };
+        this.rowHeight = a.offsetTop - b.offsetTop;
+        this.rowLen = i;
+        break;
       }
     }
-
-    return {
-      rowHeight: 100,
-      rowLen: 1,
-    };
   }
 
   render() {
