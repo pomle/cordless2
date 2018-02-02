@@ -1,11 +1,17 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import ViewportDetector from 'components/ViewportDetector';
+import BlockScroll from 'components/BlockScroll';
 import {addItems, setTotal} from 'store/store/stash';
 
 const PAGE_LEN = 50;
 
 class Yxa extends Component {
+  constructor(props) {
+    super(props);
+
+    this.touched = new Set();
+  }
+
   componentDidMount() {
     this.onProps(this.props);
   }
@@ -23,7 +29,11 @@ class Yxa extends Component {
   async fetch(offset = 0) {
     const {namespace, fetcher, setTotal, addItems} = this.props;
 
-    console.log(`Fetching offset ${offset}`);
+    for (let index = offset; index < offset + PAGE_LEN; index++) {
+      this.touched.add(index);
+    }
+
+    console.log('Fetching', namespace)
     const response = await fetcher(offset, PAGE_LEN);
 
     console.log('Response total', response.total);
@@ -33,23 +43,28 @@ class Yxa extends Component {
   }
 
   onMissing = (missing) => {
-    const first = missing[0];
-    const last = missing[missing.length - 1];
+    clearTimeout(this.timer);
 
-    let offset = first - (first % PAGE_LEN);
-    const offsets = [];
-    while (offset < last) {
-      offsets.push(offset);
-      offset += PAGE_LEN;
+    console.log('Testing', missing);
+    if (this.touched.has(missing)) {
+      console.log('Ignoring', missing);
+      return;
     }
 
-    offsets.forEach(offset => this.fetch(offset));
+    console.log('Missing', missing);
+    const first = missing;
+
+    let offset = first - (first % PAGE_LEN);
+
+    this.timer = setTimeout(() => {
+        this.fetch(offset);
+    }, 100);
   }
 
   render() {
     const {render, stash} = this.props;
 
-    return <ViewportDetector
+    return <BlockScroll
       count={stash.total || 0}
       items={stash.items}
       onMissing={this.onMissing}
