@@ -4,6 +4,29 @@ import { Iterable } from 'immutable';
 
 const VIEWPORT_WAIT_INTERVAL = 10;
 
+class BlockScrollItems extends PureComponent {
+  renderItem(items, index) {
+    const item = items.get(index);
+    if (item) {
+      return this.props.onDraw(item);
+    }
+    this.props.onMissing(index);
+    return <div className="Playlist"/>;
+  }
+
+  render() {
+    console.log('Rendering children', this.props);
+    const {items, offset, end} = this.props;
+
+    const children = [];
+    for (let index = offset; index < end; ++index) {
+      children.push(<div className="item" key={index}>{this.renderItem(items, index)}</div>);
+    }
+
+    return children;
+  }
+}
+
 class BlockScroll extends PureComponent {
   static propTypes = {
     count: PropTypes.number.isRequired,
@@ -20,9 +43,10 @@ class BlockScroll extends PureComponent {
     super(props, context);
 
     this.state = {
-      scrollTop: 0,
-      offsetHeight: 500,
-      offsetTop: 0,
+      containerHeight: 200,
+      itemsTop: 0,
+      offset: 0,
+      end: 0,
     };
   }
 
@@ -37,68 +61,59 @@ class BlockScroll extends PureComponent {
       //window.addEventListener('resize', this.onScroll);
 
       clearInterval(this.viewportTimer);
+
+      this.calculateState(this.viewport, this.container);
     }
   };
 
   onScroll = event => {
-    this.setState(prevState => ({
-      scrollTop: event.target.scrollTop,
-      offsetHeight: event.target.offsetHeight,
-      offsetTop: this.container.offsetTop,
-    }));
-  };
-
-  componentDidMount() {
-    /*window.addEventListener('mousewheel', event => {
-      console.log(event);
-      this.setState(prevState => ({
-        scroll: Math.max(0, prevState.scroll + (event.deltaY > 0 ? 100 : - 100)),
-      }));
-    });*/
+    this.calculateState(this.viewport, this.container);
   }
 
-  render() {
-    const {count, items, onDraw, onMissing} = this.props;
-    const { scrollTop, offsetHeight, offsetTop } = this.state;
-
-    // Actual start of scrollable element.
-    const realScrollTop = Math.max(0, scrollTop - offsetTop);
+  calculateState(viewport, container) {
+    const {count} = this.props;
 
     const rowLen = 4;
     const rowHeight = 112;
-    const offset = Math.floor(realScrollTop / rowHeight) * rowLen;
-    const rows = (offsetHeight / rowHeight) + 2;
-    const limit = rows * rowLen;
 
-    //console.log(realScrollTop, offset);
+    const offsetHeight = viewport.offsetHeight;
+    const scrollTop = Math.max(0, viewport.scrollTop - container.offsetTop);
 
-    function renderItem(items, index) {
-      const item = items.get(index);
-      if (item) {
-        return onDraw(item);
-      }
-      onMissing(index);
-      return <div className="Playlist"/>;
-    }
+    const offset = Math.floor(scrollTop / rowHeight) * rowLen;
+    const rows = Math.floor(offsetHeight / rowHeight) + 2;
+    const end = Math.min(count, offset + rows * rowLen);
 
-    const children = [];
-    for (let index = offset, end = Math.min(count, offset + limit); index < end; index++) {
-      children.push(<div className="item" key={index}>{renderItem(items, index)}</div>);
-    }
+    this.setState({
+      containerHeight: rowHeight * count / rowLen,
+      itemsTop: scrollTop + -(scrollTop % rowHeight),
+      offset,
+      end,
+    });
+  };
+
+  render() {
+    const { items, onDraw, onMissing } = this.props;
+    const { containerHeight, itemsTop, offset, end } = this.state;
 
     const containerStyle = {
-      height: `${rowHeight * count / rowLen}px`,
+      height: `${containerHeight}px`,
       position: 'relative',
     };
 
     const itemsStyle = {
       position: 'absolute',
-      top: `${realScrollTop + -(realScrollTop % rowHeight)}px`,
+      top: `${itemsTop}px`,
     };
 
     return <div className="container" style={containerStyle} ref={node => this.container = node}>
       <div className="items" style={itemsStyle}>
-        {children}
+        <BlockScrollItems
+          items={items}
+          offset={offset}
+          end={end}
+          onDraw={onDraw}
+          onMissing={onMissing}
+        />
       </div>
     </div>;
   }
