@@ -65,17 +65,13 @@ class BlockScroll extends PureComponent {
   }
 
   calculateOffset() {
-    const {count} = this.props;
-
     this.setState(({rowLen, rowHeight}) => {
-      console.log('Len', rowLen, 'height', rowHeight);
-
       const offsetHeight = this.viewport.offsetHeight;
       const scrollTop = Math.max(0, this.viewport.scrollTop - this.container.offsetTop);
 
       const offset = Math.floor(scrollTop / rowHeight) * rowLen;
       const rows = Math.floor(offsetHeight / rowHeight) + 2;
-      const end = Math.min(count, offset + rows * rowLen);
+      const end = Math.min(this.props.count, offset + rows * rowLen);
 
       return {
         itemsTop: scrollTop + -(scrollTop % rowHeight),
