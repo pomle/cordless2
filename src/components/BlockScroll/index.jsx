@@ -20,7 +20,7 @@ class BlockScroll extends PureComponent {
     super(props, context);
 
     this.state = {
-      scroll: 0,
+      scrollTop: 0,
       offsetHeight: 500,
     };
   }
@@ -43,7 +43,7 @@ class BlockScroll extends PureComponent {
   onScroll = event => {
     console.log(event);
     this.setState(prevState => ({
-      scroll: event.target.scrollTop,
+      scrollTop: event.target.scrollTop,
       offsetHeight: event.target.offsetHeight,
     }));
   };
@@ -59,15 +59,15 @@ class BlockScroll extends PureComponent {
 
   render() {
     const {count, items, onDraw, onMissing} = this.props;
-    const { scroll, offsetHeight } = this.state;
+    const { scrollTop, offsetHeight } = this.state;
 
     const rowLen = 4;
     const rowHeight = 112;
-    const offset = Math.floor(scroll / rowHeight) * rowLen;
+    const offset = Math.floor(scrollTop / rowHeight) * rowLen;
     const rows = (offsetHeight / rowHeight) + 2;
     const limit = rows * rowLen;
 
-    console.log(scroll, offset);
+    console.log(scrollTop, offset);
 
     function renderItem(items, index) {
       const item = items.get(index);
