@@ -79,7 +79,7 @@ class BlockScroll extends PureComponent {
     }
 
     const children = [];
-    for (let index = offset, end = offset + limit; index < end; index++) {
+    for (let index = offset, end = Math.min(count, offset + limit); index < end; index++) {
       children.push(<div className="item" key={index}>{renderItem(items, index)}</div>);
     }
 
