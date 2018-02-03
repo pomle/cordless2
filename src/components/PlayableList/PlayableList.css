@@ -9,15 +9,15 @@
     perspective: 200px;
 }
 
-.PlayableList .item > * {
+.PlayableList .item > div {
     background: rgba(0, 0, 0, .7);
     box-shadow: 0 1em 2em -.5em #000;
-    transform: rotateY(6deg) rotateX(2deg) translateZ(-30px);
+    transform: translateZ(-30px);
     transform-origin: 50px 50px;
     transition: all 0.2s ease;
 }
 
-.PlayableList .item > *:hover {
+.PlayableList .item > div:hover {
     transform: none;
 }
 

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Iterable } from 'immutable';
 
 const VIEWPORT_WAIT_INTERVAL = 10;
-const BUFFER_SIZE = 4;
+const BUFFER_SIZE = 1;
 
 class BlockScroll extends PureComponent {
   static propTypes = {
@@ -72,7 +72,7 @@ class BlockScroll extends PureComponent {
 
       const chunkHeight = rowHeight * BUFFER_SIZE;
       const offset = Math.floor(scrollTop / chunkHeight) * rowLen * BUFFER_SIZE;
-      const rows = Math.floor(offsetHeight / rowHeight) + BUFFER_SIZE;
+      const rows = Math.floor(offsetHeight / rowHeight) + BUFFER_SIZE + 1;
       const end = Math.min(this.props.count, offset + rows * rowLen);
 
       return {
@@ -134,11 +134,18 @@ class BlockScroll extends PureComponent {
 class BlockScrollItems extends PureComponent {
   renderItem(items, index) {
     const item = items.get(index);
+    const classes = ['item'];
+    let content;
+
     if (item) {
-      return this.props.onDraw(item);
+      classes.push('ready');
+      content = this.props.onDraw(item);
+    } else {
+      classes.push('pending');
+      content = this.props.onMissing(index);
     }
-    this.props.onMissing(index);
-    return <div className="Playlist"/>;
+
+    return <div className={classes.join(' ')} key={index}>{content}</div>;
   }
 
   render() {
@@ -147,7 +154,7 @@ class BlockScrollItems extends PureComponent {
 
     const children = [];
     for (let index = offset; index < end; ++index) {
-      children.push(<div className="item" key={index}>{this.renderItem(items, index)}</div>);
+      children.push(this.renderItem(items, index));
     }
 
     return children;
