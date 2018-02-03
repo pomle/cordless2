@@ -1,5 +1,6 @@
 import { OrderedSet } from 'immutable';
 import { createIndex, createFetcher } from '../../object-index';
+import { reserveItems, addItems, setTotal } from '../stash';
 
 const { reducer, updateResult, mergeEntry, mergeEntries, setResult } = createIndex('playlist');
 
@@ -26,7 +27,25 @@ export function fetchPlaylist(userId, playlistId) {
   };
 }
 
-export const fetchUserPlaylists = createFetcher(userId => {
+export function fetchUserPlaylists(userId, offset, limit) {
+  return (dispatch, getState) => {
+
+    const {session, stash} = getState();
+    if (stash.get(userId).items.get(offset)) {
+      return;
+    }
+
+    dispatch(reserveItems(userId, offset, limit));
+
+    session.playlistAPI.getPlaylists(userId, {offset, limit})
+    .then(response => {
+      dispatch(setTotal(userId, response.total));
+      dispatch(addItems(userId, offset, response.items));
+    });
+  }
+}
+
+export const fetchUserPlaylists_ = createFetcher(userId => {
   let list = new OrderedSet();
 
   return {
