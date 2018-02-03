@@ -2,7 +2,6 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Iterable } from 'immutable';
 
-const VIEWPORT_WAIT_INTERVAL = 10;
 const BUFFER_SIZE = 1;
 
 class BlockScroll extends PureComponent {
@@ -21,6 +20,7 @@ class BlockScroll extends PureComponent {
     super(props, context);
 
     this.state = {
+      resultSize: props.count,
       rowLen: 10,
       rowHeight: 100,
       containerHeight: 200,
@@ -30,8 +30,19 @@ class BlockScroll extends PureComponent {
     };
   }
 
-  componentWillMount() {
-    this.viewportTimer = setInterval(this.waitForViewport, VIEWPORT_WAIT_INTERVAL);
+  componentDidMount() {
+    this.viewport = this.context.viewport;
+    this.viewport.addEventListener('scroll', this.onScroll);
+    window.addEventListener('resize', this.onResize);
+    this.onResize();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.count !== this.props.count) {
+      this.setState({
+        resultSize: nextProps.count,
+      }, () => this.calculateOffset());
+    }
   }
 
   componentWillUnmount() {
@@ -43,19 +54,6 @@ class BlockScroll extends PureComponent {
     this.calculateHeight();
   }
 
-  waitForViewport = () => {
-    if (this.context.viewport) {
-      clearInterval(this.viewportTimer);
-
-      this.viewport = this.context.viewport;
-      this.viewport.addEventListener('scroll', this.onScroll);
-      window.addEventListener('resize', this.onResize);
-
-      this.calculateHeight();
-      this.calculateOffset();
-    }
-  };
-
   onResize = () => {
     this.calculateHeight();
     this.calculateOffset();
@@ -66,14 +64,14 @@ class BlockScroll extends PureComponent {
   }
 
   calculateOffset() {
-    this.setState(({rowLen, rowHeight}) => {
+    this.setState(({resultSize, rowLen, rowHeight}) => {
       const offsetHeight = this.viewport.offsetHeight;
       const scrollTop = Math.max(0, this.viewport.scrollTop - this.container.offsetTop);
 
       const chunkHeight = rowHeight * BUFFER_SIZE;
       const offset = Math.floor(scrollTop / chunkHeight) * rowLen * BUFFER_SIZE;
       const rows = Math.floor(offsetHeight / rowHeight) + BUFFER_SIZE + 1;
-      const end = Math.max(10, Math.min(this.props.count, offset + rows * rowLen));
+      const end = Math.max(10, Math.min(resultSize, offset + rows * rowLen));
 
       return {
         itemsTop: scrollTop + -(scrollTop % chunkHeight),
@@ -98,7 +96,7 @@ class BlockScroll extends PureComponent {
             rowLen,
             containerHeight: rowHeight * this.props.count / rowLen,
         });
-        break;
+        return;
       }
     }
   }
