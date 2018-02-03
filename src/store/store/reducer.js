@@ -9,6 +9,7 @@ import { reducer as search } from './search';
 import { reducer as session } from './session';
 import { reducer as track } from './track';
 import { reducer as user } from './user';
+import { reducer as userPlaylists } from './userPlaylists';
 import { reducer as stash } from './stash';
 
 export const reducer = combineReducers({
@@ -22,4 +23,5 @@ export const reducer = combineReducers({
   stash,
   track,
   user,
+  userPlaylists,
 });

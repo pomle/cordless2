@@ -10,8 +10,8 @@ const Collection = Record({
   items: new List(),
 });
 
-const DEFAULT_COLLECTION = new Collection();
-const EMPTY = new Container();
+const EMTPY_COLLECTION = new Collection();
+const EMPTY_CONTAINER = new Container();
 
 class State {
   constructor(data = new Map()) {
@@ -19,7 +19,7 @@ class State {
   }
 
   get(key) {
-    return this.data.get(key, DEFAULT_COLLECTION);
+    return this.data.get(key, EMTPY_COLLECTION);
   }
 
   set(key, value) {
@@ -84,7 +84,7 @@ export function reducer(state = new State(), action = {}) {
           const start = action.offset;
           const end = start + action.limit;
           for (let position = start; position < end; position++) {
-            items.set(position, EMPTY);
+            items.set(position, EMPTY_CONTAINER);
           };
           return items;
         }));
