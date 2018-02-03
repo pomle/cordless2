@@ -1,35 +1,47 @@
 import { Record } from 'immutable';
 import { AlbumAPI, ArtistAPI, PlaybackAPI, PlaylistAPI, SearchAPI, TrackAPI } from '@pomle/spotify-web-sdk';
 
-const State = Record({
+const SessionRecord = Record({
   deviceId: null,
+  api: {
+    album: new AlbumAPI(),
+    artist: new ArtistAPI(),
+    playback: new PlaybackAPI(),
+    playlist: new PlaylistAPI(),
+    search: new SearchAPI(),
+    track: new TrackAPI(),
+  },
   token: null,
 });
 
-export class Session extends State {
+export class SessionState extends SessionRecord {
   get albumAPI() {
-    return new AlbumAPI(this.token);
+    return this.prepareAPI(this.api.album);
   }
 
   get artistAPI() {
-    return new ArtistAPI(this.token);
+    return this.prepareAPI(this.api.artist);
   }
 
   get playbackAPI() {
-    const api = new PlaybackAPI(this.token);
-    api.setDevice(this.deviceId);
-    return api;
+    this.api.playback.setDevice(this.deviceId);
+    return this.prepareAPI(this.api.playback);
   }
 
   get playlistAPI() {
-    return new PlaylistAPI(this.token);
+    return this.prepareAPI(this.api.playlist);
   }
 
   get searchAPI() {
-    return new SearchAPI(this.token);
+    return this.prepareAPI(this.api.search);
   }
 
   get trackAPI() {
-    return new TrackAPI(this.token);
+    return this.prepareAPI(this.api.track);
+  }
+
+  prepareAPI(api) {
+    api.token = this.token;
+    return api;
   }
 }
