@@ -1,8 +1,38 @@
+import { Component, createElement } from 'react';
 import {fromJS} from 'immutable';
 import {StashState, EMPTY_CONTAINER} from './model';
 
 function update(state, key, updater) {
   return state.set(key, updater(state.get(key)));
+}
+
+export class MountPoint extends Component {
+  fetcher = (offset, limit) => {
+    const {namespace, collection} = this.props;
+    if (collection.items.get(offset)) {
+      return;
+    }
+
+    this.props.reserveItems(namespace, offset, limit);
+
+    this.props.fetch(this.props, offset, limit)
+    .then(response => {
+      this.props.setTotal(namespace, response.total);
+      this.props.addItems(namespace, offset, response.items);
+    });
+  }
+
+  render() {
+    const {render, component, collection} = this.props;
+    const out = {
+      collection,
+      fetcher: this.fetcher,
+    };
+
+    return render
+      ? render(out)
+      : createElement(component, out);
+  }
 }
 
 export function createStash(name) {
