@@ -35,8 +35,6 @@ export const Playlist = connect(null, {playContext})(class Playlist extends Pure
           </Link>
         </div>
 
-        <div className="trackCount">{playlist.getIn(['tracks', 'total'])}</div>
-
         <div className="owner">
           <Link to={`/user/${owner.get('id')}`}>{owner.get('display_name')}</Link>
         </div>

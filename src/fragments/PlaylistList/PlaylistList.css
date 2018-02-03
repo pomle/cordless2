@@ -36,5 +36,6 @@
 }
 
 .PlaylistList .Playlist .owner {
+    grid-row: 3 / 4;
     align-self: end;
 }
