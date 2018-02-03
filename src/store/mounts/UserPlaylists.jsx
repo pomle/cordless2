@@ -1,40 +1,20 @@
-import { Component } from 'react';
 import { connect } from 'react-redux';
+import { MountPoint } from 'store/reducerFactories/stash';
 
 import {reserveItems, setTotal, addItems} from 'store/store/userPlaylists';
 
-class UserPlaylistsMount extends Component {
-  fetch(userId) {
-    return (offset, limit) => {
-      const {playlistAPI, collection} = this.props;
-      if (collection.items.get(offset)) {
-        return;
-      }
-
-      this.props.reserveItems(userId, offset, limit);
-
-      playlistAPI.getPlaylists(userId, {offset, limit})
-      .then(response => {
-        this.props.setTotal(userId, response.total);
-        this.props.addItems(userId, offset, response.items);
-      });
-    }
-  }
-
-  render() {
-    return this.props.render({
-      collection: this.props.collection,
-      fetcher: this.fetch(this.props.userId),
-    });
-  }
+function fetch({api, userId}, offset, limit) {
+  return api.getPlaylists(userId, {offset, limit});
 }
 
 export default connect(
-  (state, props) => ({
-    collection: state.userPlaylists.get(props.userId),
-    playlistAPI: state.session.playlistAPI,
+  (state, {userId}) => ({
+    namespace: userId,
+    collection: state.userPlaylists.get(userId),
+    api: state.session.playlistAPI,
+    fetch,
   }),
   {
     reserveItems, setTotal, addItems
   }
-)(UserPlaylistsMount);
+)(MountPoint);

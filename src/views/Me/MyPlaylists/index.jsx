@@ -1,26 +1,15 @@
 import React, { Component } from 'react';
 import MyPlaylistsMount from 'store/mounts/MyPlaylists';
-import { PlaylistList } from 'fragments/PlaylistList';
-import { Playlist } from 'fragments/Playlist';
-
-import Yxa from 'components/Yxa';
+import PlaylistCollection from 'fragments/PlaylistCollection';
+import { ViewHeader } from 'components/ViewHeader';
 
 class MyPlaylistsView extends Component {
   render() {
-    return <MyPlaylistsMount render={({collection, fetcher}) => (
-        <PlaylistList>
-          <Yxa
-            collection={collection}
-            fetcher={fetcher}
-            placeholder={<div className="playlist-container"><Playlist /></div>}
-            render={playlist => {
-              return <div className="playlist-container">
-                <Playlist playlist={playlist} />
-              </div>
-            }}
-          />
-        </PlaylistList>
-    )}/>;
+    return <div className="MyPlaylistsView">
+      <ViewHeader caption="Your Playlists"/>
+
+      <MyPlaylistsMount component={PlaylistCollection} />
+    </div>
   }
 }
 
