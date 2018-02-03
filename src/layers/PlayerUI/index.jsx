@@ -9,39 +9,32 @@ import './PlayerUI.css';
 
 class Viewport extends Component {
   static childContextTypes = {
-    scroll: PropTypes.object,
     viewport: PropTypes.object,
   };
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      mounted: false,
+    };
+  }
+
   componentDidMount() {
-    this.viewport.addEventListener('scroll', this.onScroll);
-    window.addEventListener('resize', this.onResize);
-  }
-
-  componentWillUnmount() {
-    this.viewport.removeEventListener('scroll', this.onScroll);
-    window.removeEventListener('resize', this.onResize);
-  }
-
-  onResize = (event) => {
-    console.log('Resize', event);
-  }
-
-  onScroll = (event) => {
-    //console.log('Scroll', event);
-    this.scroll = event;
+    this.setState({
+      mounted: true,
+    });
   }
 
   getChildContext() {
     return {
-      scroll: this.scroll,
       viewport: this.viewport,
     };
   }
 
   render() {
     return <div className="viewport" ref={node => this.viewport = node}>
-      {this.props.children}
+      {this.state.mounted ? this.props.children : null}
     </div>;
   }
 }
