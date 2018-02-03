@@ -1,3 +1,7 @@
+.PlayableList a {
+    color: #fff;
+}
+
 .PlayableList .items {
     display: flex;
     flex-flow: wrap;
@@ -10,15 +14,17 @@
 }
 
 .PlayableList .item > div {
-    background: rgba(0, 0, 0, .7);
+    background: rgba(0, 0, 0, 0.7);
     box-shadow: 0 1em 2em -.5em #000;
     transform: translateZ(-30px);
     transform-origin: 50px 50px;
     transition: all 0.2s ease;
+    z-index: 1;
 }
 
-.PlayableList .item > div:hover {
-    transform: none;
+.PlayableList .item:hover > div {
+    transform: translateY(-2em);
+    z-index: 2;
 }
 
 .PlayableList .playback {
