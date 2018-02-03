@@ -7,11 +7,19 @@ import SearchView from 'views/Search';
 import UserPlaylistsView from 'views/User/Playlists';
 
 export function AlbumRoute({match}) {
-  return <AlbumView albumId={match.params.albumId}/>
+  const {albumId} = match.params;
+  return <AlbumView
+    key={albumId}
+    albumId={albumId}
+  />;
 }
 
 export function ArtistRoute({match}) {
-  return <ArtistView artistId={match.params.artistId}/>
+  const {artistId} = match.params;
+  return <ArtistView
+    key={artistId}
+    artistId={artistId}
+  />
 }
 
 export function PlaylistRoute({match}) {
