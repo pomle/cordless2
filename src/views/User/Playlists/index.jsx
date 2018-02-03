@@ -22,8 +22,11 @@ class UserPlaylistsView extends Component {
         <Yxa
           namespace={key}
           fetcher={this.fetch(userId)}
+          placeholder={<div className="playlist-container"><Playlist /></div>}
           render={playlist => {
-            return <Playlist playlist={playlist} />
+            return <div className="playlist-container">
+              <Playlist playlist={playlist} />
+            </div>
           }}
         />
       </PlaylistList>

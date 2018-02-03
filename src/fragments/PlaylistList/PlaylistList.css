@@ -4,6 +4,14 @@
     margin: 0.5em -0.5em;
 }
 
+.PlaylistList .item .Playlist {
+    transition: opacity 1s;
+}
+
+.PlaylistList .item.pending .Playlist {
+    opacity: 0;
+}
+
 .PlaylistList .Playlist {
     display: grid;
     grid: repeat(3, 1fr) / 7em 10em;

@@ -51,7 +51,6 @@ export function reducer(state = new State(), action = {}) {
       return update(state, action.key, stash => stash.set('total', action.total));
 
     case ADD_ITEMS:
-      console.log(action.key, action.items[0]);
       return update(state, action.key, stash => {
         return stash.set('items', stash.items.withMutations(items => {
           action.items.forEach((item, index) => {
