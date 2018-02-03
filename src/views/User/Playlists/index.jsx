@@ -6,21 +6,24 @@ import { Playlist } from 'fragments/Playlist';
 
 import Yxa from 'components/Yxa';
 
+import {fetchUserPlaylists} from 'store/store/playlist';
+
 class UserPlaylistsView extends Component {
   fetch(userId) {
     return (offset, limit) => {
-      return this.props.playlistAPI.getPlaylists(userId, {offset, limit});
+      const {fetchUserPlaylists} = this.props;
+      fetchUserPlaylists(userId, offset, limit);
     }
   }
 
   render() {
-    const {userId} = this.props;
-    const key = `playlists-${userId}`;
+    const {userId, collection} = this.props;
+    console.log(collection);
 
     return (
       <PlaylistList>
         <Yxa
-          namespace={key}
+          collection={collection}
           fetcher={this.fetch(userId)}
           placeholder={<div className="playlist-container"><Playlist /></div>}
           render={playlist => {
@@ -35,5 +38,9 @@ class UserPlaylistsView extends Component {
 }
 
 export default connect(
-  (state) => ({playlistAPI: state.session.playlistAPI})
+  (state, props) => ({
+    collection: state.stash.get(props.userId),
+    playlistAPI: state.session.playlistAPI
+  }),
+  {fetchUserPlaylists}
 )(UserPlaylistsView);

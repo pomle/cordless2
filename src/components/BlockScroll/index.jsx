@@ -73,7 +73,7 @@ class BlockScroll extends PureComponent {
       const chunkHeight = rowHeight * BUFFER_SIZE;
       const offset = Math.floor(scrollTop / chunkHeight) * rowLen * BUFFER_SIZE;
       const rows = Math.floor(offsetHeight / rowHeight) + BUFFER_SIZE + 1;
-      const end = Math.min(this.props.count, offset + rows * rowLen);
+      const end = Math.max(10, Math.min(this.props.count, offset + rows * rowLen));
 
       return {
         itemsTop: scrollTop + -(scrollTop % chunkHeight),
@@ -137,9 +137,9 @@ class BlockScrollItems extends PureComponent {
     const classes = ['item'];
     let content;
 
-    if (item) {
+    if (item && item.ready) {
       classes.push('ready');
-      content = this.props.onDraw(item);
+      content = this.props.onDraw(item.content);
     } else {
       classes.push('pending');
       content = this.props.onMissing(index);
@@ -149,7 +149,6 @@ class BlockScrollItems extends PureComponent {
   }
 
   render() {
-    console.log('Rendering children', this.props);
     const {items, offset, end} = this.props;
 
     const children = [];
