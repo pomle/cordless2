@@ -35,24 +35,26 @@ class Yxa extends Component {
 
     const response = await fetcher(offset, PAGE_LEN);
 
-    setTotal(namespace, response.total);
-    addItems(namespace, offset, response.items);
+    if (!response.error) {
+      setTotal(namespace, response.total);
+      addItems(namespace, offset, response.items);
+    }
   }
 
   onMissing = (missing) => {
     clearTimeout(this.timer);
 
-    if (this.touched.has(missing)) {
-      return;
+    if (!this.touched.has(missing)) {
+      const first = missing;
+
+      let offset = first - (first % PAGE_LEN);
+
+      this.timer = setTimeout(() => {
+          this.fetch(offset);
+      }, 100);
     }
 
-    const first = missing;
-
-    let offset = first - (first % PAGE_LEN);
-
-    this.timer = setTimeout(() => {
-        this.fetch(offset);
-    }, 100);
+    return this.props.placeholder;
   }
 
   render() {
