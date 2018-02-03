@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Iterable } from 'immutable';
 
 const VIEWPORT_WAIT_INTERVAL = 10;
+const BUFFER_SIZE = 4;
 
 class BlockScroll extends PureComponent {
   static propTypes = {
@@ -69,12 +70,13 @@ class BlockScroll extends PureComponent {
       const offsetHeight = this.viewport.offsetHeight;
       const scrollTop = Math.max(0, this.viewport.scrollTop - this.container.offsetTop);
 
-      const offset = Math.floor(scrollTop / rowHeight) * rowLen;
-      const rows = Math.floor(offsetHeight / rowHeight) + 2;
+      const chunkHeight = rowHeight * BUFFER_SIZE;
+      const offset = Math.floor(scrollTop / chunkHeight) * rowLen * BUFFER_SIZE;
+      const rows = Math.floor(offsetHeight / rowHeight) + BUFFER_SIZE;
       const end = Math.min(this.props.count, offset + rows * rowLen);
 
       return {
-        itemsTop: scrollTop + -(scrollTop % rowHeight),
+        itemsTop: scrollTop + -(scrollTop % chunkHeight),
         offset,
         end,
       };
