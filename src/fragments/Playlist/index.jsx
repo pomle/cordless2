@@ -26,10 +26,7 @@ export const Playlist = connect(null, {playContext})(class Playlist extends Pure
         </div>
 
         <div className="name">
-          <Link
-            to={`/user/${owner.get('id')}/playlist/${playlist.get('id')}`}
-            className="name"
-          >
+          <Link to={`/user/${owner.get('id')}/playlist/${playlist.get('id')}`}>
             {playlist.get('name')}
           </Link>
         </div>
