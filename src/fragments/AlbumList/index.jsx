@@ -12,13 +12,15 @@ export class AlbumList extends Component {
     return (
       <div className="AlbumList">
         <PlayableList>
-          {albums.map(album => {
-            return (
-              <div key={album.get('id')} className="item">
-                <Album album={album} />
-              </div>
-            );
-          })}
+          <div className="items">
+            {albums.map(album => {
+              return (
+                <div key={album.get('id')} className="item">
+                  <Album album={album} />
+                </div>
+              );
+            })}
+          </div>
         </PlayableList>
       </div>
     );
