@@ -14,7 +14,7 @@
 
 .PlaylistList .Playlist {
     display: grid;
-    grid: 20em 1em 1em / 20em;
+    grid: 20em auto auto / 20em;
     grid-row-gap: 0.5em;
     height: 20em;
     width: 20em;
