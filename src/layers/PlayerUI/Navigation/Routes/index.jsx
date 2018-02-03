@@ -36,7 +36,9 @@ export class SearchRoute extends PureComponent {
 }
 
 export function UserPlaylistsRoute({match}) {
+  const {userId} = match.params;
   return <UserPlaylistsView
-    userId={match.params.userId}
+    key={userId}
+    userId={userId}
   />;
 }
