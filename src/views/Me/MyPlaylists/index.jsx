@@ -1,59 +1,27 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Record, List } from 'immutable';
-
+import MyPlaylistsMount from 'store/mounts/MyPlaylists';
 import { PlaylistList } from 'fragments/PlaylistList';
-//import { PlaylistIndex } from 'fragments/PlaylistIndex';
+import { Playlist } from 'fragments/Playlist';
 
-const ItemSet = Record({
-  total: null,
-  items: new List(),
-});
-
+import Yxa from 'components/Yxa';
 
 class MyPlaylistsView extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      playlistSet: new ItemSet(),
-    };
-  }
-
-  componentWillMount() {
-    this.onUpdate(this.props);
-  }
-
-  async onUpdate({ playlistAPI }) {
-    const responses = await Promise.all([
-      playlistAPI.getMyPlaylists({limit: 50, offset: 0}),
-      playlistAPI.getMyPlaylists({limit: 50, offset: 50}),
-    ]);
-
-    const items = [].concat(responses[0].items, responses[1].items);
-
-    this.setState(({playlistSet}) => {
-      return {
-        playlistSet: playlistSet
-          .set('total', items.length)
-          .set('items', playlistSet.items.merge(items)),
-      };
-    });
-  }
-
   render() {
-    return (
-      <PlaylistList
-        playlists={this.state.playlistSet}
-      />
-    );
+    return <MyPlaylistsMount render={({collection, fetcher}) => (
+        <PlaylistList>
+          <Yxa
+            collection={collection}
+            fetcher={fetcher}
+            placeholder={<div className="playlist-container"><Playlist /></div>}
+            render={playlist => {
+              return <div className="playlist-container">
+                <Playlist playlist={playlist} />
+              </div>
+            }}
+          />
+        </PlaylistList>
+    )}/>;
   }
 }
 
-export default connect(
-  (state, props) => {
-    return {
-      playlistAPI: state.session.playlistAPI,
-    };
-  }
-)(MyPlaylistsView);
+export default MyPlaylistsView;
