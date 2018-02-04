@@ -33,7 +33,7 @@ class VirtualWindow extends PureComponent {
     this.viewport = this.context.viewport;
     this.viewport.addEventListener('scroll', this.onScroll);
     window.addEventListener('resize', this.onResize);
-    this.onResize();
+    this.calculate();
   }
 
   componentWillUnmount() {
@@ -46,11 +46,15 @@ class VirtualWindow extends PureComponent {
   }
 
   onResize = () => {
-    this.calculateHeight();
-    this.calculateOffset();
+    this.calculate();
   }
 
   onScroll = () => {
+    this.calculateOffset();
+  }
+
+  calculate() {
+    this.calculateHeight();
     this.calculateOffset();
   }
 
