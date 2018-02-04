@@ -1,8 +1,9 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Iterable } from 'immutable';
+import LazyDraw from './LazyDraw';
 
-const BUFFER_SIZE = 2;
+const BUFFER_SIZE = 3;
 
 class VirtualWindow extends PureComponent {
   static propTypes = {
@@ -10,6 +11,7 @@ class VirtualWindow extends PureComponent {
     items: PropTypes.instanceOf(Iterable).isRequired,
     onDraw: PropTypes.func.isRequired,
     onMissing: PropTypes.func.isRequired,
+    onPlaceholder: PropTypes.func.isRequired,
   };
 
   static contextTypes = {
@@ -108,7 +110,7 @@ class VirtualWindow extends PureComponent {
   }
 
   render() {
-    const { resultSize, items, onDraw, onMissing } = this.props;
+    const { resultSize, items, onDraw, onPlaceholder, onMissing } = this.props;
     const { containerHeight, itemsTop, offset, length } = this.state;
     const last = offset + length;
     const end = isFinite(resultSize) ? Math.min(resultSize, last) : last;
@@ -130,6 +132,7 @@ class VirtualWindow extends PureComponent {
           start={offset}
           end={end}
           onDraw={onDraw}
+          onPlaceholder={onPlaceholder}
           onMissing={onMissing}
         />
       </div>
@@ -145,10 +148,14 @@ class ItemRenderer extends PureComponent {
 
     if (item && item.ready) {
       classes.push('ready');
-      content = this.props.onDraw(item.content);
+      content = <LazyDraw
+        placeholder={this.props.onPlaceholder}
+        render={this.props.onDraw(item.content)}
+      />;
     } else {
       classes.push('pending');
-      content = this.props.onMissing(index);
+      this.props.onMissing(index);
+      content = this.props.onPlaceholder(index);
     }
 
     return <div className={classes.join(' ')} key={index}>{content}</div>;
