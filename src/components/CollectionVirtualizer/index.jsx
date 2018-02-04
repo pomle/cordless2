@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import BlockScroll from 'components/BlockScroll';
+import VirtualWindow from 'components/VirtualWindow';
 
 const PAGE_LEN = 50;
 
-class Yxa extends Component {
+class CollectionVirtualizer extends Component {
   componentDidMount() {
     this.onProps(this.props);
   }
@@ -16,7 +16,7 @@ class Yxa extends Component {
     this.fetch(0);
   }
 
-  async fetch(offset = 0) {
+  fetch(offset = 0) {
     this.props.fetcher(offset, PAGE_LEN);
   }
 
@@ -35,7 +35,7 @@ class Yxa extends Component {
   render() {
     const {render, collection} = this.props;
 
-    return <BlockScroll
+    return <VirtualWindow
       count={collection.total}
       items={collection.items}
       onMissing={this.onMissing}
@@ -44,4 +44,4 @@ class Yxa extends Component {
   }
 }
 
-export default Yxa;
+export default CollectionVirtualizer;
