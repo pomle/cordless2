@@ -32,6 +32,10 @@ class CollectionVirtualizer extends Component {
     return this.props.placeholder;
   }
 
+  onPlaceholder = () => {
+    return this.props.placeholder;
+  }
+
   render() {
     const {render, collection} = this.props;
 
@@ -40,6 +44,7 @@ class CollectionVirtualizer extends Component {
         resultSize={collection.total}
         items={collection.items}
         onMissing={this.onMissing}
+        onPlaceholder={this.onPlaceholder}
         onDraw={render}
       />
       : null;
