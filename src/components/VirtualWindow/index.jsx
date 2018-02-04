@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Iterable } from 'immutable';
 
-const BUFFER_SIZE = 1;
+const BUFFER_SIZE = 2;
 
 class VirtualWindow extends PureComponent {
   static propTypes = {
@@ -19,13 +19,15 @@ class VirtualWindow extends PureComponent {
   constructor(props, context) {
     super(props, context);
 
+    this.needsRecalculate = true;
+
     this.state = {
-      rowLen: 10,
-      rowHeight: 100,
-      containerHeight: 200,
+      rowLen: null,
+      rowHeight: null,
+      containerHeight: 0,
       itemsTop: 0,
       offset: 0,
-      end: 0,
+      length: 2,
     };
   }
 
@@ -42,7 +44,9 @@ class VirtualWindow extends PureComponent {
   }
 
   componentDidUpdate() {
-    this.calculateHeight();
+    if (this.needsRecalculate) {
+      this.calculateHeight();
+    }
   }
 
   onResize = () => {
@@ -60,45 +64,53 @@ class VirtualWindow extends PureComponent {
 
   calculateOffset() {
     this.setState(({rowLen, rowHeight}) => {
-      const offsetHeight = this.viewport.offsetHeight;
-      const scrollTop = Math.max(0, this.viewport.scrollTop - this.container.offsetTop);
+      if (!rowLen) {
+        return;
+      }
 
-      const chunkHeight = rowHeight * BUFFER_SIZE;
-      const offset = Math.floor(scrollTop / chunkHeight) * rowLen * BUFFER_SIZE;
-      const rows = Math.floor(offsetHeight / rowHeight) + BUFFER_SIZE + 1;
-      const last = offset + rows * rowLen;
+      const scrollTop = Math.max(0, this.viewport.scrollTop - this.container.offsetTop);
+      const offset = Math.floor(scrollTop / rowHeight) * rowLen;
 
       return {
-        itemsTop: scrollTop + -(scrollTop % chunkHeight),
+        itemsTop: scrollTop + -(scrollTop % rowHeight),
         offset,
-        last,
       };
     });
   }
 
   calculateHeight() {
     const children = this.itemsNode.children;
-    const len = children.length;
+    const length = children.length;
 
-    for (let i = 1; i < len; ++i) {
+    for (let i = 1; i < length; ++i) {
       const a = children[i];
       const b = children[i - 1];
       if (a.offsetTop > b.offsetTop) {
         const rowLen = i;
         const rowHeight = a.offsetTop - b.offsetTop;
+        const offsetHeight = this.viewport.offsetHeight;
+        const rowCount = Math.floor(offsetHeight / rowHeight);
+        const length = (rowCount + BUFFER_SIZE) * rowLen;
         this.setState({
             rowHeight,
             rowLen,
+            length,
             containerHeight: rowHeight * this.props.resultSize / rowLen,
         });
+        this.needsRecalculate = false;
         return;
       }
     }
+
+    this.setState({
+      length: length + 3,
+    });
   }
 
   render() {
     const { resultSize, items, onDraw, onMissing } = this.props;
-    const { containerHeight, itemsTop, offset, last } = this.state;
+    const { containerHeight, itemsTop, offset, length } = this.state;
+    const last = offset + length;
     const end = isFinite(resultSize) ? Math.min(resultSize, last) : last;
 
     const containerStyle = {
