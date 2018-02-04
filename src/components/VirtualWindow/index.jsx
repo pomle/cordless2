@@ -4,7 +4,7 @@ import { Iterable } from 'immutable';
 
 const BUFFER_SIZE = 1;
 
-class BlockScroll extends PureComponent {
+class VirtualWindow extends PureComponent {
   static propTypes = {
     count: PropTypes.number.isRequired,
     items: PropTypes.instanceOf(Iterable).isRequired,
@@ -117,7 +117,7 @@ class BlockScroll extends PureComponent {
 
     return <div className="container" style={containerStyle} ref={node => this.container = node}>
       <div className="items" style={itemsStyle} ref={node => this.itemsNode = node}>
-        <BlockScrollItems
+        <ItemRenderer
           items={items}
           offset={offset}
           end={end}
@@ -129,7 +129,7 @@ class BlockScroll extends PureComponent {
   }
 }
 
-class BlockScrollItems extends PureComponent {
+class ItemRenderer extends PureComponent {
   renderItem(items, index) {
     const item = items.get(index);
     const classes = ['item'];
@@ -158,5 +158,5 @@ class BlockScrollItems extends PureComponent {
   }
 }
 
-export default BlockScroll;
+export default VirtualWindow;
 
