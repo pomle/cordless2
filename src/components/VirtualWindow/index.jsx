@@ -6,7 +6,7 @@ const BUFFER_SIZE = 1;
 
 class VirtualWindow extends PureComponent {
   static propTypes = {
-    count: PropTypes.number.isRequired,
+    resultSize: PropTypes.number.isRequired,
     items: PropTypes.instanceOf(Iterable).isRequired,
     onDraw: PropTypes.func.isRequired,
     onMissing: PropTypes.func.isRequired,
@@ -20,7 +20,6 @@ class VirtualWindow extends PureComponent {
     super(props, context);
 
     this.state = {
-      resultSize: props.count,
       rowLen: 10,
       rowHeight: 100,
       containerHeight: 200,
@@ -35,14 +34,6 @@ class VirtualWindow extends PureComponent {
     this.viewport.addEventListener('scroll', this.onScroll);
     window.addEventListener('resize', this.onResize);
     this.onResize();
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.count !== this.props.count) {
-      this.setState({
-        resultSize: nextProps.count,
-      }, () => this.calculateOffset());
-    }
   }
 
   componentWillUnmount() {
@@ -64,19 +55,19 @@ class VirtualWindow extends PureComponent {
   }
 
   calculateOffset() {
-    this.setState(({resultSize, rowLen, rowHeight}) => {
+    this.setState(({rowLen, rowHeight}) => {
       const offsetHeight = this.viewport.offsetHeight;
       const scrollTop = Math.max(0, this.viewport.scrollTop - this.container.offsetTop);
 
       const chunkHeight = rowHeight * BUFFER_SIZE;
       const offset = Math.floor(scrollTop / chunkHeight) * rowLen * BUFFER_SIZE;
       const rows = Math.floor(offsetHeight / rowHeight) + BUFFER_SIZE + 1;
-      const end = Math.max(10, Math.min(resultSize, offset + rows * rowLen));
+      const last = offset + rows * rowLen;
 
       return {
         itemsTop: scrollTop + -(scrollTop % chunkHeight),
         offset,
-        end,
+        last,
       };
     });
   }
@@ -94,7 +85,7 @@ class VirtualWindow extends PureComponent {
         this.setState({
             rowHeight,
             rowLen,
-            containerHeight: rowHeight * this.props.count / rowLen,
+            containerHeight: rowHeight * this.props.resultSize / rowLen,
         });
         return;
       }
@@ -102,8 +93,9 @@ class VirtualWindow extends PureComponent {
   }
 
   render() {
-    const { items, onDraw, onMissing } = this.props;
-    const { containerHeight, itemsTop, offset, end } = this.state;
+    const { resultSize, items, onDraw, onMissing } = this.props;
+    const { containerHeight, itemsTop, offset, last } = this.state;
+    const end = isFinite(resultSize) ? Math.min(resultSize, last) : last;
 
     const containerStyle = {
       height: `${containerHeight}px`,
@@ -119,7 +111,7 @@ class VirtualWindow extends PureComponent {
       <div className="items" style={itemsStyle} ref={node => this.itemsNode = node}>
         <ItemRenderer
           items={items}
-          offset={offset}
+          start={offset}
           end={end}
           onDraw={onDraw}
           onMissing={onMissing}
@@ -147,10 +139,10 @@ class ItemRenderer extends PureComponent {
   }
 
   render() {
-    const {items, offset, end} = this.props;
+    const {items, start, end} = this.props;
 
     const children = [];
-    for (let index = offset; index < end; ++index) {
+    for (let index = start; index < end; ++index) {
       children.push(this.renderItem(items, index));
     }
 

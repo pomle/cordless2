@@ -35,12 +35,14 @@ class CollectionVirtualizer extends Component {
   render() {
     const {render, collection} = this.props;
 
-    return <VirtualWindow
-      count={collection.total}
-      items={collection.items}
-      onMissing={this.onMissing}
-      onDraw={render}
-    />
+    return collection.total !== null
+      ? <VirtualWindow
+        resultSize={collection.total}
+        items={collection.items}
+        onMissing={this.onMissing}
+        onDraw={render}
+      />
+      : null;
   }
 }
 
