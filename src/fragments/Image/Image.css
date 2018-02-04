@@ -1,14 +1,15 @@
 .Image {
     background-color: #222;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: contain;
     opacity: 0;
+    transition: opacity 1s ease;
     height: 10em;
     width: 10em;
 }
 
 .Image.ready {
     opacity: 1;
-    transition: opacity 1s ease;
+}
+
+.Image > img {
+    width: 100%;
 }
