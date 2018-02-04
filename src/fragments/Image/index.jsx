@@ -23,7 +23,6 @@ export class Image extends Component {
 
   insert = () => {
     this.node.appendChild(this.image);
-    this.node.classList.add('ready');
   }
 
   render() {
