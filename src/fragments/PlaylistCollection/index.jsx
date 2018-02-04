@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Yxa from 'components/Yxa';
+import CollectionVirtualizer from 'components/CollectionVirtualizer';
 import { PlaylistList } from 'fragments/PlaylistList';
 import { Playlist } from 'fragments/Playlist';
 
@@ -7,7 +7,7 @@ export default class PlaylistCollection extends Component {
   render() {
     return (
       <PlaylistList>
-        <Yxa
+        <CollectionVirtualizer
           collection={this.props.collection}
           fetcher={this.props.fetcher}
           placeholder={<div className="playlist-container"><Playlist /></div>}
