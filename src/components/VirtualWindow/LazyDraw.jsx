@@ -1,11 +1,6 @@
 import { PureComponent } from 'react';
-import PropTypes from 'prop-types';
 
 class LazyDraw extends PureComponent {
-  static propTypes = {
-    render: PropTypes.func.isRequired,
-  };
-
   constructor(props) {
     super(props);
 
@@ -27,7 +22,7 @@ class LazyDraw extends PureComponent {
   }
 
   render() {
-    return this.state.ready ? this.props.render : this.props.placeholder();
+    return this.state.ready ? this.props.render : this.props.placeholder;
   }
 }
 
