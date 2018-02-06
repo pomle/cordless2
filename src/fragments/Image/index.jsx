@@ -1,6 +1,9 @@
 import React, { PureComponent } from 'react';
 import './Image.css';
 
+const BIG = 640;
+const MEDIUM = 300;
+
 export class Image extends PureComponent {
   render() {
     const {candidates} = this.props;
@@ -8,7 +11,10 @@ export class Image extends PureComponent {
       return null;
     }
 
-    const url = candidates.getIn([0, 'url']);
+    const images = candidates.groupBy(image => image.get('width'));
+    const image = images.getIn([MEDIUM, 0]) || images.getIn([BIG, 0]) || candidates.get(0);
+
+    const url = image && image.get('url');
     return <ImageSurface key={url} url={url}/>
   }
 }
