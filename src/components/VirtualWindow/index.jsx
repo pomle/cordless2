@@ -149,7 +149,7 @@ class ItemRenderer extends PureComponent {
     if (item && item.ready) {
       classes.push('ready');
       content = <LazyDraw
-        placeholder={this.props.onPlaceholder}
+        placeholder={this.props.onPlaceholder()}
         render={this.props.onDraw(item.content)}
       />;
     } else {
