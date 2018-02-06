@@ -1,18 +1,23 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import './Image.css';
 
-export class Image extends Component {
-
-  componentDidMount() {
+export class Image extends PureComponent {
+  render() {
     const {candidates} = this.props;
     if (!candidates.size) {
-      return;
+      return null;
     }
-    const url = candidates.getIn([0, 'url']);
 
+    const url = candidates.getIn([0, 'url']);
+    return <ImageSurface key={url} url={url}/>
+  }
+}
+
+class ImageSurface extends PureComponent {
+  componentDidMount() {
     this.image = new window.Image();
     this.image.addEventListener('load', this.insert);
-    this.image.src = url;
+    this.image.src = this.props.url;
   }
 
   componentWillUnmount() {
