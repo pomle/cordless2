@@ -1,0 +1,18 @@
+<svg width="300" height="330" viewBox="0 0 300 330" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>Repeat</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(119 -372)">
+<g id="Repeat">
+<g id="Play">
+<use xlink:href="#path0_fill" transform="translate(-20 372)" fill="#FFFFFF"/>
+</g>
+<g id="Subtract">
+<use xlink:href="#path1_fill" transform="translate(-119 426)" fill="#FFFFFF"/>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_fill" d="M 81 70L 0 0L 0 140L 81 70Z"/>
+<path id="path1_fill" fill-rule="evenodd" d="M 191.486 0L 210 16L 188.426 34.6443L 218.985 34.6443L 265.385 81.083L 265.385 194.917L 218.985 241.356L 81.0152 241.356L 34.6154 194.917L 34.6154 81.083L 81.0152 34.6443L 129 34.6443L 129 0L 66.6771 0L 0 66.7328L 0 209.267L 66.6771 276L 233.323 276L 300 209.267L 300 66.7328L 233.323 0L 191.486 0Z"/>
+</defs>
+</svg>

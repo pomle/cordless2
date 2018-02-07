@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import {Map} from 'immutable';
 
+import * as icon from './assets/icons';
+
 import './Interface.css';
 
 const REPEAT_MAP = new Map([
@@ -14,6 +16,12 @@ const SHUFFLE_MAP = new Map([
   [true, 'Shuffle On'],
 ]);
 
+function Button({title, graphic, onClick}) {
+  return <button onClick={onClick} title={title}>
+    <img src={graphic} alt={title}/>
+  </button>
+}
+
 export class Interface extends Component {
   render() {
     const {prev, toggle, next, shuffle, repeat, context} = this.props;
@@ -21,19 +29,30 @@ export class Interface extends Component {
     return (
       <div className="Interface">
         <div className="previous">
-          <button onClick={prev}>Prev</button>
+          <Button onClick={prev} title="Previous" graphic={icon.prev}/>
         </div>
-        <div className="toggle">
-          <button onClick={toggle}>Play/Pause</button>
+        <div className={`toggle ${context.paused ? 'paused' : 'playing'}`}>
+          <div className="play">
+            <Button onClick={toggle} title="Play" graphic={icon.play}/>
+          </div>
+          <div className="pause">
+            <Button onClick={toggle} title="Pause" graphic={icon.pause}/>
+          </div>
         </div>
         <div className="next">
-          <button onClick={next}>Next</button>
+          <Button onClick={next} title="Next" graphic={icon.next}/>
         </div>
         <div className="shuffle">
-          <button onClick={shuffle}>{SHUFFLE_MAP.get(context.shuffle, 'Shuffle')}</button>
+          <Button onClick={shuffle}
+            title={SHUFFLE_MAP.get(context.shuffle, 'Shuffle')}
+            graphic={icon.shuffle}
+          />
         </div>
         <div className="repeat">
-          <button onClick={repeat}>{REPEAT_MAP.get(context.repeat_mode, 'Repeat')}</button>
+          <Button onClick={repeat}
+            title={REPEAT_MAP.get(context.repeat_mode, 'Repeat')}
+            graphic={icon.repeatAll}
+          />
         </div>
       </div>
     );
