@@ -1,7 +1,6 @@
 import React, { PureComponent } from 'react';
 import PropTypes from 'prop-types';
 import { Iterable } from 'immutable';
-import LazyDraw from './LazyDraw';
 
 const BUFFER_SIZE = 3;
 
@@ -149,10 +148,7 @@ class ItemRenderer extends PureComponent {
 
     if (item && item.ready) {
       classes.push('ready');
-      content = <LazyDraw
-        placeholder={this.props.onPlaceholder()}
-        render={this.props.onDraw(item.content)}
-      />;
+      content = this.props.onDraw(item.content);
     } else {
       classes.push('pending');
       this.props.onMissing(index);
