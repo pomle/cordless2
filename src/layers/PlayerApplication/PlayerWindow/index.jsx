@@ -19,10 +19,6 @@ export class PlayerWindow extends Component {
       classes.push('pending');
     }
 
-    if (player.currentTrack) {
-      classes.push('with-track');
-    }
-
     return (
       <div className={classes.join(' ')}>
         <Player session={session} name="Cordless"/>
