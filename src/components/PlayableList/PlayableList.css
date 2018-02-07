@@ -1,4 +1,8 @@
-.PlayableList {
+.PlayableList a {
+    color: #fff;
+}
+
+.PlayableList .items {
     display: flex;
     flex-flow: wrap;
     justify-content: space-evenly;
@@ -7,19 +11,20 @@
 
 .PlayableList .item {
     perspective: 200px;
-    animation: reveal 0.5s 1 cubic-bezier(0, 0, 0, 1.0);
 }
 
-.PlayableList .item > * {
-    background: rgba(0, 0, 0, .7);
+.PlayableList .item > div {
+    background: rgba(0, 0, 0, 0.7);
     box-shadow: 0 1em 2em -.5em #000;
-    transform: rotateY(6deg) rotateX(2deg) translateZ(-30px);
+    transform: translateZ(-30px);
     transform-origin: 50px 50px;
     transition: all 0.2s ease;
+    z-index: 1;
 }
 
-.PlayableList .item > *:hover {
-    transform: rotateX(0) rotateY(0) translateZ(0);
+.PlayableList .item:hover > div {
+    transform: translateY(-2em);
+    z-index: 2;
 }
 
 .PlayableList .playback {

@@ -7,7 +7,7 @@ import { NowPlaying } from './NowPlaying';
 import { Scrubber } from './Scrubber';
 import { Time } from 'components/Time';
 
-import { cyclePlayback, cycleRepeat, cycleShuffle, seek, next, prev, volume } from '@pomle/spotify-redux';
+import { cyclePlayback, cycleRepeat, cycleShuffle, seek, next, prev, volume } from 'store';
 
 import './Playback.css';
 

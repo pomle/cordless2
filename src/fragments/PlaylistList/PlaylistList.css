@@ -1,15 +1,29 @@
-.PlaylistList .Playlist {
-    display: grid;
-    grid: repeat(3, 1fr) / 7em 10em;
-    grid-column-gap: 0.5em;
-    height: 7em;
+.PlaylistList .item {
+    height: 20em;
     width: 20em;
     margin: 0.5em -0.5em;
 }
 
+.PlaylistList .item .Playlist {
+    transition: opacity 1s;
+}
+
+.PlaylistList .item.pending .Playlist {
+    opacity: 0;
+}
+
+.PlaylistList .Playlist {
+    display: grid;
+    grid: 20em auto auto / 20em;
+    grid-row-gap: 0.5em;
+    height: 20em;
+    width: 20em;
+}
+
+.PlaylistList .Playlist a,
 .PlaylistList .Playlist .image {
-    grid-column: 1 / 1;
-    grid-row: 1 / 4;
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
 }
 
 .PlaylistList .Playlist .Image {
@@ -22,6 +36,15 @@
     grid-row: 1;
 }
 
+.PlaylistList .Playlist .name,
 .PlaylistList .Playlist .owner {
-    align-self: end;
+    opacity: 0;
+    transition: opacity 0.2s;
+    text-align: center;
+    text-shadow: 0 0.2em 0.4em #000;
+}
+
+.PlaylistList .item:hover .Playlist .name,
+.PlaylistList .item:hover .Playlist .owner {
+    opacity: 1;
 }

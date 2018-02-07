@@ -1,28 +1,23 @@
 .AlbumList .Album {
     display: grid;
-    grid: 1fr / 1fr;
-    height: 12em;
-    width: 12em;
+    grid: 16em 3em / 16em;
+    grid-row-gap: 0.5em;
+    height: 16em;
+    width: 16em;
     margin: 0.5em;
 }
 
 .AlbumList .Album .name {
-    align-self: end;
-    background: rgba(0, 0, 0, .8);
-    font-size: 0.7em;
+    align-self: start;
     grid-column: 1 / 2;
-    grid-row: 1 / 2;
-    line-height: 1.5;
+    grid-row: 2 / 3;
     opacity: 0;
     transition: opacity 0.3s;
+    text-align: center;
+    text-shadow: 0 0.2em 0.4em #000;
 }
 
-.AlbumList .Album .name a {
-    display: block;
-    margin: 0.5em;
-}
-
-.AlbumList .Album:hover .name {
+.AlbumList .item:hover .Album .name {
     opacity: 1;
 }
 
@@ -31,3 +26,72 @@
     grid-column: 1 / 2;
     grid-row: 1 / 2;
 }
+
+.AlbumList .Album .Image {
+    height: 100%;
+    width: 100%;
+}
+
+/*
+.PlaylistList .item {
+    height: 20em;
+    width: 20em;
+    margin: 0.5em -0.5em;
+}
+
+.PlaylistList .item .Playlist {
+    transition: opacity 1s;
+}
+
+.PlaylistList .item.pending .Playlist {
+    opacity: 0;
+}
+
+.PlaylistList .Playlist {
+    display: grid;
+    grid: 20em 2em 1em / 20em;
+    height: 20em;
+    width: 20em;
+}
+
+.PlaylistList .Playlist a,
+.PlaylistList .Playlist .image {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+}
+
+.PlaylistList .Playlist .Image {
+    height: 100%;
+    width: 100%;
+}
+
+.PlaylistList .Playlist .playback {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.PlaylistList .Playlist .name,
+.PlaylistList .Playlist .owner {
+    opacity: 0;
+    transition: opacity 0.2s;
+    text-align: center;
+    text-shadow: 0 0.2em 0.4em #000;
+}
+
+.PlaylistList .Playlist .name {
+    font-size: 1.2em;
+}
+
+.PlaylistList .item:hover .Playlist .name,
+.PlaylistList .item:hover .Playlist .owner {
+    opacity: 1;
+}
+
+.PlaylistList .Playlist .name {
+    align-self: end;
+}
+
+.PlaylistList .Playlist .owner {
+    align-self: start;
+}
+*/

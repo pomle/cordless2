@@ -5,11 +5,11 @@ import { TrackList } from 'fragments/TrackList';
 import { Track } from 'fragments/Track';
 
 import { debounce } from 'library/debounce';
-import { search, playTracks } from '@pomle/spotify-redux';
+import { search, playTracks } from 'store';
 
-import './Search.css';
+import './SearchView.css';
 
-export class Search extends Component {
+class SearchView extends Component {
   constructor(props) {
     super(props);
 
@@ -61,7 +61,7 @@ export class Search extends Component {
     const { tracks } = this.props;
     const { query, searchWasPerformed } = this.state;
 
-    const classes = ['Search'];
+    const classes = ['SearchView'];
     if (searchWasPerformed) {
       classes.push('hasResults');
     }
@@ -103,4 +103,4 @@ export default connect(
     search,
     playTracks,
   }
-)(Search);
+)(SearchView);

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { createStore, setToken } from '@pomle/spotify-redux';
+import { createStore, setToken } from 'store';
 
 import PlayerWindow from './PlayerWindow';
 

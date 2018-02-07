@@ -3,11 +3,9 @@ import { withRouter, Link, Route, Switch } from 'react-router-dom';
 
 import { ViewContainer } from 'components/ViewContainer';
 
-import AlbumDetail from 'views/Album';
-import ArtistDetail from 'views/Artist';
-import PlaylistDetail from 'views/Playlist/Detail';
-import PlaylistView from 'views/Playlist/Index';
-import Search from 'views/Search';
+import {AlbumRoute, ArtistRoute, PlaylistRoute, SearchRoute, UserPlaylistsRoute} from './Routes';
+import MyPlaylists from 'views/Me/MyPlaylists';
+
 import { TrackInfo } from 'views/TrackInfo';
 
 import './Navigation.css';
@@ -18,51 +16,17 @@ export const Navigation = withRouter(class Navigation extends PureComponent {
       <div className="Navigation">
         <ViewContainer>
           <Switch>
-            <Route
-              path="/album/:albumId"
-              render={props => {
-                const { albumId } = props.match.params;
-                return <AlbumDetail albumId={albumId} />;
-              }}
-            />
-            <Route
-              path="/artist/:artistId"
-              render={props => {
-                const { artistId } = props.match.params;
-                return <ArtistDetail artistId={artistId} />;
-              }}
-            />
-            <Route
-              path="/user/:userId/playlist/:playlistId"
-              render={props => {
-                const { userId, playlistId } = props.match.params;
-                return (
-                  <PlaylistDetail userId={userId} playlistId={playlistId} />
-                );
-              }}
-            />
+            <Route path="/album/:albumId" component={AlbumRoute} />
+            <Route path="/artist/:artistId" component={ArtistRoute} />
+            <Route path="/user/:userId/playlist/:playlistId" component={PlaylistRoute} />
+            <Route path="/user/:userId" component={UserPlaylistsRoute} />
 
-            <Route exact path="/playlists">
-              <PlaylistView />
-            </Route>
 
-            <Route
-              path="/search/:query?"
-              render={({ history, match }) => {
-                return (
-                  <Search
-                    query={match.params.query}
-                    onQuery={query =>
-                      history.replace(`/search/${encodeURIComponent(query)}`)
-                    }
-                  />
-                );
-              }}
-            />
+            <Route exact path="/playlists" component={MyPlaylists}/>
 
-            <Route path="/track-info">
-              <TrackInfo />
-            </Route>
+            <Route path="/search/:query?" component={SearchRoute}/>
+
+            <Route path="/track-info" component={TrackInfo}/>
 
             <Route exact path="/">
               <ul>

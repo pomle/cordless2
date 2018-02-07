@@ -47,7 +47,7 @@ input {
 }
 
 .QuickSearch input,
-.Search header input {
+.SearchView header input {
     border-radius: 1.5em;
     font-size: 3em;
     text-align: center;

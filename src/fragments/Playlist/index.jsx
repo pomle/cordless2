@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { PlayButton } from 'components/PlayButton';
 import { Image } from 'fragments/Image';
 
-import { playContext } from '@pomle/spotify-redux';
+import { playContext } from 'store';
 
 import './Playlist.css';
 
@@ -17,6 +17,10 @@ export const Playlist = connect(null, {playContext})(class Playlist extends Pure
 
   render() {
     const { playlist } = this.props;
+    if (!playlist) {
+      return <div className="Playlist"/>;
+    }
+
     const owner = playlist.get('owner');
 
     return (
@@ -26,15 +30,10 @@ export const Playlist = connect(null, {playContext})(class Playlist extends Pure
         </div>
 
         <div className="name">
-          <Link
-            to={`/user/${owner.get('id')}/playlist/${playlist.get('id')}`}
-            className="name"
-          >
+          <Link to={`/user/${owner.get('id')}/playlist/${playlist.get('id')}`}>
             {playlist.get('name')}
           </Link>
         </div>
-
-        <div className="trackCount">{playlist.get('tracks').get('total')}</div>
 
         <div className="owner">
           <Link to={`/user/${owner.get('id')}`}>{owner.get('display_name')}</Link>
