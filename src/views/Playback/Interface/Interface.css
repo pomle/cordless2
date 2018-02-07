@@ -22,8 +22,8 @@
 .Playback .Interface button img {
     pointer-events: none;
     object-fit: contain;
-    height: 28px;
-    width: 28px;
+    height: 26px;
+    width: 26px;
 }
 
 .Playback .Interface .toggle {
@@ -39,8 +39,8 @@
 }
 
 .Playback .Interface .toggle img {
-    height: 36px;
-    width: 36px;
+    height: 32px;
+    width: 32px;
 }
 
 .Playback .Interface .toggle.paused .pause,
