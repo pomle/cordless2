@@ -5,5 +5,7 @@
 
 .Image > img {
     animation: fade-in 0.5s;
+    object-fit: contain;
+    height: 100%;
     width: 100%;
 }
