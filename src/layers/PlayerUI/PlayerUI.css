@@ -3,7 +3,6 @@
     flex-flow: column;
     height: 100vh;
     overflow: hidden;
-    perspective: 1000px;
 }
 
 .PlayerUI > .viewport {
@@ -24,17 +23,5 @@
 }
 
 .PlayerUI > .playback {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-}
-
-.PlayerUI > .playback > .Playback {
     height: 100px;
-    transform: translateZ(220px) translateY(100%);
-    transition: transform 2s ease-out;
-}
-
-.PlayerWindow.with-track .PlayerUI > .playback > .Playback {
-    transform: none;
 }
