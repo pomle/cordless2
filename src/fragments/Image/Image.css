@@ -5,6 +5,5 @@
 
 .Image > img {
     animation: fade-in 0.5s;
-    will-change: opacity;
     width: 100%;
 }
