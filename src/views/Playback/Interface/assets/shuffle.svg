@@ -1,0 +1,25 @@
+<svg width="425" height="338" viewBox="0 0 425 338" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>Shuffle</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(377 -465)">
+<g id="Shuffle">
+<g id="Vector">
+<use xlink:href="#path0_fill" transform="matrix(1 0 0 -1 -377 751.5)" fill="#FFFFFF"/>
+</g>
+<g id="Subtract">
+<use xlink:href="#path1_fill" transform="translate(-377 515)" fill="#FFFFFF"/>
+</g>
+<g id="Play">
+<use xlink:href="#path2_fill" transform="translate(-33 663)" fill="#FFFFFF"/>
+</g>
+<g id="Play">
+<use xlink:href="#path2_fill" transform="translate(-33 465)" fill="#FFFFFF"/>
+</g>
+</g>
+</g>
+<defs>
+<path id="path0_fill" d="M 99 0L 0 0L 0 39L 83 39L 280.5 236.5L 397 236.5L 397 197.5L 296.5 197.5L 99 0Z"/>
+<path id="path1_fill" fill-rule="evenodd" d="M 0 0L 99 0L 174.052 75.0521L 146.552 102.552L 83 39L 0 39L 0 0ZM 206.656 162.656L 280.5 236.5L 397 236.5L 397 197.5L 296.5 197.5L 234.156 135.156L 206.656 162.656Z"/>
+<path id="path2_fill" d="M 81 70L 0 0L 0 140L 81 70Z"/>
+</defs>
+</svg>
