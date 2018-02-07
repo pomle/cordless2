@@ -1,6 +1,10 @@
 import { PureComponent } from 'react';
 
 class LazyDraw extends PureComponent {
+  static defaultProps = {
+    delay: 200,
+  };
+
   constructor(props) {
     super(props);
 
@@ -14,7 +18,7 @@ class LazyDraw extends PureComponent {
   };
 
   componentDidMount() {
-    this.timer = setTimeout(this.setReady, 200);
+    this.timer = setTimeout(this.setReady, this.props.delay);
   }
 
   componentWillUnmount() {
