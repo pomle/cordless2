@@ -123,6 +123,7 @@ class VirtualWindow extends PureComponent {
     const itemsStyle = {
       position: 'absolute',
       top: `${itemsTop}px`,
+      willChange: 'top',
     };
 
     return <div className="container" style={containerStyle} ref={node => this.container = node}>
