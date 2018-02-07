@@ -1,17 +1,58 @@
 .Playback .Interface {
     display: grid;
-    grid-template: repeat(2, 1fr) / repeat(3, 1fr);
+    grid: repeat(2, 1fr) / repeat(3, 1fr);
     align-items: center;
 }
 
-.Playback .Interface > * > button {
+.Playback .Interface button {
+    background: none;
+    cursor: pointer;
     display: block;
     margin: auto;
+    opacity: 0.8;
+    transform: scale(0.9);
+    transition: opacity 0.2s, transform 0.1s;
+}
+
+.Playback .Interface button:hover {
+    opacity: 1;
+    transform: none;
+}
+
+.Playback .Interface button img {
+    pointer-events: none;
+    object-fit: contain;
+    height: 28px;
+    width: 28px;
+}
+
+.Playback .Interface .toggle {
+    display: grid;
+    align-items: center;
+    perspective: 200px;
+}
+
+.Playback .Interface .toggle > * {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+    transition: opacity 0.2s, transform 0.2s;
+}
+
+.Playback .Interface .toggle img {
+    height: 36px;
+    width: 36px;
+}
+
+.Playback .Interface .toggle.paused .pause,
+.Playback .Interface .toggle.playing .play {
+    pointer-events: none;
+    opacity: 0;
+    transform: rotateY(90deg);
 }
 
 .Playback .Interface .shuffle,
 .Playback .Interface .repeat {
-    grid-row: 3 / 4;
+
 }
 
 .Playback .Interface .shuffle {

@@ -1,0 +1,12 @@
+<svg width="207" height="282" viewBox="0 0 207 282" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>Play</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(421 420)">
+<g id="Play">
+<use xlink:href="#path0_fill" transform="translate(-421 -420)" fill="#FFFFFF"/>
+</g>
+</g>
+<defs>
+<path id="path0_fill" d="M 207 141L 0 0L 0 282L 207 141Z"/>
+</defs>
+</svg>
