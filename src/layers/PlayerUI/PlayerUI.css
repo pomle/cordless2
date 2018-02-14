@@ -11,6 +11,8 @@
 }
 
 .PlayerUI > .viewport > .Navigation {
+    max-width: 1400px;
+    margin: 0 auto;
     margin-bottom: calc(2em + 100px);
 }
 
