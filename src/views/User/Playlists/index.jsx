@@ -4,11 +4,11 @@ import PropTypes from 'prop-types';
 import { Iterable } from 'immutable';
 
 import { PlaylistIndex } from 'fragments/PlaylistIndex';
-import { fetchUserPlaylists } from '@pomle/spotify-redux';
+import { fetchUserPlaylists } from 'store';
 
 const ME = Symbol('default user');
 
-class PlaylistView extends Component {
+class UserPlaylistsView extends Component {
   static defaultProps = {
     userId: ME,
   };
@@ -58,4 +58,4 @@ export default connect(
   {
     fetch: fetchUserPlaylists,
   }
-)(PlaylistView);
+)(UserPlaylistsView);

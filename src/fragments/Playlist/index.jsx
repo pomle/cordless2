@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { PlayButton } from 'components/PlayButton';
 import { Image } from 'fragments/Image';
 
-import { playContext } from '@pomle/spotify-redux';
+import { playContext } from 'store';
 
 import './Playlist.css';
 
