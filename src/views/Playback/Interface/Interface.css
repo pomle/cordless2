@@ -1,6 +1,6 @@
 .Playback .Interface {
     display: grid;
-    grid: repeat(2, 1fr) / repeat(3, 1fr);
+    grid: 1fr / repeat(5, 1fr);
     align-items: center;
 }
 
@@ -39,8 +39,6 @@
 }
 
 .Playback .Interface .toggle img {
-    height: 32px;
-    width: 32px;
 }
 
 .Playback .Interface .toggle.paused .pause,
@@ -52,13 +50,5 @@
 
 .Playback .Interface .shuffle,
 .Playback .Interface .repeat {
-
-}
-
-.Playback .Interface .shuffle {
-    grid-column: 1 / 2;
-}
-
-.Playback .Interface .repeat {
-    grid-column: 3 / 4;
+    transform: scale(0.8);
 }

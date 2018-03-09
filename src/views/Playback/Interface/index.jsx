@@ -28,9 +28,6 @@ export class Interface extends Component {
 
     return (
       <div className="Interface">
-        <div className="previous">
-          <Button onClick={prev} title="Previous" graphic={icon.prev}/>
-        </div>
         <div className={`toggle ${context.paused ? 'paused' : 'playing'}`}>
           <div className="play">
             <Button onClick={toggle} title="Play" graphic={icon.play}/>
@@ -38,6 +35,9 @@ export class Interface extends Component {
           <div className="pause">
             <Button onClick={toggle} title="Pause" graphic={icon.pause}/>
           </div>
+        </div>
+        <div className="previous">
+          <Button onClick={prev} title="Previous" graphic={icon.prev}/>
         </div>
         <div className="next">
           <Button onClick={next} title="Next" graphic={icon.next}/>
