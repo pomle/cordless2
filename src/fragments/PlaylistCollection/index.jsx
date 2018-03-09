@@ -3,7 +3,9 @@ import CollectionVirtualizer from 'components/CollectionVirtualizer';
 import { PlaylistList } from 'fragments/PlaylistList';
 import { Playlist } from 'fragments/Playlist';
 
-const PLACEHOLDER = <div className="playlist-container"><Playlist /></div>;
+const PLACEHOLDER = <div className="playlist-container">
+  <div class="placeholder"/>
+</div>;
 
 function renderer(playlist) {
   return <div className="playlist-container">

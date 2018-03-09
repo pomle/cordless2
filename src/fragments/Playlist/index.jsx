@@ -17,10 +17,6 @@ export const Playlist = connect(null, {playContext})(class Playlist extends Pure
 
   render() {
     const { playlist } = this.props;
-    if (!playlist) {
-      return <div className="Playlist"/>;
-    }
-
     const owner = playlist.get('owner');
 
     return (

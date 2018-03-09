@@ -42,3 +42,8 @@
 .PlaylistList .item:hover .Playlist .owner {
     opacity: 1;
 }
+
+.PlaylistList .item .placeholder {
+    height: 18em;
+    width: 18em;
+}

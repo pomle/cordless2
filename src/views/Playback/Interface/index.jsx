@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {Map} from 'immutable';
 
-import * as icon from './assets/icons';
+import * as icon from 'assets/icons';
 
 import './Interface.css';
 
