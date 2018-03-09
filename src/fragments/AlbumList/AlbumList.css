@@ -4,7 +4,6 @@
     grid-row-gap: 0.5em;
     height: 16em;
     width: 16em;
-    margin: 0.5em;
 }
 
 .AlbumList .Album .name {
@@ -12,8 +11,6 @@
     grid-column: 1 / 2;
     grid-row: 2 / 3;
     opacity: 0;
-    transition: opacity 0.3s;
-    text-align: center;
     text-shadow: 0 0.2em 0.4em #000;
 }
 

@@ -10,20 +10,29 @@
 }
 
 .PlayableList .item {
+    height: 20em;
+    margin: 2em 0.5em;
     perspective: 200px;
+    width: 18em;
+}
+
+.PlayableList .item.pending {
+    box-sizing: border-box;
+    border: solid 1px rgba(255, 255, 255, 0.3);
 }
 
 .PlayableList .item > div {
-    background: rgba(0, 0, 0, 0.7);
-    box-shadow: 0 1em 2em -.5em #000;
-    transform: translateZ(-30px);
     transform-origin: 50px 50px;
     transition: all 0.2s ease;
     z-index: 1;
 }
 
+.PlayableList .image {
+    background: rgba(0, 0, 0, 0.7);
+    box-shadow: 0 1em 2em -.5em #000;
+}
+
 .PlayableList .item:hover > div {
-    transform: translateY(-2em);
     z-index: 2;
 }
 

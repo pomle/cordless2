@@ -1,7 +1,4 @@
 .PlaylistList .item {
-    height: 20em;
-    width: 20em;
-    margin: 0.5em -0.5em;
 }
 
 .PlaylistList .item .Playlist {
@@ -14,10 +11,8 @@
 
 .PlaylistList .Playlist {
     display: grid;
-    grid: 20em auto auto / 20em;
+    grid: 18em auto auto / 18em;
     grid-row-gap: 0.5em;
-    height: 20em;
-    width: 20em;
 }
 
 .PlaylistList .Playlist a,
@@ -38,9 +33,8 @@
 
 .PlaylistList .Playlist .name,
 .PlaylistList .Playlist .owner {
-    opacity: 0;
     transition: opacity 0.2s;
-    text-align: center;
+    text-align: left;
     text-shadow: 0 0.2em 0.4em #000;
 }
 
