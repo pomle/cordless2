@@ -13,7 +13,42 @@ import './Playback.css';
 
 const REPEAT_MODES = ['off', 'context', 'track'];
 
+function callOnKey(fn, code) {
+  return function (event) {
+    if (event.code === code) {
+      fn();
+      return true;
+    }
+  }
+}
+
 export class Playback extends Component {
+  constructor(props) {
+    super(props);
+
+    this.bindings = [
+      callOnKey(props.cyclePlayback, 'Space'),
+      callOnKey(props.cycleRepeat, 'KeyR'),
+      callOnKey(props.cycleShuffle, 'KeyS'),
+    ];
+  }
+
+  componentDidMount() {
+    window.addEventListener('keydown', this.onKeyPress);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this.onKeyPress);
+  }
+
+  onKeyPress = event => {
+    for (const binding of this.bindings) {
+      if (binding(event)) {
+        event.preventDefault();
+      }
+    }
+  }
+
   render() {
     const { cycleRepeat, cycleShuffle, cyclePlayback, prev, next, seek, player, analysis } = this.props;
     const context = player.context;
