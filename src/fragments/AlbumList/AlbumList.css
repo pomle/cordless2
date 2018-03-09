@@ -10,12 +10,7 @@
     align-self: start;
     grid-column: 1 / 2;
     grid-row: 2 / 3;
-    opacity: 0;
     text-shadow: 0 0.2em 0.4em #000;
-}
-
-.AlbumList .item:hover .Album .name {
-    opacity: 1;
 }
 
 .AlbumList .Album .image,
