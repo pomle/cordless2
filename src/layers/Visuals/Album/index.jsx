@@ -13,12 +13,54 @@ const resolution = {
   y: 720,
 };
 
+function tween(subject, options = {}) {
+  const {rigidity, alias} = Object.assign({
+    rigidity: 10,
+    alias: new Map(),
+  }, options);
+
+  const keys = Object.keys(subject);
+  let last = Object.assign({}, subject);
+  let intended = subject;
+
+
+  function refresh() {
+    for (const key of keys) {
+      last[key] = last[key] + (intended[key] - last[key]) / rigidity;
+      subject[key] = last[key];
+    }
+
+    requestAnimationFrame(refresh);
+  }
+
+  refresh();
+
+  return function update(values) {
+    intended = alias.has(values) ? alias.get(values) : values;
+  };
+}
+
 export class Album extends PureComponent {
   constructor(props) {
     super(props);
 
     this.scene = new THREE.Scene();
     this.scene.add(new THREE.AmbientLight(0xffffff));
+
+    this.container = new THREE.Object3D();
+
+    const visible = new THREE.Vector3(0, 0, 0);
+    const invisible = new THREE.Vector3(0, 20, 30);
+
+    this.container.tween = tween(this.container.position.copy(invisible), {
+      rigidity: 100,
+      alias: new Map([
+        [true, visible],
+        [false, invisible],
+      ]),
+    });
+
+    this.scene.add(this.container);
     //const light = new THREE.PointLight(0xffffff, 1, 100);
     //light.position.set(0, 0, 20);
     //this.scene.add(light);
@@ -36,7 +78,12 @@ export class Album extends PureComponent {
     this.albums = new Set();
   }
 
-  componentWillReceiveProps({ artwork }) {
+  componentWillReceiveProps({ promote, artwork }) {
+    this.handleArtwork(artwork);
+    this.setVisibility(promote);
+  }
+
+  handleArtwork(artwork) {
     if (this.image === artwork) {
       return;
     }
@@ -54,7 +101,7 @@ export class Album extends PureComponent {
         duration: 1000,
         easing: 'easeInQuad',
         complete: () => {
-          this.scene.remove(album);
+          this.container.remove(album);
         },
       });
 
@@ -65,7 +112,7 @@ export class Album extends PureComponent {
     album.position.z = -50;
     album.material.opacity = 0;
 
-    this.scene.add(album);
+    this.container.add(album);
 
     album.userData.entryAnim = anime({
       targets: [album.position, album.material],
@@ -76,6 +123,10 @@ export class Album extends PureComponent {
     });
 
     this.albums.add(album);
+  }
+
+  setVisibility(visible) {
+    this.container.tween(visible);
   }
 
   /*
