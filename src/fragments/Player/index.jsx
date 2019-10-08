@@ -7,6 +7,18 @@ import { setAnalysis, setFeature, setAlbumPalette, handleMessage } from 'store';
 import { createPoller } from './poller';
 import { onChange } from './util';
 
+const VIBRANT_API_URL = 'https://vibrant-api.herokuapp.com';
+
+function findSmallestImage(images) {
+  let smallest = images[0];
+  for (const image of images) {
+      if (image.width < smallest.width) {
+          smallest = image;
+      }
+  }
+  return smallest;
+}
+
 class SpotifyPlayer extends PureComponent {
   constructor(props) {
     super(props);
@@ -89,10 +101,19 @@ class Player extends PureComponent {
 
   onAlbumChange = onChange(albumURI => {
     const {session, setAlbumPalette} = this.props;
-    const api = session.trackAPI;
+    const {albumAPI} = session;
+
     const albumId = albumURI.split(':')[2];
-    api.request(`https://vibrant.pomle.com/v1/album/${albumId}`)
-    .then(palette => setAlbumPalette(albumId, palette));
+    albumAPI.getAlbum(albumId)
+    .then(album => {
+      const smallestImage = findSmallestImage(album.images);
+      return fetch(`${VIBRANT_API_URL}/v1/image/${encodeURIComponent(smallestImage.url)}`);
+    })
+    .then(response => response.json())
+    .then(palette => {
+      console.log(palette);
+      setAlbumPalette(albumId, palette);
+    });
   });
 
   onTrackChange = onChange(trackId => {
