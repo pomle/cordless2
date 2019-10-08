@@ -1,7 +1,18 @@
 import React, { PureComponent } from 'react';
+import { Link } from 'react-router-dom';
 import { Image } from 'fragments/Image';
 import { Artists } from 'fragments/Artists';
 import './NowPlaying.css';
+
+function CoverArt({track}) {
+  if (!track) {
+    return null;
+  }
+
+  return <Link to="/now-playing">
+    <Image candidates={track.getIn(['album', 'images'])} />
+  </Link>;
+}
 
 export class NowPlaying extends PureComponent {
   render() {
@@ -9,7 +20,7 @@ export class NowPlaying extends PureComponent {
 
     return (
       <div className="NowPlaying">
-        {track ? <Image candidates={track.getIn(['album', 'images'])} /> : ''}
+        <CoverArt track={track}/>
 
         <div className="trackName">{track ? track.get('name') : ''}</div>
 

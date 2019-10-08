@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 
 import { Interface } from './Interface';
 import { NowPlaying } from './NowPlaying';
@@ -75,7 +74,6 @@ export class Playback extends Component {
           toggle={cyclePlayback}
         />
         <div className="vis">
-          <Link to="/now-playing">Now Playing</Link>
           <div className="time">
             <Time seconds={context.position / 1000} />
           </div>
