@@ -10,8 +10,10 @@ const style = {
 export class PlayButton extends Component {
   render() {
     return (
-      <button className="PlayButton" onClick={this.props.onClick} style={style}>
-        Play
+      <button className="PlayButton" onClick={this.props.onClick}>
+        <div className="icon" style={style}>
+          Play
+        </div>
       </button>
     );
   }

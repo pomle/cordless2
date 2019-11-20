@@ -1,12 +1,9 @@
 .TrackList .Track {
-  display: grid;
-  grid:  50% 50% / 4em 35% 35% auto;
   align-items: center;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  display: grid;
+  grid:  50% 50% / 3em 35% 35% auto;
   padding: .5em 0;
-}
-
-.TrackList .Track {
-    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
 }
 
 .TrackList .Track:nth-child(even) {
@@ -33,13 +30,21 @@
 .TrackList .Track .playback {
   grid-column: 1 / 1;
   grid-row: 1 / end;
-  opacity: 0.8;
+  justify-self: center;
 }
 
-.TrackList .Track:hover .playback {
+.TrackList .Track .playback .PlayButton {
+  background: none;
+  display: block;
+  font-size: 0;
+  opacity: 0.5;
+  height: 25px;
+  width: 25px;
+}
+
+.TrackList .Track:hover .playback .PlayButton {
   opacity: 1;
 }
-
 
 .TrackList .Track .album {
   font-size: 0.7em;

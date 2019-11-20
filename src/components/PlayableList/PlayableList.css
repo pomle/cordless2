@@ -36,11 +36,8 @@
     opacity: 0;
 }
 
-.PlayableList .playback button {
+.PlayableList .playback .PlayButton {
     background-color: rgba(0, 0, 0, .3);
-    background-repeat: no-repeat;
-    background-position: calc(50% + 4px) 50%;
-    background-size: 38%;
     border: solid 2px #fff;
     border-radius: 50%;
     cursor: pointer;
@@ -50,6 +47,11 @@
     opacity: .8;
     width: 100px;
     z-index: 2;
+}
+
+.PlayableList .playback .PlayButton .icon {
+    background-position: calc(50% + 4px) 50%;
+    background-size: 38%;
 }
 
 .PlayableList .playback button:hover {
