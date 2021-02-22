@@ -16,6 +16,16 @@
           "destination": "/index.html"
         }
       ]
+    },
+    {
+      "target": "cordless-api",
+      "public": "functions/public",
+      "rewrites": [
+        {
+          "source": "**",
+          "function": "api"
+        }
+      ]
     }
   ]
 }
