@@ -22,7 +22,7 @@ const REPEAT_MODES = ["off", "context", "track"];
 
 function callOnKey(fn, code) {
   return function (event) {
-    if (event.code === code) {
+    if (event.ctrlKey && event.code === code) {
       fn();
       return true;
     }
@@ -33,7 +33,11 @@ export class Playback extends Component {
   constructor(props) {
     super(props);
 
-    this.bindings = [];
+    this.bindings = [
+      callOnKey(props.cyclePlayback, "Space"),
+      callOnKey(props.cycleRepeat, "KeyR"),
+      callOnKey(props.cycleShuffle, "KeyS"),
+    ];
   }
 
   componentDidMount() {
