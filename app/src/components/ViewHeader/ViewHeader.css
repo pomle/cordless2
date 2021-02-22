@@ -1,21 +1,22 @@
 .ViewHeader {
-    display: flex;
-    margin-bottom: 2em;
+  display: flex;
+  margin-bottom: 2em;
 }
 
 .ViewHeader h2 {
-    position: relative;
+  position: relative;
 }
 
 .ViewHeader .image {
-    perspective: 200px;
-    perspective-origin: 0 100%;
+  perspective: 200px;
+  perspective-origin: 0 100%;
 }
 
 .ViewHeader .Image {
-    box-shadow: 0 1em 3em -0.5em #000;
-    height: 15em;
-    margin-right: 2em;
-    transform: rotateY(3deg);
-    width: 15em;
+  background: #000;
+  box-shadow: 0 1em 3em -0.5em #000;
+  height: 15em;
+  margin-right: 2em;
+  transform: rotateY(3deg);
+  width: 15em;
 }
