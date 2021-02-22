@@ -1,16 +1,24 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { connect } from "react-redux";
 
-import { Interface } from './Interface';
-import { NowPlaying } from './NowPlaying';
-import { Scrubber } from './Scrubber';
-import { Time } from 'components/Time';
+import { Interface } from "./Interface";
+import { NowPlaying } from "./NowPlaying";
+import { Scrubber } from "./Scrubber";
+import { Time } from "components/Time";
 
-import { cyclePlayback, cycleRepeat, cycleShuffle, seek, next, prev, volume } from 'store';
+import {
+  cyclePlayback,
+  cycleRepeat,
+  cycleShuffle,
+  seek,
+  next,
+  prev,
+  volume,
+} from "store";
 
-import './Playback.css';
+import "./Playback.css";
 
-const REPEAT_MODES = ['off', 'context', 'track'];
+const REPEAT_MODES = ["off", "context", "track"];
 
 function callOnKey(fn, code) {
   return function (event) {
@@ -18,53 +26,54 @@ function callOnKey(fn, code) {
       fn();
       return true;
     }
-  }
+  };
 }
 
 export class Playback extends Component {
   constructor(props) {
     super(props);
 
-    this.bindings = [
-      callOnKey(props.cyclePlayback, 'Space'),
-      callOnKey(props.cycleRepeat, 'KeyR'),
-      callOnKey(props.cycleShuffle, 'KeyS'),
-    ];
+    this.bindings = [];
   }
 
   componentDidMount() {
-    window.addEventListener('keydown', this.onKeyPress);
+    window.addEventListener("keydown", this.onKeyPress);
   }
 
   componentWillUnmount() {
-    window.removeEventListener('keydown', this.onKeyPress);
+    window.removeEventListener("keydown", this.onKeyPress);
   }
 
-  onKeyPress = event => {
+  onKeyPress = (event) => {
     for (const binding of this.bindings) {
       if (binding(event)) {
         event.preventDefault();
       }
     }
-  }
+  };
 
   render() {
-    const { cycleRepeat, cycleShuffle, cyclePlayback, prev, next, seek, player, analysis } = this.props;
+    const {
+      cycleRepeat,
+      cycleShuffle,
+      cyclePlayback,
+      prev,
+      next,
+      seek,
+      player,
+      analysis,
+    } = this.props;
     const context = player.context;
 
-    const classes = ['Playback'];
+    const classes = ["Playback"];
 
-    classes.push(context.shuffle ? 'shuffle-on' : 'shuffle-off');
-    classes.push('repeat-' + REPEAT_MODES[context.repeat_mode]);
+    classes.push(context.shuffle ? "shuffle-on" : "shuffle-off");
+    classes.push("repeat-" + REPEAT_MODES[context.repeat_mode]);
 
     return (
-      <div className={classes.join(' ')}>
+      <div className={classes.join(" ")}>
         <NowPlaying track={player.currentTrack} />
-        <Scrubber
-          context={context}
-          seek={seek}
-          analysis={analysis}
-        />
+        <Scrubber context={context} seek={seek} analysis={analysis} />
         <Interface
           context={context}
           next={next}
@@ -83,14 +92,23 @@ export class Playback extends Component {
   }
 }
 
-export default connect(state => {
-  const track = state.player.currentTrack;
-  const trackId = track && track.get('id');
-  return {
-    analysis: state.track.analysis.get(trackId),
-    player: state.player,
-    playbackAPI: state.session.playbackAPI,
-  };
-}, {
-  seek, next, prev, cycleRepeat, cycleShuffle, cyclePlayback, volume,
-})(Playback);
+export default connect(
+  (state) => {
+    const track = state.player.currentTrack;
+    const trackId = track && track.get("id");
+    return {
+      analysis: state.track.analysis.get(trackId),
+      player: state.player,
+      playbackAPI: state.session.playbackAPI,
+    };
+  },
+  {
+    seek,
+    next,
+    prev,
+    cycleRepeat,
+    cycleShuffle,
+    cyclePlayback,
+    volume,
+  }
+)(Playback);
