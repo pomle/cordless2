@@ -7,6 +7,9 @@
       "hosting": {
         "cordless-app": [
           "cordless-app"
+        ],
+        "cordless-api": [
+          "cordless-api"
         ]
       }
     }
