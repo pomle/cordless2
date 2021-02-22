@@ -1,5 +1,14 @@
 {
   "projects": {
     "default": "cordless-a6502"
+  },
+  "targets": {
+    "cordless-a6502": {
+      "hosting": {
+        "cordless-app": [
+          "cordless-app"
+        ]
+      }
+    }
   }
 }

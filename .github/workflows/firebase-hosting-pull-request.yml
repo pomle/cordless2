@@ -18,7 +18,8 @@ jobs:
       - uses: FirebaseExtended/action-hosting-deploy@0e16177d01e10c4560245404f959e75a9c633533
         with:
           repoToken: "${{ secrets.GITHUB_TOKEN }}"
-          firebaseServiceAccount: "${{ secrets.IREBASE_SERVICE_ACCOUNT_CORDLESS_A6502 }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_CORDLESS_A6502 }}"
           projectId: cordless-a6502
+          target: cordless-app
         env:
           FIREBASE_CLI_PREVIEWS: hostingchannels
