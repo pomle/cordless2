@@ -1,17 +1,17 @@
 .App {
-
+  height: 100%;
 }
 
 .ProgressBar {
-    background: rgba(0, 0, 0, .4);
+  background: rgba(0, 0, 0, 0.4);
 }
 
 .ProgressBar .progress {
-    background: yellow;
-    height: 0.3em;
+  background: yellow;
+  height: 0.3em;
 }
 
 header h2 {
-    color: #eee;
-    font-size: 3em;
+  color: #eee;
+  font-size: 3em;
 }
