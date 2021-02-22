@@ -1,24 +1,25 @@
 .PlayerWindow {
-    display: grid;
+  display: grid;
+  height: 100%;
 }
 
 .PlayerWindow .PlayerUI {
-    grid-row: 1 / 1;
-    grid-column: 1 / 1;
-    z-index: 2;
+  grid-row: 1 / 1;
+  grid-column: 1 / 1;
+  z-index: 2;
 }
 
 .PlayerWindow .Visuals {
-    grid-row: 1 / 1;
-    grid-column: 1 / 1;
-    z-index: 1;
+  grid-row: 1 / 1;
+  grid-column: 1 / 1;
+  z-index: 1;
 }
 
 .PlayerWindow .PlayButton {
-    transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease;
 }
 
 .PlayerWindow.pending .PlayButton {
-    pointer-events: none;
-    opacity: 0;
+  pointer-events: none;
+  opacity: 0;
 }
