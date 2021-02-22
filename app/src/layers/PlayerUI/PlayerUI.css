@@ -1,25 +1,24 @@
 .PlayerUI {
-    display: flex;
-    flex-flow: column;
-    height: 100vh;
-    overflow: hidden;
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  overflow: hidden;
 }
 
 .PlayerUI > .viewport {
-    flex: 1;
-    overflow: auto;
+  flex: 1;
+  overflow: auto;
 }
 
 .PlayerUI > .viewport > .Navigation {
-    max-width: 1400px;
-    margin: 0 auto;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .PlayerUI > .viewport::-webkit-scrollbar {
-    width: 8px;
+  width: 8px;
 }
 
 .PlayerUI > .viewport::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.5);
 }
-
