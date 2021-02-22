@@ -33,8 +33,9 @@ export function createAuthURL() {
   if (AUTH_SERVER) {
     return AUTH_SERVER + '/login?scope=' + SCOPE.join(' ');
   } else {
-    const CLIENT_ID = 'a7cf3dcdfbd64bd5ac8d960caabbc890';
-    const CALLBACK_URL = process.env.REACT_APP_SITE_URL || 'http://localhost:3000/';
+    const CLIENT_ID = "a7cf3dcdfbd64bd5ac8d960caabbc890";
+    const CALLBACK_URL =
+      process.env.REACT_APP_SITE_URL || window.location.hostname;
     return createImplicitFlowURL(CLIENT_ID, CALLBACK_URL);
   }
 }
