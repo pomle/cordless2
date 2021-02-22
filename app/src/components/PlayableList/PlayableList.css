@@ -1,67 +1,67 @@
 .PlayableList a {
-    color: #fff;
+  color: #fff;
 }
 
 .PlayableList .items {
-    display: flex;
-    flex-flow: wrap;
-    justify-content: space-evenly;
-    margin: -1em;
+  display: flex;
+  flex-flow: wrap;
+  justify-content: space-evenly;
+  margin: -1em;
 }
 
 .PlayableList .item {
-    height: 20em;
-    margin: 2em 0.5em;
-    perspective: 200px;
-    width: 18em;
+  height: 18em;
+  margin: 2em 0.5em;
+  perspective: 200px;
+  width: 18em;
 }
 
 .PlayableList .item > div {
-    transform-origin: 50px 50px;
-    transition: all 0.2s ease;
-    z-index: 1;
+  transform-origin: 50px 50px;
+  transition: all 0.2s ease;
+  z-index: 1;
 }
 
 .PlayableList .image {
-    background: rgba(0, 0, 0, 0.7);
-    box-shadow: 0 1em 2em -.5em #000;
+  background: rgba(0, 0, 0, 0.7);
+  box-shadow: 0 1em 2em -0.5em #000;
 }
 
 .PlayableList .item:hover > div {
-    z-index: 2;
+  z-index: 2;
 }
 
 .PlayableList .playback {
-    display: grid;
-    opacity: 0;
+  display: grid;
+  opacity: 0;
 }
 
 .PlayableList .playback .PlayButton {
-    background-color: rgba(0, 0, 0, .3);
-    border: solid 2px #fff;
-    border-radius: 50%;
-    cursor: pointer;
-    font-size: 0;
-    height: 100px;
-    margin: auto;
-    opacity: .8;
-    width: 100px;
-    z-index: 2;
+  background-color: rgba(0, 0, 0, 0.3);
+  border: solid 2px #fff;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 0;
+  height: 100px;
+  margin: auto;
+  opacity: 0.8;
+  width: 100px;
+  z-index: 2;
 }
 
 .PlayableList .playback .PlayButton .icon {
-    background-position: calc(50% + 4px) 50%;
-    background-size: 38%;
+  background-position: calc(50% + 4px) 50%;
+  background-size: 38%;
 }
 
 .PlayableList .playback button:hover {
-    opacity: 1;
+  opacity: 1;
 }
 
 .PlayableList .item > *:hover .playback {
-    opacity: 1;
+  opacity: 1;
 }
 
 .PlayableList .placeholder {
-    border: solid 1px rgba(255, 255, 255, .3);
+  border: solid 1px rgba(255, 255, 255, 0.3);
 }
