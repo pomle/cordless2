@@ -89,7 +89,7 @@ app.get("/callback", (req, res) => {
       headers: {
         Authorization:
           "Basic " +
-          new Buffer(clientId + ":" + clientSecret).toString("base64"),
+          Buffer.from(clientId + ":" + clientSecret).toString("base64"),
       },
       json: true,
     };
@@ -132,7 +132,8 @@ app.get("/refresh_token", (req, res) => {
     url: "https://accounts.spotify.com/api/token",
     headers: {
       Authorization:
-        "Basic " + new Buffer(clientId + ":" + clientSecret).toString("base64"),
+        "Basic " +
+        Buffer.from(clientId + ":" + clientSecret).toString("base64"),
     },
     form: {
       grant_type: "refresh_token",
