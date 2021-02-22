@@ -1,49 +1,51 @@
 .PlaylistList .item {
+  font-size: 18px;
+  line-height: 1.2;
 }
 
 .PlaylistList .item .Playlist {
-    transition: opacity 1s;
+  transition: opacity 1s;
 }
 
 .PlaylistList .item.pending .Playlist {
-    opacity: 0;
+  opacity: 0;
 }
 
 .PlaylistList .Playlist {
-    display: grid;
-    grid: 18em auto auto / 18em;
-    grid-row-gap: 0.5em;
+  display: grid;
+  grid: 16em auto auto / 16em;
+  grid-row-gap: 0.4em;
 }
 
 .PlaylistList .Playlist a,
 .PlaylistList .Playlist .image {
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
 }
 
 .PlaylistList .Playlist .Image {
-    height: 100%;
-    width: 100%;
+  height: 100%;
+  width: 100%;
 }
 
 .PlaylistList .Playlist .playback {
-    grid-column: 1;
-    grid-row: 1;
+  grid-column: 1;
+  grid-row: 1;
 }
 
 .PlaylistList .Playlist .name,
 .PlaylistList .Playlist .owner {
-    transition: opacity 0.2s;
-    text-align: left;
-    text-shadow: 0 0.2em 0.4em #000;
+  transition: opacity 0.2s;
+  text-align: left;
+  text-shadow: 0 0.2em 0.4em #000;
 }
 
 .PlaylistList .item:hover .Playlist .name,
 .PlaylistList .item:hover .Playlist .owner {
-    opacity: 1;
+  opacity: 1;
 }
 
 .PlaylistList .item .placeholder {
-    height: 18em;
-    width: 18em;
+  height: 18em;
+  width: 18em;
 }
