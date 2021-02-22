@@ -71,6 +71,7 @@ app.get("/callback", (req, res) => {
 
   if (state === null || state !== storedState) {
     const url =
+      playerURI +
       "/#" +
       querystring.stringify({
         error: "state_mismatch",
