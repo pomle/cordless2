@@ -34,7 +34,7 @@ function generateRandomString(length: number) {
   return text;
 }
 
-const stateKey = "spotify_auth_state";
+const stateKey = "__session";
 
 const router = express.Router();
 
