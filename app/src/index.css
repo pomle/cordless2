@@ -16,12 +16,14 @@ body,
 input,
 button {
   font-family: "Cairo", sans-serif;
+  font-weight: bold;
 }
 
 h1,
 h2,
 h3,
 h4 {
+  font-weight: normal;
   margin: 0;
 }
 
