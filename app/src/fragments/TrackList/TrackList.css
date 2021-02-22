@@ -2,19 +2,22 @@
   align-items: center;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   display: grid;
-  grid:  50% 50% / 3em 35% 35% auto;
-  padding: .5em 0;
+  font-size: 20px;
+  grid: 50% 50% / 3em 35% 35% auto;
+  padding: 0.5em 0;
+  transition: background-color 0.3s ease;
 }
 
 .TrackList .Track:nth-child(even) {
-    background: rgba(0, 0, 0, .5);
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .TrackList .Track:nth-child(odd) {
-    background: rgba(0, 0, 0, .3);
+  background: rgba(0, 0, 0, 0.3);
 }
 
 .TrackList .Track:hover {
+  background: rgba(0, 0, 0, 0.75);
 }
 
 .TrackList .Track .name {
@@ -24,7 +27,6 @@
 .TrackList .Track .name,
 .TrackList .Track .artists,
 .TrackList .Track .album {
-
 }
 
 .TrackList .Track .playback {
@@ -37,9 +39,9 @@
   background: none;
   display: block;
   font-size: 0;
-  opacity: 0.5;
-  height: 25px;
-  width: 25px;
+  opacity: 0;
+  height: 20px;
+  width: 20px;
 }
 
 .TrackList .Track:hover .playback .PlayButton {
@@ -53,5 +55,5 @@
 }
 
 .TrackList .Track .artists {
-    font-size: 0.9em;
+  font-size: 0.9em;
 }
