@@ -9,7 +9,6 @@
 import * as functions from "firebase-functions";
 import * as express from "express"; // Express web server framework
 import * as request from "request"; // "Request" library
-import * as cors from "cors";
 import * as querystring from "querystring";
 import * as cookieParser from "cookie-parser";
 
@@ -37,12 +36,9 @@ function generateRandomString(length: number) {
 
 const stateKey = "spotify_auth_state";
 
-const app = express();
+const router = express.Router();
 
-app.use(cors());
-app.use(cookieParser());
-
-app.get("/login", (req, res) => {
+router.get("/login", (req, res) => {
   const state = generateRandomString(16);
   res.cookie(stateKey, state);
 
@@ -61,7 +57,7 @@ app.get("/login", (req, res) => {
   res.redirect(url);
 });
 
-app.get("/callback", (req, res) => {
+router.get("/callback", cookieParser(), (req, res) => {
   // your application requests refresh and access tokens
   // after checking the state parameter
 
@@ -125,7 +121,7 @@ app.get("/callback", (req, res) => {
   }
 });
 
-app.get("/refresh_token", (req, res) => {
+router.get("/refresh_token", (req, res) => {
   // requesting access token from refresh token
   const refreshToken = req.query.refresh_token;
   const authOptions = {
@@ -155,4 +151,4 @@ app.get("/refresh_token", (req, res) => {
   });
 });
 
-export default app;
+export default router;
