@@ -1,27 +1,21 @@
 .Playback {
-    background: rgba(0, 0, 0, .8);
-    box-shadow: 0 0 2em #000;
-    display: grid;
-    grid:  1em auto / 1fr 300px 1fr;
-    padding-bottom: 12px;
-}
-
-.Playback .NowPlaying,
-.Playback .Interface {
-    margin: 0 0.8em;
+  background: rgba(0, 0, 0, 0.8);
+  box-shadow: 0 0 2em #000;
+  display: grid;
+  grid: 1em auto / 1fr 300px 1fr;
+  padding: 16px;
 }
 
 .Playback .Scrubber {
-    grid-column: 1 / end;
-    grid-row: 1 / 1;
+  grid-column: 1 / end;
+  grid-row: 1 / 1;
 }
 
 .Playback .vis {
-    text-align: right;
-    margin: 0.5em;
+  justify-self: end;
 }
 
 .Playback .Time {
-    font-family: "Space Mono";
-    letter-spacing: 0.1em;
+  font-size: 24px;
+  line-height: 1;
 }
