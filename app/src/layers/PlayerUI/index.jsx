@@ -1,11 +1,12 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types'
+import React, { Component } from "react";
+import PropTypes from "prop-types";
 
-import { Navigation } from './Navigation';
-import Playback from 'views/Playback';
+import { Navigation } from "./Navigation";
+import { Accenter } from "./Accenter";
+import Playback from "views/Playback";
 
-import './Animation.css';
-import './PlayerUI.css';
+import "./Animation.css";
+import "./PlayerUI.css";
 
 class Viewport extends Component {
   static childContextTypes = {
@@ -33,9 +34,11 @@ class Viewport extends Component {
   }
 
   render() {
-    return <div className="viewport" ref={node => this.viewport = node}>
-      {this.state.mounted ? this.props.children : null}
-    </div>;
+    return (
+      <div className="viewport" ref={(node) => (this.viewport = node)}>
+        {this.state.mounted ? this.props.children : null}
+      </div>
+    );
   }
 }
 
@@ -43,6 +46,7 @@ export class PlayerUI extends Component {
   render() {
     return (
       <div className="PlayerUI">
+        <Accenter />
         <Viewport>
           <Navigation />
         </Viewport>
