@@ -28,7 +28,7 @@ function createImplicitFlowURL(clientId, callbackURL) {
 
 export function createAuthURL() {
   if (AUTH_URL) {
-    return AUTH_URL + "/login?scope=" + SCOPE.join(" ");
+    return AUTH_URL + "login?scope=" + SCOPE.join(" ");
   } else {
     const CLIENT_ID = "a7cf3dcdfbd64bd5ac8d960caabbc890";
     const CALLBACK_URL = window.location.hostname;
@@ -71,7 +71,7 @@ export function refreshToken(refreshTokenThatIsNotAccessToken) {
 
   const url =
     AUTH_URL +
-    "/refresh_token?refresh_token=" +
+    "refresh_token?refresh_token=" +
     refreshTokenThatIsNotAccessToken;
   return fetch(url).then((response) => response.json());
 }
