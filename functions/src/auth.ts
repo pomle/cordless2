@@ -40,7 +40,9 @@ const router = express.Router();
 
 router.get("/login", (req, res) => {
   const state = generateRandomString(16);
+
   res.cookie(stateKey, state);
+  res.setHeader("Cache-Control", "private");
 
   const scope = req.query.scope;
 
