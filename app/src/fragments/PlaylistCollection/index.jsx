@@ -1,16 +1,20 @@
-import React, { Component } from 'react';
-import CollectionVirtualizer from 'components/CollectionVirtualizer';
-import { PlaylistList } from 'fragments/PlaylistList';
-import { Playlist } from 'fragments/Playlist';
+import React, { Component } from "react";
+import CollectionVirtualizer from "components/CollectionVirtualizer";
+import { PlaylistList } from "fragments/PlaylistList";
+import { Playlist } from "fragments/Playlist";
 
-const PLACEHOLDER = <div className="playlist-container">
-  <div class="placeholder"/>
-</div>;
+const PLACEHOLDER = (
+  <div className="playlist-container">
+    <div className="placeholder" />
+  </div>
+);
 
 function renderer(playlist) {
-  return <div className="playlist-container">
-    <Playlist playlist={playlist} />
-  </div>;
+  return (
+    <div className="playlist-container">
+      <Playlist playlist={playlist} />
+    </div>
+  );
 }
 
 export default class PlaylistCollection extends Component {
