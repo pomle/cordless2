@@ -31,7 +31,7 @@ export function createAuthURL() {
     return AUTH_URL + "login?scope=" + SCOPE.join(" ");
   } else {
     const CLIENT_ID = "a7cf3dcdfbd64bd5ac8d960caabbc890";
-    const CALLBACK_URL = window.location.hostname;
+    const CALLBACK_URL = window.location.origin;
     return createImplicitFlowURL(CLIENT_ID, CALLBACK_URL);
   }
 }
