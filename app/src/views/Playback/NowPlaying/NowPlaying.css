@@ -1,25 +1,26 @@
 .Playback .NowPlaying {
-    display: grid;
-    height: 4em;
-    grid-template: 1fr / 4em auto;
-    grid-column-gap: 0.5em;
+  display: grid;
+  grid-template: auto / auto 1fr;
+  grid-column-gap: 8px;
 }
 
 .Playback .NowPlaying .Image {
-    grid-row: 1 / 4;
-    grid-column: 1 / 2;
-    height: 100%;
-    width: 100%;
+  grid-row: 1 / 4;
+  grid-column: 1 / 2;
+  height: 80px;
+  width: 80px;
 }
 
 .Playback .NowPlaying .Artists {
-    font-size: 0.8em;
-    grid-row: 1 / 2;
-    grid-column: 2 / 3;
-    align-self: end;
+  font-size: 0.8em;
+  grid-row: 1 / 2;
+  grid-column: 2 / 3;
+  align-self: end;
 }
 
 .Playback .NowPlaying .trackName {
-    grid-row: 1 / 2;
-    grid-column: 2 / 3;
+  font-size: 24px;
+  grid-row: 1 / 2;
+  grid-column: 2 / 3;
+  line-height: 1;
 }
