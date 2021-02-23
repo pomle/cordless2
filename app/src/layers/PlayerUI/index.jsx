@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 import { Navigation } from "./Navigation";
 import { Accenter } from "./Accenter";
@@ -48,6 +49,17 @@ export class PlayerUI extends Component {
       <div className="PlayerUI">
         <Accenter />
         <Viewport>
+          <div className="compass">
+            <Link component="button" to="/search">
+              Search
+            </Link>
+            <Link component="button" to="/playlists">
+              Playlists
+            </Link>
+            <Link component="button" to="/track-info">
+              Stats
+            </Link>
+          </div>
           <Navigation />
         </Viewport>
 
