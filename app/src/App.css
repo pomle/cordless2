@@ -7,7 +7,7 @@
 }
 
 .ProgressBar .progress {
-  background: yellow;
+  background: #eee;
   height: 0.3em;
 }
 

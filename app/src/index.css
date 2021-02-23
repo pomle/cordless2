@@ -6,7 +6,7 @@ body,
 
 body {
   background: #000;
-  color: #fff;
+  color: #ddd;
   margin: 0;
   padding: 0;
   font-size: 16px;
@@ -28,7 +28,7 @@ h4 {
 }
 
 a {
-  color: yellow;
+  color: #fff;
   text-decoration: none;
 }
 
@@ -38,7 +38,7 @@ a:hover {
 
 button {
   border: none;
-  background: yellow;
+  background: #ddd;
   color: black;
   cursor: pointer;
   font-weight: bold;
@@ -49,12 +49,12 @@ button {
 
 button:hover {
   background: black;
-  color: yellow;
+  color: #ddd;
 }
 
 input {
   background: rgba(0, 0, 0, 0.5);
-  border: solid 2px yellow;
+  border: solid 2px #ddd;
   color: #fff;
   outline: none;
 }
