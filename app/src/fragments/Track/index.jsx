@@ -1,8 +1,9 @@
-import React, { PureComponent } from 'react';
-import { Link } from 'react-router-dom';
+import React, { PureComponent } from "react";
+import { Link } from "react-router-dom";
 
-import { PlayButton } from 'components/PlayButton';
-import { Artists } from 'fragments/Artists';
+import { PlayButton } from "components/PlayButton";
+import { Time } from "components/Time";
+import { Artists } from "fragments/Artists";
 
 export class Track extends PureComponent {
   play = () => {
@@ -11,7 +12,9 @@ export class Track extends PureComponent {
 
   render() {
     const { track } = this.props;
-    const isLocal = track.get('uri').startsWith('spotify:local:');
+    const isLocal = track.get("uri").startsWith("spotify:local:");
+
+    const albumURL = `/album/${track.getIn(["album", "id"])}`;
 
     return (
       <div className="Track">
@@ -22,15 +25,22 @@ export class Track extends PureComponent {
             <button>Local</button>
           )}
         </div>
-        <div className="name">{track.get('name')}</div>
+
+        <div className="name">{track.get("name")}</div>
+
         <div className="artists">
-          <Artists artists={track.get('artists')} />
+          <Artists artists={track.get("artists")} />
         </div>
-        {track.has('album') ? (
-          <div className="album">
-            <Link to={`/album/${track.getIn(['album','id'])}`}>{track.getIn(['album','name'])}</Link>
-          </div>
-        ) : null}
+
+        <div className="album">
+          {track.has("album") ? (
+            <Link to={albumURL}>{track.getIn(["album", "name"])}</Link>
+          ) : null}
+        </div>
+
+        <div className="duration">
+          <Time seconds={track.get("duration_ms") / 1000} />
+        </div>
       </div>
     );
   }
