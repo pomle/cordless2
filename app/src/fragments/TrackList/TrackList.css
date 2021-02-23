@@ -4,7 +4,8 @@
   display: grid;
   font-size: 20px;
   grid: 50% 50% / 3em 35% 35% auto;
-  padding: 0.5em 0;
+  line-height: 1.4;
+  padding: 8px 0;
   transition: background-color 0.3s ease;
 }
 
