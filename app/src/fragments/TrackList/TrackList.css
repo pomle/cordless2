@@ -1,11 +1,12 @@
 .TrackList .Track {
-  align-items: center;
+  align-items: start;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   display: grid;
   font-size: 20px;
-  grid: 50% 50% / 3em 35% 35% auto;
+  grid: auto auto / 48px 1fr 1fr auto;
+  grid-gap: 4px;
   line-height: 1.4;
-  padding: 8px 0;
+  padding: 8px;
   transition: background-color 0.3s ease;
 }
 
@@ -25,12 +26,8 @@
   grid-row: 1 / 2;
 }
 
-.TrackList .Track .name,
-.TrackList .Track .artists,
-.TrackList .Track .album {
-}
-
 .TrackList .Track .playback {
+  align-self: center;
   grid-column: 1 / 1;
   grid-row: 1 / end;
   justify-self: center;
@@ -38,11 +35,20 @@
 
 .TrackList .Track .playback .PlayButton {
   background: none;
+  border: 1px solid #fff;
+  border-radius: 50%;
   display: block;
   font-size: 0;
-  opacity: 0;
-  height: 20px;
-  width: 20px;
+  opacity: 1;
+  height: 28px;
+  width: 28px;
+}
+
+.TrackList .Track .playback .PlayButton .icon {
+  height: 12px;
+  margin: auto;
+  margin-left: 8px;
+  width: 12px;
 }
 
 .TrackList .Track:hover .playback .PlayButton {
@@ -50,7 +56,6 @@
 }
 
 .TrackList .Track .album {
-  font-size: 0.7em;
   grid-column: 2 / 2;
   grid-row: 2 / 2;
 }
