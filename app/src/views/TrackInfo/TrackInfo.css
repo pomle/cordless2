@@ -1,3 +1,9 @@
+.TrackInfo {
+    background: #0003;
+    margin-top: 128px;
+    padding: 64px;
+}
+
 .TrackInfo .ProgressBar .progress {
     height: 12px;
     transition: width 1s ease;
