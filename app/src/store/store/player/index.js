@@ -6,6 +6,7 @@ const Context = Record({
   disallows: null,
   duration: null,
   paused: null,
+  playback_quality: null,
   position: null,
   repeat_mode: null,
   restrictions: null,
