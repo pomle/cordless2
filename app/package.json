@@ -8,7 +8,7 @@
     "gl-react": "^3.13.0",
     "gl-react-dom": "^3.13.0",
     "immutable": "^3.8.2",
-    "prettier": "^1.9.2",
+    "prettier": "^2.2.1",
     "prop-types": "^15.6.0",
     "query-string": "^5.0.1",
     "react": "^16.2.0",
@@ -17,7 +17,7 @@
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
-    "react-scripts": "1.0.17",
+    "react-scripts": "^4.0.3",
     "redux": "^3.7.2",
     "serve": "^6.4.4"
   },
@@ -29,5 +29,17 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
     "heroku-postbuild": "yarn run build"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
   }
 }
