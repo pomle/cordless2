@@ -1,37 +1,41 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import React, { Component } from "react";
+import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 
-import { PlayButton } from 'components/PlayButton';
-import { Image } from 'fragments/Image';
+import { PlayButton } from "components/PlayButton";
+import { Image } from "fragments/Image";
 
-import { playAlbum } from 'store';
+import { playAlbum } from "store";
 
-import './Album.css';
+import "./Album.css";
 
-export const Album = connect(null, {playAlbum})(class Album extends Component {
-  play = () => {
-    const { album, playAlbum } = this.props;
-    playAlbum(album.get('id'));
-  };
+export const Album = connect(null, { playAlbum })(
+  class Album extends Component {
+    play = () => {
+      const { album, playAlbum } = this.props;
+      playAlbum(album.get("id"));
+    };
 
-  render() {
-    const { album } = this.props;
+    render() {
+      const { album } = this.props;
 
-    return (
-      <div className="Album">
-        <div className="image">
-          <Image candidates={album.get('images')} />
+      const albumURL = `/album/${album.get("id")}`;
+
+      return (
+        <div className="Album">
+          <Link component="div" className="image" to={albumURL}>
+            <Image candidates={album.get("images")} />
+          </Link>
+
+          <div className="name">
+            <Link to={albumURL}>{album.get("name")}</Link>
+          </div>
+
+          <div className="playback">
+            <PlayButton onClick={this.play} />
+          </div>
         </div>
-
-        <div className="name">
-          <Link to={`/album/${album.get('id')}`}>{album.get('name')}</Link>
-        </div>
-
-        <div className="playback">
-          <PlayButton onClick={this.play} />
-        </div>
-      </div>
-    );
+      );
+    }
   }
-});
+);
