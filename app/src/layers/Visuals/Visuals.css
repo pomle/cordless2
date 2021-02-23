@@ -1,28 +1,36 @@
 .Visuals {
-    display: grid;
-    grid-template: 1fr / 1fr;
-    grid-auto-columns: 0;
+  display: grid;
+  grid-template: 1fr / 1fr;
+  grid-auto-columns: 0;
 }
 
 .Visuals canvas {
-    display: block;
+  display: block;
 }
 
+.Visuals .Noise,
 .Visuals .Album,
 .Visuals .Backdrop {
-    grid-row: 1/2;
-    grid-column: 1/2;
+  grid-row: 1/2;
+  grid-column: 1/2;
+}
+
+.Visuals .Noise {
+  height: 100%;
+  opacity: 0.1;
+  width: 100%;
+  z-index: 300;
 }
 
 .Visuals .Album {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2;
 }
 
 .Visuals .Album canvas,
 .Visuals .Backdrop canvas {
-    height: 100vh !important; /* freakin inbread styles */
-    width: 100vw !important;
+  height: 100vh !important; /* freakin inbread styles */
+  width: 100vw !important;
 }
