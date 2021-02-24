@@ -1,35 +1,32 @@
 .SearchView header,
 .SearchView header input,
 .SearchView .results {
-    transition: all 0.5s ease;
+  transition: all 0.5s ease;
 }
 
 .SearchView header {
-    position: relative;
-}
-
-.SearchView.hasResults header {
+  position: relative;
 }
 
 .SearchView header input {
-    position: absolute;
-    right: 50%;
-    top: 0;
-    transform: translateX(50%) translateY(40vh);
-    z-index: 2;
+  position: absolute;
+  right: 50%;
+  top: 0;
+  transform: translateX(50%) translateY(20vh);
+  z-index: 2;
 }
 
 .SearchView.hasResults header input {
-    font-size: 1.5em;
-    transform: translateX(50%) translateY(0);
+  font-size: 1.5em;
+  transform: translateX(50%) translateY(0);
 }
 
 .SearchView .results {
-    pointer-events: none;
-    opacity: 0;
+  pointer-events: none;
+  opacity: 0;
 }
 
 .SearchView.hasResults .results {
-    pointer-events: auto;
-    opacity: 1;
+  pointer-events: auto;
+  opacity: 1;
 }

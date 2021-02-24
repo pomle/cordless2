@@ -1,54 +1,53 @@
 .TrackInfo {
-    background: #0003;
-    margin-top: 128px;
-    padding: 64px;
+  background: #0003;
+  padding: 64px;
 }
 
 .TrackInfo .ProgressBar .progress {
-    height: 12px;
-    transition: width 1s ease;
+  height: 12px;
+  transition: width 1s ease;
 }
 
 .TrackInfo .danceability .progress {
-    background: #f71dbf;
+  background: #f71dbf;
 }
 
 .TrackInfo .energy .progress {
-    background: #89ff89;
+  background: #89ff89;
 }
 
 .TrackInfo .instrumentalness .progress {
-    background: #fb0080;
+  background: #fb0080;
 }
 
 .TrackInfo .speechiness .progress {
-    background: #00ffcf;
+  background: #00ffcf;
 }
 
 .TrackInfo .liveness .progress {
-    background: yellow;
+  background: yellow;
 }
 
 .TrackInfo .valence .progress {
-    background: orange;
+  background: orange;
 }
 
 .TrackInfo table th {
-    text-align: left;
+  text-align: left;
 }
 
 .TrackInfo table {
-    width: 100%;
+  width: 100%;
 }
 
 .TrackInfo tr {
-    display: flex;
+  display: flex;
 }
 
 .TrackInfo table th {
-    flex: 0 1 20%;
+  flex: 0 1 20%;
 }
 
 .TrackInfo table td {
-    flex: 1 1 auto;
+  flex: 1 1 auto;
 }

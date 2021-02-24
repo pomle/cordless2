@@ -56,6 +56,9 @@ export class PlayerUI extends Component {
             <Link component="button" to="/playlists">
               Playlists
             </Link>
+            <Link component="button" to="/now-playing">
+              Now Playing
+            </Link>
             <Link component="button" to="/track-info">
               Stats
             </Link>
