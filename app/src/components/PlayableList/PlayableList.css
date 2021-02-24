@@ -5,13 +5,13 @@
 .PlayableList .items {
   display: flex;
   flex-flow: wrap;
-  justify-content: space-evenly;
-  margin: -1em;
+  justify-content: space-between;
+  margin: 0 -16px;
 }
 
 .PlayableList .item {
   height: 18em;
-  margin: 2em 0.5em;
+  margin: 32px 16px;
   perspective: 200px;
   width: 18em;
 }
