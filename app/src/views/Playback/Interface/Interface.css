@@ -1,53 +1,56 @@
 .Playback .Interface {
-    display: grid;
-    grid: 1fr / repeat(5, 1fr);
-    align-items: center;
+  display: grid;
+  grid: 1fr / repeat(5, 1fr);
+  align-items: center;
 }
 
 .Playback .Interface button {
-    background: none;
-    cursor: pointer;
-    display: block;
-    margin: auto;
-    opacity: 0.8;
-    transform: scale(0.9);
+  background: none;
+  cursor: pointer;
+  display: block;
+  margin: auto;
+  opacity: 0.8;
+  transform: scale(0.9);
 }
 
 .Playback .Interface button:hover {
-    opacity: 1;
-    transform: none;
+  opacity: 1;
+  transform: none;
 }
 
 .Playback .Interface button img {
-    pointer-events: none;
-    object-fit: contain;
-    height: 26px;
-    width: 26px;
+  pointer-events: none;
+  object-fit: contain;
+  height: 26px;
+  width: 26px;
 }
 
 .Playback .Interface .toggle {
-    display: grid;
-    align-items: center;
-    perspective: 200px;
+  display: grid;
+  align-items: center;
+  perspective: 200px;
 }
 
 .Playback .Interface .toggle > * {
-    grid-column: 1 / 2;
-    grid-row: 1 / 2;
-    transition: opacity 0.2s, transform 0.2s;
-}
-
-.Playback .Interface .toggle img {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  transition: opacity 0.2s, transform 0.2s;
 }
 
 .Playback .Interface .toggle.paused .pause,
 .Playback .Interface .toggle.playing .play {
-    pointer-events: none;
-    opacity: 0;
-    transform: rotateY(90deg);
+  pointer-events: none;
+  opacity: 0;
+  transform: rotateY(90deg);
+}
+
+.Playback .Interface .pause img,
+.Playback .Interface .play img {
+  height: 22px;
+  width: 22px;
 }
 
 .Playback .Interface .shuffle,
 .Playback .Interface .repeat {
-    transform: scale(0.8);
+  transform: scale(0.8);
 }

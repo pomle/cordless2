@@ -4,11 +4,16 @@
   grid-column-gap: 16px;
 }
 
+.Playback .NowPlaying .cover-art {
+  height: 80px;
+  width: 80px;
+}
+
 .Playback .NowPlaying .Image {
   grid-row: 1 / 4;
   grid-column: 1 / 2;
-  height: 80px;
-  width: 80px;
+  height: 100%;
+  width: 100%;
 }
 
 .Playback .NowPlaying .Artists {

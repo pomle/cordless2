@@ -2,7 +2,7 @@
   align-items: start;
   border-bottom: 1px solid rgba(0, 0, 0, 0.2);
   display: grid;
-  font-size: 20px;
+  font-size: 16px;
   grid: auto auto / 48px 1fr 1fr auto;
   grid-gap: 4px;
   line-height: 1.4;

@@ -1,12 +1,12 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { Iterable } from 'immutable';
+import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { Iterable } from "immutable";
 
-import { QuickSearch } from 'components/QuickSearch';
-import { ViewHeader } from 'components/ViewHeader';
-import { PlaylistList } from 'fragments/PlaylistList';
+import { QuickSearch } from "components/QuickSearch";
+import ViewHeader from "components/ViewHeader";
+import { PlaylistList } from "fragments/PlaylistList";
 
-import {matcher, matchPlaylist} from "library/search";
+import { matcher, matchPlaylist } from "library/search";
 
 export class PlaylistIndex extends Component {
   static propTypes = {
@@ -18,7 +18,7 @@ export class PlaylistIndex extends Component {
     super(props);
 
     this.state = {
-      filter: '',
+      filter: "",
     };
   }
 
@@ -27,13 +27,13 @@ export class PlaylistIndex extends Component {
 
     if (filter.length) {
       const match = matcher(filter);
-      return playlists.filter(playlist => matchPlaylist(playlist, match));
+      return playlists.filter((playlist) => matchPlaylist(playlist, match));
     }
 
     return playlists;
   }
 
-  updateFilter = filter => {
+  updateFilter = (filter) => {
     this.setState({ filter });
   };
 
