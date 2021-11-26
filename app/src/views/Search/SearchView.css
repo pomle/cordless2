@@ -9,16 +9,6 @@
 }
 
 .SearchView header input {
-  position: absolute;
-  right: 50%;
-  top: 0;
-  transform: translateX(50%) translateY(20vh);
-  z-index: 2;
-}
-
-.SearchView.hasResults header input {
-  font-size: 1.5em;
-  transform: translateX(50%) translateY(0);
 }
 
 .SearchView .results {

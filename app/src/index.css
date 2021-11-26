@@ -62,7 +62,6 @@ input {
 .QuickSearch input,
 .SearchView input {
   border-radius: 2em;
-  font-size: 2em;
   text-align: center;
   padding: 0.25em 0.5em;
   width: 14em;
