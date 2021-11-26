@@ -96,11 +96,9 @@ class ViewportDetector extends PureComponent {
     }
   }
 
-  componentWillReceiveProps(props) {
-    console.log("CWRP", props);
-  }
+  componentDidUpdate() {
+    const { count, items, onDraw } = this.props;
 
-  componentWillUpdate({ count, items, onDraw }) {
     const children = [];
     const missing = [];
 

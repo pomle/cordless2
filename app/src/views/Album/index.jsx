@@ -10,7 +10,7 @@ import { fetchAlbum, playAlbum } from "store";
 import "./AlbumView.css";
 
 class AlbumView extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchAlbum(this.props.albumId);
   }
 

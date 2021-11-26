@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { Shaders, Node, GLSL } from 'gl-react';
-import { timed } from '../timed.jsx';
+import React, { Component } from "react";
+import { Shaders, Node, GLSL } from "gl-react";
+import { timed } from "../timed.jsx";
 
 const shaders = Shaders.create({
   helloBlue: {
@@ -119,7 +119,7 @@ void main() {
 
 function createFade(initial) {
   let last = initial;
-  return function(goals) {
+  return function (goals) {
     return goals.map((goal, index) => {
       last[index] = last[index] + (goal - last[index]) / 200;
       return last[index];
@@ -130,7 +130,7 @@ function createFade(initial) {
 function toVec3(color, name) {
   if (color) {
     if (color[name]) {
-      return color[name].rgb.map(x => x / 255);
+      return color[name].rgb.map((x) => x / 255);
     }
   }
 }
@@ -145,26 +145,31 @@ function createExtractColor(primary, secondary, fallback) {
       prev = colors;
     }
     return fade(color);
-  }
+  };
 }
 
-const color1 = createExtractColor('vibrant', 'muted', [1, .2, 3]);
-const color2 = createExtractColor('darkvibrant', 'lightvibrant', [3, .2, 1]);
-const color3 = createExtractColor('darkmuted', 'lightmuted', [.6, .0, .6]);
+const color1 = createExtractColor("vibrant", "muted", [1, 0.2, 3]);
+const color2 = createExtractColor("darkvibrant", "lightvibrant", [3, 0.2, 1]);
+const color3 = createExtractColor("darkmuted", "lightmuted", [0.6, 0.0, 0.6]);
 
-export const Mood = ({children: t, colors, mix}) => {
-  return <Node shader={shaders.mood} uniforms={{
-    t,
-    colorMix: mix,
-    color1: color1(colors),
-    color2: color2(colors),
-    color3: color3(colors),
-  }} />;
-}
+export const Mood = ({ children: t, colors, mix }) => {
+  return (
+    <Node
+      shader={shaders.mood}
+      uniforms={{
+        t,
+        colorMix: mix,
+        color1: color1(colors),
+        color2: color2(colors),
+        color3: color3(colors),
+      }}
+    />
+  );
+};
 
-export const Noise = ({children: t}) => {
-  return <Node shader={shaders.noise} uniforms={{t}} />;
-}
+export const Noise = ({ children: t }) => {
+  return <Node shader={shaders.noise} uniforms={{ t }} />;
+};
 
 export const HelloBlue = timed(({ time }) => {
   return <Node shader={shaders.helloBlue} uniforms={{ time: time / 1000 }} />;
@@ -182,9 +187,10 @@ export const Pontus = timed(
       this.progress = 0;
     }
 
-    componentWillReceiveProps({ time, timeSpeed }) {
+    componentDidUpdate() {
+      const { time, timeSpeed } = this.props;
       const dt = time - this.lastTime;
-      this.progress += dt / 1000 * timeSpeed;
+      this.progress += (dt / 1000) * timeSpeed;
       this.lastTime = time;
     }
 

@@ -55,7 +55,8 @@ export const Visuals = withRouter(
         this.updateAnalyser = onChange(is, this.updateAnalyser.bind(this));
       }
 
-      componentWillReceiveProps({ context, track, analysis, trackAPI }) {
+      componentDidUpdate() {
+        const { context, track, analysis, trackAPI } = this.props;
         this.onTrackChange(track);
 
         if (this.analyzer) {

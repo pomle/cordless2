@@ -7,7 +7,7 @@ import { AlbumList } from "fragments/AlbumList";
 import { fetchArtist } from "store";
 
 export class ArtistView extends Component {
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchArtist(this.props.artistId);
   }
 
