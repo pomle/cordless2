@@ -13,8 +13,8 @@
 
 .PlaylistList .Playlist {
   display: grid;
-  grid: 16em auto auto / 16em;
-  grid-row-gap: 0.4em;
+  grid: 300px auto auto / 300px;
+  grid-row-gap: 12px;
 }
 
 .PlaylistList .Playlist a,
@@ -38,6 +38,11 @@
   transition: opacity 0.2s;
   text-align: left;
   text-shadow: 0 0.2em 0.4em #000;
+}
+
+.PlaylistList .Playlist .owner {
+  font-weight: 400;
+  margin-top: -4px;
 }
 
 .PlaylistList .item:hover .Playlist .name,
