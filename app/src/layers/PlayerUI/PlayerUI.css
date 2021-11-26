@@ -1,18 +1,17 @@
 .PlayerUI {
-  display: flex;
-  flex-flow: column;
+  display: grid;
+  grid-template-rows: 1fr auto;
   height: 100%;
-  overflow: hidden;
 }
 
 .PlayerUI > .viewport {
-  flex: 1;
-  overflow: auto;
+  display: grid;
+  grid-template-columns: 160px 1fr;
 }
 
-.PlayerUI > .viewport > .Navigation {
-  max-width: 1400px;
-  margin: 0 auto;
+.PlayerUI > .viewport > nav {
+  background: #040404;
+  padding: 16px;
 }
 
 .PlayerUI > .viewport::-webkit-scrollbar {
@@ -22,7 +21,6 @@
 .PlayerUI > .viewport::-webkit-scrollbar-thumb {
   background: rgba(255, 255, 255, 0.5);
 }
-
 
 .PlayerUI .compass {
   background: #0005;
