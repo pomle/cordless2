@@ -14,9 +14,11 @@ export default function PlayerUI() {
         <nav>
           <Nav />
         </nav>
-        <div className="content">
-          <Navigation />
-        </div>
+        <main>
+          <div id="viewport" className="content">
+            <Navigation />
+          </div>
+        </main>
       </div>
 
       <div className="playback">

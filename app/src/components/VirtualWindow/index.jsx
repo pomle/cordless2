@@ -1,6 +1,6 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import { Iterable } from 'immutable';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import { Iterable } from "immutable";
 
 const BUFFER_SIZE = 3;
 
@@ -13,12 +13,8 @@ class VirtualWindow extends PureComponent {
     onPlaceholder: PropTypes.func.isRequired,
   };
 
-  static contextTypes = {
-    viewport: PropTypes.object,
-  };
-
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
 
     this.needsRecalculate = true;
 
@@ -33,15 +29,15 @@ class VirtualWindow extends PureComponent {
   }
 
   componentDidMount() {
-    this.viewport = this.context.viewport;
-    this.viewport.addEventListener('scroll', this.onScroll);
-    window.addEventListener('resize', this.onResize);
+    this.viewport = document.querySelector("#viewport");
+    this.viewport.addEventListener("scroll", this.onScroll);
+    window.addEventListener("resize", this.onResize);
     this.calculate();
   }
 
   componentWillUnmount() {
-    this.viewport.removeEventListener('scroll', this.onScroll);
-    window.removeEventListener('resize', this.onResize);
+    this.viewport.removeEventListener("scroll", this.onScroll);
+    window.removeEventListener("resize", this.onResize);
   }
 
   componentDidUpdate() {
@@ -52,11 +48,11 @@ class VirtualWindow extends PureComponent {
 
   onResize = () => {
     this.calculate();
-  }
+  };
 
   onScroll = () => {
     this.calculateOffset();
-  }
+  };
 
   calculate() {
     this.calculateHeight();
@@ -64,12 +60,15 @@ class VirtualWindow extends PureComponent {
   }
 
   calculateOffset() {
-    this.setState(({rowLen, rowHeight}) => {
+    this.setState(({ rowLen, rowHeight }) => {
       if (!rowLen) {
         return;
       }
 
-      const scrollTop = Math.max(0, this.viewport.scrollTop - this.container.offsetTop);
+      const scrollTop = Math.max(
+        0,
+        this.viewport.scrollTop - this.container.offsetTop
+      );
       const offset = Math.floor(scrollTop / rowHeight) * rowLen;
 
       return {
@@ -93,10 +92,10 @@ class VirtualWindow extends PureComponent {
         const rowCount = Math.floor(offsetHeight / rowHeight);
         const length = (rowCount + BUFFER_SIZE) * rowLen;
         this.setState({
-            rowHeight,
-            rowLen,
-            length,
-            containerHeight: rowHeight * this.props.resultSize / rowLen,
+          rowHeight,
+          rowLen,
+          length,
+          containerHeight: (rowHeight * this.props.resultSize) / rowLen,
         });
         this.needsRecalculate = false;
         return;
@@ -116,50 +115,64 @@ class VirtualWindow extends PureComponent {
 
     const containerStyle = {
       height: `${containerHeight}px`,
-      position: 'relative',
+      position: "relative",
     };
 
     const itemsStyle = {
-      position: 'absolute',
+      position: "absolute",
       top: `${itemsTop}px`,
-      willChange: 'top',
+      willChange: "top",
     };
 
-    return <div className="container" style={containerStyle} ref={node => this.container = node}>
-      <div className="items" style={itemsStyle} ref={node => this.itemsNode = node}>
-        <ItemRenderer
-          items={items}
-          start={offset}
-          end={end}
-          onDraw={onDraw}
-          onPlaceholder={onPlaceholder}
-          onMissing={onMissing}
-        />
+    return (
+      <div
+        className="container"
+        style={containerStyle}
+        ref={(node) => (this.container = node)}
+      >
+        <div
+          className="items"
+          style={itemsStyle}
+          ref={(node) => (this.itemsNode = node)}
+        >
+          <ItemRenderer
+            items={items}
+            start={offset}
+            end={end}
+            onDraw={onDraw}
+            onPlaceholder={onPlaceholder}
+            onMissing={onMissing}
+          />
+        </div>
       </div>
-    </div>;
+    );
   }
 }
 
 class ItemRenderer extends PureComponent {
   renderItem(items, index) {
     const item = items.get(index);
-    const classes = ['item'];
+    const classes = ["item"];
     let content;
 
     if (item && item.ready) {
-      classes.push('ready');
+      classes.push("ready");
       content = this.props.onDraw(item.content);
     } else {
-      classes.push('pending');
+      classes.push("pending");
       this.props.onMissing(index);
       content = this.props.onPlaceholder(index);
     }
 
-    return <div className={classes.join(' ')} key={index}>{content}</div>;
+    return (
+      <div className={classes.join(" ")} key={index}>
+        {content}
+      </div>
+    );
   }
 
   render() {
-    const {items, start, end} = this.props;
+    const { items, start, end } = this.props;
 
     const children = [];
     for (let index = start; index < end; ++index) {
@@ -171,4 +184,3 @@ class ItemRenderer extends PureComponent {
 }
 
 export default VirtualWindow;
-
