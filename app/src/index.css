@@ -29,6 +29,7 @@ h4 {
 
 a {
   color: #fff;
+  transition: color 10s;
   text-decoration: none;
 }
 
@@ -57,6 +58,7 @@ input {
   border: solid 2px #ddd;
   color: #fff;
   outline: none;
+  transition: border-color 10s;
 }
 
 .QuickSearch input,

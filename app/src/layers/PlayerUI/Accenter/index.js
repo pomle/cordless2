@@ -34,17 +34,14 @@ export const Accenter = connect((state) => {
             __html: `
                 a {
                     ${accentColor ? `color: ${accentColor};` : ""}
-                    transition: color 10s;
                 }
 
                 input {
                     ${accentColor ? `border-color: ${accentColor};` : ""}
-                    transition: border-color 10s;
                 }
 
                 .ProgressBar .progress {
                     ${accentColor ? `background-color: ${accentColor};` : ""}
-                    transition: background-color 10s;
                 }
             `,
           }}
