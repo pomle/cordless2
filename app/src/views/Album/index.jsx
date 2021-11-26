@@ -1,22 +1,22 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from "react";
+import { connect } from "react-redux";
 
-import { ViewHeader } from 'components/ViewHeader';
-import { TrackList } from 'fragments/TrackList';
-import { Track } from 'fragments/Track';
+import ViewHeader from "components/ViewHeader";
+import { TrackList } from "fragments/TrackList";
+import { Track } from "fragments/Track";
 
-import { fetchAlbum, playAlbum } from 'store';
+import { fetchAlbum, playAlbum } from "store";
 
-import './AlbumView.css';
+import "./AlbumView.css";
 
 class AlbumView extends Component {
   componentWillMount() {
     this.props.fetchAlbum(this.props.albumId);
   }
 
-  playTrack = track => {
+  playTrack = (track) => {
     const { playAlbum, albumId } = this.props;
-    playAlbum(albumId, track.get('id'));
+    playAlbum(albumId, track.get("id"));
   };
 
   render() {
@@ -28,11 +28,17 @@ class AlbumView extends Component {
 
     return (
       <div className="AlbumDetail">
-        <ViewHeader caption={album.get('name')} images={album.get('images')} />
+        <ViewHeader caption={album.get("name")} images={album.get("images")} />
 
         <TrackList>
-          {album.getIn(['tracks', 'items'], []).map(track => {
-            return <Track key={track.get('id')} track={track} play={this.playTrack} />;
+          {album.getIn(["tracks", "items"], []).map((track) => {
+            return (
+              <Track
+                key={track.get("id")}
+                track={track}
+                play={this.playTrack}
+              />
+            );
           })}
         </TrackList>
       </div>
@@ -41,7 +47,7 @@ class AlbumView extends Component {
 }
 
 export default connect(
-  (state, {albumId}) => {
+  (state, { albumId }) => {
     return {
       album: state.album.getEntry(albumId),
     };
