@@ -4,6 +4,11 @@
   "private": true,
   "dependencies": {
     "@pomle/spotify-web-sdk": "^0.0.0-31",
+    "@types/jest": "^27.0.3",
+    "@types/node": "^16.11.10",
+    "@types/react": "^17.0.37",
+    "@types/react-dom": "^17.0.11",
+    "@types/react-router-dom": "^5.3.2",
     "animejs": "^2.2.0",
     "gl-react": "^3.13.0",
     "gl-react-dom": "^3.13.0",
@@ -11,15 +16,16 @@
     "prettier": "^2.2.1",
     "prop-types": "^15.6.0",
     "query-string": "^5.0.1",
-    "react": "^16.2.0",
-    "react-dom": "^16.2.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-motion": "^0.5.2",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-scripts": "^4.0.3",
     "redux": "^3.7.2",
-    "serve": "^6.4.4"
+    "serve": "^6.4.4",
+    "typescript": "^4.5.2"
   },
   "scripts": {
     "format": "prettier --single-quote --trailing-comma es5 --write 'src/**/*.{js,jsx}'",

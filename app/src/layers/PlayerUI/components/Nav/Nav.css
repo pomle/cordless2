@@ -1,0 +1,15 @@
+.Nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+.Nav ul li {
+  align-items: center;
+  display: flex;
+  font-size: 14px;
+}
+
+.Nav ul li svg {
+  display: block;
+  margin-right: 8px;
+}
