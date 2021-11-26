@@ -2,11 +2,23 @@
   display: grid;
   grid-template-rows: 1fr auto;
   height: 100%;
+  overflow: hidden;
 }
 
 .PlayerUI > .viewport {
   display: grid;
   grid-template-columns: 160px 1fr;
+}
+
+.PlayerUI > .viewport > main {
+  overflow: hidden;
+  position: relative;
+}
+
+.PlayerUI > .viewport > main > .content {
+  inset: 0;
+  overflow: auto;
+  position: absolute;
 }
 
 .PlayerUI > .viewport > nav {

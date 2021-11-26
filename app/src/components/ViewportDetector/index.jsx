@@ -1,8 +1,8 @@
-import React, { PureComponent, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { Set as ImmutableSet, Iterable } from 'immutable';
+import React, { PureComponent, Fragment } from "react";
+import PropTypes from "prop-types";
+import { Set as ImmutableSet, Iterable } from "immutable";
 
-const NO_DISPLAY = {display: 'none'};
+const NO_DISPLAY = { display: "none" };
 const VIEWPORT_WAIT_INTERVAL = 10;
 const SCROLL_GRACE_TIMEOUT = 50;
 
@@ -14,29 +14,27 @@ class ViewportDetector extends PureComponent {
     onMissing: PropTypes.func.isRequired,
   };
 
-  static contextTypes = {
-    viewport: PropTypes.object,
-  };
-
   constructor(props) {
     super(props);
 
-    console.log('afafgag');
     this.visible = new ImmutableSet();
     this.children = null;
   }
 
-  componentWillMount() {
-    this.viewportTimer = setInterval(this.waitForViewport, VIEWPORT_WAIT_INTERVAL);
+  componentDidMount() {
+    this.viewport = document.querySelector("#viewport");
+    this.viewportTimer = setInterval(
+      this.waitForViewport,
+      VIEWPORT_WAIT_INTERVAL
+    );
   }
 
   waitForViewport = () => {
-    if (this.context.viewport) {
-      this.viewport = this.context.viewport;
-      console.log('Viewport found');
+    if (this.viewport) {
+      console.log("Viewport found");
 
-      this.viewport.addEventListener('scroll', this.onScroll);
-      window.addEventListener('resize', this.onScroll);
+      this.viewport.addEventListener("scroll", this.onScroll);
+      window.addEventListener("resize", this.onScroll);
 
       clearInterval(this.viewportTimer);
 
@@ -46,8 +44,8 @@ class ViewportDetector extends PureComponent {
 
   componentWillUnmount() {
     if (this.viewport) {
-      this.viewport.removeEventListener('scroll', this.onScroll);
-      window.removeEventListener('resize', this.onScroll);
+      this.viewport.removeEventListener("scroll", this.onScroll);
+      window.removeEventListener("resize", this.onScroll);
     }
 
     clearInterval(this.viewportTimer);
@@ -68,11 +66,16 @@ class ViewportDetector extends PureComponent {
     const start = this.viewport.scrollTop - vh;
     const end = start + vh * 3;
 
-    this.checkTimer = setTimeout(this.doUpdate, SCROLL_GRACE_TIMEOUT, start, end);
+    this.checkTimer = setTimeout(
+      this.doUpdate,
+      SCROLL_GRACE_TIMEOUT,
+      start,
+      end
+    );
   };
 
   detectVisible(startX, endX) {
-    const visible = this.visible.clear().withMutations(visible => {
+    const visible = this.visible.clear().withMutations((visible) => {
       let index = 0;
 
       const children = this.element.parentNode.children;
@@ -94,10 +97,10 @@ class ViewportDetector extends PureComponent {
   }
 
   componentWillReceiveProps(props) {
-    console.log('CWRP', props);
+    console.log("CWRP", props);
   }
 
-  componentWillUpdate({count, items, onDraw}) {
+  componentWillUpdate({ count, items, onDraw }) {
     const children = [];
     const missing = [];
 
@@ -107,18 +110,22 @@ class ViewportDetector extends PureComponent {
       if (this.visible.has(index)) {
         const item = items.get(index);
         if (item !== undefined) {
-          child = <div key={`item-${index}`} className="item visible">
-            {onDraw(item)}
-          </div>;
+          child = (
+            <div key={`item-${index}`} className="item visible">
+              {onDraw(item)}
+            </div>
+          );
         } else {
           missing.push(index);
         }
       }
 
       if (!child) {
-        child = <div key={`item-${index}`} className="item">
-          <div/>
-        </div>;
+        child = (
+          <div key={`item-${index}`} className="item">
+            <div />
+          </div>
+        );
       }
 
       children.push(child);
@@ -132,14 +139,19 @@ class ViewportDetector extends PureComponent {
   }
 
   render() {
-    console.log('Rerender', this.props, this.children);
+    console.log("Rerender", this.props, this.children);
 
-    return <Fragment>
-      {this.children}
-      <div style={NO_DISPLAY} className="ViewportDetector" ref={node => this.element = node}/>
-    </Fragment>;
+    return (
+      <Fragment>
+        {this.children}
+        <div
+          style={NO_DISPLAY}
+          className="ViewportDetector"
+          ref={(node) => (this.element = node)}
+        />
+      </Fragment>
+    );
   }
 }
 
 export default ViewportDetector;
-
