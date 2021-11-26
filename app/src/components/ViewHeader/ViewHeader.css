@@ -1,10 +1,10 @@
 .ViewHeader {
   display: flex;
+  line-height: 1.2;
   margin-bottom: 2em;
 }
 
 .ViewHeader h2 {
-  margin: -0.5em 0;
   position: relative;
 }
 
