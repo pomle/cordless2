@@ -21,6 +21,18 @@
   position: absolute;
 }
 
+.PlayerUI > .viewport > main > .content::-webkit-scrollbar {
+  width: 8px;
+}
+
+.PlayerUI > .viewport > main > .content::-webkit-scrollbar-track {
+  background: #00000000;
+}
+
+.PlayerUI > .viewport > main > .content::-webkit-scrollbar-thumb {
+  background: #ffffff40;
+}
+
 .PlayerUI > .viewport > nav {
   background: #040404ee;
   padding: 16px;
