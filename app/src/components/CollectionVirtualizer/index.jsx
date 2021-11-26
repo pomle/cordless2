@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import VirtualWindow from 'components/VirtualWindow';
+import React, { Component } from "react";
+import VirtualWindow from "components/VirtualWindow";
 
 const PAGE_LEN = 50;
 
@@ -8,8 +8,8 @@ class CollectionVirtualizer extends Component {
     this.onProps(this.props);
   }
 
-  componentWillReceiveProps(props) {
-    this.onProps(props);
+  componentDidUpdate() {
+    this.onProps(this.props);
   }
 
   onProps() {
@@ -30,24 +30,24 @@ class CollectionVirtualizer extends Component {
     }, 100);
 
     return this.props.placeholder;
-  }
+  };
 
   onPlaceholder = () => {
     return this.props.placeholder;
-  }
+  };
 
   render() {
-    const {render, collection} = this.props;
+    const { render, collection } = this.props;
 
-    return collection.total !== null
-      ? <VirtualWindow
+    return collection.total !== null ? (
+      <VirtualWindow
         resultSize={collection.total}
         items={collection.items}
         onMissing={this.onMissing}
         onPlaceholder={this.onPlaceholder}
         onDraw={render}
       />
-      : null;
+    ) : null;
   }
 }
 

@@ -1,15 +1,15 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-import { connect } from 'react-redux';
+import React, { PureComponent } from "react";
+import PropTypes from "prop-types";
+import { connect } from "react-redux";
 
-import { QuickSearch } from 'components/QuickSearch';
-import { TrackList } from 'fragments/TrackList';
-import { Track } from 'fragments/Track';
-import { PlaylistDetailHeader } from './Header';
+import { QuickSearch } from "components/QuickSearch";
+import { TrackList } from "fragments/TrackList";
+import { Track } from "fragments/Track";
+import { PlaylistDetailHeader } from "./Header";
 
-import {matcher, matchTrack} from "library/search";
+import { matcher, matchTrack } from "library/search";
 
-import { fetchPlaylist, playPlaylist } from 'store';
+import { fetchPlaylist, playPlaylist } from "store";
 
 export class PlaylistView extends PureComponent {
   static propTypes = {
@@ -21,11 +21,11 @@ export class PlaylistView extends PureComponent {
     super(props);
 
     this.state = {
-      filter: '',
+      filter: "",
     };
   }
 
-  componentWillMount() {
+  componentDidMount() {
     const { userId, playlistId, fetchPlaylist } = this.props;
     fetchPlaylist(userId, playlistId);
   }
@@ -34,22 +34,22 @@ export class PlaylistView extends PureComponent {
     const { playlist } = this.props;
     const { filter } = this.state;
 
-    const entries = playlist.getIn(['tracks', 'items'], []);
+    const entries = playlist.getIn(["tracks", "items"], []);
 
     if (filter.length) {
       const match = matcher(filter);
-      return entries.filter(entry => matchTrack(entry.get('track'), match));
+      return entries.filter((entry) => matchTrack(entry.get("track"), match));
     }
 
     return entries;
   }
 
-  playTrack = track => {
+  playTrack = (track) => {
     const { userId, playlistId, playPlaylist } = this.props;
-    playPlaylist(userId, playlistId, track.get('id'));
+    playPlaylist(userId, playlistId, track.get("id"));
   };
 
-  updateFilter = filter => {
+  updateFilter = (filter) => {
     this.setState({ filter });
   };
 
@@ -68,9 +68,15 @@ export class PlaylistView extends PureComponent {
         <PlaylistDetailHeader playlist={playlist} />
 
         <TrackList>
-          {this.getEntries().map(entry => {
-            const key = entry.getIn(['track', 'id']) + entry.get('added_at');
-            return <Track key={key} track={entry.get('track')} play={this.playTrack} />;
+          {this.getEntries().map((entry) => {
+            const key = entry.getIn(["track", "id"]) + entry.get("added_at");
+            return (
+              <Track
+                key={key}
+                track={entry.get("track")}
+                play={this.playTrack}
+              />
+            );
           })}
         </TrackList>
       </div>
@@ -79,7 +85,7 @@ export class PlaylistView extends PureComponent {
 }
 
 export default connect(
-  (state, {playlistId}) => {
+  (state, { playlistId }) => {
     return {
       playlist: state.playlist.getEntry(playlistId),
     };

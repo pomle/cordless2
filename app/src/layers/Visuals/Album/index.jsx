@@ -1,12 +1,12 @@
-import React, { PureComponent } from 'react';
-import { Motion, spring } from 'react-motion';
-import { Surface } from 'gl-react-dom';
-import anime from 'animejs';
+import React, { PureComponent } from "react";
+import { Motion, spring } from "react-motion";
+import { Surface } from "gl-react-dom";
+import anime from "animejs";
 
-import { Renderer3D, THREE, followAspect } from 'components/Renderer3D';
-import { imageToPlane } from 'components/Renderer3D/mesh';
+import { Renderer3D, THREE, followAspect } from "components/Renderer3D";
+import { imageToPlane } from "components/Renderer3D/mesh";
 
-import { BetterBlur as Blur } from '../shaders/blur';
+import { BetterBlur as Blur } from "../shaders/blur";
 
 const resolution = {
   x: 1280,
@@ -14,15 +14,17 @@ const resolution = {
 };
 
 function tween(subject, options = {}) {
-  const {rigidity, alias} = Object.assign({
-    rigidity: 10,
-    alias: new Map(),
-  }, options);
+  const { rigidity, alias } = Object.assign(
+    {
+      rigidity: 10,
+      alias: new Map(),
+    },
+    options
+  );
 
   const keys = Object.keys(subject);
   let last = Object.assign({}, subject);
   let intended = subject;
-
 
   function refresh() {
     for (const key of keys) {
@@ -78,7 +80,8 @@ export class Album extends PureComponent {
     this.albums = new Set();
   }
 
-  componentWillReceiveProps({ promote, artwork }) {
+  componentDidUpdate() {
+    const { promote, artwork } = this.props;
     this.handleArtwork(artwork);
     this.setVisibility(promote);
   }
@@ -90,7 +93,7 @@ export class Album extends PureComponent {
 
     this.image = artwork;
 
-    this.albums.forEach(album => {
+    this.albums.forEach((album) => {
       album.userData.entryAnim.pause();
 
       anime({
@@ -99,7 +102,7 @@ export class Album extends PureComponent {
         y: 20,
         opacity: 0,
         duration: 1000,
-        easing: 'easeInQuad',
+        easing: "easeInQuad",
         complete: () => {
           this.container.remove(album);
         },
@@ -119,7 +122,7 @@ export class Album extends PureComponent {
       z: 0,
       opacity: 1,
       duration: 2000,
-      easing: 'easeOutQuad',
+      easing: "easeOutQuad",
     });
 
     this.albums.add(album);

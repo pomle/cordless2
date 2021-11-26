@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
-import { Provider } from 'react-redux';
-import PropTypes from 'prop-types';
+import React, { Component } from "react";
+import { Provider } from "react-redux";
+import PropTypes from "prop-types";
 
-import { createStore, setToken } from 'store';
+import { createStore, setToken } from "store";
 
-import PlayerWindow from './PlayerWindow';
+import PlayerWindow from "./PlayerWindow";
 
-import { LRUCache } from 'library/cache';
-import { ImagePool } from 'library/ImagePool';
+import { LRUCache } from "library/cache";
+import { ImagePool } from "library/ImagePool";
 
 export class PlayerApplication extends Component {
   static childContextTypes = {
@@ -23,8 +23,8 @@ export class PlayerApplication extends Component {
     this.handleToken(props.token);
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.handleToken(nextProps.token);
+  componentDidUpdate() {
+    this.handleToken(this.props.token);
   }
 
   getChildContext() {
@@ -40,7 +40,7 @@ export class PlayerApplication extends Component {
   render() {
     return (
       <Provider store={this.store}>
-        <PlayerWindow/>
+        <PlayerWindow />
       </Provider>
     );
   }
