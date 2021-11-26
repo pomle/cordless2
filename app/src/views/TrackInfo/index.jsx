@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import ViewHeader from "components/ViewHeader";
 import { connect } from "react-redux";
 import { withPlayingTrack } from "store/hoc";
 
@@ -14,6 +15,8 @@ export const TrackInfo = connect(withPlayingTrack)(
 
       return (
         <div className="TrackInfo">
+          <ViewHeader caption="Track Stats" />
+
           <table>
             <tbody>
               <tr className="danceability">
