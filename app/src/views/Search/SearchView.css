@@ -9,6 +9,7 @@
 }
 
 .SearchView header input {
+  margin-left: 32px;
 }
 
 .SearchView .results {
