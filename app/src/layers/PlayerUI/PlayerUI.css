@@ -36,6 +36,7 @@
 .PlayerUI > .viewport > nav {
   background: #040404ee;
   padding: 16px;
+  width: 160px;
 }
 
 .PlayerUI > .viewport::-webkit-scrollbar {

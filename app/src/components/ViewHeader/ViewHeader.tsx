@@ -4,7 +4,17 @@ import { Image } from "fragments/Image";
 
 import "./ViewHeader.css";
 
-export default function ViewHeader({ caption, images, children }) {
+interface ViewHeaderProps {
+  caption: React.ReactNode;
+  images?: any;
+  children?: React.ReactNode;
+}
+
+export default function ViewHeader({
+  caption,
+  images,
+  children,
+}: ViewHeaderProps) {
   return (
     <header className="ViewHeader">
       {images ? (
