@@ -1,10 +1,13 @@
 import React, { Component } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import ViewHeader from "components/ViewHeader";
-import { fetchAlbum, playAlbum } from "store";
+import { useStoreContext } from "render/context/StoreContext";
 
 export default function HomeView() {
+  const { recommendations } = useStoreContext();
+  console.log(recommendations);
+
   return (
     <div className="HomeView">
       <ViewHeader caption="Home" />

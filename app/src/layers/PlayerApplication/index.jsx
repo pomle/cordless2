@@ -8,6 +8,7 @@ import PlayerWindow from "./PlayerWindow";
 
 import { LRUCache } from "library/cache";
 import { ImagePool } from "library/ImagePool";
+import StoreContext from "render/context/StoreContext";
 
 export class PlayerApplication extends Component {
   static childContextTypes = {
@@ -40,7 +41,9 @@ export class PlayerApplication extends Component {
   render() {
     return (
       <Provider store={this.store}>
-        <PlayerWindow />
+        <StoreContext>
+          <PlayerWindow />
+        </StoreContext>
       </Provider>
     );
   }
