@@ -7,7 +7,7 @@ import { PlayerApplication } from "layers/PlayerApplication";
 import "./App.css";
 
 interface AppProps {
-  storage: Storage;
+  storage: Pick<Storage, "getItem" | "setItem">;
 }
 
 export default function App({ storage }: AppProps) {
