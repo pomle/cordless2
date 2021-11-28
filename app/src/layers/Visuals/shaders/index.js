@@ -148,9 +148,9 @@ function createExtractColor(primary, secondary, fallback) {
   };
 }
 
-const color1 = createExtractColor("vibrant", "muted", [1, 0.2, 3]);
-const color2 = createExtractColor("darkvibrant", "lightvibrant", [3, 0.2, 1]);
-const color3 = createExtractColor("darkmuted", "lightmuted", [0.6, 0.0, 0.6]);
+const color1 = createExtractColor("vibrant", "muted", [0.2, 0, 0.8]);
+const color2 = createExtractColor("darkvibrant", "lightvibrant", [0.5, 0, 1]);
+const color3 = createExtractColor("darkmuted", "lightmuted", [0.4, 0.4, 1]);
 
 export const Mood = ({ children: t, colors, mix }) => {
   return (
