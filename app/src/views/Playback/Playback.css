@@ -4,6 +4,7 @@
   display: grid;
   grid: 1em auto / 1fr 300px 1fr;
   padding: 16px;
+  transition: background-color 5s;
 }
 
 .Playback .Scrubber {
