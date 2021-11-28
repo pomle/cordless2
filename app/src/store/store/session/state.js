@@ -1,5 +1,12 @@
-import { Record } from 'immutable';
-import { AlbumAPI, ArtistAPI, PlaybackAPI, PlaylistAPI, SearchAPI, TrackAPI } from '@pomle/spotify-web-sdk';
+import { Record } from "immutable";
+import {
+  AlbumAPI,
+  ArtistAPI,
+  PlaybackAPI,
+  PlaylistAPI,
+  SearchAPI,
+  TrackAPI,
+} from "library/api/spotify";
 
 const SessionRecord = Record({
   deviceId: null,

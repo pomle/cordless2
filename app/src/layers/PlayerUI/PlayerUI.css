@@ -7,7 +7,7 @@
 
 .PlayerUI > .viewport {
   display: grid;
-  grid-template-columns: 160px 1fr;
+  grid-template-columns: min-content 1fr;
 }
 
 .PlayerUI > .viewport > main {

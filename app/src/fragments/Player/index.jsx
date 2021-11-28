@@ -1,7 +1,7 @@
 import React, { PureComponent } from "react";
 import PropTypes from "prop-types";
 import { connect } from "react-redux";
-import { getSpotify } from "@pomle/spotify-web-sdk";
+import { getSpotify } from "library/api/spotify";
 import { setAnalysis, setFeature, setAlbumPalette, handleMessage } from "store";
 
 import { createPoller } from "./poller";

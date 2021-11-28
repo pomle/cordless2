@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import { withRouter } from "react-router";
-import { analysis } from "@pomle/spotify-web-sdk";
+import { analysis } from "library/api/spotify";
 import { withPlayingTrack } from "store/hoc";
 
 import { lookAt } from "./util.js";

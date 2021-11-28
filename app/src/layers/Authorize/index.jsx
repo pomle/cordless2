@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { withRouter } from "react-router";
 
-import { UserAPI } from "@pomle/spotify-web-sdk";
+import { UserAPI } from "library/api/spotify";
 
 import { Splash } from "components/Splash";
 import { Welcome } from "views/Welcome";
