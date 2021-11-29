@@ -1,5 +1,5 @@
 .PlaylistList .item {
-  font-size: 18px;
+  font-size: 16px;
   line-height: 1.2;
 }
 
@@ -13,8 +13,12 @@
 
 .PlaylistList .Playlist {
   display: grid;
-  grid: 300px auto auto / 300px;
   grid-row-gap: 12px;
+}
+
+.PlaylistList .Playlist .image {
+  height: 16em;
+  width: 16em;
 }
 
 .PlaylistList .Playlist a,
@@ -51,6 +55,7 @@
 }
 
 .PlaylistList .item .placeholder {
-  height: 18em;
-  width: 18em;
+  background: #0002;
+  height: 16em;
+  width: 16em;
 }
