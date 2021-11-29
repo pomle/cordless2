@@ -1,5 +1,4 @@
 export function createPoller(player, onState) {
-  let pollTimer;
   let lastTimestamp = 0;
 
   function emit(state) {
@@ -9,19 +8,17 @@ export function createPoller(player, onState) {
       }
       lastTimestamp = state.timestamp;
     }
-
-    pollTimer = setTimeout(poll, 1000);
   }
 
   function poll() {
     player.getCurrentState().then(emit);
   }
 
-  function destroy() {
-    clearTimeout(pollTimer);
-  }
+  const pollTimer = setInterval(poll, 1000);
 
-  poll();
+  function destroy() {
+    clearInterval(pollTimer);
+  }
 
   return {
     destroy,
