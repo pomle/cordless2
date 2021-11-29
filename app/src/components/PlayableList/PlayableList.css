@@ -6,14 +6,14 @@
   display: flex;
   flex-flow: wrap;
   justify-content: space-between;
-  margin: 0 -16px;
+  margin: -48px -16px;
 }
 
 .PlayableList .item {
-  height: 18em;
-  margin: 32px 16px;
+  height: 16em;
+  margin: 48px 16px;
   perspective: 200px;
-  width: 18em;
+  width: 16em;
 }
 
 .PlayableList .item > div {
@@ -63,5 +63,5 @@
 }
 
 .PlayableList .placeholder {
-  border: solid 1px rgba(255, 255, 255, 0.3);
+  border: solid 1px #0001;
 }
