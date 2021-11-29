@@ -7,18 +7,18 @@
 .Playback .Interface button {
   background: none;
   cursor: pointer;
-  display: block;
+  display: flex;
+  height: 100%;
   margin: auto;
   opacity: 0.8;
-  transform: scale(0.9);
 }
 
 .Playback .Interface button:hover {
   opacity: 1;
-  transform: none;
 }
 
 .Playback .Interface button img {
+  display: block;
   pointer-events: none;
   object-fit: contain;
   height: 26px;
@@ -50,7 +50,7 @@
   width: 22px;
 }
 
-.Playback .Interface .shuffle,
 .Playback .Interface .repeat {
-  transform: scale(0.8);
+  position: relative;
+  top: -2px;
 }
