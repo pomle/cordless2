@@ -30,7 +30,7 @@ export const Authorize = withRouter(
       clearTimeout(this.timer);
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(props) {
       if (this.props.location.pathname === "/logout") {
         this.purgeSession();
         props.history.replace("/");

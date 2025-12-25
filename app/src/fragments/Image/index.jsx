@@ -7,7 +7,7 @@ const MEDIUM = 300;
 export class Image extends PureComponent {
   render() {
     const {candidates} = this.props;
-    if (!candidates.size) {
+    if (!candidates || !candidates.size) {
       return null;
     }
 

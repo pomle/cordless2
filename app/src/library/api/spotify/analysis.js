@@ -14,6 +14,7 @@ export class AnalysisResolver {
   }
 
   resolve(atTime) {
+    console.log(this.analysis);
     return {
         bar: getAtTime(this.analysis.bars, atTime),
         beat: getAtTime(this.analysis.beats, atTime),

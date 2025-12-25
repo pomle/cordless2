@@ -24,23 +24,6 @@ export class CoreAPI {
     this.token = token;
   }
 
-  consume(request) {
-    const handleRequest = (request) => {
-      request
-      .then(result => {
-        if (result.items) {
-          callback(result.items);
-        }
-
-        if (result.next) {
-          handleRequest(this.request(result.next));
-        }
-      });
-    }
-
-    handleRequest(request);
-  }
-
   consumer(request) {
     let onDataListener;
     let onDoneListener;

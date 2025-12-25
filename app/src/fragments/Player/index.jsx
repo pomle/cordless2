@@ -118,6 +118,8 @@ class Player extends PureComponent {
       .then((palette) => {
         console.log(palette);
         setAlbumPalette(albumId, palette);
+      }).catch(error => {
+        console.warn("Failed to call vibrant API");
       });
   });
 

@@ -83,6 +83,9 @@ export const Visuals = withRouter(
 
       updateAnalyser(data) {
         console.log("updateAnalyser", data);
+        if (data.error) {
+          return;
+        }
 
         if (this.analyzer) {
           this.analyzer.stop();

@@ -7,6 +7,7 @@ const Context = Record({
   duration: null,
   loading: null,
   paused: null,
+  playback_id: null,
   playback_quality: null,
   playback_features: null,
   playback_speed: null,
@@ -14,6 +15,7 @@ const Context = Record({
   repeat_mode: null,
   restrictions: null,
   shuffle: null,
+  shuffle_mode: null,
   timestamp: null,
   track_window: {
     current_track: null,
