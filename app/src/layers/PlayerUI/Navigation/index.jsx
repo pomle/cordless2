@@ -1,5 +1,5 @@
 import React, { PureComponent } from "react";
-import { withRouter, Link, Route, Switch } from "react-router-dom";
+import { withRouter, Route, Switch } from "react-router-dom";
 
 import { ViewContainer } from "components/ViewContainer";
 
