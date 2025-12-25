@@ -17,7 +17,7 @@ jobs:
         env:
           NODE_ENV: production
           REACT_APP_ENVIRONMENT: production
-          REACT_APP_AUTH_URL: https://api.crdls.com/auth/
+          REACT_APP_AUTH_URL: ${{ vars.AUTH_URL }}
 
       - uses: FirebaseExtended/action-hosting-deploy@0e16177d01e10c4560245404f959e75a9c633533
         with:
