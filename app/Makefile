@@ -6,17 +6,17 @@ all: install build start
 
 .PHONY: install
 install:
-	yarn install
+	npm install --legacy-peer-deps
 
 .PHONY: test
 test:
-	CI=1 yarn run test
+	CI=1 npm run test
 
 .PHONY: build
 build: install
-	yarn run build
+	npm run build
 	echo $(REACT_APP_VERSION) > build/version.txt
 
 .PHONY: start
 start:
-	yarn run start
+	npm run start

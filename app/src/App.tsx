@@ -1,4 +1,3 @@
-import React, { Component } from "react";
 import { BrowserRouter } from "react-router-dom";
 
 import { Authorize } from "layers/Authorize";
