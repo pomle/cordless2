@@ -12,28 +12,12 @@ const SCOPE = [
   "streaming",
 ];
 
-function createImplicitFlowURL(clientId, callbackURL) {
-  return (
-    "https://accounts.spotify.com/authorize?" +
-    [
-      ["client_id", clientId],
-      ["redirect_uri", callbackURL],
-      ["response_type", "token"],
-      ["scope", SCOPE.join(" ")],
-    ]
-      .map(([key, value]) => `${key}=${encodeURIComponent(value)}`)
-      .join("&")
-  );
-}
-
 export function createAuthURL() {
-  if (AUTH_URL) {
-    return AUTH_URL + "login?scope=" + SCOPE.join(" ");
-  } else {
-    const CLIENT_ID = "a7cf3dcdfbd64bd5ac8d960caabbc890";
-    const CALLBACK_URL = window.location.origin;
-    return createImplicitFlowURL(CLIENT_ID, CALLBACK_URL);
+  if (!AUTH_URL) {
+    throw new Error("No AUTH URL present");
   }
+  
+  return AUTH_URL + "login?scope=" + SCOPE.join(" ");
 }
 
 export function getSession(storage) {
